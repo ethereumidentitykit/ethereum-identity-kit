@@ -7,9 +7,16 @@ const queryClient = new QueryClient();
 export default {
   title: "ReactComponentLibrary/Profile Stats",
   component: ProfileStats,
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        {Story()}
+      </QueryClientProvider>
+    ),
+  ],
 } as Meta<typeof ProfileStats>;
 
-const Template: StoryFn<typeof ProfileStats> = (args) => <QueryClientProvider client={queryClient}><ProfileStats {...args} /></QueryClientProvider>;
+const Template: StoryFn<typeof ProfileStats> = (args) => <ProfileStats {...args} />;
 
 export const ProfileStatsTest = Template.bind({});
 ProfileStatsTest.args = {

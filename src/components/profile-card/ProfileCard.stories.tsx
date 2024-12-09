@@ -7,9 +7,16 @@ const queryClient = new QueryClient();
 export default {
   title: "ReactComponentLibrary/Profile Card",
   component: ProfileCard,
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        {Story()}
+      </QueryClientProvider>
+    ),
+  ],
 } as Meta<typeof ProfileCard>;
 
-const Template: StoryFn<typeof ProfileCard> = (args) => <QueryClientProvider client={queryClient}><ProfileCard {...args} /></QueryClientProvider>;
+const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />;
 
 export const ProfileCardTest = Template.bind({});
 ProfileCardTest.args = {
