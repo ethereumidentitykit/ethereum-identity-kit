@@ -1,9 +1,10 @@
 import dts from "rollup-plugin-dts";
+import image from "@rollup/plugin-image";
 import terser from "@rollup/plugin-terser";
+import postcss from "rollup-plugin-postcss";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 const packageJson = require("./package.json");
@@ -32,6 +33,7 @@ export default [
       postcss({
         extract: true,
       }),
+      image(),
     ],
     external: ["react", "react-dom"],
   },
