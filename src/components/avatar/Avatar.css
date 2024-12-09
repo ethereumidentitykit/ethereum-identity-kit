@@ -1,0 +1,34 @@
+.avatar-container {
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* Base styles for the element */
+[data-loaded="false"] {
+  background: linear-gradient(90deg, rgba(200, 200, 200, 0.7) 0%, rgba(172, 172, 172, 0.05) 50%, rgba(200, 200, 200, 0.7) 100%);
+  background-size: 400%;
+  animation: loading-gradient 5s ease-in-out infinite forwards;
+}
+
+/* Optional: Add styles for when data is loaded */
+[data-loaded="true"] {
+  background: none;
+  animation: none;
+}
+
+@keyframes loading-gradient {
+  0% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

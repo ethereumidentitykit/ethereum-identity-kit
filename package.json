@@ -1,0 +1,68 @@
+{
+  "name": "ethereum-identity-kit",
+  "version": "1.0.0",
+  "description": "Library for easy ethereum identity integration into any web3 app",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "rollup": "rollup -c --bundleConfigAsCjs",
+    "test": "jest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "repository": "git+https://github.com/ethereumfollowprotocol/ethereum-identity-kit.git",
+  "keywords": [
+    "ethereum identity kit",
+    "ethereum",
+    "identity",
+    "kit"
+  ],
+  "author": {
+    "name": "Ethereum Follow Protocol",
+    "url": "https://ethfollow.xyz"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ethereumfollowprotocol/ethereum-identity-kit/issues"
+  },
+  "homepage": "https://github.com/ethereumfollowprotocol/ethereum-identity-kit#readme",
+  "devDependencies": {
+    "@adraffy/ens-normalize": "^1.11.0",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@storybook/addon-essentials": "^8.4.6",
+    "@storybook/addon-interactions": "^8.4.6",
+    "@storybook/addon-onboarding": "^8.4.6",
+    "@storybook/blocks": "^8.4.6",
+    "@storybook/react": "^8.4.6",
+    "@storybook/react-vite": "^8.4.6",
+    "@storybook/test": "^8.4.6",
+    "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.3.12",
+    "babel-jest": "^29.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "rollup": "^4.28.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "storybook": "^8.4.6",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.62.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
