@@ -18,5 +18,6 @@ ProfileSocialsTest.args = {
     "com.twitter": "VitalikButerin",
     "contenthash": "ipfs://bafybeifvusbh4iunpvwjlowu47sxnt4hjlebx46kxi4yz5zdsoecfpkkei"
   },
+  includeUrls: true,
   iconSize: 36,
 };

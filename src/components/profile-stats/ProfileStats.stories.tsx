@@ -16,12 +16,18 @@ export default {
   ],
 } as Meta<typeof ProfileStats>;
 
-const Template: StoryFn<typeof ProfileStats> = (args) => <ProfileStats {...args} />;
+const Template: StoryFn<typeof ProfileStats> = (args) => <ProfileStats {...args} />
 
 export const ProfileStatsTest = Template.bind({});
 ProfileStatsTest.args = {
   userAddress: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
   style: {
-    width: '100%'
-  }
+    width: '100%',
+    gap: '32px'
+  },
+  statsStyle: {
+    gap: '8px'
+  },
+  statsDirection: 'column',
+  direction: 'row'
 };

@@ -1,14 +1,15 @@
 import React from 'react'
 import { ens_beautify } from '@adraffy/ens-normalize'
+import { truncateAddress } from '../../utils/truncateAddress';
 import { useProfileStats } from '../../hooks/useProfileStats';
 import { useProfileDetails } from '../../hooks/useProfileDetails';
-import { truncateAddress } from '../../utils/truncateAddress';
 import Avatar from '../avatar/Avatar';
+import HeaderImage from './HeaderImage';
 import LoadingCell from '../loading-cell';
 import ProfileSocials from '../profile-socials/ProfileSocials';
+import Refresh from '../../assets/refresh.png';
 import { ProfileCardProps } from './ProfileCard.types';
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants';
-import Refresh from '../../assets/refresh.png';
 import './ProfileCard.css';
 import '../profile-stats/ProfileStats.css';
 
@@ -18,6 +19,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ userAddress, ...props }) => {
 
   return (
     <div className='profile-card' {...props} style={{ fontFamily: "Inter, sans-serif", ...props.style }}>
+      <HeaderImage src={ens?.records?.header} isLoaded={detailsLoading} />
       <div className='profile-card-header'>
         <div className='profile-card-header-left'>List #{primaryList}</div>
         <div className='profile-card-header-right' onClick={() => { refreshProfileDetails(); refreshProfileStats() }}>
@@ -26,8 +28,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ userAddress, ...props }) => {
       </div>
       <div className='profile-card-details'>
         {detailsLoading ?
-          <LoadingCell height='75px' width='75px' radius='50%' />
-          : <Avatar address={userAddress} src={ens?.avatar} fallback={DEFAULT_FALLBACK_AVATAR} style={{ width: '75px', height: '75px' }} />}
+          <LoadingCell height='80px' width='80px' radius='50%' />
+          : <Avatar address={userAddress} src={ens?.avatar} fallback={DEFAULT_FALLBACK_AVATAR} style={{ width: '80px', height: '80px' }} />}
         {detailsLoading ?
           <LoadingCell height='26px' width='160px' />
           : <p className='profile-name'>{ens?.name ? ens_beautify(ens.name) : truncateAddress(userAddress)}</p>}

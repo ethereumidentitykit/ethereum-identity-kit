@@ -4,18 +4,17 @@
 }
 
 .profile-card {
-  width: 320px;
+  width: 280px;
   position: relative;
   text-align: center;
-  background-color: #333;
   border-radius: 16px;
-  border: 1px solid #aaa;
-  color: #fff;
-  padding: 36px 24px;
+  border: 2px solid #aaa;
+  padding: 56px 24px 24px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  overflow: hidden;
 }
 
 .profile-card-header {
@@ -30,8 +29,11 @@
 }
 
 .profile-card-header-left {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background-color: #fff8;
 }
 
 .profile-card-header-right {
@@ -41,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #aaa;
+  background-color: #fff8;
   border-radius: 20px;
   transition: all 0.2s;
 }
@@ -80,4 +82,10 @@
 
 .profile-bio-text {
   opacity: 0.8;
+}
+
+.profile-stats-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }

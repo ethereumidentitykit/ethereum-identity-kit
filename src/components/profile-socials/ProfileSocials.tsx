@@ -5,10 +5,13 @@ import Dweb from '../../assets/dweb.png';
 import './ProfileSocials.css'
 import LoadingCell from '../loading-cell';
 
-const ProfileSocials: React.FC<ProfileSocialsProps> = ({ userAddress, name, records, iconSize = 36, isLoading = false }) => {
+const ProfileSocials: React.FC<ProfileSocialsProps> = ({ userAddress, name, records, includeUrls = false, iconSize = 36, isLoading = false }) => {
   return (
     <div className='profile-socials'>
-      {!isLoading && <div className='profile-links-container'>
+      {includeUrls && (isLoading ? <div className='profile-links-container'>
+        <LoadingCell height='28px' width='68px' radius='18px' />
+        <LoadingCell height='28px' width='68px' radius='18px' />
+      </div> : <div className='profile-links-container'>
         {records?.url && (
           <a
             href={`https://${records?.url.replace('https://', '').replace('http://', '')}`}
@@ -39,7 +42,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({ userAddress, name, reco
             />
           </a>
         )}
-      </div>}
+      </div>)}
       <div className='socials-container'>
         {isLoading ? Array.from({ length: 5 }).map((_, index) => <LoadingCell key={index} height='36px' width='36px' radius='18px' />)
           : PROFILE_CARD_SOCIALS.map(social => (
