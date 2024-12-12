@@ -1,9 +1,12 @@
 import { Address } from '../../types/address'
+import { ProfileListType, ProfileStatType } from '../../types/profile'
 
 export interface ProfileStatsProps {
-  userAddress: Address
-  direction?: 'row' | 'column'
+  addressOrName: Address | string
+  list?: ProfileListType
+  containerDirection?: 'row' | 'column'
   statsDirection?: 'row' | 'column'
   statsStyle?: React.CSSProperties
-  style?: React.CSSProperties
+  onStatClick?: (stat: ProfileStatType) => void
+  containerStyle?: React.CSSProperties
 }

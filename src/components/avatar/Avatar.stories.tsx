@@ -2,7 +2,7 @@ import { StoryFn, Meta } from "@storybook/react";
 import Avatar from "./Avatar";
 
 export default {
-  title: "ReactComponentLibrary/Avatar",
+  title: "Molecules/Avatar",
   component: Avatar,
 } as Meta<typeof Avatar>;
 

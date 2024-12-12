@@ -2,7 +2,7 @@ import { StoryFn, Meta } from "@storybook/react";
 import ProfileSocials from "./ProfileSocials";
 
 export default {
-  title: "ReactComponentLibrary/Profile Socials",
+  title: "Molecules/Profile Socials",
   component: ProfileSocials,
 } as Meta<typeof ProfileSocials>;
 

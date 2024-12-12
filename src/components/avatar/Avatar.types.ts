@@ -1,5 +1,5 @@
 export interface AvatarProps {
-  address: string
+  address?: string
   src?: string
   name?: string
   fallback: string

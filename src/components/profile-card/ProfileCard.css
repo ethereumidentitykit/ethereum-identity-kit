@@ -4,17 +4,27 @@
 }
 
 .profile-card {
-  width: 280px;
+  width: 300px;
   position: relative;
   text-align: center;
-  border-radius: 16px;
-  border: 2px solid #aaa;
-  padding: 56px 24px 24px 24px;
+  border-radius: 12px;
+  padding: 30px 8px 24px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  overflow: hidden;
+}
+
+.profile-card-dark {
+  color: #fff;
+  background-color: #333;
+  border: 3px solid #71717A;
+}
+
+.profile-card-light {
+  color: #000;
+  background-color: #fff;
+  border: 3px solid #E4E4E7;
 }
 
 .profile-card-header {
@@ -22,25 +32,66 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 12px;
-  align-items: center;
+  width: 100% !important;
+  padding: 8px 0;
+  align-items: start;
   justify-content: space-between;
-  width: calc(100% - 24px);
 }
 
 .profile-card-header-left {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 5px 9px;
+  height: 26px;
+  padding: 0px 6px;
   border-radius: 20px;
-  background-color: #fff8;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  background-color: #fffc;
+}
+
+.profile-card-dark .profile-card-header-left, .profile-card-dark .profile-card-header-refresh, .profile-card-dark .profile-card-header-edit-profile {
+  background-color: #333c;
+}
+
+.profile-card-light .profile-card-header-left, .profile-card-light .profile-card-header-refresh, .profile-card-light .profile-card-header-edit-profile {
+  background-color: #fffc;
 }
 
 .profile-card-header-right {
-  cursor: pointer;
-  height: 28px;
-  width: 28px;
   display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+}
+
+.profile-card-header-edit-profile {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 6px 0px 2px;
+  background-color: #fff8;
+  border-radius: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.profile-card-header-edit-profile:hover {
+  transform: scale(1.05);
+}
+
+.profile-card-header-refresh {
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  display: flex;
+  margin-right: 8px;
   align-items: center;
   justify-content: center;
   background-color: #fff8;
@@ -48,7 +99,8 @@
   transition: all 0.2s;
 }
 
-.profile-card-header-right:hover {
+
+.profile-card-header-refresh:hover {
   scale: 1.1;
 }
 
@@ -57,19 +109,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
+  z-index: 1;
+}
+
+.profile-name-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
 
 .profile-name {
+  margin-top: 2px;
   font-size: 22px;
   font-weight: 700;
+  max-width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile-bio {
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.profile-bio-link {
+  text-decoration: none;
+}
+
+.profile-card-dark .profile-bio-link {
+  color: rgb(96 165 250);
+}
+
+.profile-card-dark .profile-bio-link:hover {
+  color: rgb(147 197 253);
+}
+
+.profile-card-light .profile-bio-link {
+  color: rgb(0, 89, 255);
+}
+
+.profile-card-light .profile-bio-link:hover {
+  color: rgb(37 99 235);
 }
 
 .profile-bio-loading {
@@ -87,5 +176,5 @@
 .profile-stats-container {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 36px;
 }

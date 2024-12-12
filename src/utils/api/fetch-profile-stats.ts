@@ -1,9 +1,9 @@
-import { StatsResponse } from "../../types/profile"
+import { ProfileListType, StatsResponse } from "../../types/profile"
 import { EFP_API_URL } from '../../constants'
 
 export const fetchProfileStats = async (
   addressOrName: string,
-  list?: number | string,
+  list?: ProfileListType,
   isLive?: boolean
 ) => {
   try {

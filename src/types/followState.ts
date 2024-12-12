@@ -1,4 +1,5 @@
 import { Address } from "./address"
+import { ProfileListType } from "./profile"
 
 export type FollowState = 'follows' | 'blocks' | 'mutes' | 'none'
 
@@ -7,7 +8,7 @@ export type FollowStatePropType = 'following' | 'follower'
 export interface FollowStateProps {
   lookupAddress: Address
   userAddress?: Address
-  list?: string | number
+  list?: ProfileListType
   type: FollowStatePropType
   fresh?: boolean
 }

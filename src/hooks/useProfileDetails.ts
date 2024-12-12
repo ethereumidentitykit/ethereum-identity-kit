@@ -1,26 +1,33 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Address } from '../types/address'
 import { fetchProfileDetails } from '../utils/api/fetch-profile-details'
-import { useState } from 'react'
+import { ProfileDetailsResponse } from '../types/profile'
+import { ProfileListType } from '../types/profile'
+interface UseProfileDetailsProps {
+  addressOrName: Address | string
+  list?: ProfileListType
+  prefetchedData?: ProfileDetailsResponse
+  refetchPrefetchedData?: () => void
+}
 
-export const useProfileDetails = (address: Address) => {
+export const useProfileDetails = ({ addressOrName, list, prefetchedData, refetchPrefetchedData }: UseProfileDetailsProps) => {
   const [fetchFreshProfileDetails, setFetchFreshProfileDetails] = useState(false)
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: ['profile', 'details', address, fetchFreshProfileDetails],
-    queryFn: async () =>
-      await fetchProfileDetails(address, undefined, fetchFreshProfileDetails)
+    queryKey: ['profile', addressOrName, list, fetchFreshProfileDetails],
+    queryFn: async () => prefetchedData || await fetchProfileDetails(addressOrName, list, fetchFreshProfileDetails)
   })
 
-  // const { data: stats, isLoading: statsLoading } = useQuery({
-  //   queryKey: ['profile', 'stats', address],
-  //   queryFn: async () => await fetchProfileStats(address)
-  // })
-
   const refreshProfileDetails = () => {
+    if (isRefetching) return
+
+    if (refetchPrefetchedData) return refetchPrefetchedData()
+
     if (fetchFreshProfileDetails) refetch()
     else setFetchFreshProfileDetails(true)
   }
 
+  const address = data?.address
   const primaryList = data?.primary_list
   const ens = data?.ens
   const ranks = data?.ranks
@@ -29,6 +36,7 @@ export const useProfileDetails = (address: Address) => {
   return {
     ens,
     ranks,
+    address,
     primaryList,
     detailsLoading,
     refreshProfileDetails

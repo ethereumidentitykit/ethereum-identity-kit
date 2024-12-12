@@ -10,14 +10,22 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .profile-stats-item-value {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .profile-stats-item-label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.profile-stats-item:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }

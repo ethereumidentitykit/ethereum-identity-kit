@@ -25,13 +25,14 @@ export default [
       },
     ],
     plugins: [
-      peerDepsExternal(),
       resolve(),
       commonjs(),
+      peerDepsExternal(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser(),
       postcss({
         extract: true,
+        minimize: true,
       }),
       image(),
     ],
@@ -39,7 +40,7 @@ export default [
   },
   {
     input: "src/index.ts",
-    output: [{ file: "dist/types.d.ts", format: "es" }],
-    plugins: [dts.default(), postcss({ extract: true })],
+    output: [{ file: "dist/types.d.ts", format: "esm" }],
+    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
   },
 ];

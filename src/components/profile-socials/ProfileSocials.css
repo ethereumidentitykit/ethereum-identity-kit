@@ -18,16 +18,32 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 4px 6px;
-  height: 20px;
+  padding: 0px 8px;
+  height: 24px;
   border-radius: 16px;
   color: inherit;
   font-size: 14px;
-  color: black;
   font-weight: 600;
   text-decoration: none;
-  background-color: #cccccc88;
+  background-color: #8883;
   transition: opacity 0.2s ease, scale 0.2s ease;
+}
+
+.profile-link-dark {
+  background-color: #71717A;
+
+}
+
+.profile-link-light {
+  background-color: #E4E4E7;
+}
+
+.profile-link-dark .profile-link-text {
+  color: rgb(96 165 250);
+}
+
+.profile-link-light .profile-link-text {
+  color: rgb(0, 89, 255);
 }
 
 .profile-link:hover {
@@ -59,5 +75,5 @@
 
 .social-icon {
   border-radius: 50%;
-  background-color: #fff;
+  color: inherit;
 }

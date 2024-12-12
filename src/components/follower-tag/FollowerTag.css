@@ -1,0 +1,28 @@
+.follower-tag {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  height: 20px;
+  padding: 0px 8px;
+  border-radius: 9999px;
+  background-color: #D4D4D8;
+  width: fit-content;
+}
+
+.follower-tag-blocks {
+  color: rgb(239 68 68);
+}
+
+.follower-tag-mutes {
+  color: rgb(239 68 68);
+}
+
+.follower-tag-follows {
+  color: black;
+}
+
+.follower-tag-none {
+  display: none;
+}

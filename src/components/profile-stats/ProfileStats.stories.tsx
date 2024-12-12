@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 export default {
-  title: "ReactComponentLibrary/Profile Stats",
+  title: "Molecules/Profile Stats",
   component: ProfileStats,
   decorators: [
     (Story) => (
@@ -18,10 +18,10 @@ export default {
 
 const Template: StoryFn<typeof ProfileStats> = (args) => <ProfileStats {...args} />
 
-export const ProfileStatsTest = Template.bind({});
-ProfileStatsTest.args = {
-  userAddress: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
-  style: {
+export const ProfileStatsAddress = Template.bind({});
+ProfileStatsAddress.args = {
+  addressOrName: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+  containerStyle: {
     width: '100%',
     gap: '32px'
   },
@@ -29,5 +29,24 @@ ProfileStatsTest.args = {
     gap: '8px'
   },
   statsDirection: 'column',
-  direction: 'row'
+  containerDirection: 'row'
+};
+
+export const ProfileStatsENS = Template.bind({});
+ProfileStatsENS.args = {
+  addressOrName: "encrypteddegen.eth",
+  containerStyle: {
+    width: '100%',
+    gap: '32px'
+  },
+};
+
+export const ProfileStatsList = Template.bind({});
+ProfileStatsList.args = {
+  addressOrName: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+  list: "1",
+  containerStyle: {
+    width: '100%',
+    gap: '32px'
+  },
 };

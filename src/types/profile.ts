@@ -1,5 +1,7 @@
 import { Address } from ".."
 
+export type ProfileListType = number | string | null | undefined
+
 export type ENSProfile = {
   name?: string
   avatar?: string
@@ -62,6 +64,7 @@ export type ProfileRanks = {
   followers_rank: number
   following_rank: number
   blocks_rank: number
+  top8_rank: number
 }
 
 export type ProfileDetailsResponse = {
@@ -121,4 +124,11 @@ export type AccountResponseType = {
     avatar: string | null
   }
   primary_list: string | null
+}
+
+export type ProfileStatType = 'followers' | 'following'
+
+export type ProfileStatsClickProps = {
+  addressOrName: Address | string
+  stat: ProfileStatType
 }

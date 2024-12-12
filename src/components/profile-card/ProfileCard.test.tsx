@@ -6,7 +6,7 @@ const queryClient = new QueryClient();
 
 describe("ProfileCard", () => {
   test("renders the Profile Card", () => {
-    render(<QueryClientProvider client={queryClient}><ProfileCard userAddress="0x871b4be6Ec08a847c94a86C41aD449eF9d507b34" /></QueryClientProvider>);
+    render(<QueryClientProvider client={queryClient}><ProfileCard addressOrName="0x871b4be6Ec08a847c94a86C41aD449eF9d507b34" /></QueryClientProvider>);
 
     expect(screen.getByRole("paragraph").innerHTML).toContain(".eth");
   });
