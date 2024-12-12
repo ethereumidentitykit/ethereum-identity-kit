@@ -1,7 +1,7 @@
 import React from 'react'
-import LoadingCell from '../loading-cell/LoadingCell';
-import { DEFAULT_FALLBACK_HEADER } from '../../constants'
-import ImageWithFallback from '../ImageWithFallback/ImageWithFallback'
+import LoadingCell from '../../loading-cell/LoadingCell';
+import { DEFAULT_FALLBACK_HEADER } from '../../../constants'
+import ImageWithFallback from '../../ImageWithFallback/ImageWithFallback'
 
 interface HeaderImageProps {
   src?: string

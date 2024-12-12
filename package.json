@@ -21,7 +21,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "repository": "https://github.com/ethereumfollowprotocol/ethereum-identity-kit.git",
+  "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
   "keywords": [
     "ethereum identity kit",
     "ethereum",
@@ -29,14 +29,14 @@
     "kit"
   ],
   "author": {
-    "name": "Ethereum Follow Protocol",
-    "url": "https://ethfollow.xyz"
+    "name": "Ethereum Identity Kit",
+    "url": "https://ethid.org"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethereumfollowprotocol/ethereum-identity-kit/issues"
+    "url": "https://github.com/ethereumidentitykit/ethereum-identity-kit/issues"
   },
-  "homepage": "https://github.com/ethereumfollowprotocol/ethereum-identity-kit#readme",
+  "homepage": "https://github.com/ethereumidentitykit/ethereum-identity-kit#readme",
   "devDependencies": {
     "@adraffy/ens-normalize": "^1.0.0",
     "@babel/core": "^7.26.0",
@@ -52,9 +52,11 @@
     "@storybook/addon-interactions": "^8.4.6",
     "@storybook/addon-onboarding": "^8.4.6",
     "@storybook/blocks": "^8.4.6",
+    "@storybook/manager-api": "^8.4.7",
     "@storybook/react": "^8.4.6",
     "@storybook/react-vite": "^8.4.6",
     "@storybook/test": "^8.4.6",
+    "@storybook/theming": "^8.4.7",
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.0.0",
     "@types/react": "^18.0.0",

@@ -6,15 +6,15 @@ import { fetchFollowState } from "../utils/api/fetch-follow-state"
 import { ProfileListType } from "../types/profile"
 
 interface UseFollowingStateProps {
-  lookupAddress: Address
-  userAddress: Address
+  lookupAddressOrName: Address | string
+  connectedAddress: Address
   list?: ProfileListType
 }
 
-export const useFollowingState = ({ lookupAddress, userAddress, list }: UseFollowingStateProps) => {
+export const useFollowingState = ({ lookupAddressOrName, connectedAddress, list }: UseFollowingStateProps) => {
   const { data, isLoading, isRefetching } = useQuery({
-    queryKey: ['followingState', lookupAddress, userAddress, list],
-    queryFn: () => fetchFollowState({ lookupAddress, userAddress, list, type: 'following' }),
+    queryKey: ['followingState', lookupAddressOrName, connectedAddress, list],
+    queryFn: () => fetchFollowState({ lookupAddressOrName, connectedAddress, list, type: 'following' }),
   })
 
   const isFollowingStateLoading = isLoading || isRefetching

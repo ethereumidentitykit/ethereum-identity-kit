@@ -6,8 +6,8 @@ export type FollowState = 'follows' | 'blocks' | 'mutes' | 'none'
 export type FollowStatePropType = 'following' | 'follower'
 
 export interface FollowStateProps {
-  lookupAddress: Address
-  userAddress?: Address
+  lookupAddressOrName: Address | string
+  connectedAddress: Address
   list?: ProfileListType
   type: FollowStatePropType
   fresh?: boolean

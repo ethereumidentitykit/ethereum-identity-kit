@@ -1,7 +1,7 @@
 const X: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
   return (
     <svg width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_3128_6927)">
+      <g clipPath="url(#clip0_3128_6927)">
         <mask
           id="mask0_3128_6927"
           maskUnits="userSpaceOnUse"

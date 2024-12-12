@@ -5,29 +5,27 @@ import { Address, FollowState, ProfileListType } from '..'
 
 interface UseFollowerStateProps {
   connectedAddress: Address
-  address: Address
+  addressOrName: Address | string
   list?: ProfileListType
-  showFollowerBadge?: boolean
 }
 
 export const useFollowerState = ({
   connectedAddress,
-  address,
+  addressOrName,
   list,
-  showFollowerBadge = true
 }: UseFollowerStateProps) => {
   const {
     data: followerStatus,
     isLoading: isFollowerStatusLoading,
     isRefetching: isFollowerStateRefetching
   } = useQuery({
-    queryKey: ['follower state', address, list, connectedAddress, showFollowerBadge],
+    queryKey: ['follower state', addressOrName, list, connectedAddress],
     queryFn: async () => {
-      if (!(address && showFollowerBadge)) return null
+      if (!(addressOrName)) return null
 
       const fetchedStatus = await fetchFollowState({
-        lookupAddress: address,
-        userAddress: connectedAddress,
+        lookupAddressOrName: addressOrName,
+        connectedAddress,
         list,
         type: 'follower'
       })

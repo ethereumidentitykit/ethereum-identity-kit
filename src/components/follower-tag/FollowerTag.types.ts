@@ -1,7 +1,7 @@
 import { Address, ProfileListType } from "../../types"
 
 export type FollowerTagProps = {
-  address: Address
+  addressOrName: Address | string
   connectedAddress: Address
   list?: ProfileListType
 } & React.HTMLAttributes<HTMLDivElement>

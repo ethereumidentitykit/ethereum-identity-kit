@@ -32,6 +32,7 @@ export const useProfileStats = ({ addressOrName, list, prefetchedData, refetchPr
   const statsLoading = isLoading || isRefetching
 
   return {
+    data,
     followers,
     following,
     statsLoading,

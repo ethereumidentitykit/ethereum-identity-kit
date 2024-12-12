@@ -1,21 +1,27 @@
 import { Address } from "../../types/address";
 import { ProfileDetailsResponse, ProfileListType, ProfileStatsClickProps, StatsResponse } from "../../types/profile";
 
+type ProfileCardOptions = {
+  followButton?: React.ReactNode;
+  nameMenu?: React.ReactNode;
+  profileData?: ProfileDetailsResponse;
+  refetchProfileData?: () => void;
+  statsData?: StatsResponse | null;
+  prefetchedStatsLoading?: boolean;
+  refetchStatsData?: () => void;
+}
+
 export type ProfileCardProps = {
   addressOrName: Address | string;
   list?: ProfileListType;
   connectedAddress?: Address;
   darkMode?: boolean;
-  followButton?: React.ReactNode;
-  nameMenu?: React.ReactNode;
+  showFollowerState?: boolean;
   onStatClick?: ({
     addressOrName,
     stat
   }: ProfileStatsClickProps) => void;
-  profileData?: ProfileDetailsResponse;
-  refetchProfileData?: () => void;
-  statsData?: StatsResponse | null;
-  refetchStatsData?: () => void;
+  options?: ProfileCardOptions;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 

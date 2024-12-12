@@ -1,9 +1,11 @@
-import React from 'react';
-import { useProfileStats } from '../../hooks/useProfileStats';
-import { formatNumber } from '../../utils';
-import LoadingCell from '../loading-cell/LoadingCell';
-import './ProfileStats.css';
-import type { ProfileStatsProps } from './ProfileStats.types';
+import React from 'react'
+import { useProfileStats } from '../../hooks/useProfileStats'
+import { ProfileStatType } from '../../types/profile'
+import { formatNumber } from '../../utils'
+import { defaultOnStatClick } from '../../utils/profile'
+import LoadingCell from '../loading-cell/LoadingCell'
+import './ProfileStats.css'
+import type { ProfileStatsProps } from './ProfileStats.types'
 
 /**
  * Component for displaying follower and following stats for a given address or list
@@ -24,7 +26,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   statsDirection = 'column',
   statsStyle,
   containerStyle,
-  onStatClick
+  onStatClick = defaultOnStatClick
 }) => {
   const { followers, following, statsLoading } = useProfileStats({ addressOrName, list })
 
@@ -44,12 +46,14 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
           ...statsStyle
         }}
         enable-hover={!!onStatClick}
-        onClick={() => onStatClick?.('following')}
+        onClick={() => onStatClick({ addressOrName: addressOrName, stat: 'followers' })}
       >
         {statsLoading ? (
           <LoadingCell height='24px' width='64px' />
         ) : (
-          <div className='profile-stats-item-value'>{following ? formatNumber(following) : '-'}</div>
+          <div className='profile-stats-item-value'>
+            {following ? formatNumber(following) : '-'}
+          </div>
         )}
         <div className='profile-stats-item-label'>Following</div>
       </div>
@@ -60,12 +64,14 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
           ...statsStyle
         }}
         enable-hover={!!onStatClick}
-        onClick={() => onStatClick?.('followers')}
+        onClick={() => onStatClick({ addressOrName, stat: 'followers' as ProfileStatType })}
       >
         {statsLoading ? (
           <LoadingCell height='24px' width='64px' />
         ) : (
-          <div className='profile-stats-item-value'>{followers ? formatNumber(followers) : '-'}</div>
+          <div className='profile-stats-item-value'>
+            {followers ? formatNumber(followers) : '-'}
+          </div>
         )}
         <div className='profile-stats-item-label'>Followers</div>
       </div>

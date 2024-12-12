@@ -1,12 +1,13 @@
 import { Address } from '../../types/address'
-import { ProfileListType, ProfileStatType } from '../../types/profile'
+import { ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../types/profile'
 
 export interface ProfileStatsProps {
   addressOrName: Address | string
   list?: ProfileListType
+  prefetchedStats?: StatsResponse
   containerDirection?: 'row' | 'column'
   statsDirection?: 'row' | 'column'
   statsStyle?: React.CSSProperties
-  onStatClick?: (stat: ProfileStatType) => void
+  onStatClick?: ({addressOrName, stat}: ProfileStatsClickProps) => void
   containerStyle?: React.CSSProperties
 }

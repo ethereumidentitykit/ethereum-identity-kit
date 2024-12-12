@@ -2,7 +2,7 @@ import Avatar from './avatar/Avatar';
 import FollowerTag from './follower-tag/FollowerTag';
 import ProfileCard from './profile-card/ProfileCard';
 import LoadingCell from './loading-cell/LoadingCell';
-import HeaderImage from './profile-card/HeaderImage';
+import HeaderImage from './profile-card/components/HeaderImage';
 import ProfileStats from './profile-stats/ProfileStats';
 import ProfileSocials from './profile-socials/ProfileSocials';
 import ImageWithFallback from './ImageWithFallback/ImageWithFallback';

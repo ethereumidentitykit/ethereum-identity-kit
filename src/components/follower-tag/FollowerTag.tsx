@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { useFollowerState } from '../../hooks/useFollowerState'
-import './FollowerTag.css'
 import type { FollowerTagProps } from './FollowerTag.types'
+import './FollowerTag.css'
 
 /**
  * Follower State Tag - displays the relation of address to connectedAddress/list
@@ -12,21 +12,21 @@ import type { FollowerTagProps } from './FollowerTag.types'
  * @returns FollowerTag component
  */
 const FollowerTag: React.FC<FollowerTagProps> = ({
-  address,
+  addressOrName,
   connectedAddress,
   list,
   className,
   ...props
 }) => {
   const { followerTag, isFollowerStateLoading } = useFollowerState({
-    address,
+    addressOrName,
     connectedAddress,
     list
   })
 
   return isFollowerStateLoading ?
     null
-    // <LoadingCell height='22px' width='60px' radius='10px' />
+    // <LoadingCell height='22px' width='70px' radius='10px' />
     : (
       <div {...props} className={clsx('follower-tag', followerTag.className, className)}>
         {followerTag.text}
