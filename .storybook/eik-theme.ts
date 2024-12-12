@@ -5,6 +5,6 @@ export default create({
   fontBase: 'Inter, sans-serif',
   brandTitle: 'Ethereum Identity Kit',
   brandUrl: './',
-  brandImage: '/logo-with-text.svg',
+  brandImage: 'https://ethereumidentitykit.github.io/ethereum-identity-kit/logo-with-text.svg',
   brandTarget: '_self',
 });
