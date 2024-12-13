@@ -1,11 +1,7 @@
-import { ProfileDetailsResponse, ProfileListType } from "../../types/profile"
+import { ProfileDetailsResponse, ProfileListType } from '../../types/profile'
 import { EFP_API_URL } from '../../constants'
 
-export const fetchProfileDetails = async (
-  addressOrName: string,
-  list?: ProfileListType,
-  fresh?: boolean
-) => {
+export const fetchProfileDetails = async (addressOrName: string, list?: ProfileListType, fresh?: boolean) => {
   try {
     const url = `${EFP_API_URL}/${list === undefined ? 'users' : 'lists'}/${
       list ?? addressOrName
@@ -15,13 +11,14 @@ export const fetchProfileDetails = async (
       cache: 'default',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+        Accept: 'application/json',
+      },
     })
 
     const data = (await response.json()) as ProfileDetailsResponse
     return data
   } catch (err: unknown) {
+    console.error(err)
     return null
   }
 }

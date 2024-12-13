@@ -11,39 +11,39 @@ export const PROFILE_CARD_SOCIALS = [
     url: (address: string) => `https://etherscan.io/address/${address}`,
     icon: {
       light: EtherscanIcon,
-      dark: EtherscanDark
-    }
+      dark: EtherscanDark,
+    },
   },
   {
     name: 'com.twitter',
     url: (username: string) => `https://twitter.com/${username}`,
     icon: {
       light: XIcon,
-      dark: XIcon
-    }
+      dark: XIcon,
+    },
   },
   {
     name: 'com.github',
     url: (username: string) => `https://github.com/${username}`,
     icon: {
       light: GithubIcon,
-      dark: GithubDark
-    }
+      dark: GithubDark,
+    },
   },
   {
     name: 'org.telegram',
     url: (username: string) => `https://t.me/${username}`,
     icon: {
       light: TelegramIcon,
-      dark: TelegramIcon
-    }
+      dark: TelegramIcon,
+    },
   },
   {
     name: 'com.discord',
     url: (username: string) => `https://discord.com/users/${username}`,
     icon: {
       light: DiscordIcon,
-      dark: DiscordIcon
-    }
-  }
+      dark: DiscordIcon,
+    },
+  },
 ] as const

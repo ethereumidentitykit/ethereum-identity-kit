@@ -1,9 +1,9 @@
-import { useMemo } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { Address } from "../types/address"
-import { FollowState } from "../types/followState"
-import { fetchFollowState } from "../utils/api/fetch-follow-state"
-import { ProfileListType } from "../types/profile"
+import { useMemo } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Address } from '../types/address'
+import { FollowState } from '../types/followState'
+import { fetchFollowState } from '../utils/api/fetch-follow-state'
+import { ProfileListType } from '../types/profile'
 
 interface UseFollowingStateProps {
   lookupAddressOrName: Address | string
@@ -30,6 +30,6 @@ export const useFollowingState = ({ lookupAddressOrName, connectedAddress, list 
 
   return {
     state: followingState,
-    isLoading: isFollowingStateLoading
+    isLoading: isFollowingStateLoading,
   }
 }

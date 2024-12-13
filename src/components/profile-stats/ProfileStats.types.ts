@@ -8,6 +8,6 @@ export interface ProfileStatsProps {
   containerDirection?: 'row' | 'column'
   statsDirection?: 'row' | 'column'
   statsStyle?: React.CSSProperties
-  onStatClick?: ({addressOrName, stat}: ProfileStatsClickProps) => void
+  onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   containerStyle?: React.CSSProperties
 }

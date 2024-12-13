@@ -7,7 +7,7 @@ const Github: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 
         clipRule="evenodd"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default Github;
+export default Github

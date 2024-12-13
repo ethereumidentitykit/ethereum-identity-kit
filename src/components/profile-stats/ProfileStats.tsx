@@ -26,54 +26,50 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   statsDirection = 'column',
   statsStyle,
   containerStyle,
-  onStatClick = defaultOnStatClick
+  onStatClick = defaultOnStatClick,
 }) => {
   const { followers, following, statsLoading } = useProfileStats({ addressOrName, list })
 
   return (
     <div
-      className='profile-stats-container'
+      className="profile-stats-container"
       style={{
         flexDirection: containerDirection,
         gap: '32px',
-        ...containerStyle
+        ...containerStyle,
       }}
     >
       <div
-        className='profile-stats-item'
+        className="profile-stats-item"
         style={{
           flexDirection: statsDirection,
-          ...statsStyle
+          ...statsStyle,
         }}
         enable-hover={!!onStatClick}
         onClick={() => onStatClick({ addressOrName: addressOrName, stat: 'followers' })}
       >
         {statsLoading ? (
-          <LoadingCell height='24px' width='64px' />
+          <LoadingCell height="24px" width="64px" />
         ) : (
-          <div className='profile-stats-item-value'>
-            {following ? formatNumber(following) : '-'}
-          </div>
+          <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
         )}
-        <div className='profile-stats-item-label'>Following</div>
+        <div className="profile-stats-item-label">Following</div>
       </div>
       <div
-        className='profile-stats-item'
+        className="profile-stats-item"
         style={{
           flexDirection: statsDirection,
-          ...statsStyle
+          ...statsStyle,
         }}
         enable-hover={!!onStatClick}
         onClick={() => onStatClick({ addressOrName, stat: 'followers' as ProfileStatType })}
       >
         {statsLoading ? (
-          <LoadingCell height='24px' width='64px' />
+          <LoadingCell height="24px" width="64px" />
         ) : (
-          <div className='profile-stats-item-value'>
-            {followers ? formatNumber(followers) : '-'}
-          </div>
+          <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
         )}
-        <div className='profile-stats-item-label'>Followers</div>
+        <div className="profile-stats-item-label">Followers</div>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
-import { Address } from "./address"
-import { ProfileListType } from "./profile"
+import { Address } from './address'
+import { ProfileListType } from './profile'
 
 export type FollowState = 'follows' | 'blocks' | 'mutes' | 'none'
 

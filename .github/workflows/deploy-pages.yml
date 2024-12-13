@@ -1,11 +1,11 @@
 # Workflow name
 name: Publish Storybook to GitHub Pages
- 
+
 on:
   push:
     branches:
       - 'main'
- 
+
 permissions:
   contents: read
   pages: write

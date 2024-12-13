@@ -1,11 +1,7 @@
-import { ProfileListType, StatsResponse } from "../../types/profile"
+import { ProfileListType, StatsResponse } from '../../types/profile'
 import { EFP_API_URL } from '../../constants'
 
-export const fetchProfileStats = async (
-  addressOrName: string,
-  list?: ProfileListType,
-  isLive?: boolean
-) => {
+export const fetchProfileStats = async (addressOrName: string, list?: ProfileListType, isLive?: boolean) => {
   try {
     const url = `${EFP_API_URL}${
       list !== undefined ? `/lists/${list}` : `/users/${addressOrName}`
@@ -15,16 +11,17 @@ export const fetchProfileStats = async (
       cache: 'default',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+        Accept: 'application/json',
+      },
     })
 
     const data = (await response.json()) as StatsResponse
     return data
   } catch (err: unknown) {
+    console.error(err)
     return {
       followers_count: 0,
-      following_count: 0
+      following_count: 0,
     } as StatsResponse
   }
 }

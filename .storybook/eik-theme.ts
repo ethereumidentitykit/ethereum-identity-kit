@@ -1,4 +1,4 @@
-import { create } from '@storybook/theming/create';
+import { create } from '@storybook/theming/create'
 
 export default create({
   base: 'dark',
@@ -7,4 +7,4 @@ export default create({
   brandUrl: './',
   brandImage: 'https://ethereumidentitykit.github.io/ethereum-identity-kit/logo-with-text.svg',
   brandTarget: '_self',
-});
+})

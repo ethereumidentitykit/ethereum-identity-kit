@@ -11,11 +11,16 @@ interface UseProfileStatsProps {
   refetchPrefetchedData?: () => void
 }
 
-export const useProfileStats = ({ addressOrName, list, prefetchedData, refetchPrefetchedData }: UseProfileStatsProps) => {
+export const useProfileStats = ({
+  addressOrName,
+  list,
+  prefetchedData,
+  refetchPrefetchedData,
+}: UseProfileStatsProps) => {
   const [fetchFreshStats, setFetchFreshStats] = useState(false)
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['stats', addressOrName, list, fetchFreshStats],
-    queryFn: async () => prefetchedData || await fetchProfileStats(addressOrName, list, fetchFreshStats)
+    queryFn: async () => prefetchedData || (await fetchProfileStats(addressOrName, list, fetchFreshStats)),
   })
 
   const refreshProfileStats = () => {
@@ -36,6 +41,6 @@ export const useProfileStats = ({ addressOrName, list, prefetchedData, refetchPr
     followers,
     following,
     statsLoading,
-    refreshProfileStats
+    refreshProfileStats,
   }
 }

@@ -9,30 +9,26 @@ interface UseFollowerStateProps {
   list?: ProfileListType
 }
 
-export const useFollowerState = ({
-  connectedAddress,
-  addressOrName,
-  list,
-}: UseFollowerStateProps) => {
+export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseFollowerStateProps) => {
   const {
     data: followerStatus,
     isLoading: isFollowerStatusLoading,
-    isRefetching: isFollowerStateRefetching
+    isRefetching: isFollowerStateRefetching,
   } = useQuery({
     queryKey: ['follower state', addressOrName, list, connectedAddress],
     queryFn: async () => {
-      if (!(addressOrName)) return null
+      if (!addressOrName) return null
 
       const fetchedStatus = await fetchFollowState({
         lookupAddressOrName: addressOrName,
         connectedAddress,
         list,
-        type: 'follower'
+        type: 'follower',
       })
 
       return fetchedStatus
     },
-    staleTime: Infinity
+    staleTime: Infinity,
   })
 
   const followState = useMemo((): FollowState => {
@@ -49,25 +45,25 @@ export const useFollowerState = ({
   const followerTag = {
     blocks: {
       text: 'Blocks you',
-      className: 'follower-tag-blocks'
+      className: 'follower-tag-blocks',
     },
     mutes: {
       text: 'Mutes you',
-      className: 'follower-tag-mutes'
+      className: 'follower-tag-mutes',
     },
     follows: {
       text: 'Follows you',
-      className: 'follower-tag-follows'
+      className: 'follower-tag-follows',
     },
     none: {
       text: '',
-      className: 'follower-tag-none'
-    }
+      className: 'follower-tag-none',
+    },
   }[followState]
 
   return {
     followState,
     followerTag,
-    isFollowerStateLoading
+    isFollowerStateLoading,
   }
 }

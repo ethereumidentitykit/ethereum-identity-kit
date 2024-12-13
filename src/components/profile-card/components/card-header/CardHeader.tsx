@@ -22,7 +22,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   isConnectedUserCard,
   list,
   primaryList,
-  detailsLoading
+  detailsLoading,
 }) => {
   const [notConfirmedTooltipOpen, setNotConfirmedTooltipOpen] = useState(false)
   const isPrimaryListProfile = list === undefined || `${primaryList}` === `${list}`
@@ -38,51 +38,48 @@ const CardHeader: React.FC<CardHeaderProps> = ({
     }
 
     window.addEventListener('click', closeTooltip)
+
     return () => {
       window.removeEventListener('click', closeTooltip)
     }
   }, [])
 
   return (
-    <div className='header'>
-      {list || !detailsLoading ? (
-        <div className='header-left'>List #{formatNumber(Number(list || primaryList))}</div>
+    <div className="header">
+      {detailsLoading ? (
+        <LoadingCell height="24px" width="65px" radius="25px" style={{ marginLeft: '10px' }} />
+      ) : list || primaryList ? (
+        <div className="header-left">List #{formatNumber(Number(list || primaryList))}</div>
       ) : (
-        <LoadingCell height='24px' width='65px' radius='25px' style={{ marginLeft: '10px' }} />
+        <div />
       )}
-      <div className='header-right'>
+      <div className="header-right">
         {!detailsLoading && isPrimaryListProfile && isConnectedUserCard && (
           <a
             href={`https://app.ens.domains/${name}`}
-            className='header-edit-profile'
-            target='_blank'
-            rel='noopener noreferrer'
+            className="header-edit-profile"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Ens height={22} width={22} />
             <p>Edit Profile</p>
           </a>
         )}
         {!(detailsLoading || isPrimaryListProfile) && (
-          <div
-            className='header-not-confirmed'
-            onClick={() => setNotConfirmedTooltipOpen(!notConfirmedTooltipOpen)}
-          >
-            <div className='header-not-confirmed-title'>Not confirmed by user</div>
+          <div className="header-not-confirmed" onClick={() => setNotConfirmedTooltipOpen(!notConfirmedTooltipOpen)}>
+            <div className="header-not-confirmed-title">Not confirmed by user</div>
             <div
               className={clsx(
                 'header-not-confirmed-description',
                 notConfirmedTooltipOpen && 'header-not-confirmed-decription-open'
               )}
             >
-              This list is not confirmed to be owned by the displayed user. A user must set a list
-              as their Primary List to confirm it as their list.
+              This list is not confirmed to be owned by the displayed user. A user must set a list as their Primary List
+              to confirm it as their list.
             </div>
           </div>
         )}
-        <div
-          className='header-refresh'
-          onClick={refetchData}
-        >
+        <div className="header-refresh" onClick={refetchData}>
           <Refresh height={16} width={16} />
         </div>
       </div>

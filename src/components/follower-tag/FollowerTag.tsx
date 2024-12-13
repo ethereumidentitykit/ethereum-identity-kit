@@ -11,27 +11,19 @@ import './FollowerTag.css'
  * @param className - the class name to apply to the follower tag
  * @returns FollowerTag component
  */
-const FollowerTag: React.FC<FollowerTagProps> = ({
-  addressOrName,
-  connectedAddress,
-  list,
-  className,
-  ...props
-}) => {
+const FollowerTag: React.FC<FollowerTagProps> = ({ addressOrName, connectedAddress, list, className, ...props }) => {
   const { followerTag, isFollowerStateLoading } = useFollowerState({
     addressOrName,
     connectedAddress,
-    list
+    list,
   })
 
-  return isFollowerStateLoading ?
-    null
+  return isFollowerStateLoading ? null : (
     // <LoadingCell height='22px' width='70px' radius='10px' />
-    : (
-      <div {...props} className={clsx('follower-tag', followerTag.className, className)}>
-        {followerTag.text}
-      </div>
-    )
+    <div {...props} className={clsx('follower-tag', followerTag.className, className)}>
+      {followerTag.text}
+    </div>
+  )
 }
 
 export default FollowerTag

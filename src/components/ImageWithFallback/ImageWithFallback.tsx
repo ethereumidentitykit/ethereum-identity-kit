@@ -16,15 +16,15 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ src, fallback, al
 
   return (
     <img
-      className='image-with-fallback'
+      className="image-with-fallback"
       src={imageSrc}
       alt={alt}
       style={style}
-      image-loaded='false'
-      onLoad={event => {
+      image-loaded="false"
+      onLoad={(event) => {
         event.currentTarget.setAttribute('image-loaded', 'true')
       }}
-      onError={event => {
+      onError={(event) => {
         setError('invalid image')
         event.currentTarget.setAttribute('image-loaded', 'true')
       }}

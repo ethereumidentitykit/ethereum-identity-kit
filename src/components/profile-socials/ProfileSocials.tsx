@@ -25,29 +25,26 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   darkMode,
   includeUrls = false,
   iconSize = 32,
-  isLoading = false
+  isLoading = false,
 }) => {
   return (
-    <div className='profile-socials'>
+    <div className="profile-socials">
       {includeUrls &&
         (isLoading ? (
-          <div className='profile-links-container'>
-            <LoadingCell height='26px' width='68px' radius='18px' />
-            <LoadingCell height='26px' width='68px' radius='18px' />
+          <div className="profile-links-container">
+            <LoadingCell height="26px" width="68px" radius="18px" />
+            <LoadingCell height="26px" width="68px" radius="18px" />
           </div>
         ) : (
-          <div className='profile-links-container'>
+          <div className="profile-links-container">
             {records?.url && (
               <a
                 href={`https://${records?.url.replace('https://', '').replace('http://', '')}`}
-                target='_blank'
-                rel='noreferrer'
-                className={clsx(
-                  'profile-link',
-                  darkMode ? 'profile-link-dark' : 'profile-link-light'
-                )}
+                target="_blank"
+                rel="noreferrer"
+                className={clsx('profile-link', darkMode ? 'profile-link-dark' : 'profile-link-light')}
               >
-                <p className='profile-link-text'>
+                <p className="profile-link-text">
                   {records?.url.slice(-1) === '/'
                     ? records?.url.replace('https://', '').slice(0, -1)
                     : records?.url.replace('https://', '')}
@@ -58,46 +55,41 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
             {records?.contenthash && name && (
               <a
                 href={`https://${name}.limo`}
-                target='_blank'
-                rel='noreferrer'
-                className={clsx(
-                  'profile-link',
-                  darkMode ? 'profile-link-dark' : 'profile-link-light'
-                )}
+                target="_blank"
+                rel="noreferrer"
+                className={clsx('profile-link', darkMode ? 'profile-link-dark' : 'profile-link-light')}
                 style={{
-                  paddingRight: '2px'
+                  paddingRight: '2px',
                 }}
               >
-                <p className='profile-link-text'>dweb</p>
+                <p className="profile-link-text">dweb</p>
                 <Dweb height={20} width={20} />
               </a>
             )}
           </div>
         ))}
-      <div className='socials-container'>
+      <div className="socials-container">
         {isLoading
           ? Array.from({ length: 5 }).map((_, index) => (
-            <LoadingCell key={index} height='36px' width='36px' radius='18px' />
-          ))
-          : PROFILE_CARD_SOCIALS.map(social => (
-            <a
-              key={social.name}
-              href={social.url(
-                social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || ''
-              )}
-              target='_blank'
-              rel='noreferrer'
-              aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
-              className='social-link'
-            // Hide social links that don't exist, can be switched to just reducing opacity
-            >
-              {darkMode ? (
-                <social.icon.dark className='social-icon' height={iconSize} width={iconSize} />
-              ) : (
-                <social.icon.light className='social-icon' height={iconSize} width={iconSize} />
-              )}
-            </a>
-          ))}
+              <LoadingCell key={index} height="36px" width="36px" radius="18px" />
+            ))
+          : PROFILE_CARD_SOCIALS.map((social) => (
+              <a
+                key={social.name}
+                href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
+                target="_blank"
+                rel="noreferrer"
+                aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
+                className="social-link"
+                // Hide social links that don't exist, can be switched to just reducing opacity
+              >
+                {darkMode ? (
+                  <social.icon.dark className="social-icon" height={iconSize} width={iconSize} />
+                ) : (
+                  <social.icon.light className="social-icon" height={iconSize} width={iconSize} />
+                )}
+              </a>
+            ))}
       </div>
     </div>
   )

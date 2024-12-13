@@ -1,17 +1,17 @@
-import { StoryFn, Meta } from "@storybook/react";
-import LoadingCell from "./LoadingCell";
-import { DEFAULT_LOADING_GRADIENT } from "../../constants";
+import { StoryFn, Meta } from '@storybook/react'
+import LoadingCell from './LoadingCell'
+import { DEFAULT_LOADING_GRADIENT } from '../../constants'
 
 export default {
-  title: "Atoms/Loading Cell",
+  title: 'Atoms/Loading Cell',
   component: LoadingCell,
-} as Meta<typeof LoadingCell>;
+} as Meta<typeof LoadingCell>
 
-const Template: StoryFn<typeof LoadingCell> = (args) => <LoadingCell {...args} />;
+const Template: StoryFn<typeof LoadingCell> = (args) => <LoadingCell {...args} />
 
-export const LoadingCellTest = Template.bind({});
+export const LoadingCellTest = Template.bind({})
 LoadingCellTest.args = {
   gradient: DEFAULT_LOADING_GRADIENT,
   height: '100px',
-  width: '300px'
-};
+  width: '300px',
+}

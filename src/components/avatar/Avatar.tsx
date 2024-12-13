@@ -17,15 +17,8 @@ const Avatar: React.FC<AvatarProps> = ({ address, src, name, fallback = DEFAULT_
   const imageSrc = src || `https://metadata.ens.domains/mainnet/avatar/${name}`
 
   return (
-    <div
-      className='avatar-container'
-      style={style}
-    >
-      <ImageWithFallback
-        src={imageSrc}
-        fallback={fallback}
-        alt={name || address || ''}
-      />
+    <div className="avatar-container" style={style}>
+      <ImageWithFallback src={imageSrc} fallback={fallback} alt={name || address || ''} />
     </div>
   )
 }

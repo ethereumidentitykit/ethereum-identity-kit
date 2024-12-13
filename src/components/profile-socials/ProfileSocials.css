@@ -26,16 +26,17 @@
   font-weight: 600;
   text-decoration: none;
   background-color: #8883;
-  transition: opacity 0.2s ease, scale 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    scale 0.2s ease;
 }
 
 .profile-link-dark {
-  background-color: #71717A;
-
+  background-color: #71717a;
 }
 
 .profile-link-light {
-  background-color: #E4E4E7;
+  background-color: #e4e4e7;
 }
 
 .profile-link-dark .profile-link-text {
@@ -60,10 +61,12 @@
 
 .social-link {
   opacity: 1;
-  transition: opacity 0.2s ease, scale 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    scale 0.2s ease;
 }
 
-.social-link[aria-disabled="true"] {
+.social-link[aria-disabled='true'] {
   opacity: 0.4;
   pointer-events: none;
 }

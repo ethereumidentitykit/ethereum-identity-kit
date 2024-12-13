@@ -1,4 +1,4 @@
-import { Address } from ".."
+import { Address } from '..'
 
 export type ProfileListType = number | string | null | undefined
 

@@ -1,22 +1,22 @@
-import React from 'react'
-import { clsx } from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
+import { clsx } from 'clsx'
+import React from 'react'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { useProfileDetails } from '../../hooks/useProfileDetails'
 import { useProfileStats } from '../../hooks/useProfileStats'
 import { Address } from '../../types/address'
 import { isAddress, truncateAddress } from '../../utils/address'
+import { formatNumber } from '../../utils/formatters'
 import { defaultOnStatClick } from '../../utils/profile'
 import Avatar from '../avatar/Avatar'
 import FollowerTag from '../follower-tag/FollowerTag'
 import LoadingCell from '../loading-cell/LoadingCell'
 import ProfileSocials from '../profile-socials/ProfileSocials'
-import HeaderImage from './components/HeaderImage'
-import { ProfileCardProps } from './ProfileCard.types'
-import { formatNumber } from '../../utils/formatters'
-import CardHeader from './components/card-header/CardHeader'
-import './ProfileCard.css'
 import '../profile-stats/ProfileStats.css'
+import CardHeader from './components/card-header/CardHeader'
+import HeaderImage from './components/HeaderImage'
+import './ProfileCard.css'
+import { ProfileCardProps } from './ProfileCard.types'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -52,45 +52,43 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedStatsLoading,
     refetchProfileData,
     refetchStatsData,
+    prefetchedProfileLoading,
     followButton,
-    nameMenu
+    nameMenu,
   } = options || {}
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
     list,
     prefetchedData: profileData,
-    refetchPrefetchedData: refetchProfileData
+    refetchPrefetchedData: refetchProfileData,
   })
+  const isDetailsLoading = profileData ? !!prefetchedProfileLoading : detailsLoading
 
   const {
     followers,
     following,
     statsLoading: fetchedStatsLoading,
-    refreshProfileStats
+    refreshProfileStats,
   } = useProfileStats({
     addressOrName,
     list,
     prefetchedData: statsData,
-    refetchPrefetchedData: refetchStatsData
+    refetchPrefetchedData: refetchStatsData,
   })
-  const isStatsLoading = fetchedStatsLoading || prefetchedStatsLoading
+  const isStatsLoading = statsData ? !!prefetchedStatsLoading : fetchedStatsLoading
 
-  const isConnectedUserCard =
-    connectedAddress && address && connectedAddress.toLowerCase() === address.toLowerCase()
+  const isConnectedUserCard = connectedAddress && address && connectedAddress.toLowerCase() === address.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
     <div
-      className={clsx(
-        'profile-card',
-        darkMode ? 'profile-card-dark' : 'profile-card-light',
-        className
-      )}
+      className={clsx('profile-card', darkMode ? 'profile-card-dark' : 'profile-card-light', className)}
+      data-testid="profile-card"
       style={{ fontFamily: 'Inter, sans-serif', ...style }}
       {...props}
     >
-      <HeaderImage src={ens?.records?.header} isLoaded={detailsLoading} />
+      <HeaderImage src={ens?.records?.header} isLoaded={isDetailsLoading} />
       <CardHeader
         name={ens?.name}
         refetchData={() => {
@@ -100,11 +98,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         isConnectedUserCard={!!isConnectedUserCard}
         list={list}
         primaryList={primaryList}
-        detailsLoading={detailsLoading}
+        detailsLoading={isDetailsLoading}
       />
-      <div className='profile-card-details'>
-        {detailsLoading ? (
-          <LoadingCell height='100px' width='100px' radius='50%' />
+      <div className="profile-card-details">
+        {isDetailsLoading ? (
+          <LoadingCell height="100px" width="100px" radius="50%" />
         ) : (
           <Avatar
             address={addressOrName}
@@ -113,11 +111,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             style={{ width: '100px', height: '100px' }}
           />
         )}
-        {detailsLoading ? (
-          <LoadingCell height='26px' width='160px' />
+        {isDetailsLoading ? (
+          <LoadingCell height="26px" width="160px" />
         ) : (
-          <div className='profile-name-container'>
-            <p className='profile-name'>
+          <div className="profile-name-container">
+            <p className="profile-name">
               {ens?.name
                 ? ens_beautify(ens.name)
                 : isAddress(addressOrName)
@@ -127,26 +125,20 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             {nameMenu}
           </div>
         )}
-        {showFollowerTag && (
-          <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} />
-        )}
+        {showFollowerTag && <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} />}
         {followButton}
-        <div className='profile-bio'>
-          {detailsLoading ? (
-            <div className='profile-bio-loading'>
-              <LoadingCell height='18px' width='210px' />
-              <LoadingCell height='18px' width='140px' />
+        <div className="profile-bio">
+          {isDetailsLoading ? (
+            <div className="profile-bio-loading">
+              <LoadingCell height="18px" width="210px" />
+              <LoadingCell height="18px" width="140px" />
             </div>
           ) : (
-            <p className='profile-bio-text'>
+            <p className="profile-bio-text">
               {ens?.records?.description ? (
-                ens.records.description.split(' ').map(word =>
+                ens.records.description.split(' ').map((word) =>
                   word.includes('@') ? (
-                    <a
-                      key={word}
-                      href={`https://ethfollow.xyz/${word.replace('@', '')}`}
-                      className='profile-bio-link'
-                    >
+                    <a key={word} href={`https://ethfollow.xyz/${word.replace('@', '')}`} className="profile-bio-link">
                       {word}{' '}
                     </a>
                   ) : (
@@ -162,42 +154,34 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             records={ens?.records}
             name={ens?.name}
             userAddress={address}
-            isLoading={detailsLoading}
+            isLoading={isDetailsLoading}
             includeUrls={true}
             darkMode={darkMode}
           />
         </div>
       </div>
-      <div className='profile-stats-container'>
+      <div className="profile-stats-container">
         <div
-          className='profile-stats-item'
-          onClick={() =>
-            onStatClick({ addressOrName: address || addressOrName, stat: 'following' })
-          }
+          className="profile-stats-item"
+          onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
         >
           {isStatsLoading ? (
-            <LoadingCell height='24px' width='50px' />
+            <LoadingCell height="24px" width="50px" />
           ) : (
-            <div className='profile-stats-item-value'>
-              {following ? formatNumber(following) : '-'}
-            </div>
+            <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
           )}
-          <div className='profile-stats-item-label'>Following</div>
+          <div className="profile-stats-item-label">Following</div>
         </div>
         <div
-          className='profile-stats-item'
-          onClick={() =>
-            onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })
-          }
+          className="profile-stats-item"
+          onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
         >
           {isStatsLoading ? (
-            <LoadingCell height='24px' width='50px' />
+            <LoadingCell height="24px" width="50px" />
           ) : (
-            <div className='profile-stats-item-value'>
-              {followers ? formatNumber(followers) : '-'}
-            </div>
+            <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
           )}
-          <div className='profile-stats-item-label'>Followers</div>
+          <div className="profile-stats-item-label">Followers</div>
         </div>
       </div>
     </div>

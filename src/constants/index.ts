@@ -1,9 +1,9 @@
-import { PROFILE_CARD_SOCIALS } from './socials';
+import { PROFILE_CARD_SOCIALS } from './socials'
 
-export { PROFILE_CARD_SOCIALS };
-export const EFP_API_URL = "https://api.ethfollow.xyz/api/v1";
-export const DEFAULT_FALLBACK_AVATAR = "https://ethfollow.xyz/assets/art/default-avatar.svg";
-export const DEFAULT_FALLBACK_HEADER = "https://ethfollow.xyz/assets/art/default-header.svg";
+export { PROFILE_CARD_SOCIALS }
+export const EFP_API_URL = 'https://api.ethfollow.xyz/api/v1'
+export const DEFAULT_FALLBACK_AVATAR = 'https://ethfollow.xyz/assets/art/default-avatar.svg'
+export const DEFAULT_FALLBACK_HEADER = 'https://ethfollow.xyz/assets/art/default-header.svg'
 
 export const DEFAULT_LOADING_GRADIENT =
   'linear-gradient(90deg, rgba(200, 200, 200, 0.7) 0%, rgba(172, 172, 172, 0.05) 50%, rgba(200, 200, 200, 0.7) 100%)'
