@@ -5,6 +5,7 @@ import { DEFAULT_LOADING_GRADIENT } from '../../constants'
 
 /**
  * LoadingCell component - displays a loading cell
+ *
  * @param gradient - the gradient of the loading cell
  * @param height - the height of the loading cell
  * @param width - the width of the loading cell

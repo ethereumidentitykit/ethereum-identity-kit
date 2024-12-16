@@ -4,6 +4,7 @@ import type { ImageWithFallbackProps } from './ImageWithFallback.types.ts'
 
 /**
  * ImageWithFallback component - displays an image with a fallback
+ *
  * @param src - the source of the image
  * @param fallback - the fallback image
  * @param alt - the alt text of the image

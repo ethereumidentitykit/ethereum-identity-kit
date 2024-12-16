@@ -12,8 +12,8 @@ export default {
 
 const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />
 
-export const ProfileCardAddress = Template.bind({})
-ProfileCardAddress.args = {
+export const ProfileCardByAddress = Template.bind({})
+ProfileCardByAddress.args = {
   addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
@@ -23,8 +23,8 @@ ProfileCardAddress.args = {
   darkMode: false,
 }
 
-export const ProfileCardENS = Template.bind({})
-ProfileCardENS.args = {
+export const ProfileCardByENS = Template.bind({})
+ProfileCardByENS.args = {
   addressOrName: 'encrypteddegen.eth',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
@@ -34,11 +34,11 @@ ProfileCardENS.args = {
   darkMode: false,
 }
 
-export const ProfileCardList = Template.bind({})
-ProfileCardList.args = {
-  addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
+export const ProfileCardByList = Template.bind({})
+ProfileCardByList.args = {
+  addressOrName: '0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
-  list: '1',
+  list: '5',
   showFollowerState: true,
   style: {
     width: '300px',

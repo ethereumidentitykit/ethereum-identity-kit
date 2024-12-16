@@ -4,8 +4,8 @@ import { ProfileStatType } from '../../types/profile'
 import { formatNumber } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
 import LoadingCell from '../loading-cell/LoadingCell'
-import './ProfileStats.css'
 import type { ProfileStatsProps } from './ProfileStats.types'
+import './ProfileStats.css'
 
 /**
  * Component for displaying follower and following stats for a given address or list

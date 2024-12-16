@@ -12,8 +12,8 @@ export default {
 
 const Template: StoryFn<typeof ProfileStats> = (args) => <ProfileStats {...args} />
 
-export const ProfileStatsAddress = Template.bind({})
-ProfileStatsAddress.args = {
+export const ProfileStatsByAddress = Template.bind({})
+ProfileStatsByAddress.args = {
   addressOrName: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   containerStyle: {
     width: '100%',
@@ -26,8 +26,8 @@ ProfileStatsAddress.args = {
   containerDirection: 'row',
 }
 
-export const ProfileStatsENS = Template.bind({})
-ProfileStatsENS.args = {
+export const ProfileStatsByENS = Template.bind({})
+ProfileStatsByENS.args = {
   addressOrName: 'encrypteddegen.eth',
   containerStyle: {
     width: '100%',
@@ -35,8 +35,8 @@ ProfileStatsENS.args = {
   },
 }
 
-export const ProfileStatsList = Template.bind({})
-ProfileStatsList.args = {
+export const ProfileStatsByList = Template.bind({})
+ProfileStatsByList.args = {
   addressOrName: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   list: '1',
   containerStyle: {

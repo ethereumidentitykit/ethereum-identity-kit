@@ -1,6 +1,7 @@
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import pluginReact from 'eslint-plugin-react'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -30,4 +31,5 @@ export default [
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
+  eslintConfigPrettier,
 ]

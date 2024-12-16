@@ -4,4 +4,5 @@ export type FollowerTagProps = {
   addressOrName: Address | string
   connectedAddress: Address
   list?: ProfileListType
+  showLoading?: boolean
 } & React.HTMLAttributes<HTMLDivElement>

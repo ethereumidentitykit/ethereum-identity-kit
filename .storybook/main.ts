@@ -8,6 +8,9 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../public'],
+  docs: {
+    defaultName: 'Component docs',
+  },
   managerHead: (head) => `
     ${head}
     <link rel="icon" href="/favicon.ico" sizes="any">
