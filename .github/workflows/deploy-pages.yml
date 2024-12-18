@@ -1,5 +1,5 @@
 # Workflow name
-name: Publish Storybook to GitHub Pages
+name: Publish to GH Pages
 
 on:
   push:
