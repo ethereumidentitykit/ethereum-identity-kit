@@ -66,12 +66,4 @@ export default function Home() {
 }
 ```
 
-### Next 15 config
-
-If you are using Next.js 15, you need to add the following to your `next.config.mjs` file:
-
-```js
-transpilePackages: ['ethereum-identity-kit'],
-```
-
-Documentation is available at [docs.ethid.org](https://docs.ethid.org).
+Documentation is available at [ethid.org](https://ethid.org).

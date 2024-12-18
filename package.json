@@ -1,7 +1,7 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.0.3",
-  "description": "Library for easy ethereum identity integration into any web3 app",
+  "version": "0.0.4",
+  "description": "Ethereum Identity Kit: Complete your dapp with the Ethereum identity stack.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types.d.ts",
@@ -27,6 +27,8 @@
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
   "keywords": [
     "ethereum identity kit",
+    "ethereum identity stack",
+    "ethereum identity",
     "ethereum",
     "identity",
     "kit"
