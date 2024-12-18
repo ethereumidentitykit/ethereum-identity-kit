@@ -20,6 +20,8 @@ jobs:
         run: npm run lint
       - name: Test code
         run: npm run test
+      - name: Build package
+        run: npm run rollup
       - name: Publish package
         uses: JS-DevTools/npm-publish@v3
         with:
