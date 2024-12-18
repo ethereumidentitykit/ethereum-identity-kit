@@ -61,7 +61,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
           flexDirection: statsDirection,
           ...statsStyle,
         }}
-        enable-hover={!!onStatClick}
+        enable-hover={!!onStatClick ? 'true' : 'false'}
         onClick={() => onStatClick({ addressOrName, stat: 'followers' as ProfileStatType })}
       >
         {statsLoading ? (
