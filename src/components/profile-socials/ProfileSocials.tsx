@@ -9,13 +9,13 @@ import type { ProfileSocialsProps } from './ProfileSocials.types'
 
 /**
  * Component to display the social links of a user
- * @param userAddress - The address of the user
- * @param name - The name of the user
- * @param records - The records of the user
- * @param darkMode - Whether the profile is in dark mode
- * @param includeUrls - Whether to include the URLs in the profile
- * @param iconSize - The size of the icons
- * @param isLoading - Whether the profile is loading
+ * @param userAddress - The address of the user (required)
+ * @param name - The name of the user (optional)
+ * @param records - The records of the user (required)
+ * @param darkMode - Whether the profile is in dark mode (optional)
+ * @param includeUrls - Whether to include the URLs in the profile (optional)
+ * @param iconSize - The size of the icons (optional)
+ * @param isLoading - Whether the profile is loading (optional)
  * @returns ProfileSocials component
  */
 const ProfileSocials: React.FC<ProfileSocialsProps> = ({

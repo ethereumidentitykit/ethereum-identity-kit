@@ -1,6 +1,6 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Library for easy ethereum identity integration into any web3 app",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
