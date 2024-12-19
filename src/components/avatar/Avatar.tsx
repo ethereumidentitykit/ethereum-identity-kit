@@ -1,17 +1,24 @@
 import React from 'react'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
-import ImageWithFallback from '../ImageWithFallback/ImageWithFallback'
+import ImageWithFallback from '../image-with-fallback/ImageWithFallback'
 import './Avatar.css'
 import type { AvatarProps } from './Avatar.types'
 
 /**
- * Avatar component - displays an avatar image of a profile <br />
- * @param address - the address for the profile of the avatar <br />
- * @param src - the source of the avatar image <br />
- * @param name - the ENS name of the avatar <br />
- * @param fallback - the fallback avatar image <br />
- * @param style - the style of the avatar <br />
- * @param props - <div> element props <br />
+ * Avatar component - displays an avatar image of a profile
+ *
+ * @param address - the address for the profile of the avatar
+ *
+ * @param src - the source of the avatar image
+ *
+ * @param name - the ENS name of the avatar
+ *
+ * @param fallback - the fallback avatar image
+ *
+ * @param style - the style of the avatar
+ *
+ * @param props - HTML div element props
+ *
  * @returns Avatar component
  */
 const Avatar: React.FC<AvatarProps> = ({ address, src, name, fallback = DEFAULT_FALLBACK_AVATAR, style, ...props }) => {

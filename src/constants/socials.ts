@@ -5,6 +5,7 @@ import XIcon from '../components/icons/x'
 import DiscordIcon from '../components/icons/Discord'
 import EtherscanDark from '../components/icons/EtherscanDark'
 import GithubDark from '../components/icons/GithubDark'
+
 export const PROFILE_CARD_SOCIALS = [
   {
     name: 'etherscan',

@@ -9,14 +9,23 @@ import './ProfileStats.css'
 
 /**
  * Component for displaying follower and following stats for a given address or list
+ *
  * @param addressOrName - Address or ENS name to lookup stats for (required)
+ *
  * @param list - List to lookup stats for - will override addressOrName (optional)
+ *
  * @param containerDirection - Direction of the container (optional, default: 'row')
+ *
  * @param statsDirection - Direction of the stats (optional, default: 'column')
+ *
  * @param statsStyle - Style of the stats (optional)
+ *
  * @param containerStyle - Style of the container (optional)
+ *
  * @param onStatClick - Function to be called when a stat is clicked (optional)
- * @param props - <div> element props
+ *
+ * @param props - HTML div element props
+ *
  * @returns ProfileStats component
  */
 const ProfileStats: React.FC<ProfileStatsProps> = ({

@@ -20,18 +20,27 @@ import { ProfileCardProps } from './ProfileCard.types'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
- * Sorry for the long description, but I wanted to make sure it's clear what each prop does,
- * as this is becoming waaaaay to complicated (gotta do something about it 😬).
+ *
  * @param addressOrName - Ethereum Address or ENS name to fetch profile data for (required)
+ *
  * @param list - Search profile data by list number - will override addressOrName if provided (used in EFP app) (optional)
+ *
  * @param connectedAddress - Address of the user connected to the app (optional)
+ *
  * @param darkMode - (optional)
+ *
  * @param showFollowerState - shows follower state tag (follows you, blocks you, mutes you) (optional)
+ *
  * @param onStatClick - action to be performed when a stat is clicked - default goes to EFP profile with selected stat (optional)
+ *
  * @param options - see ProfileCardOption type for all options (optional)
+ *
  * @param className - string (optional)
+ *
  * @param style - CSS Properties (optional)
- * @param props - <div> element props (optional)
+ *
+ * @param props - HTML div element props (optional)
+ *
  * @returns ProfileCard component
  */
 const ProfileCard: React.FC<ProfileCardProps> = ({

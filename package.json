@@ -1,7 +1,7 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.0.5",
-  "description": "Ethereum Identity Kit: Complete your dapp with the Ethereum identity stack.",
+  "version": "0.1.0",
+  "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types.d.ts",

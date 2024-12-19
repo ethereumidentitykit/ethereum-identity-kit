@@ -5,7 +5,7 @@ import LoadingCell from './loading-cell/LoadingCell'
 import HeaderImage from './profile-card/components/HeaderImage'
 import ProfileStats from './profile-stats/ProfileStats'
 import ProfileSocials from './profile-socials/ProfileSocials'
-import ImageWithFallback from './ImageWithFallback/ImageWithFallback'
+import ImageWithFallback from './image-with-fallback/ImageWithFallback'
 export { ProfileCard, ProfileSocials, ProfileStats, Avatar, LoadingCell, HeaderImage, ImageWithFallback, FollowerTag }
 
 import DiscordIcon from './icons/Discord'
@@ -25,7 +25,7 @@ import { ProfileStatsProps } from './profile-stats/ProfileStats.types'
 import { AvatarProps } from './avatar/Avatar.types'
 import { FollowerTagProps } from './follower-tag/FollowerTag.types'
 import { LoadingCellProps } from './loading-cell/LoadingCell.types'
-import { ImageWithFallbackProps } from './ImageWithFallback/ImageWithFallback.types'
+import { ImageWithFallbackProps } from './image-with-fallback/ImageWithFallback.types'
 export type {
   ProfileCardProps,
   ProfileSocialsProps,
