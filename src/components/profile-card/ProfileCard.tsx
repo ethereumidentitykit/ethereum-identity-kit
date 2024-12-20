@@ -49,6 +49,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   connectedAddress,
   darkMode,
   showFollowerState,
+  onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
   className,
@@ -118,13 +119,18 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             src={ens?.avatar}
             fallback={DEFAULT_FALLBACK_AVATAR}
             style={{ width: '100px', height: '100px' }}
+            onClick={() => onProfileClick?.(addressOrName)}
           />
         )}
         {isDetailsLoading ? (
           <LoadingCell height="26px" width="160px" />
         ) : (
           <div className="profile-name-container">
-            <p className="profile-name">
+            <p
+              className="profile-name"
+              enable-hover={!!onProfileClick ? 'true' : 'false'}
+              onClick={() => onProfileClick?.(addressOrName)}
+            >
               {ens?.name
                 ? ens_beautify(ens.name)
                 : isAddress(addressOrName)

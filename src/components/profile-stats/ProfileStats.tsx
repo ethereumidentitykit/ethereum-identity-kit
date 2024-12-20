@@ -22,6 +22,8 @@ import './ProfileStats.css'
  *
  * @param containerStyle - Style of the container (optional)
  *
+ * @param onProfileClick - Function to be called when the name/address or Avatar is clicked (optional)
+ *
  * @param onStatClick - Function to be called when a stat is clicked (optional)
  *
  * @param props - HTML div element props

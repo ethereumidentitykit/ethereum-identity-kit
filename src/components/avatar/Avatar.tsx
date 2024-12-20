@@ -17,15 +17,31 @@ import type { AvatarProps } from './Avatar.types'
  *
  * @param style - the style of the avatar
  *
+ * @param onClick - the function to be called when the avatar is clicked
+ *
  * @param props - HTML div element props
  *
  * @returns Avatar component
  */
-const Avatar: React.FC<AvatarProps> = ({ address, src, name, fallback = DEFAULT_FALLBACK_AVATAR, style, ...props }) => {
+const Avatar: React.FC<AvatarProps> = ({
+  address,
+  src,
+  name,
+  fallback = DEFAULT_FALLBACK_AVATAR,
+  style,
+  onClick,
+  ...props
+}) => {
   const imageSrc = src || `https://metadata.ens.domains/mainnet/avatar/${name}`
 
   return (
-    <div className="avatar-container" style={style} {...props}>
+    <div
+      className="avatar-container"
+      style={style}
+      onClick={onClick}
+      enable-hover={!!onClick ? 'true' : 'false'}
+      {...props}
+    >
       <ImageWithFallback src={imageSrc} fallback={fallback} alt={name || address || ''} />
     </div>
   )

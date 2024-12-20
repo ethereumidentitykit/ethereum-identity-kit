@@ -14,6 +14,11 @@
   transition: transform 0.2s ease;
 }
 
+.profile-stats-item[enable-hover='true']:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .profile-stats-item-value {
   font-size: 22px;
   font-weight: 700;
@@ -23,9 +28,4 @@
   font-size: 16px;
   font-weight: 700;
   opacity: 0.6;
-}
-
-.profile-stats-item:hover {
-  cursor: pointer;
-  transform: scale(1.1);
 }

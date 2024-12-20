@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://ethid.org" target="_blank" rel="noopener noreferrer">
-    <img width="275" src="https://ethid.org/logo.png" alt="EFP logo" />
+  <a href="https://ethidentitykit.com" target="_blank" rel="noopener noreferrer">
+    <img width="275" src="https://ethidentitykit.com/logo.png" alt="EFP logo" />
   </a>
 </p>
 
@@ -9,7 +9,7 @@
   <a href="https://discord.com/invite/ZUyG3mSXFD"><img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat" /></a>
   <a href="https://x.com/ethidkit"><img src="https://img.shields.io/twitter/follow/ethidkit?label=%40ethidkit&style=social&link=https%3A%2F%2Fx.com%2Fethidkit" alt="x account" /></a>
   <a href="https://github.com/ethereumidentitykit/identity-kit"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier" /></a>
-  <a href="https://docs.ethid.org"><img src="https://img.shields.io/badge/docs-ethid.org-blue?style=flat-square" alt="docs" /></a>
+  <a href="https://docs.ethidentitykit.com"><img src="https://img.shields.io/badge/docs-ethidentitykit.com-blue?style=flat-square" alt="docs" /></a>
 </p>
 
 <h1 align="center" style="font-size: 2.75rem; font-weight: 900;">Ethereum Identity Kit</h1>
@@ -61,9 +61,9 @@ Library is typed with TypeScript, which allows for autocompletion and type safet
 import { ProfileCard } from 'ethereum-identity-kit'
 
 export default function Home() {
-  return <ProfileCard addressOrName="brantly.eth" />
+  return <ProfileCard addressOrName="vitalik.eth" />
   // or 0x983110309620d911731ac0932219af06091b6744
 }
 ```
 
-Documentation is available at [ethid.org](https://ethid.org).
+Documentation is available at [ethidentitykit.com](https://ethidentitykit.com).

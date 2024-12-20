@@ -53,6 +53,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.profile-name[enable-hover='true']:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .profile-bio {

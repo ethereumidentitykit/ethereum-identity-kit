@@ -1,6 +1,6 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -12,7 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "files": [
     "dist"
@@ -35,7 +36,7 @@
   ],
   "author": {
     "name": "Ethereum Identity Kit",
-    "url": "https://ethid.org"
+    "url": "https://ethidentitykit.com"
   },
   "license": "MIT",
   "bugs": {

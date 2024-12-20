@@ -18,6 +18,7 @@ export type ProfileCardProps = {
   connectedAddress?: Address
   darkMode?: boolean
   showFollowerState?: boolean
+  onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions
 } & React.HTMLAttributes<HTMLDivElement>

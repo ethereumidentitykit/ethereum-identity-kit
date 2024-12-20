@@ -1,8 +1,13 @@
 import { StoryFn, Meta } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProfileCard from './ProfileCard'
+import { Address } from '../../types/address'
 
 const queryClient = new QueryClient()
+
+const onProfileClick = (addressOrName: Address | string) => {
+  alert(addressOrName)
+}
 
 export default {
   title: 'Organisms/Profile Card',
@@ -21,6 +26,7 @@ ProfileCardByAddress.args = {
     width: '300px',
   },
   darkMode: false,
+  onProfileClick,
 }
 
 export const ProfileCardByENS = Template.bind({})
@@ -32,18 +38,19 @@ ProfileCardByENS.args = {
     width: '300px',
   },
   darkMode: false,
+  onProfileClick,
 }
 
 export const ProfileCardByList = Template.bind({})
 ProfileCardByList.args = {
-  addressOrName: '0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516',
-  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  addressOrName: '',
   list: '5',
   showFollowerState: true,
   style: {
     width: '300px',
   },
   darkMode: false,
+  onProfileClick,
 }
 
 export const ProfileCardPrefetched = Template.bind({})
@@ -77,4 +84,5 @@ ProfileCardPrefetched.args = {
       primary_list: '1',
     },
   },
+  onProfileClick,
 }
