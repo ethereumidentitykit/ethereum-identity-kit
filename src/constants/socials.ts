@@ -1,10 +1,10 @@
-import EtherscanIcon from '../components/icons/Etherscan'
-import GithubIcon from '../components/icons/Github'
-import TelegramIcon from '../components/icons/Telegram'
-import XIcon from '../components/icons/x'
-import DiscordIcon from '../components/icons/Discord'
-import EtherscanDark from '../components/icons/EtherscanDark'
-import GithubDark from '../components/icons/GithubDark'
+import EtherscanIcon from '../components/icons/socials/Etherscan'
+import GithubIcon from '../components/icons/socials/Github'
+import TelegramIcon from '../components/icons/socials/Telegram'
+import XIcon from '../components/icons/socials/x'
+import DiscordIcon from '../components/icons/socials/Discord'
+import EtherscanDark from '../components/icons/socials/EtherscanDark'
+import GithubDark from '../components/icons/socials/GithubDark'
 
 export const PROFILE_CARD_SOCIALS = [
   {

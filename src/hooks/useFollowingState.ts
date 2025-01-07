@@ -7,7 +7,7 @@ import { ProfileListType } from '../types/profile'
 
 interface UseFollowingStateProps {
   lookupAddressOrName: Address | string
-  connectedAddress: Address
+  connectedAddress?: Address
   list?: ProfileListType
 }
 

@@ -7,7 +7,7 @@ export type FollowStatePropType = 'following' | 'follower'
 
 export interface FollowStateProps {
   lookupAddressOrName: Address | string
-  connectedAddress: Address
+  connectedAddress?: Address
   list?: ProfileListType
   type: FollowStatePropType
   fresh?: boolean
@@ -22,3 +22,36 @@ export interface FollowStatusResponse {
     mute: boolean
   }
 }
+
+export type FollowingState =
+  | 'Block'
+  | 'Blocked'
+  | 'Follow'
+  | 'Following'
+  | 'Mute'
+  | 'Muted'
+  | 'Pending Following'
+  | 'Pending Block'
+  | 'Pending Mute'
+  // | 'Subscribe'
+  // | 'Subscribed'
+  | 'Unblock'
+  | 'Unfollow'
+  | 'Unmute'
+// | 'Unsubscribe'
+
+export type FollowButtonText =
+  | 'Block'
+  | 'Block Back'
+  | 'Mute Back'
+  | 'Blocked'
+  | 'Follow'
+  | 'Following'
+  | 'Mute'
+  | 'Muted'
+  // | 'Subscribe'
+  // | 'Subscribed'
+  | 'Unblock'
+  | 'Unfollow'
+  | 'Unmute'
+// | 'Unsubscribe'

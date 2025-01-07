@@ -1,22 +1,22 @@
-import { ens_beautify } from '@adraffy/ens-normalize'
-import { clsx } from 'clsx'
 import React from 'react'
-import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
-import { useProfileDetails } from '../../hooks/useProfileDetails'
+import { clsx } from 'clsx'
+import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileStats } from '../../hooks/useProfileStats'
-import { Address } from '../../types/address'
-import { isAddress, truncateAddress } from '../../utils/address'
+import { useProfileDetails } from '../../hooks/useProfileDetails'
 import { formatNumber } from '../../utils/formatters'
 import { defaultOnStatClick } from '../../utils/profile'
+import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
+import { isAddress, truncateAddress } from '../../utils/address'
 import Avatar from '../avatar/Avatar'
 import FollowerTag from '../follower-tag/FollowerTag'
 import LoadingCell from '../loading-cell/LoadingCell'
-import ProfileSocials from '../profile-socials/ProfileSocials'
-import '../profile-stats/ProfileStats.css'
-import CardHeader from './components/card-header/CardHeader'
 import HeaderImage from './components/HeaderImage'
-import './ProfileCard.css'
+import CardHeader from './components/card-header/CardHeader'
+import ProfileSocials from '../profile-socials/ProfileSocials'
+import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
+import './ProfileCard.css'
+import '../profile-stats/ProfileStats.css'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -88,7 +88,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   })
   const isStatsLoading = statsData ? !!prefetchedStatsLoading : fetchedStatsLoading
 
-  const isConnectedUserCard = connectedAddress && address && connectedAddress.toLowerCase() === address.toLowerCase()
+  const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
@@ -178,6 +178,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       <div className="profile-stats-container">
         <div
           className="profile-stats-item"
+          enable-hover={!!onStatClick ? 'true' : 'false'}
           onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
         >
           {isStatsLoading ? (
@@ -189,6 +190,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
         <div
           className="profile-stats-item"
+          enable-hover={!!onStatClick ? 'true' : 'false'}
           onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
         >
           {isStatsLoading ? (

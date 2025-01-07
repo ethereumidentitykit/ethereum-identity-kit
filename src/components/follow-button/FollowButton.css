@@ -1,0 +1,192 @@
+.follow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-width: 110px;
+  padding: 0 8px;
+  height: 39px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #27272a;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.follow-button:hover {
+  transform: scale(1.1);
+}
+
+.follow-button-follow {
+  background: linear-gradient(to right, #ffe066 0%, #ffe066 30%, #fff981 75%, #ffafde 100%);
+  text-align: center;
+  background-size: 300% auto;
+  transition: all 0.3s;
+  border-radius: 10px;
+  border: none;
+}
+
+.follow-button-follow:hover {
+  background-position: right center;
+  transition: all 0.3s;
+}
+
+.follow-button-following-pending {
+  background:
+    linear-gradient(#fafafa, #fafafa) padding-box,
+    linear-gradient(135deg, #faf35f, #ffbce3) border-box;
+  border: 3px solid transparent;
+}
+
+.follow-button-following-pending:hover {
+  border: none;
+  background: none;
+  background-color: #d0d0d0;
+  padding: 6px 10px;
+}
+
+.follow-button-following {
+  background:
+    linear-gradient(#fafafa, #fafafa) padding-box,
+    linear-gradient(135deg, #faf35f, #ffbce3) border-box;
+  border: 3px solid transparent;
+  transition: all 200ms ease-in-out;
+}
+
+.follow-button-following:hover {
+  border: none;
+  background: #ff7c7c;
+  background-color: #d0d0d0;
+  padding: 6px 10px;
+}
+
+.follow-button-unfollow {
+  background: #ff7c7c;
+}
+
+.follow-button-unfollow::after {
+  background: #4ade80;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+.follow-button-unfollow:hover {
+  background: #cf4c4c;
+}
+
+.follow-button-block {
+  background: #ff7c7c;
+}
+
+.follow-button-block:hover {
+  background: #cf4c4c;
+}
+
+.follow-button-block-pending {
+  background: white;
+  border: 3px solid #ef4444;
+  color: #ef4444;
+}
+
+.follow-button-block-pending:hover {
+  background: #ffc6c6;
+}
+
+.follow-button-block-pending::after {
+  background: #4ade80;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+.follow-button-blocked {
+  background: white;
+  border: 3px solid #ef4444;
+  color: #ef4444;
+}
+
+.follow-button-blocked:hover {
+  background: #ffc6c6;
+}
+
+.follow-button-unblock {
+  background: #ff7c7c;
+}
+
+.follow-button-unblock:hover {
+  background: #cf4c4c;
+}
+
+.follow-button-unblock::after {
+  background: #4ade80;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+.follow-button-muted {
+  background: #ff7c7c;
+}
+
+.follow-button-muted:hover {
+  background: #cf4c4c;
+}
+
+.follow-button-mute-pending {
+  background: white;
+  border: 3px solid #ef4444;
+  color: #ef4444;
+}
+
+.follow-button-mute-pending:hover {
+  background: #ffc6c6;
+}
+
+.follow-button-mute-pending::after {
+  background: #4ade80;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+.follow-button-muted {
+  background: white;
+  border: 3px solid #ef4444;
+  color: #ef4444;
+}
+
+.follow-button-muted:hover {
+  background: #ffc6c6;
+}
+
+.follow-button-unmute {
+  background: #ff7c7c;
+}
+
+.follow-button-unmute:hover {
+  background: #cf4c4c;
+}
+
+.follow-button-unmute::after {
+  background: #4ade80;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
