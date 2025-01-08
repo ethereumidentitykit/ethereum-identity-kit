@@ -14,7 +14,7 @@ interface UseFollowingStateProps {
 export const useFollowingState = ({ lookupAddressOrName, connectedAddress, list }: UseFollowingStateProps) => {
   const { data, isLoading, isRefetching } = useQuery({
     queryKey: ['followingState', lookupAddressOrName, connectedAddress, list],
-    queryFn: () => fetchFollowState({ lookupAddressOrName, connectedAddress, list, type: 'following' }),
+    queryFn: () => fetchFollowState({ lookupAddressOrName, connectedAddress, list, type: 'following', fresh: true }),
   })
 
   const isFollowingStateLoading = isLoading || isRefetching

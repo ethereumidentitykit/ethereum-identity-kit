@@ -1,42 +1,28 @@
 'use client'
 
 import {
+  Dispatch,
   useState,
+  useEffect,
   useContext,
   useCallback,
   createContext,
   type ReactNode,
-  useEffect,
   SetStateAction,
-  Dispatch,
 } from 'react'
 import { useAccount } from 'wagmi'
-import { Abi, encodePacked, type Hex } from 'viem'
+import { encodePacked } from 'viem'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import * as abi from '../constants/abi'
 import { DEFAULT_CHAIN } from '../constants/chains'
-import { Address, ProfileListsResponse } from '../types'
+import { ProfileListsResponse } from '../types'
 import { coreEfpContracts } from '../constants/contracts'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
 import { generateListStorageLocationSlot } from '../utils/generate-slot'
-
-export enum EFPActionType {
-  CreateEFPList = 'CreateEFPList',
-  UpdateEFPList = 'UpdateEFPList',
-}
-
-export type TransactionType = {
-  id: EFPActionType
-  address: Address
-  chainId?: number
-  abi: Abi
-  functionName: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  args: any[]
-  hash?: Hex
-}
+import { EFPActionType } from '../types/transactions'
+import { TransactionType } from '../types/transactions'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -69,6 +55,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     data: lists,
     isLoading: listsLoading,
     refetch: refetchLists,
+    isRefetching: listsIsRefetching,
   } = useQuery({
     queryKey: ['lists', connectedAddress],
     queryFn: async () => {
@@ -101,54 +88,87 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     getListDetails()
   }, [connectedAddress, lists?.primary_list])
 
-  const addTransaction = (tx: TransactionType) => {
-    const newPendingTxs = [tx]
-
-    if (pendingTxs.length === 0 && !lists?.primary_list) {
-      const mintNonce = nonce || generateListStorageLocationSlot()
-      if (mintNonce !== nonce) {
-        setNonce(mintNonce)
-        newPendingTxs[0].args[0] = mintNonce
-      }
-
-      console.log('mintNonce', mintNonce)
-
-      const mintTransaction = {
-        id: EFPActionType.CreateEFPList,
-        chainId: DEFAULT_CHAIN.id,
-        address: coreEfpContracts.EFPListMinter,
-        abi: abi.efpListMinterAbi,
-        functionName: 'mintPrimaryListNoMeta',
-        args: [
-          encodePacked(
-            ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-            [1, 1, BigInt(DEFAULT_CHAIN.id), coreEfpContracts.EFPListRecords, mintNonce]
-          ),
-        ],
-      }
-
-      newPendingTxs.push(mintTransaction)
+  const prepareMintTransaction = (mintNonce: bigint) => {
+    const mintTransaction = {
+      id: EFPActionType.CreateEFPList,
+      chainId: DEFAULT_CHAIN.id,
+      address: coreEfpContracts.EFPListMinter,
+      abi: abi.efpListMinterAbi,
+      functionName: 'mintPrimaryListNoMeta',
+      args: [
+        encodePacked(
+          ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+          [1, 1, BigInt(DEFAULT_CHAIN.id), coreEfpContracts.EFPListRecords, mintNonce]
+        ),
+      ],
     }
 
-    setPendingTxs((currentTxs) => [...currentTxs, ...newPendingTxs])
-    setCurrentTxIndex(0)
+    return mintTransaction
+  }
+
+  const addTransaction = (tx: TransactionType) => {
+    const newPendingTxs = [...pendingTxs]
+
+    // Add new transaction and mint if user has no list
+    if (newPendingTxs.length === 0) {
+      newPendingTxs.push(tx)
+
+      if (!lists?.primary_list) {
+        const mintNonce = nonce || generateListStorageLocationSlot()
+
+        if (mintNonce !== nonce) {
+          setNonce(mintNonce)
+          newPendingTxs[0].args[0] = mintNonce
+        }
+
+        const mintTransaction = prepareMintTransaction(mintNonce)
+
+        newPendingTxs.push(mintTransaction)
+      }
+    } else {
+      // Update the transaction if it exists and is not yet complete
+      const pendingUpdateTransaction = newPendingTxs.findIndex(
+        (tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash
+      )
+      if (pendingUpdateTransaction === -1) {
+        newPendingTxs.push(tx)
+      } else {
+        const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransaction].args.slice(-1).flat()
+        const txListOps = tx.args.slice(-1).flat()
+
+        if (!pendingUpdateTxListOps.includes(txListOps[0])) {
+          newPendingTxs[pendingUpdateTransaction] = {
+            ...newPendingTxs[pendingUpdateTransaction],
+            args: [
+              ...newPendingTxs[pendingUpdateTransaction].args.slice(0, -1),
+              [...pendingUpdateTxListOps, ...txListOps],
+            ],
+          }
+        }
+      }
+    }
+
+    setPendingTxs(newPendingTxs)
     setTxModalOpen(true)
+    if (!currentTxIndex) setCurrentTxIndex(0)
   }
 
   const queryClient = useQueryClient()
   const goToNextTransaction = () => {
-    if ((currentTxIndex || 0) + 1 === pendingTxs.length) {
+    const newTxIndex = (currentTxIndex || 0) + 1
+    if (newTxIndex === pendingTxs.length) {
       setTxModalOpen(false)
-      setCurrentTxIndex(undefined)
-      refetchLists()
+      resetTransactions()
+      if (!lists?.primary_list) refetchLists()
       queryClient.invalidateQueries({ queryKey: ['followingState'] })
       queryClient.refetchQueries({ queryKey: ['profile'] })
     } else {
-      setCurrentTxIndex((currIndex) => (currIndex || 0) + 1)
+      setCurrentTxIndex(newTxIndex)
     }
   }
 
   const resetTransactions = useCallback(() => {
+    setTxModalOpen(false)
     setPendingTxs([])
     setCurrentTxIndex(undefined)
   }, [])
@@ -159,7 +179,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     pendingTxs,
     setPendingTxs,
     lists,
-    listsLoading,
+    listsLoading: listsLoading || listsIsRefetching,
     nonce,
     addTransaction,
     currentTxIndex,

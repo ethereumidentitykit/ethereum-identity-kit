@@ -14,9 +14,57 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 500px;
+  width: 400px;
+  height: 300px;
   display: flex;
   gap: 20px;
   overflow: hidden;
+  position: relative;
   font-family: 'Inter', sans-serif;
+}
+
+.transaction-modal-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.transaction-modal-container button {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 3px solid transparent;
+}
+
+.transaction-modal-close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.transaction-modal-transactions-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.transaction-modal-buttons-container {
+  display: flex;
+  gap: 8px;
+}
+
+.transaction-modal-cancel-button {
+  background-color: #ccc;
+}
+
+.transaction-modal-confirm-button {
+  background-color: #ffe066;
+}
+
+.transaction-modal-cancel-button,
+.transaction-modal-confirm-button {
+  width: 196px;
+  font-size: 20px;
+  font-weight: 800;
 }

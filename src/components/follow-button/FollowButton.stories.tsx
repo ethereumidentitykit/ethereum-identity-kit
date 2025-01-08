@@ -1,6 +1,6 @@
 import { StoryFn, Meta } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, WagmiProvider } from 'wagmi'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import FollowButton from './FollowButton'
 import { config } from '../../constants/wagmi'
 import { FollowButtonProps } from './FollowButton.types'
@@ -14,13 +14,42 @@ const FollowButtonWrapper = (args: FollowButtonProps) => {
   const { connect, connectors } = useConnect()
 
   return (
-    <div style={{ height: '50vh' }}>
+    <div
+      style={{
+        height: '50vh',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        alignItems: 'center',
+      }}
+    >
       <div>
         {!connectedAddress && (
-          <div>
-            <p>Connect to a wallet to follow</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <p style={{ fontSize: '16px', fontWeight: 'bold', padding: '0', margin: '0' }}>
+              Connect to a wallet to follow
+            </p>
             {connectors.map((connector) => (
-              <button key={connector.uid} onClick={() => connect({ connector })}>
+              <button
+                key={connector.uid}
+                onClick={() => connect({ connector })}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  border: '1px solid #000',
+                  cursor: 'pointer',
+                }}
+              >
+                {connector.icon && (
+                  <img src={connector.icon} alt={connector.name} style={{ width: '20px', height: '20px' }} />
+                )}
                 {connector.name}
               </button>
             ))}

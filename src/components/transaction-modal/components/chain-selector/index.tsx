@@ -1,17 +1,18 @@
+import clsx from 'clsx'
+import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
 import { useState, useEffect } from 'react'
+import Check from '../../../icons/ui/Check'
+import { useTransactions } from '../../../../context/transactionContext'
 import { ListRecordContracts } from '../../../../constants/contracts'
 import { Chain, ChainIcons, chains } from '../../../../constants/chains'
-import { EFPActionType, useTransactions } from '../../../../context/transactionContext'
+import { EFPActionType } from '../../../../types/transactions'
 import './ChainSelector.css'
-import clsx from 'clsx'
-import Check from '../../../icons/ui/Check'
-import { base } from 'viem/chains'
 
 const ChainSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [currSelectedChain, setCurrSelectedChain] = useState<Chain | undefined>(base)
-  const { setSelectedChainId, selectedChainId, pendingTxs, setPendingTxs, setTxModalOpen, nonce } = useTransactions()
+  const { setSelectedChainId, selectedChainId, pendingTxs, setPendingTxs, nonce, resetTransactions } = useTransactions()
 
   useEffect(() => {
     if (selectedChainId) setIsOpen(false)
@@ -20,39 +21,40 @@ const ChainSelector = () => {
 
   return (
     <div className="chain-selector-container" style={{ display: isOpen ? 'flex' : 'none' }}>
-      <div className="chain-selector-title-container">
-        <p className="chain-selector-title">Select Chain</p>
-        <button className="chain-selector-close-button" onClick={() => setIsOpen(false)}>
-          X
-        </button>
-      </div>
-      <div className="chain-selector-options-container">
-        {chains.map((chain) => {
-          const Icon = ChainIcons[chain.id]
+      <div className="chain-selector-content-container">
+        <div className="chain-selector-title-container">
+          <p className="chain-selector-title">Select Chain</p>
+          <p className="chain-selector-subtitle">Select the chain you want to perform the action on.</p>
+          <p className="chain-selector-subtitle">You can always change this later</p>
+        </div>
+        <div className="chain-selector-options-container">
+          {chains.map((chain) => {
+            const Icon = ChainIcons[chain.id]
 
-          return (
-            <button
-              className={clsx('chain-selector-option', {
-                'chain-selector-option-selected': currSelectedChain?.id === chain.id,
-              })}
-              key={chain.id}
-              onClick={() => setCurrSelectedChain(chain)}
-            >
-              <div className="chain-selector-option-title-container">
-                <Icon height={24} width={24} />
-                <p>{chain.name}</p>
-              </div>
-              {currSelectedChain?.id === chain.id && <Check height={20} width={20} color="green" />}
-            </button>
-          )
-        })}
+            return (
+              <button
+                className={clsx('chain-selector-option', {
+                  'chain-selector-option-selected': currSelectedChain?.id === chain.id,
+                })}
+                key={chain.id}
+                onClick={() => setCurrSelectedChain(chain)}
+              >
+                <div className="chain-selector-option-title-container">
+                  <Icon height={24} width={24} />
+                  <p>{chain.name}</p>
+                </div>
+                {currSelectedChain?.id === chain.id && <Check height={20} width={20} color="green" />}
+              </button>
+            )
+          })}
+        </div>
       </div>
-      <div className="chain-selector-buttons-container">
-        <button className="cancel-button" onClick={() => setTxModalOpen(false)}>
+      <div className="transaction-modal-buttons-container">
+        <button className="transaction-modal-cancel-button" onClick={resetTransactions}>
           Cancel
         </button>
         <button
-          className="confirm-button"
+          className="transaction-modal-confirm-button"
           onClick={() => {
             if (!currSelectedChain || !nonce) return
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { useFollowingState } from './useFollowingState'
 import { Address } from 'ethereum-identity-kit'
+import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { formatListOpsTransaction, getListOpData } from '../utils/list-ops'
 

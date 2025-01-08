@@ -2,7 +2,7 @@ import { Address, encodePacked, Hex, toHex } from 'viem'
 import { efpListRecordsAbi } from '../constants/abi'
 import { coreEfpContracts } from '../constants/contracts'
 import { ListRecordContracts } from '../constants/contracts'
-import { EFPActionType, TransactionType } from '../context/transactionContext'
+import { EFPActionType, TransactionType } from '../types/transactions'
 
 type ListOpType = {
   opcode: number
