@@ -1,5 +1,5 @@
+import { Address } from 'viem'
 import { useMemo } from 'react'
-import { Address } from 'ethereum-identity-kit'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { formatListOpsTransaction, getListOpData } from '../utils/list-ops'

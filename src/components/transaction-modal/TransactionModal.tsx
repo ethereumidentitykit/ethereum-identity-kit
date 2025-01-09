@@ -1,11 +1,11 @@
 import clsx from 'clsx'
 import { useTransactions } from '../../context/transactionContext'
+import Cross from '../icons/ui/Cross'
 import ChainSelector from './components/chain-selector'
 import TransactionItem from './components/transaction-item'
 import { TransactionType } from '../../types/transactions'
 import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
-import Cross from '../icons/ui/Cross'
 
 /**
  * Follower State Tag - displays the relation of address to connectedAddress/list
