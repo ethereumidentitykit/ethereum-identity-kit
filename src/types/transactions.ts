@@ -15,3 +15,12 @@ export type TransactionType = {
   args: any[]
   hash?: Hex
 }
+
+export type SubmitButtonText =
+  | 'Switch Chain'
+  | 'Initiate'
+  | 'Pending...'
+  | 'Re-Initiate'
+  | 'Indexing...'
+  | 'Finish'
+  | 'Next'

@@ -35,11 +35,25 @@
   border: 3px solid transparent;
 }
 
+.transaction-modal-container button:hover {
+  opacity: 0.8;
+}
+
+.transaction-modal-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .transaction-modal-close-button {
   position: absolute;
   top: 16px;
   right: 16px;
   cursor: pointer;
+  z-index: 10;
+}
+
+.transaction-modal-close-button:hover {
+  opacity: 0.6;
 }
 
 .transaction-modal-transactions-container {

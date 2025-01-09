@@ -18,6 +18,11 @@
   transform: scale(1.1);
 }
 
+.follow-button:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
 .follow-button-follow {
   background: linear-gradient(to right, #ffe066 0%, #ffe066 30%, #fff981 75%, #ffafde 100%);
   text-align: center;
@@ -32,14 +37,14 @@
   transition: all 0.3s;
 }
 
-.follow-button-following-pending {
+.follow-button-pending {
   background:
     linear-gradient(#fafafa, #fafafa) padding-box,
     linear-gradient(135deg, #faf35f, #ffbce3) border-box;
   border: 3px solid transparent;
 }
 
-.follow-button-following-pending:hover {
+.follow-button-pending:hover {
   border: none;
   background: none;
   background-color: #d0d0d0;

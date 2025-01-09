@@ -81,12 +81,49 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
       setNonce(slot)
     }
 
-    setPendingTxs([])
-    setTxModalOpen(false)
-    setCurrentTxIndex(undefined)
+    const storedPendingTxs = JSON.parse(
+      localStorage.getItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`) || '[]'
+    ) as TransactionType[]
+
+    if (storedPendingTxs.length > 0) {
+      const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
+
+      setPendingTxs(storedPendingTxs)
+      setTxModalOpen(true)
+      setCurrentTxIndex(incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex)
+    } else {
+      setPendingTxs([])
+      setTxModalOpen(false)
+      setCurrentTxIndex(undefined)
+    }
 
     getListDetails()
   }, [connectedAddress, lists?.primary_list])
+
+  useEffect(() => {
+    if (!connectedAddress) return
+
+    if (pendingTxs.length === 0) {
+      localStorage.removeItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`)
+      return
+    }
+
+    const transformPendingTxs = pendingTxs.map((tx) => {
+      const args = tx.args
+      if (tx.id === EFPActionType.UpdateEFPList) args[0] = (args[0] as bigint).toString()
+      if (tx.id === EFPActionType.CreateEFPList) args[4] = (args[4] as bigint).toString()
+
+      return {
+        ...tx,
+        args,
+      }
+    })
+
+    localStorage.setItem(
+      `eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`,
+      JSON.stringify(transformPendingTxs)
+    )
+  }, [pendingTxs])
 
   const prepareMintTransaction = (mintNonce: bigint) => {
     const mintTransaction = {

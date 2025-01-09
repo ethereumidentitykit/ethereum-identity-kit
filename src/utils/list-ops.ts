@@ -37,10 +37,12 @@ export const getListOpData = (address: Address, tag?: string) => {
 
 export const getListOpFromTransaction = (transaction: TransactionType) => {
   const { args } = transaction
+  const opcode = args[args.length - 1].slice(4, 6)
+  const data = args[args.length - 1]
 
   const listOp = {
-    opcode: args[0][1],
-    data: args[0][4],
+    opcode,
+    data,
   }
 
   return listOp

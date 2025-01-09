@@ -1,27 +1,10 @@
-import { Address } from 'viem'
 import { useMemo } from 'react'
+import { Address, Hex } from 'viem'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
-import { formatListOpsTransaction, getListOpData } from '../utils/list-ops'
-
-export type FollowButtonState = 'Block' | 'Blocked' | 'Follow' | 'Following' | 'Mute' | 'Muted'
-// | 'Pending Following'
-// | 'Pending Block'
-// | 'Pending Mute'
-// | 'Subscribe'
-// | 'Subscribed'
-// | 'Unblock'
-// | 'Unfollow'
-// | 'Unmute'
-// | 'Unsubscribe'
-
-type FollowButtonText = 'Block' | 'Block Back' | 'Mute Back' | 'Blocked' | 'Follow' | 'Following' | 'Mute' | 'Muted'
-// | 'Subscribe'
-// | 'Subscribed'
-// | 'Unblock'
-// | 'Unfollow'
-// | 'Unmute'
-// | 'Unsubscribe'
+import { formatListOpsTransaction, getListOpData, getListOpFromTransaction } from '../utils/list-ops'
+import { FollowingState } from '../types'
+import { EFPActionType } from '../types/transactions'
 
 export const useFollowButton = ({
   lookupAddress,
@@ -30,15 +13,35 @@ export const useFollowButton = ({
   lookupAddress: Address
   connectedAddress?: Address
 }) => {
-  const { addTransaction, nonce, selectedChainId, listsLoading, lists } = useTransactions()
+  const { addTransaction, nonce, selectedChainId, listsLoading, lists, pendingTxs, setTxModalOpen } = useTransactions()
   const { state: followState, isLoading } = useFollowingState({
     lookupAddressOrName: lookupAddress,
     connectedAddress,
     list: lists?.primary_list,
   })
 
-  const buttonState = useMemo<FollowButtonState>(() => {
+  // Check if the address is already in a pending transaction
+  const isPending = useMemo(() => {
+    if (!(connectedAddress && lists?.primary_list && pendingTxs.length > 0)) return false
+
+    const pendingUpdateTransaction = pendingTxs
+      .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
+      .flatMap((tx) => {
+        const listOp = getListOpFromTransaction(tx)
+        return listOp.data.map((data: Hex) => `0x${data.slice(10, 50).toLowerCase()}`)
+      })
+
+    if (pendingUpdateTransaction.length > 0) {
+      return pendingUpdateTransaction.includes(lookupAddress.toLowerCase())
+    }
+
+    return false
+  }, [pendingTxs])
+
+  const buttonState = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
+
+    if (isPending) return 'Pending'
 
     switch (followState) {
       case 'follows':
@@ -50,10 +53,12 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress])
+  }, [followState, connectedAddress, isPending])
 
-  const buttonText = useMemo<FollowButtonText>(() => {
+  const buttonText = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
+
+    if (isPending) return 'Pending'
 
     switch (followState) {
       case 'follows':
@@ -65,10 +70,15 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress])
+  }, [followState, connectedAddress, isPending])
 
   const handleAction = () => {
     if (!connectedAddress) return
+
+    if (isPending) {
+      setTxModalOpen(true)
+      return
+    }
 
     const listOps = []
 

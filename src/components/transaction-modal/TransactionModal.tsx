@@ -8,11 +8,11 @@ import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
 
 /**
- * Follower State Tag - displays the relation of address to connectedAddress/list
+ * Transaction Modal - allows user to initiate transactions on-chain
  *
  * @param props - HTML div element props
  *
- * @returns FollowerTag component
+ * @returns TransactionModal component
  */
 const TransactionModal: React.FC<TransactionModalProps> = ({ className, ...props }) => {
   const { txModalOpen, setTxModalOpen, pendingTxs, currentTxIndex } = useTransactions()

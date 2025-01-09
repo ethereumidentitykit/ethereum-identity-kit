@@ -1,41 +1,21 @@
-import { THEMES } from '.'
-import { FollowButtonState } from '../hooks/useFollowButton'
+import { FollowingState } from '../types'
 
-export const FOLLOW_BUTTON_STYLES: Record<FollowButtonState, string> = {
+export const FOLLOW_BUTTON_STYLES: Record<FollowingState, string> = {
   Follow: 'follow-button-follow',
   Following: 'follow-button-following',
   Block: 'follow-button-block',
   Blocked: 'follow-button-blocked',
   Mute: 'follow-button-mute',
   Muted: 'follow-button-muted',
+  Pending: 'follow-button-pending',
 }
 
-export const FOLLOW_BUTTON_COOL_EMOJI: Record<
-  FollowButtonState,
-  Record<(typeof THEMES)[number], string | undefined>
-> = {
-  Follow: {
-    light: '/assets/logo.png',
-    dark: '/assets/logo.png',
-  },
-  Following: {
-    light: '/assets/icons/unfollow-emoji.png',
-    dark: '/assets/icons/unfollow-emoji.png',
-  },
-  Block: {
-    light: '/assets/icons/block-emoji.png',
-    dark: '/assets/icons/block-emoji.png',
-  },
-  Blocked: {
-    light: undefined,
-    dark: undefined,
-  },
-  Mute: {
-    light: '/assets/icons/mute-emoji.png',
-    dark: '/assets/icons/mute-emoji.png',
-  },
-  Muted: {
-    light: undefined,
-    dark: undefined,
-  },
+export const FOLLOW_BUTTON_COOL_EMOJI: Record<FollowingState, string | undefined> = {
+  Follow: '/assets/logo-efp.png',
+  Following: '/assets/icons/unfollow.png',
+  Block: '/assets/icons/block.png',
+  Blocked: undefined,
+  Mute: '/assets/icons/mute.png',
+  Muted: undefined,
+  Pending: undefined,
 }

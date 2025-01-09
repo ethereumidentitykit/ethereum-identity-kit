@@ -12,13 +12,12 @@ interface Particle {
   top: number
 }
 
-export const useCoolMode = (imageUrl: string, disabled?: boolean, isLoading?: boolean) => {
-  const ref = useRef<HTMLDivElement | HTMLButtonElement>(null)
-  const resolvedImageUrl = imageUrl
+export const useCoolMode = (imageUrl?: string, isLoading?: boolean, disabled?: boolean) => {
+  const ref = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (ref.current && !isLoading && resolvedImageUrl) return makeElementCool(ref.current, resolvedImageUrl, !!disabled)
-  }, [resolvedImageUrl, isLoading, disabled])
+    if (ref.current && !isLoading && imageUrl) return makeElementCool(ref.current, imageUrl, !!disabled)
+  }, [imageUrl, isLoading, disabled])
 
   return ref
 }

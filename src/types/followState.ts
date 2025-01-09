@@ -23,35 +23,4 @@ export interface FollowStatusResponse {
   }
 }
 
-export type FollowingState =
-  | 'Block'
-  | 'Blocked'
-  | 'Follow'
-  | 'Following'
-  | 'Mute'
-  | 'Muted'
-  | 'Pending Following'
-  | 'Pending Block'
-  | 'Pending Mute'
-  // | 'Subscribe'
-  // | 'Subscribed'
-  | 'Unblock'
-  | 'Unfollow'
-  | 'Unmute'
-// | 'Unsubscribe'
-
-export type FollowButtonText =
-  | 'Block'
-  | 'Block Back'
-  | 'Mute Back'
-  | 'Blocked'
-  | 'Follow'
-  | 'Following'
-  | 'Mute'
-  | 'Muted'
-  // | 'Subscribe'
-  // | 'Subscribed'
-  | 'Unblock'
-  | 'Unfollow'
-  | 'Unmute'
-// | 'Unsubscribe'
+export type FollowingState = 'Block' | 'Blocked' | 'Follow' | 'Following' | 'Mute' | 'Muted' | 'Pending'

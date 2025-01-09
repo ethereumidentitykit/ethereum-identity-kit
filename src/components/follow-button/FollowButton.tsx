@@ -1,10 +1,11 @@
 import clsx from 'clsx'
+import { useCoolMode } from '../../hooks/useCoolMode'
+import { useFollowButton } from '../../hooks/useFollowButton'
 import FollowIcon from '../icons/ui/FollowIcon'
 import LoadingCell from '../loading-cell/LoadingCell'
+import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'
 import './FollowButton.css'
-import { useFollowButton } from '../../hooks/useFollowButton'
-import { FOLLOW_BUTTON_STYLES } from '../../constants/follow-button'
 
 /**
  * Follower State Tag - displays the relation of address to connectedAddress/list
@@ -36,10 +37,13 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     connectedAddress,
   })
 
+  const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)
+
   return isLoading ? (
     customLoader || <LoadingCell height="39px" width="110px" radius="10px" />
   ) : (
     <button
+      ref={buttonRef}
       className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], className)}
       onClick={handleAction}
       disabled={disabled}

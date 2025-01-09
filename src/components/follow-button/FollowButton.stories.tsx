@@ -57,7 +57,7 @@ const FollowButtonWrapper = (args: FollowButtonProps) => {
         )}
       </div>
       <FollowButton
-        lookupAddress="0x983110309620d911731ac0932219af06091b6744"
+        lookupAddress={args.lookupAddress}
         connectedAddress={connectedAddress || args.connectedAddress}
         disabled={!connectedAddress}
       />
