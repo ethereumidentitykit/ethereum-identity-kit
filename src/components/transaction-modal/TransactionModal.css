@@ -82,3 +82,23 @@
   font-size: 20px;
   font-weight: 800;
 }
+
+.transaction-modal-loading-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 120px auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, #ffe066 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #ffe066);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: loading-spinner-animation 1s infinite linear;
+}
+
+@keyframes loading-spinner-animation {
+  100% {
+    transform: rotate(1turn);
+  }
+}

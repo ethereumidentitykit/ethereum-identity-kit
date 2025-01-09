@@ -15,7 +15,7 @@ import './TransactionModal.css'
  * @returns TransactionModal component
  */
 const TransactionModal: React.FC<TransactionModalProps> = ({ className, ...props }) => {
-  const { txModalOpen, setTxModalOpen, pendingTxs, currentTxIndex } = useTransactions()
+  const { txModalOpen, setTxModalOpen, pendingTxs, currentTxIndex, listsLoading } = useTransactions()
 
   return (
     <div
@@ -24,18 +24,24 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ className, ...props
       onClick={() => setTxModalOpen(false)}
     >
       <div className={clsx('transaction-modal-container', className)} onClick={(e) => e.stopPropagation()} {...props}>
-        <div className="transaction-modal-close-button" onClick={() => setTxModalOpen(false)}>
-          <Cross height={16} width={16} color="black" />
-        </div>
-        <ChainSelector />
-        <div
-          className="transaction-modal-transactions-container"
-          style={{ transform: `translatex(${-(currentTxIndex || 0) * 432}px)` }}
-        >
-          {pendingTxs.map((tx: TransactionType, index: number) => (
-            <TransactionItem key={index} id={index} transaction={tx} />
-          ))}
-        </div>
+        {listsLoading ? (
+          <div className="transaction-modal-loading-spinner" />
+        ) : (
+          <>
+            <div className="transaction-modal-close-button" onClick={() => setTxModalOpen(false)}>
+              <Cross height={16} width={16} color="black" />
+            </div>
+            <ChainSelector />
+            <div
+              className="transaction-modal-transactions-container"
+              style={{ transform: `translatex(${-(currentTxIndex || 0) * 432}px)` }}
+            >
+              {pendingTxs.map((tx: TransactionType, index: number) => (
+                <TransactionItem key={index} id={index} transaction={tx} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

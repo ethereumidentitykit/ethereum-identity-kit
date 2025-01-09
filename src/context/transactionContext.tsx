@@ -47,6 +47,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
 
+  const [listDetailsLoading, setListDetailsLoading] = useState(false)
   const [nonce, setNonce] = useState<bigint | undefined>(undefined)
   const [selectedChainId, setSelectedChainId] = useState<number | undefined>(undefined)
 
@@ -68,18 +69,22 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     staleTime: Infinity,
   })
 
-  useEffect(() => {
-    const getListDetails = async () => {
-      if (!lists?.primary_list) {
-        setSelectedChainId(undefined)
-        setNonce(undefined)
-        return
-      }
-
+  const getListDetails = async () => {
+    if (!lists?.primary_list) {
+      setSelectedChainId(undefined)
+      setNonce(undefined)
+    } else {
       const { chainId, slot } = await getListStorageLocation(lists?.primary_list)
       setSelectedChainId(chainId)
       setNonce(slot)
     }
+
+    setListDetailsLoading(false)
+  }
+
+  useEffect(() => {
+    setListDetailsLoading(true)
+    getListDetails()
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`) || '[]'
@@ -96,8 +101,6 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
       setTxModalOpen(false)
       setCurrentTxIndex(undefined)
     }
-
-    getListDetails()
   }, [connectedAddress, lists?.primary_list])
 
   useEffect(() => {
@@ -216,7 +219,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     pendingTxs,
     setPendingTxs,
     lists,
-    listsLoading: listsLoading || listsIsRefetching,
+    listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
     nonce,
     addTransaction,
     currentTxIndex,
