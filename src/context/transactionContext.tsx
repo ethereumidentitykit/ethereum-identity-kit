@@ -11,16 +11,16 @@ import {
   SetStateAction,
 } from 'react'
 import { useAccount } from 'wagmi'
-import { encodePacked } from 'viem'
+import { encodePacked, fromHex } from 'viem'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import * as abi from '../constants/abi'
-import { DEFAULT_CHAIN } from '../constants/chains'
-import { ProfileListsResponse } from '../types'
-import { coreEfpContracts } from '../constants/contracts'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
 import { generateListStorageLocationSlot } from '../utils/generate-slot'
+import * as abi from '../constants/abi'
+import { DEFAULT_CHAIN } from '../constants/chains'
+import { coreEfpContracts } from '../constants/contracts'
+import { ProfileListsResponse } from '../types'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
 
@@ -84,19 +84,31 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setListDetailsLoading(true)
-    getListDetails()
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`) || '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs.length > 0) {
+      const mintTx = storedPendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)
+      if (mintTx) {
+        const storedNonce = BigInt(`0x${mintTx.args[0].slice(-64)}`)
+        const storedChainId = fromHex(`0x${mintTx.args[0].slice(64, 70)}`, 'number')
+
+        if (storedNonce !== nonce) setNonce(storedNonce)
+        if (storedChainId !== selectedChainId) setSelectedChainId(storedChainId)
+        setListDetailsLoading(false)
+      } else {
+        getListDetails()
+      }
+
       const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
 
-      setPendingTxs(storedPendingTxs)
       setTxModalOpen(true)
+      setPendingTxs(storedPendingTxs)
       setCurrentTxIndex(incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex)
     } else {
+      getListDetails()
       setPendingTxs([])
       setTxModalOpen(false)
       setCurrentTxIndex(undefined)
@@ -114,7 +126,6 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     const transformPendingTxs = pendingTxs.map((tx) => {
       const args = tx.args
       if (tx.id === EFPActionType.UpdateEFPList) args[0] = (args[0] as bigint).toString()
-      if (tx.id === EFPActionType.CreateEFPList) args[4] = (args[4] as bigint).toString()
 
       return {
         ...tx,

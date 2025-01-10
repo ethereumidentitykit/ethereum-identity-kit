@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Check from '../../../icons/ui/Check'
 import { useTransactions } from '../../../../context/transactionContext'
 import { ListRecordContracts } from '../../../../constants/contracts'
@@ -18,6 +18,30 @@ const ChainSelector = () => {
     if (selectedChainId) setIsOpen(false)
     else setIsOpen(true)
   }, [selectedChainId])
+
+  const onConfirm = useCallback(() => {
+    if (!currSelectedChain || !nonce) return
+
+    setIsOpen(false)
+    setSelectedChainId(currSelectedChain?.id)
+
+    const newPendingTxs = pendingTxs.map((tx) => ({
+      ...tx,
+      address: tx.id === EFPActionType.UpdateEFPList ? ListRecordContracts[currSelectedChain.id] : tx.address,
+      chainId: tx.id === EFPActionType.UpdateEFPList ? currSelectedChain.id : tx.chainId,
+      args:
+        tx.id === EFPActionType.CreateEFPList
+          ? [
+            encodePacked(
+              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+            ),
+          ]
+          : tx.args,
+    }))
+
+    setPendingTxs(newPendingTxs)
+  }, [currSelectedChain, nonce])
 
   return (
     <div className="chain-selector-container" style={{ display: isOpen ? 'flex' : 'none' }}>
@@ -53,33 +77,7 @@ const ChainSelector = () => {
         <button className="transaction-modal-cancel-button" onClick={resetTransactions}>
           Cancel
         </button>
-        <button
-          className="transaction-modal-confirm-button"
-          onClick={() => {
-            if (!currSelectedChain || !nonce) return
-
-            setIsOpen(false)
-            setCurrSelectedChain(undefined)
-            setSelectedChainId(currSelectedChain?.id)
-
-            const newPendingTxs = pendingTxs.map((tx) => ({
-              ...tx,
-              address: tx.id === EFPActionType.UpdateEFPList ? ListRecordContracts[currSelectedChain.id] : tx.address,
-              chainId: tx.id === EFPActionType.UpdateEFPList ? currSelectedChain.id : tx.chainId,
-              args:
-                tx.id === EFPActionType.CreateEFPList
-                  ? [
-                      encodePacked(
-                        ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-                        [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-                      ),
-                    ]
-                  : tx.args,
-            }))
-
-            setPendingTxs(newPendingTxs)
-          }}
-        >
+        <button className="transaction-modal-confirm-button" onClick={onConfirm}>
           Confirm
         </button>
       </div>

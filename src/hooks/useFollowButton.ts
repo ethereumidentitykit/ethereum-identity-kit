@@ -22,7 +22,7 @@ export const useFollowButton = ({
 
   // Check if the address is already in a pending transaction
   const isPending = useMemo(() => {
-    if (!(connectedAddress && lists?.primary_list && pendingTxs.length > 0)) return false
+    if (!(connectedAddress && pendingTxs.length > 0)) return false
 
     const pendingUpdateTransaction = pendingTxs
       .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
