@@ -2,7 +2,7 @@ import { Address } from 'viem'
 import { useMemo } from 'react'
 import { useTransactions } from '../context/transactionContext'
 import { useFollowingState } from './useFollowingState'
-import { formatListOpsTransaction, getListOpData, getPendingTxsAddresses } from '../utils'
+import { formatListOpsTransaction, getListOpData, getPendingTxsAddresses } from '../utils/transactions'
 import { FollowingState } from '../types'
 
 export const useFollowButton = ({

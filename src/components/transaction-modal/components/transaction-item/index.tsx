@@ -5,7 +5,7 @@ import Check from '../../../icons/ui/Check'
 import Cross from '../../../icons/ui/Cross'
 import Clock from '../../../icons/ui/Clock'
 import Wallet from '../../../icons/ui/Wallet'
-import { TRANSACTION_TITLES } from '../../../../constants'
+import { TRANSACTION_TITLES } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
 

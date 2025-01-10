@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useWalletClient, useWaitForTransactionReceipt } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
-import { ChainIcons, chains } from '../constants'
+import { ChainIcons, chains } from '../constants/chains'
 import { EFPActionType, SubmitButtonText, TransactionType } from '../types'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
