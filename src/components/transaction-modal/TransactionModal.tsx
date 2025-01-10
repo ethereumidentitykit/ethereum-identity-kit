@@ -1,14 +1,16 @@
 import clsx from 'clsx'
-import { useTransactions } from '../../context/transactionContext'
+import { useTransactions } from '../../context'
 import Cross from '../icons/ui/Cross'
 import ChainSelector from './components/chain-selector'
 import TransactionItem from './components/transaction-item'
-import { TransactionType } from '../../types/transactions'
+import { TransactionType } from '../../types'
 import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
 
 /**
  * Transaction Modal - allows user to initiate transactions on-chain
+ *
+ * @param className - additional class name for the transaction modal
  *
  * @param props - HTML div element props
  *

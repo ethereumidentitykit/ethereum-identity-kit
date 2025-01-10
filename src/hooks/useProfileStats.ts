@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Address } from '../types/address'
-import { ProfileListType, StatsResponse } from '../types/profile'
-import { fetchProfileStats } from '../utils/api/fetch-profile-stats'
+import { fetchProfileStats } from '../utils'
+import { ProfileListType, StatsResponse, Address } from '../types'
 
 interface UseProfileStatsProps {
   addressOrName: Address | string

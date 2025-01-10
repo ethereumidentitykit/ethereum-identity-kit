@@ -2,10 +2,10 @@ import { formatEther } from 'viem'
 import { estimateContractGas } from 'viem/actions'
 import { useEffect, useMemo, useState } from 'react'
 import { useWalletClient, useWaitForTransactionReceipt } from 'wagmi'
-import useChain from './useChain'
-import { useTransactions } from '../context/transactionContext'
-import { ChainIcons, chains } from '../constants/chains'
-import { EFPActionType, SubmitButtonText, TransactionType } from '../types/transactions'
+import { useChain } from './useChain'
+import { useTransactions } from '../context'
+import { ChainIcons, chains } from '../constants'
+import { EFPActionType, SubmitButtonText, TransactionType } from '../types'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -107,7 +107,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   const transactionDetails = useMemo(() => {
     return {
-      list: `#${lists?.primary_list}` || '# -',
+      list: lists?.primary_list ? `#${lists?.primary_list}` : '# -',
       changes:
         transaction.id === EFPActionType.CreateEFPList
           ? 'Mint List'

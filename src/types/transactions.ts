@@ -24,3 +24,15 @@ export type SubmitButtonText =
   | 'Indexing...'
   | 'Finish'
   | 'Next'
+
+export type ListOpType = {
+  opcode: number
+  data: Hex
+}
+
+export type GetListOpsTransactionProps = {
+  nonce?: bigint
+  chainId?: number
+  listOps: ListOpType[]
+  connectedAddress: Address
+}

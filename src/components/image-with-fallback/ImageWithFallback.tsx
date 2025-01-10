@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import './ImageWithFallback.css'
 import type { ImageWithFallbackProps } from './ImageWithFallback.types.ts'
+import './ImageWithFallback.css'
 
 /**
  * ImageWithFallback component - displays an image with a fallback

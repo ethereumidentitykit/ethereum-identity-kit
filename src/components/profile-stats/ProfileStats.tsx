@@ -1,9 +1,9 @@
 import React from 'react'
 import { useProfileStats } from '../../hooks/useProfileStats'
-import { ProfileStatType } from '../../types/profile'
+import LoadingCell from '../loading-cell/LoadingCell'
 import { formatNumber } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
-import LoadingCell from '../loading-cell/LoadingCell'
+import { ProfileStatType } from '../../types/profile'
 import type { ProfileStatsProps } from './ProfileStats.types'
 import './ProfileStats.css'
 

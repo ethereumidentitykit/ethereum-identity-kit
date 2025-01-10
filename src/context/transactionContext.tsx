@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Dispatch,
   useState,
@@ -11,15 +9,17 @@ import {
   SetStateAction,
 } from 'react'
 import { useAccount } from 'wagmi'
-import { encodePacked, fromHex } from 'viem'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
-import { generateListStorageLocationSlot } from '../utils/generate-slot'
-import * as abi from '../constants/abi'
-import { DEFAULT_CHAIN } from '../constants/chains'
-import { coreEfpContracts } from '../constants/contracts'
+import {
+  getMintTxChainId,
+  getMintTxNonce,
+  prepareMintTransaction,
+  transformTxsForLocalStorage,
+} from '../utils/transactions'
 import { ProfileListsResponse } from '../types'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
@@ -82,6 +82,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     setListDetailsLoading(false)
   }
 
+  // Load connected user's details and existing pending transactions
   useEffect(() => {
     setListDetailsLoading(true)
 
@@ -90,10 +91,12 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     ) as TransactionType[]
 
     if (storedPendingTxs.length > 0) {
+      // Find the mint transaction and extract the nonce and chainId
       const mintTx = storedPendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)
+
       if (mintTx) {
-        const storedNonce = BigInt(`0x${mintTx.args[0].slice(-64)}`)
-        const storedChainId = fromHex(`0x${mintTx.args[0].slice(64, 70)}`, 'number')
+        const storedNonce = getMintTxNonce(mintTx)
+        const storedChainId = getMintTxChainId(mintTx)
 
         if (storedNonce !== nonce) setNonce(storedNonce)
         if (storedChainId !== selectedChainId) setSelectedChainId(storedChainId)
@@ -102,6 +105,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
         getListDetails()
       }
 
+      // Find the index of the first incomplete transaction to set it as the current transaction
       const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
 
       setTxModalOpen(true)
@@ -115,6 +119,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [connectedAddress, lists?.primary_list])
 
+  // Save pending transactions to local storage
   useEffect(() => {
     if (!connectedAddress) return
 
@@ -123,49 +128,22 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
       return
     }
 
-    const transformPendingTxs = pendingTxs.map((tx) => {
-      const args = tx.args
-      if (tx.id === EFPActionType.UpdateEFPList) args[0] = (args[0] as bigint).toString()
-
-      return {
-        ...tx,
-        args,
-      }
-    })
-
+    const transformPendingTxs = transformTxsForLocalStorage(pendingTxs)
     localStorage.setItem(
       `eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`,
       JSON.stringify(transformPendingTxs)
     )
   }, [pendingTxs])
 
-  const prepareMintTransaction = (mintNonce: bigint) => {
-    const mintTransaction = {
-      id: EFPActionType.CreateEFPList,
-      chainId: DEFAULT_CHAIN.id,
-      address: coreEfpContracts.EFPListMinter,
-      abi: abi.efpListMinterAbi,
-      functionName: 'mintPrimaryListNoMeta',
-      args: [
-        encodePacked(
-          ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-          [1, 1, BigInt(DEFAULT_CHAIN.id), coreEfpContracts.EFPListRecords, mintNonce]
-        ),
-      ],
-    }
-
-    return mintTransaction
-  }
-
   const addTransaction = (tx: TransactionType) => {
     const newPendingTxs = [...pendingTxs]
 
-    // Add new transaction and mint if user has no list
+    // Add new transaction and mint if user has no list and there is no pending transaction
     if (newPendingTxs.length === 0) {
       newPendingTxs.push(tx)
 
       if (!lists?.primary_list) {
-        const mintNonce = nonce || generateListStorageLocationSlot()
+        const mintNonce = nonce || generateSlot()
 
         if (mintNonce !== nonce) {
           setNonce(mintNonce)
@@ -177,7 +155,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
         newPendingTxs.push(mintTransaction)
       }
     } else {
-      // Update the transaction if it exists and is not yet complete
+      // Update the UpdateEFPList transaction if it exists and is not yet complete
       const pendingUpdateTransaction = newPendingTxs.findIndex(
         (tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash
       )
@@ -208,9 +186,12 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   const goToNextTransaction = () => {
     const newTxIndex = (currentTxIndex || 0) + 1
     if (newTxIndex === pendingTxs.length) {
-      setTxModalOpen(false)
+      // Refetch lists if user has minted a new one
+      if (pendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)) refetchLists()
+
       resetTransactions()
-      if (!lists?.primary_list) refetchLists()
+
+      // Refetch follow button and profile data
       queryClient.invalidateQueries({ queryKey: ['followingState'] })
       queryClient.refetchQueries({ queryKey: ['profile'] })
     } else {
@@ -231,13 +212,13 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     setPendingTxs,
     lists,
     listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
+    selectedChainId,
+    setSelectedChainId,
     nonce,
     addTransaction,
     currentTxIndex,
     goToNextTransaction,
     resetTransactions,
-    selectedChainId,
-    setSelectedChainId,
   }
 
   return <TransactionContext.Provider value={value}>{children}</TransactionContext.Provider>

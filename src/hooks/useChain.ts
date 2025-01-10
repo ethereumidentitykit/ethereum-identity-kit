@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useChainId, useChains, useSwitchChain, useWalletClient } from 'wagmi'
 
-const useChain = () => {
+export const useChain = () => {
   const { switchChain } = useSwitchChain()
   const initialCurrentChainId = useChainId()
   const { data: walletClient } = useWalletClient()
@@ -39,5 +39,3 @@ const useChain = () => {
     setCurrentChainId,
   }
 }
-
-export default useChain

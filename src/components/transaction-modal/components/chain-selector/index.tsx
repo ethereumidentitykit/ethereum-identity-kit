@@ -2,11 +2,10 @@ import clsx from 'clsx'
 import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
 import { useState, useEffect, useCallback } from 'react'
+import { useTransactions } from '../../../../context'
 import Check from '../../../icons/ui/Check'
-import { useTransactions } from '../../../../context/transactionContext'
-import { ListRecordContracts } from '../../../../constants/contracts'
-import { Chain, ChainIcons, chains } from '../../../../constants/chains'
-import { EFPActionType } from '../../../../types/transactions'
+import { Chain, ChainIcons, chains, ListRecordContracts } from '../../../../constants'
+import { EFPActionType } from '../../../../types'
 import './ChainSelector.css'
 
 const ChainSelector = () => {
@@ -32,11 +31,11 @@ const ChainSelector = () => {
       args:
         tx.id === EFPActionType.CreateEFPList
           ? [
-            encodePacked(
-              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-            ),
-          ]
+              encodePacked(
+                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+              ),
+            ]
           : tx.args,
     }))
 

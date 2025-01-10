@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import { useTransactionItem } from '../../../../hooks/useTransactionItem'
+import { useTransactionItem } from '../../../../hooks'
 import Note from '../../../icons/ui/Note'
 import Check from '../../../icons/ui/Check'
 import Cross from '../../../icons/ui/Cross'
 import Clock from '../../../icons/ui/Clock'
 import Wallet from '../../../icons/ui/Wallet'
-import { TRANSACTION_TITLES } from '../../../../constants/transaction'
-import { TransactionType } from '../../../../types/transactions'
+import { TRANSACTION_TITLES } from '../../../../constants'
+import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
 
 interface TransactionItemProps {

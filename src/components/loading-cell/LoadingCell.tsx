@@ -1,7 +1,7 @@
 import React from 'react'
-import './LoadingCell.css'
-import { LoadingCellProps } from './LoadingCell.types'
 import { DEFAULT_LOADING_GRADIENT } from '../../constants'
+import { LoadingCellProps } from './LoadingCell.types'
+import './LoadingCell.css'
 
 /**
  * LoadingCell component - displays a loading cell

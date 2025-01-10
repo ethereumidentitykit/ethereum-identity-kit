@@ -1,10 +1,9 @@
+import { Address } from 'viem'
 import { useMemo } from 'react'
-import { Address, Hex } from 'viem'
-import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
-import { formatListOpsTransaction, getListOpData, getListOpFromTransaction } from '../utils/list-ops'
+import { useFollowingState } from './useFollowingState'
+import { formatListOpsTransaction, getListOpData, getPendingTxsAddresses } from '../utils'
 import { FollowingState } from '../types'
-import { EFPActionType } from '../types/transactions'
 
 export const useFollowButton = ({
   lookupAddress,
@@ -24,15 +23,10 @@ export const useFollowButton = ({
   const isPending = useMemo(() => {
     if (!(connectedAddress && pendingTxs.length > 0)) return false
 
-    const pendingUpdateTransaction = pendingTxs
-      .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
-      .flatMap((tx) => {
-        const listOp = getListOpFromTransaction(tx)
-        return listOp.data.map((data: Hex) => `0x${data.slice(10, 50).toLowerCase()}`)
-      })
+    const pendingAddresses = getPendingTxsAddresses(pendingTxs)
 
-    if (pendingUpdateTransaction.length > 0) {
-      return pendingUpdateTransaction.includes(lookupAddress.toLowerCase())
+    if (pendingAddresses.length > 0) {
+      return pendingAddresses.includes(lookupAddress.toLowerCase())
     }
 
     return false

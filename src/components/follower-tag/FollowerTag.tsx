@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { useFollowerState } from '../../hooks/useFollowerState'
+import LoadingCell from '../loading-cell/LoadingCell'
 import type { FollowerTagProps } from './FollowerTag.types'
 import './FollowerTag.css'
-import LoadingCell from '../loading-cell/LoadingCell'
 
 /**
  * Follower State Tag - displays the relation of address to connectedAddress/list
