@@ -11,16 +11,25 @@
 }
 
 .transaction-modal-container {
-  background-color: white;
   padding: 20px;
   border-radius: 8px;
   width: 400px;
-  height: 300px;
+  height: 280px;
   display: flex;
   gap: 20px;
   overflow: hidden;
   position: relative;
   font-family: 'Inter', sans-serif;
+}
+
+.transaction-modal-dark {
+  background: #333333;
+  color: #fff;
+}
+
+.transaction-modal-light {
+  background: #fff;
+  color: #000;
 }
 
 .transaction-modal-container p {
@@ -68,8 +77,13 @@
   gap: 8px;
 }
 
-.transaction-modal-cancel-button {
+.transaction-modal-light .transaction-modal-cancel-button {
   background-color: #ccc;
+}
+
+.transaction-modal-dark .transaction-modal-cancel-button {
+  background-color: #555555;
+  color: #fff;
 }
 
 .transaction-modal-confirm-button {
@@ -100,5 +114,21 @@
 @keyframes loading-spinner-animation {
   100% {
     transform: rotate(1turn);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .transaction-modal-container {
+    padding: 16px;
+    width: calc(100vw - 32px);
+    height: fit-content;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .transaction-modal-cancel-button,
+  .transaction-modal-confirm-button {
+    width: calc(50vw - 20px);
   }
 }

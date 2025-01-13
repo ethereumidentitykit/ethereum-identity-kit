@@ -12,7 +12,16 @@ export const useFollowButton = ({
   lookupAddress: Address
   connectedAddress?: Address
 }) => {
-  const { addTransaction, nonce, selectedChainId, listsLoading, lists, pendingTxs, setTxModalOpen } = useTransactions()
+  const {
+    lists,
+    nonce,
+    pendingTxs,
+    listsLoading,
+    addTransaction,
+    removeTransaction,
+    selectedChainId,
+    batchTransactions,
+  } = useTransactions()
   const { state: followState, isLoading } = useFollowingState({
     lookupAddressOrName: lookupAddress,
     connectedAddress,
@@ -21,6 +30,7 @@ export const useFollowButton = ({
 
   // Check if the address is already in a pending transaction
   const isPending = useMemo(() => {
+    if (!batchTransactions) return false
     if (!(connectedAddress && pendingTxs.length > 0)) return false
 
     const pendingAddresses = getPendingTxsAddresses(pendingTxs)
@@ -30,7 +40,7 @@ export const useFollowButton = ({
     }
 
     return false
-  }, [pendingTxs])
+  }, [pendingTxs, lookupAddress])
 
   const buttonState = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
@@ -70,7 +80,7 @@ export const useFollowButton = ({
     if (!connectedAddress) return
 
     if (isPending) {
-      setTxModalOpen(true)
+      removeTransaction(lookupAddress)
       return
     }
 

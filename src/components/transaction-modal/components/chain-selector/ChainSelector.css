@@ -1,7 +1,7 @@
 .chain-selector-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
   justify-content: space-between;
   height: 100%;
   width: 100%;
@@ -10,7 +10,7 @@
 .chain-selector-content-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   padding-top: 16px;
 }
 
@@ -48,6 +48,24 @@
   gap: 8px;
 }
 
+.transaction-modal-light .chain-selector-option {
+  background-color: #eeeeee;
+  color: black;
+}
+
+.transaction-modal-dark .chain-selector-option {
+  background-color: #444444;
+  color: white;
+}
+
+.transaction-modal-light .chain-selector-option:hover {
+  background-color: #f0f0f0;
+}
+
+.transaction-modal-dark .chain-selector-option:hover {
+  background-color: #555;
+}
+
 .chain-selector-option-selected {
   border-color: green !important;
 }
@@ -56,8 +74,4 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.chain-selector-option:hover {
-  background-color: #f5f5f5;
 }

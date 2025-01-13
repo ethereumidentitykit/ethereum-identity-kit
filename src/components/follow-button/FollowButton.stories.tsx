@@ -1,18 +1,33 @@
+import { createConfig } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
-import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
+import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
+import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
 import FollowButton from './FollowButton'
-import { config } from '../../constants/wagmi'
 import { FollowButtonProps } from './FollowButton.types'
 import TransactionModal from '../transaction-modal/TransactionModal'
-import { TransactionProvider } from '../../context/transactionContext'
+import { TransactionProvider, useTransactions } from '../../context/transactionContext'
+import { transports } from '../../constants/transports'
+
+const config = createConfig({
+  chains: [mainnet, base, optimism],
+  connectors: [
+    injected(),
+    metaMask(),
+    coinbaseWallet({ appName: 'Ethereum Identity Kit' }),
+    walletConnect({ projectId: 'd4f234136ca6a7efeed7abf93474125b' }),
+  ],
+  transports,
+})
 
 const queryClient = new QueryClient()
 
-const FollowButtonWrapper = (args: FollowButtonProps) => {
+const FollowButtonWrapper = (args: FollowButtonProps & { isDark?: boolean; batchTransactions?: boolean }) => {
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+  const { pendingTxs, setTxModalOpen } = useTransactions()
 
   return (
     <div
@@ -25,7 +40,7 @@ const FollowButtonWrapper = (args: FollowButtonProps) => {
         alignItems: 'center',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
         {connectedAddress ? (
           <div>
             <p>Connected to {connectedAddress}</p>
@@ -78,6 +93,25 @@ const FollowButtonWrapper = (args: FollowButtonProps) => {
             ))}
           </div>
         )}
+        {args.batchTransactions && pendingTxs.length > 0 && (
+          <button
+            onClick={() => setTxModalOpen(true)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px',
+              padding: '10px',
+              borderRadius: '5px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              border: '1px solid #000',
+              cursor: 'pointer',
+            }}
+          >
+            Open Transaction Modal ({pendingTxs.length})
+          </button>
+        )}
       </div>
       <FollowButton
         lookupAddress={args.lookupAddress}
@@ -89,14 +123,14 @@ const FollowButtonWrapper = (args: FollowButtonProps) => {
 }
 
 export default {
-  title: 'Molecules/Follow Button',
+  title: 'Molecules/Follow Button & Transaction Modal',
   component: FollowButtonWrapper,
   decorators: [
     (Story) => (
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <TransactionProvider>
-            <TransactionModal />
+          <TransactionProvider batchTransactions={Story().props.batchTransactions}>
+            <TransactionModal isDark={Story().props.isDark} />
             {Story()}
           </TransactionProvider>
         </QueryClientProvider>
@@ -107,7 +141,16 @@ export default {
 
 const Template: StoryFn<typeof FollowButtonWrapper> = (args) => <FollowButtonWrapper {...args} />
 
-export const FollowButtonByAddress = Template.bind({})
-FollowButtonByAddress.args = {
+export const FollowButtonSingleTx = Template.bind({})
+FollowButtonSingleTx.args = {
   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  isDark: false,
+  batchTransactions: false,
+}
+
+export const FollowButtonBatchTx = Template.bind({})
+FollowButtonBatchTx.args = {
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  isDark: false,
+  batchTransactions: true,
 }

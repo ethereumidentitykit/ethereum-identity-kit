@@ -40,7 +40,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
   const estimateGas = async () => {
-    if (!transaction.chainId || !walletClient) return console.log('No chain or wallet client')
+    if (!transaction.chainId || !walletClient) return
 
     const gas = await estimateContractGas(walletClient, {
       address: transaction.address,
@@ -107,7 +107,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   const transactionDetails = useMemo(() => {
     return {
-      list: lists?.primary_list ? `#${lists?.primary_list}` : '# -',
+      // list: lists?.primary_list ? `#${lists?.primary_list}` : newListNumber ? `#${Number(newListNumber) + 1}` : '# -',
       changes:
         transaction.id === EFPActionType.CreateEFPList
           ? 'Mint List'

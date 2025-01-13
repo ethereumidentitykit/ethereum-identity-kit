@@ -17,14 +17,17 @@ import { getListStorageLocation } from '../utils/list-storage-location'
 import {
   getMintTxChainId,
   getMintTxNonce,
+  getPendingTxsAddresses,
   prepareMintTransaction,
   transformTxsForLocalStorage,
 } from '../utils/transactions'
-import { ProfileListsResponse } from '../types'
+import { Address, ProfileListsResponse } from '../types'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
+import { Hex } from 'viem/_types/types/misc'
 
 type TransactionContextType = {
+  batchTransactions: boolean
   txModalOpen: boolean
   setTxModalOpen: (txModalOpen: boolean) => void
   pendingTxs: TransactionType[]
@@ -33,6 +36,7 @@ type TransactionContextType = {
   listsLoading: boolean
   nonce: bigint | undefined
   addTransaction: (newTransaction: TransactionType) => void
+  removeTransaction: (address: Address) => void
   currentTxIndex: number | undefined
   goToNextTransaction: () => void
   resetTransactions: () => void
@@ -42,7 +46,13 @@ type TransactionContextType = {
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
 
-export const TransactionProvider = ({ children }: { children: ReactNode }) => {
+export const TransactionProvider = ({
+  batchTransactions,
+  children,
+}: {
+  batchTransactions: boolean
+  children: ReactNode
+}) => {
   const [txModalOpen, setTxModalOpen] = useState(false)
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
@@ -136,10 +146,10 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   }, [pendingTxs])
 
   const addTransaction = (tx: TransactionType) => {
-    const newPendingTxs = [...pendingTxs]
+    const newPendingTxs = batchTransactions ? [...pendingTxs] : []
 
     // Add new transaction and mint if user has no list and there is no pending transaction
-    if (newPendingTxs.length === 0) {
+    if (newPendingTxs.length === 0 || !batchTransactions) {
       newPendingTxs.push(tx)
 
       if (!lists?.primary_list) {
@@ -154,7 +164,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
 
         newPendingTxs.push(mintTransaction)
       }
-    } else {
+    } else if (batchTransactions) {
       // Update the UpdateEFPList transaction if it exists and is not yet complete
       const pendingUpdateTransaction = newPendingTxs.findIndex(
         (tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash
@@ -182,6 +192,29 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     if (!currentTxIndex) setCurrentTxIndex(0)
   }
 
+  const removeTransaction = (address: Address) => {
+    const filteredPendingTxs = pendingTxs
+      .filter((tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash)
+      .map((tx) => ({
+        ...tx,
+        args: [
+          ...tx.args.slice(0, -1),
+          tx.args
+            .slice(-1)
+            .flat()
+            .filter((data: Hex) => !data.toLowerCase().includes(address.slice(2).toLowerCase())),
+        ],
+      }))
+
+    const pendingTxAddresses = getPendingTxsAddresses(filteredPendingTxs)
+
+    if (pendingTxAddresses.length === 0) {
+      resetTransactions()
+    } else {
+      setPendingTxs(filteredPendingTxs)
+    }
+  }
+
   const queryClient = useQueryClient()
   const goToNextTransaction = () => {
     const newTxIndex = (currentTxIndex || 0) + 1
@@ -206,6 +239,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   const value = {
+    batchTransactions,
     txModalOpen,
     setTxModalOpen,
     pendingTxs,
@@ -216,6 +250,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     setSelectedChainId,
     nonce,
     addTransaction,
+    removeTransaction,
     currentTxIndex,
     goToNextTransaction,
     resetTransactions,

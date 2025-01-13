@@ -27,6 +27,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   lookupAddress,
   connectedAddress,
   disabled,
+  onDisconnectedClick,
   className,
   customLoader,
   ...props
@@ -44,7 +45,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     <button
       ref={buttonRef}
       className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], className)}
-      onClick={handleAction}
+      onClick={() => (connectedAddress ? handleAction() : onDisconnectedClick?.())}
       disabled={disabled}
       {...props}
     >

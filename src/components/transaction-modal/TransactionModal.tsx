@@ -16,22 +16,41 @@ import './TransactionModal.css'
  *
  * @returns TransactionModal component
  */
-const TransactionModal: React.FC<TransactionModalProps> = ({ className, ...props }) => {
-  const { txModalOpen, setTxModalOpen, pendingTxs, currentTxIndex, listsLoading } = useTransactions()
+const TransactionModal: React.FC<TransactionModalProps> = ({ isDark, className, ...props }) => {
+  const {
+    txModalOpen,
+    setTxModalOpen,
+    pendingTxs,
+    currentTxIndex,
+    listsLoading,
+    batchTransactions,
+    resetTransactions,
+  } = useTransactions()
 
   return (
     <div
       className="transaction-modal-backdrop"
       style={{ display: txModalOpen ? 'flex' : 'none' }}
-      onClick={() => setTxModalOpen(false)}
+      onClick={() => (batchTransactions ? setTxModalOpen(false) : resetTransactions())}
     >
-      <div className={clsx('transaction-modal-container', className)} onClick={(e) => e.stopPropagation()} {...props}>
+      <div
+        className={clsx(
+          'transaction-modal-container',
+          isDark ? 'transaction-modal-dark' : 'transaction-modal-light',
+          className
+        )}
+        onClick={(e) => e.stopPropagation()}
+        {...props}
+      >
         {listsLoading ? (
           <div className="transaction-modal-loading-spinner" />
         ) : (
           <>
-            <div className="transaction-modal-close-button" onClick={() => setTxModalOpen(false)}>
-              <Cross height={16} width={16} color="black" />
+            <div
+              className="transaction-modal-close-button"
+              onClick={() => (batchTransactions ? setTxModalOpen(false) : resetTransactions())}
+            >
+              <Cross height={16} width={16} color={isDark ? 'white' : 'black'} />
             </div>
             <ChainSelector />
             <div
