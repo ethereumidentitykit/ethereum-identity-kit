@@ -113,7 +113,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
           ? 'Mint List'
           : `${transaction.args.slice(-1).flat().length} List ops`,
       chain: chains.find((chain) => chain.id === transaction.chainId)?.name,
-      'gas fee': `${estimatedGas || '0.00'} ETH`,
+      'Est. gas fee': `${estimatedGas || '0.00'} ETH`,
     }
   }, [transaction, Icon, estimatedGas, lists])
 

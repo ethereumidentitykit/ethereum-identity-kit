@@ -1,10 +1,6 @@
 import clsx from 'clsx'
 import { useTransactionItem } from '../../../../hooks'
-import Note from '../../../icons/ui/Note'
-import Check from '../../../icons/ui/Check'
-import Cross from '../../../icons/ui/Cross'
-import Clock from '../../../icons/ui/Clock'
-import Wallet from '../../../icons/ui/Wallet'
+import { Note, Check, Cross, Clock, Wallet } from '../../../icons'
 import { TRANSACTION_TITLES } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
@@ -60,7 +56,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
             </div>
           ))}
         </div>
-        <div className="transaction-modal-buttons-container">
+        <div className="transaction-modal-buttons-container" style={{ padding: '0' }}>
           <button className="transaction-modal-cancel-button" disabled={!!transaction.hash} onClick={handleCancel}>
             {canGoBack ? 'Back' : 'Cancel'}
           </button>

@@ -1,18 +1,26 @@
 import clsx from 'clsx'
 import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Dispatch, SetStateAction } from 'react'
 import { useTransactions } from '../../../../context'
-import Check from '../../../icons/ui/Check'
+import { Check } from '../../../icons'
 import { ListRecordContracts } from '../../../../constants/contracts'
 import { Chain, ChainIcons, chains } from '../../../../constants/chains'
 import { EFPActionType } from '../../../../types'
 import './ChainSelector.css'
 
-const ChainSelector = () => {
+const ChainSelector = ({ setOpenChanges }: { setOpenChanges: Dispatch<SetStateAction<boolean>> }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [currSelectedChain, setCurrSelectedChain] = useState<Chain | undefined>(base)
-  const { setSelectedChainId, selectedChainId, pendingTxs, setPendingTxs, nonce, resetTransactions } = useTransactions()
+  const {
+    setSelectedChainId,
+    selectedChainId,
+    pendingTxs,
+    setPendingTxs,
+    nonce,
+    batchTransactions,
+    resetTransactions,
+  } = useTransactions()
 
   useEffect(() => {
     if (selectedChainId) setIsOpen(false)
@@ -67,15 +75,22 @@ const ChainSelector = () => {
                   <Icon height={24} width={24} />
                   <p>{chain.name}</p>
                 </div>
-                {currSelectedChain?.id === chain.id && <Check height={20} width={20} color="green" />}
+                {currSelectedChain?.id === chain.id && (
+                  <div className="chain-selector-option-check">
+                    <Check height={20} width={20} />
+                  </div>
+                )}
               </button>
             )
           })}
         </div>
       </div>
       <div className="transaction-modal-buttons-container">
-        <button className="transaction-modal-cancel-button" onClick={resetTransactions}>
-          Cancel
+        <button
+          className="transaction-modal-cancel-button"
+          onClick={() => (batchTransactions ? setOpenChanges(true) : resetTransactions())}
+        >
+          {batchTransactions ? 'Back' : 'Cancel'}
         </button>
         <button className="transaction-modal-confirm-button" onClick={onConfirm}>
           Confirm

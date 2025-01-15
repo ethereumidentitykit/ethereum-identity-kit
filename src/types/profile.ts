@@ -74,6 +74,12 @@ export type ProfileDetailsResponse = {
   ranks: ProfileRanks
 }
 
+export type ProfileAccountResponse = {
+  address: Address
+  ens: ENSProfile
+  primary_list?: string | null
+}
+
 export interface ProfileBadgesResponse {
   eventId: string
   participated: boolean

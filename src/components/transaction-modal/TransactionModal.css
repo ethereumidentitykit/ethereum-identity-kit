@@ -11,25 +11,26 @@
 }
 
 .transaction-modal-container {
-  padding: 20px;
+  background: #fff;
+  color: #000;
   border-radius: 8px;
-  width: 400px;
-  height: 280px;
+  width: 440px;
+  height: auto;
+  max-height: 85vh;
   display: flex;
   gap: 20px;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   font-family: 'Inter', sans-serif;
 }
 
-.transaction-modal-dark {
-  background: #333333;
-  color: #fff;
+.transaction-modal-container::-webkit-scrollbar {
+  display: none;
 }
 
-.transaction-modal-light {
-  background: #fff;
-  color: #000;
+.dark .transaction-modal-container {
+  background: #333333;
+  color: #fff;
 }
 
 .transaction-modal-container p {
@@ -75,13 +76,14 @@
 .transaction-modal-buttons-container {
   display: flex;
   gap: 8px;
+  padding: 16px 10px;
 }
 
-.transaction-modal-light .transaction-modal-cancel-button {
-  background-color: #ccc;
+.transaction-modal-cancel-button {
+  background-color: #e5e5e5;
 }
 
-.transaction-modal-dark .transaction-modal-cancel-button {
+.dark .transaction-modal-cancel-button {
   background-color: #555555;
   color: #fff;
 }
@@ -93,7 +95,8 @@
 .transaction-modal-cancel-button,
 .transaction-modal-confirm-button {
   width: 196px;
-  font-size: 20px;
+  height: 46px;
+  font-size: 18px;
   font-weight: 800;
 }
 
@@ -119,12 +122,14 @@
 
 @media screen and (max-width: 600px) {
   .transaction-modal-container {
-    padding: 16px;
-    width: calc(100vw - 32px);
+    padding: 0px 2px;
+    width: calc(100vw - 4px);
     height: fit-content;
     position: absolute;
     bottom: 0;
     left: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .transaction-modal-cancel-button,

@@ -45,7 +45,7 @@ export const getMintTxChainId = (transaction: TransactionType) =>
 
 export const getMintTxRecordsAddress = (transaction: TransactionType) => `0x${transaction.args[0].slice(70, 110)}`
 
-export const getPendingTxsAddresses = (txs: TransactionType[]) => {
+export const getPendingTxAddresses = (txs: TransactionType[]) => {
   return txs
     .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
     .flatMap((tx) => {
@@ -53,6 +53,22 @@ export const getPendingTxsAddresses = (txs: TransactionType[]) => {
       return listOp.data.map((data: Hex) => `0x${data.slice(10, 50).toLowerCase()}`)
     })
 }
+
+export const getPendingTxAddressesAndTags = (txs: TransactionType[]) =>
+  txs
+    .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
+    .flatMap((tx) => {
+      const listOp = getListOpFromTransaction(tx)
+      return listOp.data.map((data: Hex) => {
+        const address = `0x${data.slice(10, 50).toLowerCase()}`
+        const tag = `0x${data.slice(50).toLowerCase()}`
+
+        return {
+          address,
+          tag,
+        }
+      })
+    })
 
 export const prepareMintTransaction = (mintNonce: bigint) => {
   const mintTransaction = {
@@ -64,7 +80,7 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
     args: [
       encodePacked(
         ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-        [1, 1, BigInt(DEFAULT_CHAIN.id), coreEfpContracts.EFPListRecords, mintNonce]
+        [1, 1, BigInt(0o0), coreEfpContracts.EFPListRecords, mintNonce]
       ),
     ],
   }

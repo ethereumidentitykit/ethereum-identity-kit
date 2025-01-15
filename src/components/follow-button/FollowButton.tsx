@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useCoolMode, useFollowButton } from '../../hooks'
-import FollowIcon from '../icons/ui/FollowIcon'
+import { FollowIcon } from '../icons'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'

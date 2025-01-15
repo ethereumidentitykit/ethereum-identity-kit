@@ -2,7 +2,7 @@ import { Address } from 'viem'
 import { useMemo } from 'react'
 import { useTransactions } from '../context/transactionContext'
 import { useFollowingState } from './useFollowingState'
-import { formatListOpsTransaction, getListOpData, getPendingTxsAddresses } from '../utils/transactions'
+import { formatListOpsTransaction, getListOpData, getPendingTxAddresses } from '../utils/transactions'
 import { FollowingState } from '../types'
 
 export const useFollowButton = ({
@@ -33,7 +33,7 @@ export const useFollowButton = ({
     if (!batchTransactions) return false
     if (!(connectedAddress && pendingTxs.length > 0)) return false
 
-    const pendingAddresses = getPendingTxsAddresses(pendingTxs)
+    const pendingAddresses = getPendingTxAddresses(pendingTxs)
 
     if (pendingAddresses.length > 0) {
       return pendingAddresses.includes(lookupAddress.toLowerCase())

@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import React from 'react'
-import Link from '../icons/ui/Link'
-import Dweb from '../icons/socials/Dweb'
+import { Link, Dweb } from '../icons'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { PROFILE_CARD_SOCIALS } from '../../constants/socials'
 import type { ProfileSocialsProps } from './ProfileSocials.types'

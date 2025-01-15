@@ -24,7 +24,7 @@
 }
 
 .follow-button-follow {
-  background: linear-gradient(to right, #ffe066 0%, #ffe066 30%, #fff981 75%, #ffafde 100%);
+  background: linear-gradient(to right, #ffe066 0%, #ffe066 33%, #fff981 75%, #ffafde 100%);
   text-align: center;
   background-size: 300% auto;
   transition: all 0.3s;

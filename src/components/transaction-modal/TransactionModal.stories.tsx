@@ -66,5 +66,5 @@ const Template: StoryFn<typeof TransactionModalWrapper> = (args: TransactionModa
 export const TransactionModalLight = Template.bind({})
 export const TransactionModalDark = Template.bind({})
 TransactionModalDark.args = {
-  isDark: true,
+  darkMode: true,
 }

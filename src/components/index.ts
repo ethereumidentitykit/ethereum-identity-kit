@@ -21,37 +21,6 @@ export {
   FollowButton,
 }
 
-import DiscordIcon from './icons/socials/Discord'
-import TelegramIcon from './icons/socials/Telegram'
-import XIcon from './icons/socials/x'
-import DwebIcon from './icons/socials/Dweb'
-import EnIcon from './icons/socials/Ens'
-import EtherscanIcon from './icons/socials/Etherscan'
-import GithubIcon from './icons/socials/Github'
-import LinkIcon from './icons/ui/Link'
-import RefreshIcon from './icons/ui/Refresh'
-import Check from './icons/ui/Check'
-import Cross from './icons/ui/Cross'
-import Clock from './icons/ui/Clock'
-import Wallet from './icons/ui/Wallet'
-import Note from './icons/ui/Note'
-export {
-  DiscordIcon,
-  TelegramIcon,
-  XIcon,
-  DwebIcon,
-  EnIcon,
-  EtherscanIcon,
-  GithubIcon,
-  LinkIcon,
-  RefreshIcon,
-  Check,
-  Cross,
-  Clock,
-  Wallet,
-  Note,
-}
-
 import { ProfileCardProps } from './profile-card/ProfileCard.types'
 import { ProfileSocialsProps } from './profile-socials/ProfileSocials.types'
 import { ProfileStatsProps } from './profile-stats/ProfileStats.types'
@@ -72,3 +41,5 @@ export type {
   FollowButtonProps,
   TransactionModalProps,
 }
+
+export * from './icons'

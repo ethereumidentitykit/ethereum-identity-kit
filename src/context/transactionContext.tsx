@@ -8,23 +8,22 @@ import {
   type ReactNode,
   SetStateAction,
 } from 'react'
+import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
 import {
   getMintTxChainId,
   getMintTxNonce,
-  getPendingTxsAddresses,
+  getPendingTxAddresses,
   prepareMintTransaction,
   transformTxsForLocalStorage,
 } from '../utils/transactions'
-import { Address, ProfileListsResponse } from '../types'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
-import { Hex } from 'viem/_types/types/misc'
+import { Address, ProfileListsResponse } from '../types'
 
 type TransactionContextType = {
   batchTransactions: boolean
@@ -38,6 +37,7 @@ type TransactionContextType = {
   addTransaction: (newTransaction: TransactionType) => void
   removeTransaction: (address: Address) => void
   currentTxIndex: number | undefined
+  setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
   resetTransactions: () => void
   selectedChainId: number | undefined
@@ -117,10 +117,11 @@ export const TransactionProvider = ({
 
       // Find the index of the first incomplete transaction to set it as the current transaction
       const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
+      const txIndex = incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex
 
-      setTxModalOpen(true)
       setPendingTxs(storedPendingTxs)
-      setCurrentTxIndex(incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex)
+      setCurrentTxIndex(txIndex)
+      if (!batchTransactions || txIndex > 0 || txIndex === storedPendingTxs.length - 1) setTxModalOpen(true)
     } else {
       getListDetails()
       setPendingTxs([])
@@ -188,7 +189,7 @@ export const TransactionProvider = ({
     }
 
     setPendingTxs(newPendingTxs)
-    setTxModalOpen(true)
+    if (!batchTransactions) setTxModalOpen(true)
     if (!currentTxIndex) setCurrentTxIndex(0)
   }
 
@@ -206,7 +207,7 @@ export const TransactionProvider = ({
         ],
       }))
 
-    const pendingTxAddresses = getPendingTxsAddresses(filteredPendingTxs)
+    const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
 
     if (pendingTxAddresses.length === 0) {
       resetTransactions()
@@ -252,6 +253,7 @@ export const TransactionProvider = ({
     addTransaction,
     removeTransaction,
     currentTxIndex,
+    setCurrentTxIndex,
     goToNextTransaction,
     resetTransactions,
   }
