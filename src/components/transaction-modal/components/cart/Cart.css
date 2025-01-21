@@ -1,16 +1,22 @@
-.changes-list-container {
+.cart-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 10px 0 10px;
+  gap: 20px;
+  padding: 0 10px;
   overflow: visible;
   z-index: 1000;
   background-color: white;
 }
 
-.changes-list-content {
+.cart-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.cart-content {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -18,7 +24,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .changes-list-container {
+  .cart-container {
     padding: 20px 2px 0 2px;
   }
 }

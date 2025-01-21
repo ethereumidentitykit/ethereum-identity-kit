@@ -25,17 +25,20 @@ export const getListOpData = (address: Address, tag?: string) => {
   return `0x${address.slice(2)}${tag ? toHex(tag).slice(2) : ''}` as Hex
 }
 
-export const getListOpFromTransaction = (transaction: TransactionType) => {
+export const getListOpsFromTransaction = (transaction: TransactionType) => {
   const { args } = transaction
-  const opcode = args[args.length - 1].slice(4, 6)
-  const data = args[args.length - 1]
 
-  const listOp = {
-    opcode,
-    data,
-  }
+  const listOps = args[args.length - 1].map((listOp: Hex) => {
+    const opcode = fromHex(`0x${listOp.slice(4, 6)}`, 'number')
+    const data = `0x${listOp.slice(10)}`
 
-  return listOp
+    return {
+      opcode,
+      data,
+    }
+  })
+
+  return listOps as ListOpType[]
 }
 
 export const getMintTxNonce = (transaction: TransactionType) => BigInt(`0x${transaction.args[0].slice(-64)}`)
@@ -49,25 +52,31 @@ export const getPendingTxAddresses = (txs: TransactionType[]) => {
   return txs
     .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
     .flatMap((tx) => {
-      const listOp = getListOpFromTransaction(tx)
-      return listOp.data.map((data: Hex) => `0x${data.slice(10, 50).toLowerCase()}`)
+      const listOps = getListOpsFromTransaction(tx)
+      return listOps.map((listOp) => listOp.data.slice(0))
     })
+}
+
+export const extractAddressAndTag = (data: Hex) => {
+  const address = data.slice(0, 42) as Address
+  const tag = fromHex(`0x${data.slice(42)}`, 'string')
+
+  return {
+    address,
+    tag,
+  }
+}
+
+export const getPendingTxListOps = (txs: TransactionType[]) => {
+  return txs.filter((tx) => tx.id === EFPActionType.UpdateEFPList).flatMap((tx) => getListOpsFromTransaction(tx))
 }
 
 export const getPendingTxAddressesAndTags = (txs: TransactionType[]) =>
   txs
     .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
     .flatMap((tx) => {
-      const listOp = getListOpFromTransaction(tx)
-      return listOp.data.map((data: Hex) => {
-        const address = `0x${data.slice(10, 50).toLowerCase()}`
-        const tag = `0x${data.slice(50).toLowerCase()}`
-
-        return {
-          address,
-          tag,
-        }
-      })
+      const listOps = getListOpsFromTransaction(tx)
+      return listOps.map((listOp) => extractAddressAndTag(listOp.data))
     })
 
 export const prepareMintTransaction = (mintNonce: bigint) => {

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
-import { useState, useEffect, useCallback, Dispatch, SetStateAction } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTransactions } from '../../../../context'
 import { Check } from '../../../icons'
 import { ListRecordContracts } from '../../../../constants/contracts'
@@ -9,9 +9,10 @@ import { Chain, ChainIcons, chains } from '../../../../constants/chains'
 import { EFPActionType } from '../../../../types'
 import './ChainSelector.css'
 
-const ChainSelector = ({ setOpenChanges }: { setOpenChanges: Dispatch<SetStateAction<boolean>> }) => {
+const ChainSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [currSelectedChain, setCurrSelectedChain] = useState<Chain | undefined>(base)
+
   const {
     setSelectedChainId,
     selectedChainId,
@@ -20,6 +21,7 @@ const ChainSelector = ({ setOpenChanges }: { setOpenChanges: Dispatch<SetStateAc
     nonce,
     batchTransactions,
     resetTransactions,
+    setChangesOpen,
   } = useTransactions()
 
   useEffect(() => {
@@ -40,11 +42,11 @@ const ChainSelector = ({ setOpenChanges }: { setOpenChanges: Dispatch<SetStateAc
       args:
         tx.id === EFPActionType.CreateEFPList
           ? [
-              encodePacked(
-                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-              ),
-            ]
+            encodePacked(
+              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+            ),
+          ]
           : tx.args,
     }))
 
@@ -88,7 +90,7 @@ const ChainSelector = ({ setOpenChanges }: { setOpenChanges: Dispatch<SetStateAc
       <div className="transaction-modal-buttons-container">
         <button
           className="transaction-modal-cancel-button"
-          onClick={() => (batchTransactions ? setOpenChanges(true) : resetTransactions())}
+          onClick={() => (batchTransactions ? setChangesOpen(true) : resetTransactions())}
         >
           {batchTransactions ? 'Back' : 'Cancel'}
         </button>

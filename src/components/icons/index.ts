@@ -3,11 +3,11 @@ import Note from './ui/Note'
 import Link from './ui/Link'
 import Check from './ui/Check'
 import Clock from './ui/Clock'
+import Arrow from './ui/Arrow'
 import Cross from './ui/Cross'
 import Wallet from './ui/Wallet'
 import Refresh from './ui/Refresh'
 import FollowIcon from './ui/FollowIcon'
-
 // Chain Icons
 import Base from './chains/base'
 import Ethereum from './chains/ethereum'
@@ -28,6 +28,7 @@ export {
   Check,
   Cross,
   Note,
+  Arrow,
   Clock,
   Wallet,
   Refresh,

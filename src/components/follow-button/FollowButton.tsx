@@ -32,7 +32,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   customLoader,
   ...props
 }) => {
-  const { buttonText, buttonState, handleAction, isLoading } = useFollowButton({
+  const { buttonText, buttonState, handleAction, isLoading, pendingState } = useFollowButton({
     lookupAddress,
     connectedAddress,
   })
@@ -44,7 +44,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   ) : (
     <button
       ref={buttonRef}
-      className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], className)}
+      className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], pendingState && 'pending', className)}
       onClick={() => (connectedAddress ? handleAction() : onDisconnectedClick?.())}
       disabled={disabled}
       {...props}

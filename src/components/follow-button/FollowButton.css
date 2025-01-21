@@ -11,6 +11,7 @@
   font-weight: 700;
   color: #27272a;
   cursor: pointer;
+  position: relative;
   transition: all 200ms ease-in-out;
 }
 
@@ -70,16 +71,6 @@
   background: #ff7c7c;
 }
 
-.follow-button-unfollow::after {
-  background: #4ade80;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  position: absolute;
-  top: -6px;
-  right: -6px;
-}
-
 .follow-button-unfollow:hover {
   background: #cf4c4c;
 }
@@ -102,16 +93,6 @@
   background: #ffc6c6;
 }
 
-.follow-button-block-pending::after {
-  background: #4ade80;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  position: absolute;
-  top: -6px;
-  right: -6px;
-}
-
 .follow-button-blocked {
   background: white;
   border: 3px solid #ef4444;
@@ -128,16 +109,6 @@
 
 .follow-button-unblock:hover {
   background: #cf4c4c;
-}
-
-.follow-button-unblock::after {
-  background: #4ade80;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  position: absolute;
-  top: -6px;
-  right: -6px;
 }
 
 .follow-button-muted {
@@ -158,16 +129,6 @@
   background: #ffc6c6;
 }
 
-.follow-button-mute-pending::after {
-  background: #4ade80;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  position: absolute;
-  top: -6px;
-  right: -6px;
-}
-
 .follow-button-muted {
   background: white;
   border: 3px solid #ef4444;
@@ -186,12 +147,14 @@
   background: #cf4c4c;
 }
 
-.follow-button-unmute::after {
+.pending:after {
   background: #4ade80;
-  height: 16px;
-  width: 16px;
+  height: 12px;
+  width: 12px;
   border-radius: 100%;
   position: absolute;
+  content: '';
+  display: block;
   top: -6px;
   right: -6px;
 }

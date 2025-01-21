@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useTransactionItem } from '../../../../hooks'
-import { Note, Check, Cross, Clock, Wallet } from '../../../icons'
+import AnimatedClock from '../../../icons/animated/clock'
+import { Note, Check, Cross, Clock, Wallet, Arrow } from '../../../icons'
 import { TRANSACTION_TITLES } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
@@ -11,7 +12,7 @@ interface TransactionItemProps {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
-  const { Icon, canGoBack, handleClick, handleCancel, submitButtonText, transactionDetails } = useTransactionItem(
+  const { Icon, handleClick, handleCancel, handlePreviousStep, submitButtonText, transactionDetails, isActive, previousStep } = useTransactionItem(
     id,
     transaction
   )
@@ -37,12 +38,17 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
   }[submitButtonText]
 
   return (
-    <div className="transaction-item">
+    <div className="transaction-item" style={{ display: isActive ? 'flex' : 'none' }}>
+      {previousStep && (
+        <div className="transaction-modal-arrow-back" onClick={handlePreviousStep}>
+          <Arrow height={18} width={18} />
+        </div>
+      )}
       <p className="transaction-title">{TRANSACTION_TITLES[transaction.id]}</p>
       <div>
         <div className="transaction-progress-container">
           <div className={clsx('transaction-progress-bar', ProgressionClassName)}>
-            <ProgressIcon height={20} width={20} />
+            {submitButtonText === 'Pending...' ? <AnimatedClock height={16} width={16} color="#000" /> : <ProgressIcon height={20} width={20} />}
           </div>
         </div>
         <div className="transaction-details-container">
@@ -56,17 +62,19 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
             </div>
           ))}
         </div>
-        <div className="transaction-modal-buttons-container" style={{ padding: '0' }}>
-          <button className="transaction-modal-cancel-button" disabled={!!transaction.hash} onClick={handleCancel}>
-            {canGoBack ? 'Back' : 'Cancel'}
-          </button>
+        <div className="transaction-modal-initiate-container" style={{ padding: '0' }}>
           <button
-            className="transaction-modal-confirm-button"
+            className={clsx('transaction-modal-initiate-button', {
+              'transaction-modal-initiate-button-done': submitButtonText === 'Finish',
+            })}
             onClick={handleClick}
             disabled={submitButtonText === 'Pending...' || submitButtonText === 'Indexing...'}
           >
             {submitButtonText}
           </button>
+          <p className="transaction-modal-cancel-text" onClick={handleCancel}>
+            Exit and cancel remaining transactions
+          </p>
         </div>
       </div>
     </div>

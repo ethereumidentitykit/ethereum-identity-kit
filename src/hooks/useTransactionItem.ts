@@ -12,7 +12,9 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     lists,
     pendingTxs,
     setPendingTxs,
+    setChangesOpen,
     currentTxIndex,
+    batchTransactions,
     resetTransactions,
     setSelectedChainId,
     goToNextTransaction,
@@ -36,6 +38,10 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const { currentChainId, checkChain } = useChain()
   const isCorrectChain = useMemo(() => currentChainId === transaction.chainId, [currentChainId, transaction.chainId])
   const Icon = transaction.chainId ? ChainIcons[transaction.chainId as keyof typeof ChainIcons] : null
+
+  const isActive = useMemo(() => {
+    return typeof currentTxIndex === 'number' && currentTxIndex === id
+  }, [currentTxIndex, id])
 
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
@@ -88,30 +94,30 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     }
   }
 
-  const canGoBack = useMemo(() => {
+  const handleCancel = () => {
+    resetTransactions()
+  }
+
+  const previousStep = useMemo(() => {
     if (currentTxIndex === 0 && !transaction.hash) {
-      const mintTransaction = pendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)
-      if (mintTransaction) return true
+      const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionType.CreateEFPList)
+      if (mintTxIndex >= 0) return 'select chain'
+      if (batchTransactions) return 'changes'
+      return false
     }
 
     return false
   }, [currentTxIndex, transaction.hash, pendingTxs])
 
-  const handleCancel = () => {
-    if (canGoBack) {
-      setSelectedChainId(undefined)
-    } else {
-      resetTransactions()
+  const handlePreviousStep = () => {
+    if (previousStep) {
+      if (previousStep === 'select chain') setSelectedChainId(undefined)
+      if (previousStep === 'changes') setChangesOpen(true)
     }
   }
 
   const transactionDetails = useMemo(() => {
     return {
-      // list: lists?.primary_list ? `#${lists?.primary_list}` : newListNumber ? `#${Number(newListNumber) + 1}` : '# -',
-      changes:
-        transaction.id === EFPActionType.CreateEFPList
-          ? 'Mint List'
-          : `${transaction.args.slice(-1).flat().length} List ops`,
       chain: chains.find((chain) => chain.id === transaction.chainId)?.name,
       'Est. gas fee': `${estimatedGas || '0.00'} ETH`,
     }
@@ -133,9 +139,11 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   return {
     Icon,
-    canGoBack,
+    isActive,
+    previousStep,
     handleClick,
     handleCancel,
+    handlePreviousStep,
     submitButtonText,
     transactionDetails,
   }

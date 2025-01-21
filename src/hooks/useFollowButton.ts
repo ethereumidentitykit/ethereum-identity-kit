@@ -2,7 +2,12 @@ import { Address } from 'viem'
 import { useMemo } from 'react'
 import { useTransactions } from '../context/transactionContext'
 import { useFollowingState } from './useFollowingState'
-import { formatListOpsTransaction, getListOpData, getPendingTxAddresses } from '../utils/transactions'
+import {
+  extractAddressAndTag,
+  formatListOpsTransaction,
+  getListOpData,
+  getPendingTxListOps,
+} from '../utils/transactions'
 import { FollowingState } from '../types'
 
 export const useFollowButton = ({
@@ -29,14 +34,25 @@ export const useFollowButton = ({
   })
 
   // Check if the address is already in a pending transaction
-  const isPending = useMemo(() => {
+  const pendingState = useMemo(() => {
     if (!batchTransactions) return false
     if (!(connectedAddress && pendingTxs.length > 0)) return false
 
-    const pendingAddresses = getPendingTxAddresses(pendingTxs)
+    const pendingListOps = getPendingTxListOps(pendingTxs)
+    const pendingListOp = pendingListOps.find((op) => {
+      const { address } = extractAddressAndTag(op.data)
+      return address.toLowerCase() === lookupAddress.toLowerCase()
+    })
 
-    if (pendingAddresses.length > 0) {
-      return pendingAddresses.includes(lookupAddress.toLowerCase())
+    if (pendingListOp) {
+      if (pendingListOp.opcode === 1) return 'Pending Following'
+      if (pendingListOp.opcode === 2) return 'Unfollow'
+
+      const { tag } = extractAddressAndTag(pendingListOp.data)
+      if (pendingListOp.opcode === 3 && tag === 'block') return 'Pending Block'
+      if (pendingListOp.opcode === 3 && tag === 'mute') return 'Pending Mute'
+      if (pendingListOp.opcode === 4 && tag === 'block') return 'Unblock'
+      if (pendingListOp.opcode === 4 && tag === 'mute') return 'Unmute'
     }
 
     return false
@@ -45,7 +61,7 @@ export const useFollowButton = ({
   const buttonState = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
 
-    if (isPending) return 'Pending'
+    if (pendingState) return pendingState
 
     switch (followState) {
       case 'follows':
@@ -57,12 +73,15 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress, isPending])
+  }, [followState, connectedAddress, pendingState])
 
   const buttonText = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
 
-    if (isPending) return 'Pending'
+    if (pendingState) {
+      if (pendingState === 'Pending Following') return 'Following'
+      return pendingState
+    }
 
     switch (followState) {
       case 'follows':
@@ -74,12 +93,12 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress, isPending])
+  }, [followState, connectedAddress, pendingState])
 
   const handleAction = () => {
     if (!connectedAddress) return
 
-    if (isPending) {
+    if (pendingState) {
       removeTransaction(lookupAddress)
       return
     }
@@ -116,5 +135,5 @@ export const useFollowButton = ({
     addTransaction(transaction)
   }
 
-  return { buttonText, buttonState, handleAction, isLoading: isLoading || listsLoading }
+  return { buttonText, buttonState, handleAction, isLoading: isLoading || listsLoading, pendingState }
 }

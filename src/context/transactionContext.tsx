@@ -29,6 +29,8 @@ type TransactionContextType = {
   batchTransactions: boolean
   txModalOpen: boolean
   setTxModalOpen: (txModalOpen: boolean) => void
+  changesOpen: boolean
+  setChangesOpen: (changesOpen: boolean) => void
   pendingTxs: TransactionType[]
   setPendingTxs: Dispatch<SetStateAction<TransactionType[]>>
   lists?: ProfileListsResponse | null
@@ -56,6 +58,13 @@ export const TransactionProvider = ({
   const [txModalOpen, setTxModalOpen] = useState(false)
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
+  const [changesOpen, setChangesOpen] = useState(batchTransactions && !currentTxIndex)
+
+  useEffect(() => {
+    if (!txModalOpen) {
+      setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
+    }
+  }, [txModalOpen])
 
   const [listDetailsLoading, setListDetailsLoading] = useState(false)
   const [nonce, setNonce] = useState<bigint | undefined>(undefined)
@@ -121,6 +130,7 @@ export const TransactionProvider = ({
 
       setPendingTxs(storedPendingTxs)
       setCurrentTxIndex(txIndex)
+      setChangesOpen(batchTransactions && incompleteTxIndex === 0)
       if (!batchTransactions || txIndex > 0 || txIndex === storedPendingTxs.length - 1) setTxModalOpen(true)
     } else {
       getListDetails()
@@ -243,6 +253,8 @@ export const TransactionProvider = ({
     batchTransactions,
     txModalOpen,
     setTxModalOpen,
+    changesOpen,
+    setChangesOpen,
     pendingTxs,
     setPendingTxs,
     lists,

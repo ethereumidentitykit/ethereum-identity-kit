@@ -5,7 +5,19 @@
   justify-content: space-between;
   width: 420px;
   gap: 16px;
+  position: relative;
   padding: 20px 10px;
+}
+
+.transaction-modal-arrow-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  cursor: pointer;
+}
+
+.transaction-modal-arrow-back:hover {
+  opacity: 0.6;
 }
 
 .transaction-title {
@@ -53,6 +65,7 @@
 
 .transaction-progress-bar-done {
   width: calc(100% - 12px);
+  background-color: #49de80;
 }
 
 .transaction-details-container {
@@ -95,10 +108,42 @@
   gap: 4px;
 }
 
+.transaction-modal-initiate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.transaction-modal-cancel-text {
+  color: #888;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.transaction-modal-initiate-button {
+  width: 400px;
+  height: 46px;
+  font-size: 18px;
+  font-weight: 800;
+  background-color: #ffe066;
+}
+
+.transaction-modal-initiate-button-done {
+  background-color: #49de80;
+}
+
 @media screen and (max-width: 600px) {
   .transaction-item {
     gap: 16px;
     width: calc(100vw - 20px);
     padding: 20px 6px 10px 6px;
+  }
+
+  .transaction-modal-initiate-button {
+    width: calc(100vw - 32px);
   }
 }
