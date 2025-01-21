@@ -2,22 +2,24 @@ import Avatar from './avatar/Avatar'
 import FollowerTag from './follower-tag/FollowerTag'
 import ProfileCard from './profile-card/ProfileCard'
 import LoadingCell from './loading-cell/LoadingCell'
-import HeaderImage from './profile-card/components/HeaderImage'
+import FollowButton from './follow-button/FollowButton'
 import ProfileStats from './profile-stats/ProfileStats'
 import ProfileSocials from './profile-socials/ProfileSocials'
+import HeaderImage from './profile-card/components/HeaderImage'
+import TransactionModal from './transaction-modal/TransactionModal'
 import ImageWithFallback from './image-with-fallback/ImageWithFallback'
-export { ProfileCard, ProfileSocials, ProfileStats, Avatar, LoadingCell, HeaderImage, ImageWithFallback, FollowerTag }
-
-import DiscordIcon from './icons/Discord'
-import TelegramIcon from './icons/Telegram'
-import XIcon from './icons/x'
-import DwebIcon from './icons/Dweb'
-import EnIcon from './icons/Ens'
-import EtherscanIcon from './icons/Etherscan'
-import GithubIcon from './icons/Github'
-import LinkIcon from './icons/Link'
-import RefreshIcon from './icons/Refresh'
-export { DiscordIcon, TelegramIcon, XIcon, DwebIcon, EnIcon, EtherscanIcon, GithubIcon, LinkIcon, RefreshIcon }
+export {
+  ProfileCard,
+  ProfileSocials,
+  ProfileStats,
+  Avatar,
+  LoadingCell,
+  HeaderImage,
+  ImageWithFallback,
+  FollowerTag,
+  TransactionModal,
+  FollowButton,
+}
 
 import { ProfileCardProps } from './profile-card/ProfileCard.types'
 import { ProfileSocialsProps } from './profile-socials/ProfileSocials.types'
@@ -26,6 +28,8 @@ import { AvatarProps } from './avatar/Avatar.types'
 import { FollowerTagProps } from './follower-tag/FollowerTag.types'
 import { LoadingCellProps } from './loading-cell/LoadingCell.types'
 import { ImageWithFallbackProps } from './image-with-fallback/ImageWithFallback.types'
+import { FollowButtonProps } from './follow-button/FollowButton.types'
+import { TransactionModalProps } from './transaction-modal/TransactionModal.types'
 export type {
   ProfileCardProps,
   ProfileSocialsProps,
@@ -34,4 +38,8 @@ export type {
   FollowerTagProps,
   LoadingCellProps,
   ImageWithFallbackProps,
+  FollowButtonProps,
+  TransactionModalProps,
 }
+
+export * from './icons'
