@@ -1,9 +1,9 @@
-import { useMemo } from "react"
-import { useAccount } from "wagmi"
-import { useTransactions } from "../../../../context"
-import { getPendingTxAddressesAndTags } from "../../../../utils/transactions"
-import { Cross } from "../../../icons"
-import ProfileList from "../../../profile-list/ProfileList"
+import { useMemo } from 'react'
+import { useAccount } from 'wagmi'
+import { useTransactions } from '../../../../context'
+import { getPendingTxAddressesAndTags } from '../../../../utils/transactions'
+import { Cross } from '../../../icons'
+import ProfileList from '../../../profile-list/ProfileList'
 import './Cart.css'
 
 const Cart = () => {
@@ -22,9 +22,10 @@ const Cart = () => {
       <div className="cart-content">
         <div>
           <h3 className="cart-title">Cart</h3>
-          <div className="cart-changes-list"><ProfileList profiles={profiles} connectedAddress={connectedAddress} /></div>
+          <div className="cart-changes-list">
+            <ProfileList profiles={profiles} connectedAddress={connectedAddress} />
+          </div>
           {/* <ManualAdd /> */}
-
         </div>
       </div>
       <div className="transaction-modal-buttons-container">

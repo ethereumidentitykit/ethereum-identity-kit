@@ -31,18 +31,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
 
   return (
     <div
-      className={clsx("transaction-modal-backdrop", darkMode && 'dark')}
+      className={clsx('transaction-modal-backdrop', darkMode && 'dark')}
       style={{ display: txModalOpen ? 'flex' : 'none' }}
       onClick={() => (batchTransactions ? setTxModalOpen(false) : resetTransactions())}
     >
-      <div
-        className={clsx(
-          'transaction-modal-container',
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-        {...props}
-      >
+      <div className={clsx('transaction-modal-container', className)} onClick={(e) => e.stopPropagation()} {...props}>
         {listsLoading ? (
           <div className="transaction-modal-loading-spinner" />
         ) : (
@@ -57,7 +50,12 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
             <ChainSelector />
             <div
               className="transaction-modal-transactions-container"
-              style={{ transform: window.innerWidth > 600 ? `translatex(${-(currentTxIndex || 0) * 472}px)` : `translatex(calc(${-(currentTxIndex || 0) * 100}vw - ${(currentTxIndex || 0) * 23}px))` }}
+              style={{
+                transform:
+                  window.innerWidth > 600
+                    ? `translatex(${-(currentTxIndex || 0) * 472}px)`
+                    : `translatex(calc(${-(currentTxIndex || 0) * 100}vw - ${(currentTxIndex || 0) * 23}px))`,
+              }}
             >
               {pendingTxs.map((tx: TransactionType, index: number) => (
                 <TransactionItem key={index} id={index} transaction={tx} />

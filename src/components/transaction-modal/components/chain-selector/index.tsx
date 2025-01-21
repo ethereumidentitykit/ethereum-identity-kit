@@ -42,11 +42,11 @@ const ChainSelector = () => {
       args:
         tx.id === EFPActionType.CreateEFPList
           ? [
-            encodePacked(
-              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-            ),
-          ]
+              encodePacked(
+                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+              ),
+            ]
           : tx.args,
     }))
 

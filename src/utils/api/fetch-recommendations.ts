@@ -1,5 +1,5 @@
 import type { Address } from 'viem'
-import type { DiscoverItemType, DiscoverResponseType } from '../../types/requests'
+import { DiscoverItemType, DiscoverResponseType } from '../../types'
 
 export const fetchRecommendations = async (
   endpoint: 'discover' | 'recommended',
@@ -31,6 +31,7 @@ export const fetchRecommendations = async (
 
     return formattedData
   } catch (err: unknown) {
+    console.error(err)
     return []
   }
 }

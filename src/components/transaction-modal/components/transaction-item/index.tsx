@@ -12,10 +12,16 @@ interface TransactionItemProps {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
-  const { Icon, handleClick, handleCancel, handlePreviousStep, submitButtonText, transactionDetails, isActive, previousStep } = useTransactionItem(
-    id,
-    transaction
-  )
+  const {
+    Icon,
+    handleClick,
+    handleCancel,
+    handlePreviousStep,
+    submitButtonText,
+    transactionDetails,
+    isActive,
+    previousStep,
+  } = useTransactionItem(id, transaction)
 
   const ProgressIcon = {
     'Switch Chain': Wallet,
@@ -48,7 +54,11 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
       <div>
         <div className="transaction-progress-container">
           <div className={clsx('transaction-progress-bar', ProgressionClassName)}>
-            {submitButtonText === 'Pending...' ? <AnimatedClock height={16} width={16} color="#000" /> : <ProgressIcon height={20} width={20} />}
+            {submitButtonText === 'Pending...' ? (
+              <AnimatedClock height={16} width={16} color="#000" />
+            ) : (
+              <ProgressIcon height={20} width={20} />
+            )}
           </div>
         </div>
         <div className="transaction-details-container">
