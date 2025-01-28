@@ -1,10 +1,10 @@
 import clsx from 'clsx'
+import Ens from '../../../icons/Ens'
+import Refresh from '../../../icons/Refresh'
 import React, { useEffect, useMemo, useState } from 'react'
 import { ProfileListType } from '../../../../types/profile'
 import LoadingCell from '../../../loading-cell/LoadingCell'
 import { formatNumber } from '../../../../utils/formatters'
-import Ens from '../../../icons/socials/Ens'
-import Refresh from '../../../icons/ui/Refresh'
 import './CardHeader.css'
 
 interface CardHeaderProps {
