@@ -1,6 +1,6 @@
 export type AvatarProps = {
   address?: string
-  src?: string
+  src?: string | null
   name?: string
   fallback?: string
   onClick?: () => void

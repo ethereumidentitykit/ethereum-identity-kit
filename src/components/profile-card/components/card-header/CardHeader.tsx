@@ -1,10 +1,10 @@
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { ProfileListType } from '../../../../types/profile'
 import LoadingCell from '../../../loading-cell/LoadingCell'
 import { formatNumber } from '../../../../utils/formatters'
-import Ens from '../../../icons/Ens'
-import Refresh from '../../../icons/Refresh'
+import Ens from '../../../icons/socials/Ens'
+import Refresh from '../../../icons/ui/Refresh'
 import './CardHeader.css'
 
 interface CardHeaderProps {
@@ -25,7 +25,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   detailsLoading,
 }) => {
   const [notConfirmedTooltipOpen, setNotConfirmedTooltipOpen] = useState(false)
-  const isPrimaryListProfile = list === undefined || `${primaryList}` === `${list}`
+  const isPrimaryListProfile = useMemo(() => list === undefined || `${primaryList}` === `${list}`, [list, primaryList])
 
   useEffect(() => {
     const closeTooltip = (event: MouseEvent) => {

@@ -31,6 +31,13 @@
     scale 0.2s ease;
 }
 
+.profile-link p {
+  max-width: calc(100% - 18px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .profile-link-dark {
   background-color: #71717a;
 }

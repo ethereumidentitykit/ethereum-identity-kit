@@ -132,3 +132,15 @@ export type ProfileStatsClickProps = {
   addressOrName: Address | string
   stat: ProfileStatType
 }
+
+export type CommonFollower = {
+  address: Address
+  name: string | null
+  avatar: string | null
+  mutuals_rank: string
+}
+
+export interface CommonFollowersResponse {
+  results: CommonFollower[]
+  length: number
+}
