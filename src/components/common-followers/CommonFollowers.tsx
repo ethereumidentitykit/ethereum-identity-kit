@@ -5,10 +5,10 @@ import LoadingCell from '../loading-cell/LoadingCell'
 import { CommonFollowersProps } from './CommonFollowers.types'
 import './CommonFollowers.css'
 
-const CommonFollowers: React.FC<CommonFollowersProps> = ({ connectedAddress, lookupAddressOrName }) => {
+const CommonFollowers: React.FC<CommonFollowersProps> = ({ connectedAddress, lookupAddress }) => {
   const { displayedAvatars, displayedNames, resultLength, isLoading } = useCommonFollowers(
     connectedAddress,
-    lookupAddressOrName
+    lookupAddress
   )
 
   return (

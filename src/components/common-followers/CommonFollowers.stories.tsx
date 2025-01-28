@@ -16,11 +16,5 @@ const Template: StoryFn<typeof CommonFollowers> = (args) => <CommonFollowers {..
 export const CommonFollowersByAddress = Template.bind({})
 CommonFollowersByAddress.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
-  lookupAddressOrName: '0x983110309620d911731ac0932219af06091b6744',
-}
-
-export const CommonFollowersByENSName = Template.bind({})
-CommonFollowersByENSName.args = {
-  connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
-  lookupAddressOrName: 'vitalik.eth',
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
 }

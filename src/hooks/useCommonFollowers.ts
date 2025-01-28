@@ -4,14 +4,14 @@ import { noCommonFollowers } from '../constants'
 import { Address } from '../types'
 import { truncateAddress } from '../utils'
 
-export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrName: string) => {
+export const useCommonFollowers = (connectedAddress: Address, lookupAddress: Address) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['common-followers', connectedAddress, lookupAddressOrName],
+    queryKey: ['common-followers', connectedAddress, lookupAddress],
     queryFn: async () => {
       if (!connectedAddress) return noCommonFollowers
 
-      const response = await fetchCommonFollowers(connectedAddress, lookupAddressOrName)
-      console.log(connectedAddress, lookupAddressOrName, response)
+      const response = await fetchCommonFollowers(connectedAddress, lookupAddress)
+      console.log(connectedAddress, lookupAddress, response)
       return response
     },
   })
