@@ -5,11 +5,17 @@ import LoadingCell from '../loading-cell/LoadingCell'
 import { CommonFollowersProps } from './CommonFollowers.types'
 import './CommonFollowers.css'
 
-const CommonFollowers: React.FC<CommonFollowersProps> = ({ connectedAddress, lookupAddressOrName }) => {
+const CommonFollowers: React.FC<CommonFollowersProps> = ({
+  connectedAddress,
+  lookupAddressOrName,
+  displayEmpty = true,
+}) => {
   const { displayedAvatars, displayedNames, resultLength, isLoading } = useCommonFollowers(
     connectedAddress,
     lookupAddressOrName
   )
+
+  if (!displayEmpty && resultLength === 0) return null
 
   return (
     <div className="common-followers-container">

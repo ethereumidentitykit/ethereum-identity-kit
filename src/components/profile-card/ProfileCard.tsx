@@ -12,12 +12,12 @@ import FollowerTag from '../follower-tag/FollowerTag'
 import LoadingCell from '../loading-cell/LoadingCell'
 import CardHeader from './components/card-header/CardHeader'
 import ProfileSocials from '../profile-socials/ProfileSocials'
+import CommonFollowers from '../common-followers/CommonFollowers'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
 import './ProfileCard.css'
 import '../profile-stats/ProfileStats.css'
-import CommonFollowers from '../common-followers/CommonFollowers'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -203,12 +203,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
       </div>
       {!isConnectedUserCard && connectedAddress && (
-        <div className="profile-card-common-followers">
-          <CommonFollowers
-            connectedAddress={connectedAddress}
-            lookupAddressOrName={list ? address || addressOrName : addressOrName}
-          />
-        </div>
+        <CommonFollowers
+          connectedAddress={connectedAddress}
+          lookupAddressOrName={list ? address || addressOrName : addressOrName}
+          displayEmpty={false}
+        />
       )}
     </div>
   )
