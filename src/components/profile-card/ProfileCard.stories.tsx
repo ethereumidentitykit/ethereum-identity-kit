@@ -45,6 +45,7 @@ export const ProfileCardByList = Template.bind({})
 ProfileCardByList.args = {
   addressOrName: '',
   list: '5',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
   style: {
     width: '300px',
@@ -72,6 +73,7 @@ ProfileCardPrefetched.args = {
           description: 'UI/UX Designer & Developer | Building the web3 social graph @efp.eth',
           header: 'https://i.imgur.com/pWYMFBn.jpeg',
           'org.telegram': 'encrypteddegen',
+          url: 'https://encrypteddegensomethingsomething.eth',
         },
       },
       ranks: {

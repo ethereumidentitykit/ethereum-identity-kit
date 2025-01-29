@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
+import { truncateAddress } from '../utils'
 import { fetchCommonFollowers } from '../utils/api/fetch-common-followers'
 import { noCommonFollowers } from '../constants'
 import { Address } from '../types'
-import { truncateAddress } from '../utils'
 
-export const useCommonFollowers = (connectedAddress: Address, lookupAddress: Address) => {
+export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrName: Address | string) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['common-followers', connectedAddress, lookupAddress],
+    queryKey: ['common-followers', connectedAddress, lookupAddressOrName],
     queryFn: async () => {
       if (!connectedAddress) return noCommonFollowers
 
-      const response = await fetchCommonFollowers(connectedAddress, lookupAddress)
-      console.log(connectedAddress, lookupAddress, response)
+      const response = await fetchCommonFollowers(connectedAddress, lookupAddressOrName)
       return response
     },
   })

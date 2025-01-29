@@ -204,7 +204,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       </div>
       {!isConnectedUserCard && connectedAddress && (
         <div className="profile-card-common-followers">
-          <CommonFollowers connectedAddress={connectedAddress} lookupAddressOrName={addressOrName} />
+          <CommonFollowers
+            connectedAddress={connectedAddress}
+            lookupAddressOrName={list ? address || addressOrName : addressOrName}
+          />
         </div>
       )}
     </div>

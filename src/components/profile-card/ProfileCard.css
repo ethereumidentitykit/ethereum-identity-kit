@@ -112,3 +112,7 @@
   width: 100%;
   padding: 12px 0 0 16px;
 }
+
+.profile-card-dark .common-followers-text-container {
+  color: #aaa;
+}
