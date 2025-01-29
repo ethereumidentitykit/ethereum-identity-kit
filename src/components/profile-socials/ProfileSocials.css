@@ -16,9 +16,9 @@
 .profile-link {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 4px;
   padding: 0px 8px;
+  max-width: 180px;
   height: 24px;
   border-radius: 16px;
   color: inherit;
@@ -29,6 +29,13 @@
   transition:
     opacity 0.2s ease,
     scale 0.2s ease;
+}
+
+.profile-link p {
+  max-width: calc(100% - 18px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile-link-dark {

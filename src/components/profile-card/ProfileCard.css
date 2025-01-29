@@ -8,7 +8,7 @@
   position: relative;
   text-align: center;
   border-radius: 12px;
-  padding: 36px 8px 24px 8px;
+  padding: 36px 8px 14px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,4 +106,13 @@
   display: flex;
   align-items: center;
   gap: 36px;
+}
+
+.profile-card-common-followers {
+  width: 100%;
+  padding: 12px 0 0 16px;
+}
+
+.profile-card-dark .common-followers-text-container {
+  color: #aaa;
 }

@@ -1,7 +1,20 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
+  "keywords": [
+    "ethereum identity kit",
+    "ethereum identity stack",
+    "ethereum follow protocol",
+    "ethereum name service",
+    "ethereum identity",
+    "ethereum",
+    "identity",
+    "kit",
+    "EIK",
+    "EFP",
+    "ENS"
+  ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types.d.ts",
@@ -26,14 +39,6 @@
     "./css": "./dist/esm/index.css"
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
-  "keywords": [
-    "ethereum identity kit",
-    "ethereum identity stack",
-    "ethereum identity",
-    "ethereum",
-    "identity",
-    "kit"
-  ],
   "author": {
     "name": "Ethereum Identity Kit",
     "url": "https://ethidentitykit.com"
