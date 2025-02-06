@@ -74,7 +74,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedData: profileData,
     refetchPrefetchedData: refetchProfileData,
   })
-  const isDetailsLoading = profileData ? !!prefetchedProfileLoading : detailsLoading
+  const isDetailsLoading = prefetchedProfileLoading ?? detailsLoading
 
   const {
     followers,
@@ -87,7 +87,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedData: statsData,
     refetchPrefetchedData: refetchStatsData,
   })
-  const isStatsLoading = statsData ? !!prefetchedStatsLoading : fetchedStatsLoading
+  const isStatsLoading = prefetchedStatsLoading ?? fetchedStatsLoading
 
   const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard

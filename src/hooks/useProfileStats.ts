@@ -19,8 +19,8 @@ export const useProfileStats = ({
 }: UseProfileStatsProps) => {
   const [fetchFreshStats, setFetchFreshStats] = useState(false)
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: ['stats', addressOrName, list, fetchFreshStats],
-    queryFn: async () => prefetchedData || (await fetchProfileStats(addressOrName, list, fetchFreshStats)),
+    queryKey: ['stats', addressOrName, list, fetchFreshStats, prefetchedData],
+    queryFn: async () => prefetchedData ?? (await fetchProfileStats(addressOrName, list, fetchFreshStats)),
   })
 
   const refreshProfileStats = () => {
