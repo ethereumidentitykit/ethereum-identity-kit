@@ -3,7 +3,7 @@ import type { CommonFollowersResponse } from '../types'
 
 export { PROFILE_CARD_SOCIALS }
 
-export const EFP_API_URL = 'https://api.ethfollow.xyz/api/v1'
+export const EFP_API_URL = 'https://data.ethfollow.xyz/api/v1'
 export const DEFAULT_FALLBACK_AVATAR = 'https://ethfollow.xyz/assets/art/default-avatar.svg'
 export const DEFAULT_FALLBACK_HEADER = 'https://ethfollow.xyz/assets/art/default-header.svg'
 
