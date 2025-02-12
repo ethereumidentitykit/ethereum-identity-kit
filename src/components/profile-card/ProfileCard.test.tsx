@@ -90,7 +90,7 @@ describe('ProfileCard Component', () => {
     render(<CardWithQueryClient {...mockProps} />)
     const bioLink = screen.getByText('@efp.eth')
     expect(bioLink).toBeDefined()
-    expect(bioLink).toHaveProperty('href', 'https://ethfollow.xyz/efp.eth')
+    expect(bioLink).toHaveProperty('href', 'https://efp.app/efp.eth')
   })
 
   it('applies custom class', () => {

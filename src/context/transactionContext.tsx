@@ -11,9 +11,6 @@ import {
 import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { generateSlot } from '../utils/generate-slot'
-import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
-import { getListStorageLocation } from '../utils/list-storage-location'
 import {
   getMintTxChainId,
   getMintTxNonce,
@@ -21,13 +18,16 @@ import {
   prepareMintTransaction,
   transformTxsForLocalStorage,
 } from '../utils/transactions'
+import { generateSlot } from '../utils/generate-slot'
+import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
+import { getListStorageLocation } from '../utils/list-storage-location'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
 import { Address, ProfileListsResponse } from '../types'
 
 type TransactionContextType = {
-  batchTransactions: boolean
   txModalOpen: boolean
+  batchTransactions: boolean
   setTxModalOpen: (txModalOpen: boolean) => void
   changesOpen: boolean
   setChangesOpen: (changesOpen: boolean) => void
@@ -203,19 +203,21 @@ export const TransactionProvider = ({
     if (!currentTxIndex) setCurrentTxIndex(0)
   }
 
-  const removeTransaction = (address: Address) => {
+  const removeTransaction = (txData: Hex) => {
     const filteredPendingTxs = pendingTxs
       .filter((tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash)
-      .map((tx) => ({
-        ...tx,
-        args: [
-          ...tx.args.slice(0, -1),
-          tx.args
-            .slice(-1)
-            .flat()
-            .filter((data: Hex) => !data.toLowerCase().includes(address.slice(2).toLowerCase())),
-        ],
-      }))
+      .map((tx) => {
+        const filteredArgs = tx.args
+          .slice(-1)
+          .flat()
+          .filter((data: Hex) => data.slice(10).toLowerCase() !== txData.slice(2).toLowerCase())
+
+        return {
+          ...tx,
+          // Only change the last argument that represents the list ops
+          args: [...tx.args.slice(0, -1), filteredArgs],
+        }
+      })
 
     const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
 
@@ -250,24 +252,24 @@ export const TransactionProvider = ({
   }, [])
 
   const value = {
-    batchTransactions,
-    txModalOpen,
-    setTxModalOpen,
-    changesOpen,
-    setChangesOpen,
-    pendingTxs,
-    setPendingTxs,
     lists,
-    listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
-    selectedChainId,
-    setSelectedChainId,
     nonce,
+    pendingTxs,
+    txModalOpen,
+    changesOpen,
+    setPendingTxs,
+    setChangesOpen,
+    setTxModalOpen,
     addTransaction,
-    removeTransaction,
     currentTxIndex,
-    setCurrentTxIndex,
-    goToNextTransaction,
+    selectedChainId,
+    removeTransaction,
+    batchTransactions,
     resetTransactions,
+    setCurrentTxIndex,
+    setSelectedChainId,
+    goToNextTransaction,
+    listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
   }
 
   return <TransactionContext.Provider value={value}>{children}</TransactionContext.Provider>

@@ -1,0 +1,30 @@
+.common-followers-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.common-followers-avatars-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.common-followers-text-container {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transform: translateX(-32px);
+}

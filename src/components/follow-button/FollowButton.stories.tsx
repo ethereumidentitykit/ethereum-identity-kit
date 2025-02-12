@@ -93,7 +93,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
             ))}
           </div>
         )}
-        {args.batchTransactions && pendingTxs.length > 0 && (
+        {args.batchTransactions && (
           <button
             onClick={() => setTxModalOpen(true)}
             style={{

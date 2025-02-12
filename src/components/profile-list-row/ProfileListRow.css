@@ -1,9 +1,7 @@
 .profile-list-row {
   display: flex;
-  width: 400px;
-  padding: 0 10px;
+  width: 100%;
   max-height: 45px;
-  overflow: hidden;
   align-items: center;
   justify-content: space-between;
 }

@@ -168,18 +168,18 @@ function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boole
     autoAddParticle = false
   }
 
-  element.addEventListener(move, updateMousePosition, { passive: true })
-  element.addEventListener(tap, tapHandler, { passive: true })
-  element.addEventListener(tapEnd, disableAutoAddParticle, { passive: true })
+  const controller = new AbortController()
+
+  element.addEventListener(move, updateMousePosition, { passive: true, signal: controller.signal })
+  element.addEventListener(tap, tapHandler, { passive: true, signal: controller.signal })
+  element.addEventListener(tapEnd, disableAutoAddParticle, { passive: true, signal: controller.signal })
   element.addEventListener('mouseleave', disableAutoAddParticle, {
     passive: true,
+    signal: controller.signal,
   })
 
   return () => {
-    element.removeEventListener(move, updateMousePosition)
-    element.removeEventListener(tap, tapHandler)
-    element.removeEventListener(tapEnd, disableAutoAddParticle)
-    element.removeEventListener('mouseleave', disableAutoAddParticle)
+    controller.abort()
 
     // Cancel animation loop once animations are done
     const interval = setInterval(() => {

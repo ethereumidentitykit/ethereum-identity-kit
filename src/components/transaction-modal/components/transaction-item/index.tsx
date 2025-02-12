@@ -14,13 +14,13 @@ interface TransactionItemProps {
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
   const {
     Icon,
+    isActive,
     handleClick,
     handleCancel,
-    handlePreviousStep,
+    previousStep,
     submitButtonText,
     transactionDetails,
-    isActive,
-    previousStep,
+    handlePreviousStep,
   } = useTransactionItem(id, transaction)
 
   const ProgressIcon = {

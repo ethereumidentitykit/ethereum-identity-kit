@@ -16,8 +16,7 @@
   transition: all 200ms ease-in-out;
 }
 
-/* Add :not(.disable-hover) before :hover */
-.follow-button:not(.disable-hover):hover {
+.follow-button:hover {
   transform: scale(1.1);
 }
 
@@ -35,22 +34,18 @@
   border: none;
 }
 
-/* Add :not(.disable-hover) before :hover */
-.follow-button-follow:not(.disable-hover):hover {
+.follow-button-follow:hover {
   background-position: right center;
   transition: all 0.3s;
 }
 
-.follow-button-pending,
 .follow-button-following {
   background:
     linear-gradient(#fafafa, #fafafa) padding-box,
     linear-gradient(135deg, #faf35f, #ffbce3) border-box;
 }
 
-/* Add :not(.disable-hover) before :hover */
-.follow-button-following:not(.disable-hover):hover,
-.follow-button-pending:not(.disable-hover):hover {
+.follow-button-following:hover {
   border-color: transparent;
   background: #d0d0d0;
   padding: 6px 10px;
@@ -65,43 +60,24 @@
   background: #ff7c7c;
 }
 
-/* Add :not(.disable-hover) before :hover */
-.follow-button-unfollow:not(.disable-hover):hover,
-.follow-button-block:not(.disable-hover):hover,
-.follow-button-unblock:not(.disable-hover):hover,
-.follow-button-muted:not(.disable-hover):hover,
-.follow-button-unmute:not(.disable-hover):hover {
+.follow-button-unfollow:hover,
+.follow-button-block:hover,
+.follow-button-unblock:hover,
+.follow-button-muted:hover,
+.follow-button-unmute:hover {
   border-color: transparent;
   background: #cf4c4c;
 }
 
-/* Add :not(.disable-hover) before :hover */
-.follow-button-muted:not(.disable-hover):hover,
-.follow-button-mute-pending:not(.disable-hover):hover,
-.follow-button-blocked:not(.disable-hover):hover,
-.follow-button-unblock-pending:not(.disable-hover):hover,
-.follow-button-unmute-pending:not(.disable-hover):hover {
+.follow-button-muted:hover,
+.follow-button-blocked:hover {
   border-color: transparent;
   background: #ffc6c6;
 }
 
 .follow-button-blocked,
-.follow-button-block-pending,
-.follow-button-muted,
-.follow-button-mute-pending {
+.follow-button-muted {
   background: white;
   border-color: #ef4444;
   color: #ef4444;
-}
-
-.pending:after {
-  background: #4ade80;
-  height: 12px;
-  width: 12px;
-  border-radius: 100%;
-  position: absolute;
-  content: '';
-  display: block;
-  top: -6px;
-  right: -6px;
 }

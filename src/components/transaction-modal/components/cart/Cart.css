@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  padding: 0 10px;
+  padding: 20px 10px 0 10px;
   overflow: visible;
   z-index: 1000;
   background-color: white;
@@ -14,13 +14,39 @@
   font-size: 24px;
   font-weight: 700;
   text-align: center;
+  margin-bottom: 8px;
 }
 
 .cart-content {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 10px;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  gap: 12px;
+  padding: 0 10px;
+}
+
+.cart-changes-list {
+  width: 380px;
+  padding: 4px 20px 4px 0px;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+}
+
+.cart-modal-buttons-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  width: calc(100% - 20px);
+  padding: 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -2px 6px 0 #0004;
 }
 
 @media screen and (max-width: 600px) {

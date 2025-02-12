@@ -32,7 +32,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   customLoader,
   ...props
 }) => {
-  const { buttonText, buttonState, handleAction, isLoading, pendingState } = useFollowButton({
+  const { buttonText, buttonState, handleAction, isLoading, pendingState, disableHover, setDisableHover } = useFollowButton({
     lookupAddress,
     connectedAddress,
   })
@@ -44,8 +44,9 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   ) : (
     <button
       ref={buttonRef}
-      className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], pendingState && 'pending', className)}
+      className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], pendingState && 'pending', disableHover && 'disable-hover', className)}
       onClick={() => (connectedAddress ? handleAction() : onDisconnectedClick?.())}
+      onMouseLeave={() => setDisableHover(false)}
       disabled={disabled}
       {...props}
     >

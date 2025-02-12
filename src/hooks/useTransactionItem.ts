@@ -72,6 +72,8 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       args: transaction.args,
     })
 
+    // Appends executed transaction's hash to the pedning array
+    // to mark it as executed and provide ability to view in a block explorer
     setPendingTxs((pendingTxs) => {
       const newPendingTxs = [...pendingTxs]
       newPendingTxs[id] = {

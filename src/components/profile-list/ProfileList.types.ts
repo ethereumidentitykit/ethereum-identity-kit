@@ -1,4 +1,4 @@
-import { Address } from '../../types'
+import { Address, ENSProfile } from '../../types'
 
 export type ProfileListProps = {
   profiles: ProfileItemType[]
@@ -8,5 +8,6 @@ export type ProfileListProps = {
 
 export type ProfileItemType = {
   address: Address
-  tag: string
+  tags: string[]
+  ens?: ENSProfile
 }

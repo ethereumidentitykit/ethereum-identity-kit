@@ -12,6 +12,7 @@ import FollowerTag from '../follower-tag/FollowerTag'
 import LoadingCell from '../loading-cell/LoadingCell'
 import CardHeader from './components/card-header/CardHeader'
 import ProfileSocials from '../profile-socials/ProfileSocials'
+import CommonFollowers from '../common-followers/CommonFollowers'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
@@ -86,7 +87,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedData: statsData,
     refetchPrefetchedData: refetchStatsData,
   })
-  const isStatsLoading = statsData ? !!prefetchedStatsLoading : fetchedStatsLoading
+  const isStatsLoading = prefetchedStatsLoading ?? fetchedStatsLoading
 
   const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
@@ -153,7 +154,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               {ens?.records?.description ? (
                 ens.records.description.split(' ').map((word) =>
                   word.includes('@') ? (
-                    <a key={word} href={`https://ethfollow.xyz/${word.replace('@', '')}`} className="profile-bio-link">
+                    <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
                       {word}{' '}
                     </a>
                   ) : (
@@ -201,6 +202,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           <div className="profile-stats-item-label">Followers</div>
         </div>
       </div>
+      {!isConnectedUserCard && connectedAddress && (
+        <div className="profile-card-common-followers">
+          <CommonFollowers connectedAddress={connectedAddress} lookupAddressOrName={addressOrName} />
+        </div>
+      )}
     </div>
   )
 }
