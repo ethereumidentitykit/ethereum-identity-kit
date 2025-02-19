@@ -12,7 +12,13 @@ const onProfileClick = (addressOrName: Address | string) => {
 export default {
   title: 'Organisms/Profile Card',
   component: ProfileCard,
-  decorators: [(Story) => <QueryClientProvider client={queryClient}>{Story()}</QueryClientProvider>],
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
+      </QueryClientProvider>
+    ),
+  ],
 } as Meta<typeof ProfileCard>
 
 const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />
@@ -27,6 +33,17 @@ ProfileCardByAddress.args = {
   },
   darkMode: false,
   onProfileClick,
+  // options: {
+  //   followButton: <button style={{
+  //     backgroundColor: '#ffE060',
+  //     color: '#000',
+  //     width: '110px',
+  //     height: '37px',
+  //     borderRadius: '4px',
+  //     border: 'none',
+  //     cursor: 'pointer',
+  //   }}>Follow</button>,
+  // },
 }
 
 export const ProfileCardByENS = Template.bind({})

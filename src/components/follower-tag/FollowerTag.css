@@ -5,8 +5,8 @@
   letter-spacing: 0em;
   text-align: left;
   height: 20px;
-  padding: 0px 8px;
-  border-radius: 9999px;
+  padding: 0px 6px !important;
+  border-radius: 4px;
   background-color: #d4d4d8;
   width: fit-content;
 }

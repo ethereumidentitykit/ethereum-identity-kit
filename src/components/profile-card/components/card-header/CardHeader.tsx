@@ -14,6 +14,7 @@ interface CardHeaderProps {
   name?: string
   primaryList?: ProfileListType
   detailsLoading: boolean
+  nameMenu?: React.ReactNode
 }
 
 const CardHeader: React.FC<CardHeaderProps> = ({
@@ -23,6 +24,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   list,
   primaryList,
   detailsLoading,
+  nameMenu,
 }) => {
   const [notConfirmedTooltipOpen, setNotConfirmedTooltipOpen] = useState(false)
   const isPrimaryListProfile = useMemo(() => list === undefined || `${primaryList}` === `${list}`, [list, primaryList])
@@ -47,7 +49,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
   return (
     <div className="header">
       {detailsLoading ? (
-        <LoadingCell height="24px" width="65px" radius="25px" style={{ marginLeft: '10px' }} />
+        <LoadingCell height="28px" width="65px" radius="4px" style={{ marginLeft: '10px' }} />
       ) : list || primaryList ? (
         <div className="header-left">List #{formatNumber(Number(list || primaryList))}</div>
       ) : (
@@ -82,6 +84,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
         <div className="header-refresh" onClick={refetchData}>
           <Refresh height={16} width={16} />
         </div>
+        {nameMenu}
       </div>
     </div>
   )
