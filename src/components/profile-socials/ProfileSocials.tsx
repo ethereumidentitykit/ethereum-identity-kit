@@ -39,10 +39,10 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
       {includeUrls &&
         (isLoading ? (
           <div className="profile-links-container">
-            <LoadingCell height="26px" width="68px" radius="18px" />
-            <LoadingCell height="26px" width="68px" radius="18px" />
+            <LoadingCell height="26px" width="68px" radius="4px" />
+            <LoadingCell height="26px" width="68px" radius="4px" />
           </div>
-        ) : (
+        ) : records?.url || records?.contenthash ? (
           <div className="profile-links-container">
             {records?.url && (
               <a
@@ -74,7 +74,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
               </a>
             )}
           </div>
-        ))}
+        ) : null)}
       <div className="socials-container">
         {isLoading
           ? Array.from({ length: 5 }).map((_, index) => (

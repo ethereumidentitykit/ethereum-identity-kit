@@ -12,7 +12,13 @@ const onProfileClick = (addressOrName: Address | string) => {
 export default {
   title: 'Organisms/Profile Card',
   component: ProfileCard,
-  decorators: [(Story) => <QueryClientProvider client={queryClient}>{Story()}</QueryClientProvider>],
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
+      </QueryClientProvider>
+    ),
+  ],
 } as Meta<typeof ProfileCard>
 
 const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />
@@ -27,6 +33,17 @@ ProfileCardByAddress.args = {
   },
   darkMode: false,
   onProfileClick,
+  // options: {
+  //   followButton: <button style={{
+  //     backgroundColor: '#ffE060',
+  //     color: '#000',
+  //     width: '110px',
+  //     height: '37px',
+  //     borderRadius: '4px',
+  //     border: 'none',
+  //     cursor: 'pointer',
+  //   }}>Follow</button>,
+  // },
 }
 
 export const ProfileCardByENS = Template.bind({})
@@ -45,6 +62,7 @@ export const ProfileCardByList = Template.bind({})
 ProfileCardByList.args = {
   addressOrName: '',
   list: '5',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
   style: {
     width: '300px',
@@ -72,6 +90,7 @@ ProfileCardPrefetched.args = {
           description: 'UI/UX Designer & Developer | Building the web3 social graph @efp.eth',
           header: 'https://i.imgur.com/pWYMFBn.jpeg',
           'org.telegram': 'encrypteddegen',
+          url: 'https://encrypteddegensomethingsomething.eth',
         },
       },
       ranks: {

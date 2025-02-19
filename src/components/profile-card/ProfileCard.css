@@ -1,59 +1,68 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .profile-card {
   width: 300px;
   position: relative;
   text-align: center;
-  border-radius: 12px;
-  padding: 36px 8px 14px 8px;
+  border-radius: 4px;
+  padding: 54px 16px 12px 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: 16px;
 }
 
 .profile-card-dark {
   color: #fff;
   background-color: #333;
-  border: 3px solid #71717a;
 }
 
 .profile-card-light {
   color: #000;
   background-color: #fff;
-  border: 3px solid #e4e4e7;
+}
+
+.profile-avatar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  width: 100%;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .profile-card-details {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   z-index: 1;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-name-container {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   position: relative;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-name {
   margin-top: 2px;
   font-size: 22px;
   font-weight: 700;
-  max-width: 95%;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   transition: transform 0.2s ease;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-name[enable-hover='true']:hover {
@@ -65,9 +74,9 @@
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 0 12px;
+  gap: 12px;
+  text-align: left;
+  max-width: 90%;
 }
 
 .profile-bio-link {
@@ -93,22 +102,45 @@
 .profile-bio-loading {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 4px;
   margin: 0;
 }
 
 .profile-bio-text {
   opacity: 0.8;
+  padding: 0;
+  margin: 0;
 }
 
 .profile-stats-container {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
 }
 
-.profile-card-common-followers {
+.profile-stats-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-stats-item-value {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.profile-stats-item-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.common-followers-container {
   width: 100%;
-  padding: 12px 0 0 16px;
+  margin: 0 auto;
+}
+
+.profile-card-dark .common-followers-text-container {
+  color: #aaa;
 }

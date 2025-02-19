@@ -17,7 +17,6 @@ import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
 import './ProfileCard.css'
-import '../profile-stats/ProfileStats.css'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -74,7 +73,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedData: profileData,
     refetchPrefetchedData: refetchProfileData,
   })
-  const isDetailsLoading = profileData ? !!prefetchedProfileLoading : detailsLoading
+  const isDetailsLoading = prefetchedProfileLoading ?? detailsLoading
 
   const {
     followers,
@@ -110,19 +109,23 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         list={list}
         primaryList={primaryList}
         detailsLoading={isDetailsLoading}
+        nameMenu={nameMenu}
       />
       <div className="profile-card-details">
-        {isDetailsLoading ? (
-          <LoadingCell height="100px" width="100px" radius="50%" />
-        ) : (
-          <Avatar
-            address={addressOrName}
-            src={ens?.avatar}
-            fallback={DEFAULT_FALLBACK_AVATAR}
-            style={{ width: '100px', height: '100px' }}
-            onClick={() => onProfileClick?.(addressOrName)}
-          />
-        )}
+        <div className="profile-avatar-container">
+          {isDetailsLoading ? (
+            <LoadingCell height="100px" width="100px" radius="50%" />
+          ) : (
+            <Avatar
+              address={addressOrName}
+              src={ens?.avatar}
+              fallback={DEFAULT_FALLBACK_AVATAR}
+              style={{ width: '100px', height: '100px' }}
+              onClick={() => onProfileClick?.(addressOrName)}
+            />
+          )}
+          {followButton}
+        </div>
         {isDetailsLoading ? (
           <LoadingCell height="26px" width="160px" />
         ) : (
@@ -138,11 +141,35 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                   ? truncateAddress(addressOrName as Address)
                   : ens_beautify(addressOrName)}
             </p>
-            {nameMenu}
+            {showFollowerTag && <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} />}
           </div>
         )}
-        {showFollowerTag && <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} />}
-        {followButton}
+        <div className="profile-stats-container">
+          <div
+            className="profile-stats-item"
+            enable-hover={!!onStatClick ? 'true' : 'false'}
+            onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
+          >
+            {isStatsLoading ? (
+              <LoadingCell height="24px" width="50px" />
+            ) : (
+              <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
+            )}
+            <div className="profile-stats-item-label">Following</div>
+          </div>
+          <div
+            className="profile-stats-item"
+            enable-hover={!!onStatClick ? 'true' : 'false'}
+            onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
+          >
+            {isStatsLoading ? (
+              <LoadingCell height="24px" width="50px" />
+            ) : (
+              <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
+            )}
+            <div className="profile-stats-item-label">Followers</div>
+          </div>
+        </div>
         <div className="profile-bio">
           {isDetailsLoading ? (
             <div className="profile-bio-loading">
@@ -176,36 +203,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           />
         </div>
       </div>
-      <div className="profile-stats-container">
-        <div
-          className="profile-stats-item"
-          enable-hover={!!onStatClick ? 'true' : 'false'}
-          onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
-        >
-          {isStatsLoading ? (
-            <LoadingCell height="24px" width="50px" />
-          ) : (
-            <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
-          )}
-          <div className="profile-stats-item-label">Following</div>
-        </div>
-        <div
-          className="profile-stats-item"
-          enable-hover={!!onStatClick ? 'true' : 'false'}
-          onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
-        >
-          {isStatsLoading ? (
-            <LoadingCell height="24px" width="50px" />
-          ) : (
-            <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
-          )}
-          <div className="profile-stats-item-label">Followers</div>
-        </div>
-      </div>
+
       {!isConnectedUserCard && connectedAddress && (
-        <div className="profile-card-common-followers">
-          <CommonFollowers connectedAddress={connectedAddress} lookupAddressOrName={addressOrName} />
-        </div>
+        <CommonFollowers
+          connectedAddress={connectedAddress}
+          lookupAddressOrName={list ? address || addressOrName : addressOrName}
+          displayEmpty={false}
+        />
       )}
     </div>
   )

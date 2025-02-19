@@ -1,7 +1,7 @@
 .profile-socials {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 12px;
 }
@@ -18,9 +18,9 @@
   align-items: center;
   gap: 4px;
   padding: 0px 8px;
-  max-width: 160px;
+  max-width: 180px;
   height: 24px;
-  border-radius: 16px;
+  border-radius: 4px;
   color: inherit;
   font-size: 14px;
   font-weight: 600;

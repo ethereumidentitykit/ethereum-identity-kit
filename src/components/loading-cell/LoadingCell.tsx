@@ -22,7 +22,7 @@ const LoadingCell: React.FC<LoadingCellProps> = ({
   gradient = DEFAULT_LOADING_GRADIENT,
   height = '100%',
   width = '100%',
-  radius = '5px',
+  radius = '4px',
   ...props
 }) => {
   return (

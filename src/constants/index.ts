@@ -1,6 +1,6 @@
 import { CommonFollowersResponse } from '../types'
 
-export const EFP_API_URL = 'https://api.ethfollow.xyz/api/v1'
+export const EFP_API_URL = 'https://data.ethfollow.xyz/api/v1'
 export const DEFAULT_FALLBACK_AVATAR = 'https://efp.app/assets/art/default-avatar.svg'
 export const DEFAULT_FALLBACK_HEADER = 'https://efp.app/assets/art/default-header.svg'
 

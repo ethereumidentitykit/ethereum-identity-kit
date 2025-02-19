@@ -37,7 +37,7 @@ const FollowerTag: React.FC<FollowerTagProps> = ({
 
   return isFollowerStateLoading ? (
     showLoading ? (
-      <LoadingCell height="22px" width="70px" radius="10px" />
+      <LoadingCell height="22px" width="70px" radius="4px" />
     ) : null
   ) : (
     <div {...props} className={clsx('follower-tag', followerTag.className, className)}>
