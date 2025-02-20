@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useTransactionItem } from '../../../../hooks'
+import TransactionItemDetails from './details'
 import AnimatedClock from '../../../icons/animated/clock'
 import { Note, Check, Cross, Clock, Wallet, Arrow } from '../../../icons'
 import { TransactionType } from '../../../../types'
@@ -12,10 +13,7 @@ interface TransactionItemProps {
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
   const {
-    Icon,
-    isActive,
     handleClick,
-    handleCancel,
     setCurrentTxIndex,
     submitButtonText,
     transactionDetails,
@@ -42,7 +40,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
   }[submitButtonText]
 
   return (
-    <div className="transaction-item" style={{ display: isActive ? 'flex' : 'none' }}>
+    <div className="transaction-item">
       <div className="transaction-modal-arrow-back" onClick={() => setCurrentTxIndex(id === 0 ? undefined : id - 1)}>
         <Arrow height={18} width={18} />
       </div>
@@ -57,30 +55,20 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
             )}
           </div>
         </div>
-        <div className="transaction-details-container">
-          {Object.entries(transactionDetails).map(([key, value]) => (
-            <div key={key} className="transaction-details-item">
-              <p className="transaction-details-key">{key}</p>
-              <div className="transaction-details-value">
-                {key === 'chain' && Icon && <Icon height={16} width={16} />}
-                {value}
-              </div>
-            </div>
-          ))}
-        </div>
+        <TransactionItemDetails transactionDetails={transactionDetails} transaction={transaction} />
         <div className="transaction-modal-initiate-container" style={{ padding: '0' }}>
           <button
             className={clsx('transaction-modal-initiate-button', {
-              'transaction-modal-initiate-button-done': submitButtonText === 'Finish',
+              'transaction-modal-initiate-button-done': submitButtonText === 'Finish' || submitButtonText === 'Next',
             })}
             onClick={handleClick}
             disabled={submitButtonText === 'Pending...' || submitButtonText === 'Indexing...'}
           >
             {submitButtonText}
           </button>
-          <p className="transaction-modal-cancel-text" onClick={handleCancel}>
+          {/* <p className="transaction-modal-cancel-text" onClick={handleCancel}>
             Exit and cancel remaining transactions
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

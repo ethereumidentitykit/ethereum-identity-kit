@@ -3,7 +3,7 @@ const FollowIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, widt
     <svg
       width={width}
       height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox='0 0 14 20'
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

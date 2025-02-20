@@ -6,6 +6,8 @@ export enum EFPActionType {
 }
 
 export type TransactionType = {
+  title?: string
+  description?: string
   id: EFPActionType | string
   address: Address
   chainId?: number

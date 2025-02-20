@@ -81,6 +81,8 @@ export const getPendingTxAddressesAndTags = (txs: TransactionType[]) =>
 
 export const prepareMintTransaction = (mintNonce: bigint) => {
   const mintTransaction = {
+    title: 'Mint New List',
+    description: 'An NFT representing your List will appear in your wallet. This must be done on Base.',
     id: EFPActionType.CreateEFPList,
     chainId: DEFAULT_CHAIN.id,
     address: coreEfpContracts.EFPListMinter,

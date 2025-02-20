@@ -4,16 +4,16 @@
   gap: 20px;
   justify-content: space-between;
   height: 100%;
-  width: 420px;
-  padding: 10px 10px 0 10px;
+  width: 400px;
+  padding: 20px;
 }
 
 .chain-selector-content-container {
-  padding: 0 10px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding-top: 16px;
+  width: 400px;
 }
 
 .chain-selector-title {
@@ -36,13 +36,15 @@
 }
 
 .chain-selector-options-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 .chain-selector-option {
   height: 48px;
+  width: 100%;
   padding: 4px 4px;
   background-color: #eeeeee;
   color: black;
@@ -51,6 +53,7 @@
   font-weight: 800;
   display: flex;
   align-items: center;
+  flex-direction: row;
   justify-content: space-between;
   gap: 8px;
 }

@@ -23,7 +23,7 @@ import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
-import { Address, ProfileListsResponse } from '../types'
+import { ProfileListsResponse } from '../types'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -39,7 +39,7 @@ type TransactionContextType = {
   addTransactions: (txs: TransactionType[]) => void
   addListOpsTransaction: (tx: TransactionType) => void
   removeTransactions: (ids: (EFPActionType | string)[]) => void
-  removeListOpsTransaction: (address: Address) => void
+  removeListOpsTransaction: (txData: Hex[]) => void
   currentTxIndex: number | undefined
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
@@ -65,6 +65,8 @@ export const TransactionProvider = ({
   useEffect(() => {
     if (!txModalOpen) {
       setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
+      if ((!currentTxIndex || currentTxIndex === 0) && pendingTxs[0]?.hash === undefined)
+        setCurrentTxIndex(undefined)
     }
   }, [txModalOpen])
 
@@ -131,7 +133,7 @@ export const TransactionProvider = ({
       const txIndex = incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex
 
       setPendingTxs(storedPendingTxs)
-      setCurrentTxIndex(txIndex)
+      setCurrentTxIndex(txIndex || undefined)
       setChangesOpen(batchTransactions && incompleteTxIndex === 0)
       if (!batchTransactions || txIndex > 0 || txIndex === storedPendingTxs.length - 1) setTxModalOpen(true)
     } else {
@@ -214,14 +216,14 @@ export const TransactionProvider = ({
     setPendingTxs(filteredPendingTxs)
   }
 
-  const removeListOpsTransaction = (txData: Hex) => {
+  const removeListOpsTransaction = (txData: Hex[]) => {
     const filteredPendingTxs = pendingTxs
       .filter((tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash)
       .map((tx) => {
         const filteredArgs = tx.args
           .slice(-1)
           .flat()
-          .filter((data: Hex) => data.slice(10).toLowerCase() !== txData.slice(2).toLowerCase())
+          .filter((data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase()))
 
         return {
           ...tx,

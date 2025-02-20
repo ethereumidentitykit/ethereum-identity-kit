@@ -35,32 +35,36 @@ export const useFollowButton = ({
     list: lists?.primary_list,
   })
 
-  const pendingListOp = useMemo(() => {
-    if (!batchTransactions) return false
-    if (!(connectedAddress && pendingTxs.length > 0)) return false
+  const pendingListOps = useMemo(() => {
+    if (!batchTransactions) return []
+    if (!(connectedAddress && pendingTxs.length > 0)) return []
 
-    const pendingListOps = getPendingTxListOps(pendingTxs)
-    const pendingListOp = pendingListOps.find((op) => {
+    const allPendingListOps = getPendingTxListOps(pendingTxs)
+    const filteredPendingListOps = allPendingListOps.filter((op) => {
       const { address } = extractAddressAndTag(op.data)
       return address.toLowerCase() === lookupAddress.toLowerCase()
     })
 
-    return pendingListOp
+    return filteredPendingListOps
   }, [pendingTxs, lookupAddress])
 
   // Check if the address is already in a pending transaction
   const pendingState = useMemo(() => {
-    if (!pendingListOp) return false
+    if (!pendingListOps.length) return false
 
-    if (pendingListOp.opcode === 1) return 'Pending Following'
-    if (pendingListOp.opcode === 2) return 'Unfollow'
+    const listOps = pendingListOps.map((op) => ({
+      tag: extractAddressAndTag(op.data).tag,
+      address: extractAddressAndTag(op.data).address,
+      opcode: op.opcode,
+    }))
+    if (listOps.some((op) => op.opcode === 3 && op.tag === 'block')) return 'Pending Block'
+    if (listOps.some((op) => op.opcode === 3 && op.tag === 'mute')) return 'Pending Mute'
+    if (listOps.some((op) => op.opcode === 4 && op.tag === 'block')) return 'Unblock'
+    if (listOps.some((op) => op.opcode === 4 && op.tag === 'mute')) return 'Unmute'
 
-    const { tag } = extractAddressAndTag(pendingListOp.data)
-    if (pendingListOp.opcode === 3 && tag === 'block') return 'Pending Block'
-    if (pendingListOp.opcode === 3 && tag === 'mute') return 'Pending Mute'
-    if (pendingListOp.opcode === 4 && tag === 'block') return 'Unblock'
-    if (pendingListOp.opcode === 4 && tag === 'mute') return 'Unmute'
-  }, [pendingListOp])
+    if (listOps.some((op) => op.opcode === 1)) return 'Pending Following'
+    if (listOps.some((op) => op.opcode === 2)) return 'Unfollow'
+  }, [pendingListOps])
 
   const buttonState = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
@@ -104,8 +108,8 @@ export const useFollowButton = ({
 
     setDisableHover(true)
 
-    if (pendingListOp) {
-      removeListOpsTransaction(pendingListOp.data)
+    if (pendingListOps.length) {
+      removeListOpsTransaction(pendingListOps.map((op) => op.data))
       return
     }
 

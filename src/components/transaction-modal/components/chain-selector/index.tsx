@@ -3,7 +3,7 @@ import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
 import { useState, useEffect, useCallback } from 'react'
 import { useTransactions } from '../../../../context'
-import { Check } from '../../../icons'
+import { Arrow, Check } from '../../../icons'
 import { ListRecordContracts } from '../../../../constants/contracts'
 import { Chain, ChainIcons, chains } from '../../../../constants/chains'
 import { EFPActionType } from '../../../../types'
@@ -42,11 +42,11 @@ const ChainSelector = () => {
       args:
         tx.id === EFPActionType.CreateEFPList
           ? [
-              encodePacked(
-                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-              ),
-            ]
+            encodePacked(
+              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+            ),
+          ]
           : tx.args,
     }))
 
@@ -55,6 +55,9 @@ const ChainSelector = () => {
 
   return (
     <div className="chain-selector-container" style={{ display: isOpen ? 'flex' : 'none' }}>
+      <div className='transaction-modal-arrow-back' onClick={() => (batchTransactions ? setChangesOpen(true) : resetTransactions())}>
+        <Arrow height={18} width={18} />
+      </div>
       <div className="chain-selector-content-container">
         <div className="chain-selector-title-container">
           <p className="chain-selector-title">Select Chain</p>
@@ -87,17 +90,9 @@ const ChainSelector = () => {
           })}
         </div>
       </div>
-      <div className="transaction-modal-buttons-container">
-        <button
-          className="transaction-modal-cancel-button"
-          onClick={() => (batchTransactions ? setChangesOpen(true) : resetTransactions())}
-        >
-          {batchTransactions ? 'Back' : 'Cancel'}
-        </button>
-        <button className="transaction-modal-confirm-button" onClick={onConfirm}>
-          Confirm
-        </button>
-      </div>
+      <button className="transaction-modal-confirm-button" onClick={onConfirm}>
+        Confirm
+      </button>
     </div>
   )
 }

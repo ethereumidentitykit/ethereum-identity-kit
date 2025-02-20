@@ -1,0 +1,86 @@
+.transaction-modal-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  padding: 12px;
+  width: calc(100% - 24px);
+}
+
+.transaction-modal-actions-container-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transaction-modal-actions-container-title span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #888888;
+}
+
+.transaction-modal-actions-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.transaction-modal-actions-item-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.transaction-modal-actions-item-header p {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #888888;
+  font-weight: 500;
+}
+
+.transaction-modal-actions-item-header div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.transaction-modal-actions-item-accounts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.transaction-modal-actions-item-accounts-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.transaction-modal-actions-item-accounts-container div {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.transaction-modal-actions-item-accounts-container div:nth-child(2) {
+  transform: translateX(12px);
+  z-index: 2;
+}
+
+.transaction-modal-actions-item-accounts-container div:nth-child(3) {
+  transform: translateX(24px);
+  z-index: 1;
+}
+
+.transaction-modal-actions-item-accounts p {
+  font-size: 16px;
+  font-weight: 500;
+}

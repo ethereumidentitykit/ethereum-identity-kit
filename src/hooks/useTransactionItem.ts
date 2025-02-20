@@ -24,7 +24,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   // Delay last transaction due to indexing
   const [lastTransactionSuccessful, setLastTransactionSuccessful] = useState(false)
-  const isLastTransaction = useMemo(() => currentTxIndex === pendingTxs.length - 1, [currentTxIndex, pendingTxs])
+  const isLastTransaction = useMemo(() => id === pendingTxs.length - 1, [id, pendingTxs])
   useEffect(() => {
     if (isLastTransaction && isSuccess) {
       const timeout = setTimeout(() => setLastTransactionSuccessful(true), 5000)
@@ -35,7 +35,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const { data: walletClient } = useWalletClient()
   const { currentChainId, checkChain } = useChain()
   const isCorrectChain = useMemo(() => currentChainId === transaction.chainId, [currentChainId, transaction.chainId])
-  const Icon = transaction.chainId ? ChainIcons[transaction.chainId as keyof typeof ChainIcons] : null
+  const ChainIcon = transaction.chainId ? ChainIcons[transaction.chainId as keyof typeof ChainIcons] : null
 
   const isActive = useMemo(() => {
     return typeof currentTxIndex === 'number' && currentTxIndex === id
@@ -53,7 +53,11 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       args: transaction.args,
     })
 
-    setEstimatedGas(formatEther(gas, 'gwei'))
+    const formattedGas = formatEther(gas, 'gwei')
+
+    setEstimatedGas(
+      Number(formattedGas).toLocaleString(undefined, { maximumFractionDigits: 5, minimumFractionDigits: 2 })
+    )
   }
 
   useEffect(() => {
@@ -100,10 +104,15 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   const transactionDetails = useMemo(() => {
     return {
-      chain: chains.find((chain) => chain.id === transaction.chainId)?.name,
+      hash: transaction.hash,
+      chain: {
+        id: transaction.chainId,
+        name: chains.find((chain) => chain.id === transaction.chainId)?.name as string,
+        icon: ChainIcon,
+      },
       'Est. gas fee': `${estimatedGas || '0.00'} ETH`,
     }
-  }, [transaction, Icon, estimatedGas, lists])
+  }, [transaction, ChainIcon, estimatedGas, lists])
 
   const submitButtonText: SubmitButtonText = transaction.hash
     ? isPending
@@ -120,7 +129,6 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       : 'Switch Chain'
 
   return {
-    Icon,
     isActive,
     handleClick,
     handleCancel,

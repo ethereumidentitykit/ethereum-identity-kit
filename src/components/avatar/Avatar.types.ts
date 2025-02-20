@@ -1,7 +1,7 @@
 export type AvatarProps = {
-  address?: string
+  address?: string | null
   src?: string | null
-  name?: string
+  name?: string | null
   fallback?: string
   onClick?: () => void
   style?: React.CSSProperties
