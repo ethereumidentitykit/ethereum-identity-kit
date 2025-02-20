@@ -5,18 +5,16 @@ import { useWalletClient, useWaitForTransactionReceipt } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
 import { ChainIcons, chains } from '../constants/chains'
-import { EFPActionType, SubmitButtonText, TransactionType } from '../types'
+import { SubmitButtonText, TransactionType } from '../types'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
     lists,
     pendingTxs,
     setPendingTxs,
-    setChangesOpen,
     currentTxIndex,
-    batchTransactions,
+    setCurrentTxIndex,
     resetTransactions,
-    setSelectedChainId,
     goToNextTransaction,
   } = useTransactions()
   const { isPending, isSuccess, isError } = useWaitForTransactionReceipt({
@@ -100,24 +98,6 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     resetTransactions()
   }
 
-  const previousStep = useMemo(() => {
-    if (currentTxIndex === 0 && !transaction.hash) {
-      const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionType.CreateEFPList)
-      if (mintTxIndex >= 0) return 'select chain'
-      if (batchTransactions) return 'changes'
-      return false
-    }
-
-    return false
-  }, [currentTxIndex, transaction.hash, pendingTxs])
-
-  const handlePreviousStep = () => {
-    if (previousStep) {
-      if (previousStep === 'select chain') setSelectedChainId(undefined)
-      if (previousStep === 'changes') setChangesOpen(true)
-    }
-  }
-
   const transactionDetails = useMemo(() => {
     return {
       chain: chains.find((chain) => chain.id === transaction.chainId)?.name,
@@ -142,11 +122,10 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   return {
     Icon,
     isActive,
-    previousStep,
     handleClick,
     handleCancel,
-    handlePreviousStep,
     submitButtonText,
     transactionDetails,
+    setCurrentTxIndex,
   }
 }

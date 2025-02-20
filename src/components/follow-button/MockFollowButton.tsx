@@ -58,7 +58,7 @@ export type MockFollowButtonProps = {
   customLoader?: React.ReactNode
 } & React.HTMLAttributes<HTMLButtonElement>
 
-/* 
+/*
  * lookupAddress and connectedAddress will for now be logged to the console
  * since they are necessary for the real component to work
  * This will require less changes after the real component is implemented

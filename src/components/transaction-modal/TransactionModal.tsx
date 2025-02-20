@@ -7,6 +7,7 @@ import TransactionItem from './components/transaction-item'
 import { TransactionType } from '../../types'
 import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
+import Summary from './components/summary'
 /**
  * Transaction Modal - allows user to initiate transactions on-chain
  *
@@ -28,6 +29,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
   } = useTransactions()
 
   if (!txModalOpen) return null
+
+  const isCurrentTxIndexValid = currentTxIndex !== undefined && currentTxIndex >= 0
 
   return (
     <div
@@ -53,10 +56,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
               style={{
                 transform:
                   window.innerWidth > 600
-                    ? `translatex(${-(currentTxIndex || 0) * 472}px)`
-                    : `translatex(calc(${-(currentTxIndex || 0) * 100}vw - ${(currentTxIndex || 0) * 23}px))`,
+                    ? `translatex(${-(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 472}px)`
+                    : `translatex(calc(${-(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 100}vw - ${(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 23}px))`,
               }}
             >
+              <Summary />
               {pendingTxs.map((tx: TransactionType, index: number) => (
                 <TransactionItem key={index} id={index} transaction={tx} />
               ))}

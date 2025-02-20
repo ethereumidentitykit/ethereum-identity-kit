@@ -1,6 +1,6 @@
-import { StoryFn } from "@storybook/react/*"
-import { Meta } from "@storybook/react/*"
-import MockFollowButton from "./MockFollowButton"
+import { StoryFn } from '@storybook/react/*'
+import { Meta } from '@storybook/react/*'
+import MockFollowButton from './MockFollowButton'
 
 export default {
   title: 'Molecules/Mock Follow Button',

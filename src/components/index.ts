@@ -5,7 +5,6 @@ import LoadingCell from './loading-cell/LoadingCell'
 import FollowButton from './follow-button/FollowButton'
 import ProfileStats from './profile-stats/ProfileStats'
 import ProfileSocials from './profile-socials/ProfileSocials'
-import HeaderImage from './profile-card/components/HeaderImage'
 import CommonFollowers from './common-followers/CommonFollowers'
 import HeaderImage from './profile-card/components/HeaderImage'
 import TransactionModal from './transaction-modal/TransactionModal'
@@ -21,6 +20,7 @@ export {
   FollowerTag,
   TransactionModal,
   FollowButton,
+  CommonFollowers,
 }
 
 import { AvatarProps } from './avatar/Avatar.types'

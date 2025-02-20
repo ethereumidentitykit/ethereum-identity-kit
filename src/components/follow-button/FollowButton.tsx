@@ -32,10 +32,11 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   customLoader,
   ...props
 }) => {
-  const { buttonText, buttonState, handleAction, isLoading, pendingState, disableHover, setDisableHover } = useFollowButton({
-    lookupAddress,
-    connectedAddress,
-  })
+  const { buttonText, buttonState, handleAction, isLoading, pendingState, disableHover, setDisableHover } =
+    useFollowButton({
+      lookupAddress,
+      connectedAddress,
+    })
 
   const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)
 
@@ -44,7 +45,13 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   ) : (
     <button
       ref={buttonRef}
-      className={clsx('follow-button', FOLLOW_BUTTON_STYLES[buttonState], pendingState && 'pending', disableHover && 'disable-hover', className)}
+      className={clsx(
+        'follow-button',
+        FOLLOW_BUTTON_STYLES[buttonState],
+        pendingState && 'pending',
+        disableHover && 'disable-hover',
+        className
+      )}
       onClick={() => (connectedAddress ? handleAction() : onDisconnectedClick?.())}
       onMouseLeave={() => setDisableHover(false)}
       disabled={disabled}

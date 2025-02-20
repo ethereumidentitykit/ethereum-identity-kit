@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { useTransactionItem } from '../../../../hooks'
 import AnimatedClock from '../../../icons/animated/clock'
 import { Note, Check, Cross, Clock, Wallet, Arrow } from '../../../icons'
-import { TRANSACTION_TITLES } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
 
@@ -17,10 +16,9 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
     isActive,
     handleClick,
     handleCancel,
-    previousStep,
+    setCurrentTxIndex,
     submitButtonText,
     transactionDetails,
-    handlePreviousStep,
   } = useTransactionItem(id, transaction)
 
   const ProgressIcon = {
@@ -45,12 +43,10 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
 
   return (
     <div className="transaction-item" style={{ display: isActive ? 'flex' : 'none' }}>
-      {previousStep && (
-        <div className="transaction-modal-arrow-back" onClick={handlePreviousStep}>
-          <Arrow height={18} width={18} />
-        </div>
-      )}
-      <p className="transaction-title">{TRANSACTION_TITLES[transaction.id]}</p>
+      <div className="transaction-modal-arrow-back" onClick={() => setCurrentTxIndex(id === 0 ? undefined : id - 1)}>
+        <Arrow height={18} width={18} />
+      </div>
+      <p className="transaction-title">{transaction.id}</p>
       <div>
         <div className="transaction-progress-container">
           <div className={clsx('transaction-progress-bar', ProgressionClassName)}>

@@ -24,8 +24,8 @@ export const useFollowButton = ({
     nonce,
     pendingTxs,
     listsLoading,
-    addTransaction,
-    removeTransaction,
+    addListOpsTransaction,
+    removeListOpsTransaction,
     selectedChainId,
     batchTransactions,
   } = useTransactions()
@@ -105,7 +105,7 @@ export const useFollowButton = ({
     setDisableHover(true)
 
     if (pendingListOp) {
-      removeTransaction(pendingListOp.data)
+      removeListOpsTransaction(pendingListOp.data)
       return
     }
 
@@ -138,7 +138,7 @@ export const useFollowButton = ({
       listOps,
       connectedAddress,
     })
-    addTransaction(transaction)
+    addListOpsTransaction(transaction)
   }
 
   return {

@@ -12,6 +12,7 @@ import './Cart.css'
 const Cart = () => {
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen } = useTransactions()
   const { address: connectedAddress } = useAccount()
+
   const profiles = useMemo(() => {
     const pendingChanges = getPendingTxAddressesAndTags(pendingTxs)
 

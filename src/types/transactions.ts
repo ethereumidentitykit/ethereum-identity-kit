@@ -6,7 +6,7 @@ export enum EFPActionType {
 }
 
 export type TransactionType = {
-  id: EFPActionType
+  id: EFPActionType | string
   address: Address
   chainId?: number
   abi: Abi

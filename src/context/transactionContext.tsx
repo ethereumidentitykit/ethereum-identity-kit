@@ -36,8 +36,10 @@ type TransactionContextType = {
   lists?: ProfileListsResponse | null
   listsLoading: boolean
   nonce: bigint | undefined
-  addTransaction: (newTransaction: TransactionType) => void
-  removeTransaction: (address: Address) => void
+  addTransactions: (txs: TransactionType[]) => void
+  addListOpsTransaction: (tx: TransactionType) => void
+  removeTransactions: (ids: (EFPActionType | string)[]) => void
+  removeListOpsTransaction: (address: Address) => void
   currentTxIndex: number | undefined
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
@@ -156,7 +158,12 @@ export const TransactionProvider = ({
     )
   }, [pendingTxs])
 
-  const addTransaction = (tx: TransactionType) => {
+  const addTransactions = (txs: TransactionType[]) => {
+    const newPendingTxs = batchTransactions ? [...pendingTxs, ...txs] : txs
+    setPendingTxs(newPendingTxs)
+  }
+
+  const addListOpsTransaction = (tx: TransactionType) => {
     const newPendingTxs = batchTransactions ? [...pendingTxs] : []
 
     // Add new transaction and mint if user has no list and there is no pending transaction
@@ -200,10 +207,14 @@ export const TransactionProvider = ({
 
     setPendingTxs(newPendingTxs)
     if (!batchTransactions) setTxModalOpen(true)
-    if (!currentTxIndex) setCurrentTxIndex(0)
   }
 
-  const removeTransaction = (txData: Hex) => {
+  const removeTransactions = (ids: (EFPActionType | string)[]) => {
+    const filteredPendingTxs = pendingTxs.filter((tx) => !ids.includes(tx.id))
+    setPendingTxs(filteredPendingTxs)
+  }
+
+  const removeListOpsTransaction = (txData: Hex) => {
     const filteredPendingTxs = pendingTxs
       .filter((tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash)
       .map((tx) => {
@@ -260,10 +271,12 @@ export const TransactionProvider = ({
     setPendingTxs,
     setChangesOpen,
     setTxModalOpen,
-    addTransaction,
+    addTransactions,
+    addListOpsTransaction,
     currentTxIndex,
     selectedChainId,
-    removeTransaction,
+    removeTransactions,
+    removeListOpsTransaction,
     batchTransactions,
     resetTransactions,
     setCurrentTxIndex,
