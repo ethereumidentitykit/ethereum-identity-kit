@@ -13,6 +13,7 @@ export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAdd
 
   return {
     id: EFPActionType.UpdateEFPList,
+    title: 'EFP Update',
     address: chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords,
     abi: efpListRecordsAbi,
     chainId,

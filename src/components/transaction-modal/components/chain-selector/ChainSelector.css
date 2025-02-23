@@ -6,6 +6,7 @@
   height: 100%;
   width: 400px;
   padding: 20px;
+  z-index: 100;
 }
 
 .chain-selector-content-container {

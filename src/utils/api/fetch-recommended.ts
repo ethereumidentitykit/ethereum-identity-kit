@@ -1,5 +1,6 @@
 import type { Address } from 'viem'
 import { DiscoverItemType, DiscoverResponseType } from '../../types'
+import { EFP_API_URL } from '../../constants'
 
 export const fetchRecommended = async (
   endpoint: 'discover' | 'recommended',
@@ -9,7 +10,7 @@ export const fetchRecommended = async (
   pageParam = 1
 ) => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_EFP_API_URL}/${
+    const url = `${EFP_API_URL}/${
       endpoint === 'recommended' && addressOrName
         ? `${list === undefined ? 'users' : 'lists'}/${
             list ?? addressOrName
@@ -26,9 +27,7 @@ export const fetchRecommended = async (
     })
 
     const data = (await res.json()) as DiscoverResponseType
-
     const formattedData = endpoint === 'recommended' ? data.recommended : (data.latestFollows as DiscoverItemType[])
-
     return formattedData
   } catch (err: unknown) {
     console.error(err)

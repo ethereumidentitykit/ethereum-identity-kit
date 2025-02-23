@@ -8,6 +8,7 @@ import { TransactionType } from '../../types'
 import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
 import Summary from './components/summary'
+import Steps from './components/steps'
 /**
  * Transaction Modal - allows user to initiate transactions on-chain
  *
@@ -24,6 +25,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
     pendingTxs,
     currentTxIndex,
     listsLoading,
+    changesOpen,
     batchTransactions,
     resetTransactions,
   } = useTransactions()
@@ -38,7 +40,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
       style={{ display: txModalOpen ? 'flex' : 'none' }}
       onClick={() => (batchTransactions ? setTxModalOpen(false) : resetTransactions())}
     >
-      <div className={clsx('transaction-modal-container', className)} onClick={(e) => e.stopPropagation()} {...props}>
+      <div className={clsx('transaction-modal-container', changesOpen && 'changes-open', className)} onClick={(e) => e.stopPropagation()} {...props}>
         {listsLoading ? (
           <div className="transaction-modal-loading-spinner" />
         ) : (
@@ -51,6 +53,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
             </div>
             <Cart />
             <ChainSelector />
+            <Steps transactions={pendingTxs} />
             <div
               className="transaction-modal-transactions-container"
               style={{

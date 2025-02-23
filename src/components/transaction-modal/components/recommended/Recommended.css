@@ -1,0 +1,19 @@
+.recommended-container {
+  width: 380px;
+  padding: 3px 20px 0px 0px;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+}
+
+.recommended-load-more {
+  height: 10px;
+  width: 100%;
+}
+
+.recommended-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  padding: 12px 0px 12px 16px;
+}

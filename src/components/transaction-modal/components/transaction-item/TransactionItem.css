@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: space-between;
   width: 400px;
-  gap: 16px;
   position: relative;
   padding: 20px;
 }
@@ -23,7 +22,7 @@
 .transaction-title {
   font-size: 22px;
   font-weight: 700;
-  margin: 10px 0;
+  margin: 10px 0 40px 0;
 }
 
 .transaction-progress-container {
@@ -35,6 +34,7 @@
 
 .transaction-progress-container {
   background-color: #f5f5f5;
+  position: relative;
 }
 
 .dark .transaction-progress-container {
@@ -49,6 +49,7 @@
   width: 20px;
   border-radius: 20px;
   color: #000000;
+  z-index: 10;
   background-color: #ffe066;
   transition: width 0.25s ease-out;
 }
@@ -68,6 +69,34 @@
   background-color: #49de80;
 }
 
+.transaction-progress-indexing-bar {
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  border-radius: 20px;
+  background-color: #24ad57;
+  z-index: -10;
+  animation: indexing-bar-animation 5s linear;
+}
+
+@keyframes indexing-bar-animation {
+  0% {
+    width: 0;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  95% {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  100% {
+    width: calc(100% + 8px);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+}
 .transaction-details-container {
   display: flex;
   flex-direction: column;

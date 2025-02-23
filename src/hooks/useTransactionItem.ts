@@ -134,6 +134,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     handleCancel,
     submitButtonText,
     transactionDetails,
+    currentTxIndex,
     setCurrentTxIndex,
   }
 }

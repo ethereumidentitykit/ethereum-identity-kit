@@ -21,10 +21,12 @@
   gap: 20px;
   overflow-x: hidden;
   position: relative;
+  transition: all 0.3s ease-in-out;
   font-family: 'Inter', sans-serif;
 }
 
-.transaction-modal-container::-webkit-scrollbar {
+.transaction-modal-container::-webkit-scrollbar,
+.transaction-modal-container *::-webkit-scrollbar {
   display: none;
 }
 
@@ -56,10 +58,17 @@
 
 .transaction-modal-close-button {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
   cursor: pointer;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #ffffff;
 }
 
 .transaction-modal-close-button:hover {
@@ -131,5 +140,11 @@
   .transaction-modal-cancel-button,
   .transaction-modal-confirm-button {
     width: calc(50vw - 20px);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .transaction-modal-container.changes-open {
+    width: 880px;
   }
 }

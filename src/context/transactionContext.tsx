@@ -24,6 +24,7 @@ import { getListStorageLocation } from '../utils/list-storage-location'
 import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
 import { ProfileListsResponse } from '../types'
+import { LIST_OP_LIMITS } from '../constants/chains'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -64,7 +65,8 @@ export const TransactionProvider = ({
 
   useEffect(() => {
     if (!txModalOpen) {
-      setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
+      const includesUpdateEFPList = pendingTxs.some((tx) => tx.id === EFPActionType.UpdateEFPList)
+      if (includesUpdateEFPList) setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
       if ((!currentTxIndex || currentTxIndex === 0) && pendingTxs[0]?.hash === undefined)
         setCurrentTxIndex(undefined)
     }
@@ -186,20 +188,23 @@ export const TransactionProvider = ({
       }
     } else if (batchTransactions) {
       // Update the UpdateEFPList transaction if it exists and is not yet complete
-      const pendingUpdateTransaction = newPendingTxs.findIndex(
+      const pendingUpdateTransactionId = newPendingTxs.reverse().findIndex(
         (tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash
       )
-      if (pendingUpdateTransaction === -1) {
+
+      if (pendingUpdateTransactionId === -1) {
         newPendingTxs.push(tx)
       } else {
-        const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransaction].args.slice(-1).flat()
+        const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransactionId].args.slice(-1).flat()
         const txListOps = tx.args.slice(-1).flat()
 
-        if (!pendingUpdateTxListOps.includes(txListOps[0])) {
-          newPendingTxs[pendingUpdateTransaction] = {
-            ...newPendingTxs[pendingUpdateTransaction],
+        if (pendingUpdateTxListOps.length <= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
+          newPendingTxs.push(tx)
+        } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
+          newPendingTxs[pendingUpdateTransactionId] = {
+            ...newPendingTxs[pendingUpdateTransactionId],
             args: [
-              ...newPendingTxs[pendingUpdateTransaction].args.slice(0, -1),
+              ...newPendingTxs[pendingUpdateTransactionId].args.slice(0, -1),
               [...pendingUpdateTxListOps, ...txListOps],
             ],
           }

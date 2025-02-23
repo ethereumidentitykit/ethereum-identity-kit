@@ -1,0 +1,62 @@
+.transaction-steps-container {
+  position: absolute;
+  top: 62px;
+  left: 20px;
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-steps {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.transaction-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #d8d8d8;
+  position: relative;
+}
+
+.transaction-step:after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: -24px;
+  width: 24px;
+  height: 3px;
+  background-color: #d8d8d8;
+}
+
+.no-line:after {
+  display: none;
+}
+
+.transaction-step-current,
+.transaction-step-current:after {
+  background-color: #ffe066;
+}
+
+.transaction-step-pending,
+.transaction-step-pending:after {
+  background-color: #ffe066;
+}
+
+.transaction-step-done,
+.transaction-step-done:after {
+  background-color: #49de80;
+}
+
+.transaction-step-error,
+.transaction-step-error:after {
+  background-color: #ff7c7c;
+}

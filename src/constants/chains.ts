@@ -20,7 +20,7 @@ export type Chain = (typeof chains)[number]
 export const LIST_OP_LIMITS: Record<number, number> = {
   [mainnet.id]: Number(500),
   [optimism.id]: Number(500),
-  [base.id]: Number(500),
+  [base.id]: Number(1000),
 } as const
 
 export const BLOCK_EXPLORERS = {
