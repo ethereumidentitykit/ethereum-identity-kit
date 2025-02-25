@@ -71,6 +71,10 @@
   background-color: #ffffff;
 }
 
+.dark .transaction-modal-close-button {
+  background-color: #333333;
+}
+
 .transaction-modal-close-button:hover {
   opacity: 0.6;
 }

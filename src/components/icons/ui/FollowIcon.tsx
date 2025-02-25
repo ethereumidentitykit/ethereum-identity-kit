@@ -1,12 +1,6 @@
 const FollowIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, color = '#333333' }) => {
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox='0 0 14 20'
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width={width} height={height} viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0 9.21289L5.35156 0.306641L10.6641 9.21289L5.35156 12.4551L0 9.21289Z" fill={color} />
       <path d="M5.35156 13.4316L0 10.1895L5.35156 17.7285L10.6641 10.1895L5.35156 13.4316Z" fill={color} />
       <path

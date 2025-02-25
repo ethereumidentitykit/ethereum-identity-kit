@@ -6,8 +6,8 @@ import { useTransactions } from '../../../../context'
 import { Arrow, Check } from '../../../icons'
 import { ListRecordContracts } from '../../../../constants/contracts'
 import { Chain, ChainIcons, chains } from '../../../../constants/chains'
-import { EFPActionType } from '../../../../types'
 import './ChainSelector.css'
+import { EFPActionIds } from '../../../../constants/transactions'
 
 const ChainSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,16 +37,16 @@ const ChainSelector = () => {
 
     const newPendingTxs = pendingTxs.map((tx) => ({
       ...tx,
-      address: tx.id === EFPActionType.UpdateEFPList ? ListRecordContracts[currSelectedChain.id] : tx.address,
-      chainId: tx.id === EFPActionType.UpdateEFPList ? currSelectedChain.id : tx.chainId,
+      address: tx.id === EFPActionIds.UpdateEFPList ? ListRecordContracts[currSelectedChain.id] : tx.address,
+      chainId: tx.id === EFPActionIds.UpdateEFPList ? currSelectedChain.id : tx.chainId,
       args:
-        tx.id === EFPActionType.CreateEFPList
+        tx.id === EFPActionIds.CreateEFPList
           ? [
-            encodePacked(
-              ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-              [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-            ),
-          ]
+              encodePacked(
+                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+              ),
+            ]
           : tx.args,
     }))
 
@@ -55,7 +55,10 @@ const ChainSelector = () => {
 
   return (
     <div className="chain-selector-container" style={{ display: isOpen ? 'flex' : 'none' }}>
-      <div className='transaction-modal-arrow-back' onClick={() => (batchTransactions ? setChangesOpen(true) : resetTransactions())}>
+      <div
+        className="transaction-modal-arrow-back"
+        onClick={() => (batchTransactions ? setChangesOpen(true) : resetTransactions())}
+      >
         <Arrow height={18} width={18} />
       </div>
       <div className="chain-selector-content-container">

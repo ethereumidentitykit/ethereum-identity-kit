@@ -12,13 +12,10 @@ interface TransactionItemProps {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
-  const {
-    handleClick,
-    currentTxIndex,
-    setCurrentTxIndex,
-    submitButtonText,
-    transactionDetails,
-  } = useTransactionItem(id, transaction)
+  const { handleClick, currentTxIndex, setCurrentTxIndex, submitButtonText, transactionDetails } = useTransactionItem(
+    id,
+    transaction
+  )
   const { pendingTxs } = useTransactions()
 
   const ProgressIcon = {
@@ -43,9 +40,12 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
 
   return (
     <div className="transaction-item" style={{ gap: pendingTxs.length > 1 ? '64px' : '24px' }}>
-      {currentTxIndex === id &&
+      {currentTxIndex === id && (
         <>
-          <div className="transaction-modal-arrow-back" onClick={() => setCurrentTxIndex(id === 0 ? undefined : id - 1)}>
+          <div
+            className="transaction-modal-arrow-back"
+            onClick={() => setCurrentTxIndex(id === 0 ? undefined : id - 1)}
+          >
             <Arrow height={18} width={18} />
           </div>
           <p className="transaction-title">{transaction.title ?? 'Transaction'}</p>
@@ -54,13 +54,16 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
               <div className={clsx('transaction-progress-bar', ProgressionClassName)}>
                 <ProgressIcon height={20} width={20} />
               </div>
-              {(submitButtonText === 'Indexing...' || submitButtonText === 'Finish') && <div className="transaction-progress-indexing-bar" />}
+              {(submitButtonText === 'Indexing...' || submitButtonText === 'Finish') && (
+                <div className="transaction-progress-indexing-bar" />
+              )}
             </div>
             <TransactionItemDetails transactionDetails={transactionDetails} transaction={transaction} />
             <div className="transaction-modal-initiate-container" style={{ padding: '0' }}>
               <button
                 className={clsx('transaction-modal-initiate-button', {
-                  'transaction-modal-initiate-button-done': submitButtonText === 'Finish' || submitButtonText === 'Next' || submitButtonText === 'Indexing...',
+                  'transaction-modal-initiate-button-done':
+                    submitButtonText === 'Finish' || submitButtonText === 'Next' || submitButtonText === 'Indexing...',
                 })}
                 onClick={handleClick}
                 disabled={submitButtonText === 'Pending...' || submitButtonText === 'Indexing...'}
@@ -70,7 +73,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
             </div>
           </div>
         </>
-      }
+      )}
     </div>
   )
 }

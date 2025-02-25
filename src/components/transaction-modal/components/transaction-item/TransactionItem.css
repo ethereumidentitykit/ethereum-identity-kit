@@ -117,18 +117,30 @@
   background-color: #f5f5f5;
 }
 
+.dark .transaction-item-details-description {
+  background-color: #555555;
+}
+
 .transaction-item-details-description-title {
   font-size: 16px;
   font-weight: 600;
   color: #000;
 }
 
+.dark .transaction-item-details-description-title {
+  color: #fff;
+}
+
 .transaction-item-details-description-description {
   font-size: 12px;
   font-weight: 400;
-  color: #888;
+  color: #888888;
   max-width: 66%;
   text-align: right;
+}
+
+.dark .transaction-item-details-description-description {
+  color: #aaaaaa;
 }
 
 .transaction-details {
@@ -145,7 +157,7 @@
 }
 
 .dark .transaction-details {
-  background-color: #555555;
+  background-color: #444444;
 }
 
 .transaction-details-item {
@@ -183,6 +195,10 @@
   color: #888888;
 }
 
+.dark .transaction-details-gas-fee-container span {
+  color: #aaaaaa;
+}
+
 .transaction-details-block-explorer-container {
   display: flex;
   flex-direction: row;
@@ -209,14 +225,6 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-}
-
-.transaction-modal-cancel-text {
-  color: #888;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
 }
 
 .transaction-modal-initiate-button {

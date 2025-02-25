@@ -9,6 +9,10 @@
   width: calc(100% - 24px);
 }
 
+.dark .transaction-modal-actions-container {
+  background-color: #444444;
+}
+
 .transaction-modal-actions-container-title {
   font-size: 18px;
   font-weight: 600;
@@ -18,6 +22,10 @@
   font-size: 16px;
   font-weight: 500;
   color: #888888;
+}
+
+.dark .transaction-modal-actions-container-title span {
+  color: #aaaaaa;
 }
 
 .transaction-modal-actions-item {
@@ -40,6 +48,10 @@
   text-transform: capitalize;
   color: #888888;
   font-weight: 500;
+}
+
+.dark .transaction-modal-actions-item-header p {
+  color: #aaaaaa;
 }
 
 .transaction-modal-actions-item-header div {

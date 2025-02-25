@@ -2,7 +2,8 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
 import LoadingCell from '../../../loading-cell/LoadingCell'
-import { Avatar, DEFAULT_FALLBACK_AVATAR } from '../../../..'
+import Avatar from '../../../avatar/Avatar'
+import { DEFAULT_FALLBACK_AVATAR } from '../../../../constants'
 
 interface ActionAccountProps {
   address: string
@@ -17,9 +18,15 @@ const ActionAccount: React.FC<ActionAccountProps> = ({ address, height = '24px',
   })
 
   return isLoading ? (
-    <LoadingCell height={height} width={width} radius='50%' />
+    <LoadingCell height={height} width={width} radius="50%" />
   ) : (
-    <Avatar address={address} src={account?.ens.avatar} name={account?.ens.name} fallback={DEFAULT_FALLBACK_AVATAR} style={{ height, width }} />
+    <Avatar
+      address={address}
+      src={account?.ens.avatar}
+      name={account?.ens.name}
+      fallback={DEFAULT_FALLBACK_AVATAR}
+      style={{ height, width }}
+    />
   )
 }
 

@@ -1,4 +1,3 @@
-
 import LoadingCell from '../loading-cell/LoadingCell'
 import './ProfileListRow.css'
 

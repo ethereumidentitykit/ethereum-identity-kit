@@ -11,9 +11,10 @@ const ProfileList: React.FC<ProfileListProps> = ({ profiles, darkMode, connected
       {profiles.map((profile) => (
         <ProfileListRow key={profile.address} profile={profile} connectedAddress={connectedAddress} />
       ))}
-      {isLoading && Array(loadingRows).fill(null).map((_, index) => (
-        <ProfileListLoadingRow key={index} />
-      ))}
+      {isLoading &&
+        Array(loadingRows)
+          .fill(null)
+          .map((_, index) => <ProfileListLoadingRow key={index} />)}
     </div>
   )
 }

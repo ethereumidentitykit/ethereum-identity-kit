@@ -25,6 +25,7 @@ import { EFPActionType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
 import { ProfileListsResponse } from '../types'
 import { LIST_OP_LIMITS } from '../constants/chains'
+import { EFPActionIds } from '../constants/transactions'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -65,10 +66,10 @@ export const TransactionProvider = ({
 
   useEffect(() => {
     if (!txModalOpen) {
-      const includesUpdateEFPList = pendingTxs.some((tx) => tx.id === EFPActionType.UpdateEFPList)
-      if (includesUpdateEFPList) setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
-      if ((!currentTxIndex || currentTxIndex === 0) && pendingTxs[0]?.hash === undefined)
-        setCurrentTxIndex(undefined)
+      const includesUpdateEFPList = pendingTxs.some((tx) => tx.id === EFPActionIds.UpdateEFPList)
+      if (includesUpdateEFPList || pendingTxs.length === 0)
+        setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
+      if ((!currentTxIndex || currentTxIndex === 0) && pendingTxs[0]?.hash === undefined) setCurrentTxIndex(undefined)
     }
   }, [txModalOpen])
 
@@ -117,7 +118,7 @@ export const TransactionProvider = ({
 
     if (storedPendingTxs.length > 0) {
       // Find the mint transaction and extract the nonce and chainId
-      const mintTx = storedPendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)
+      const mintTx = storedPendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)
 
       if (mintTx) {
         const storedNonce = getMintTxNonce(mintTx)
@@ -188,9 +189,9 @@ export const TransactionProvider = ({
       }
     } else if (batchTransactions) {
       // Update the UpdateEFPList transaction if it exists and is not yet complete
-      const pendingUpdateTransactionId = newPendingTxs.reverse().findIndex(
-        (tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash
-      )
+      const pendingUpdateTransactionId = newPendingTxs
+        .reverse()
+        .findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
 
       if (pendingUpdateTransactionId === -1) {
         newPendingTxs.push(tx)
@@ -198,7 +199,7 @@ export const TransactionProvider = ({
         const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransactionId].args.slice(-1).flat()
         const txListOps = tx.args.slice(-1).flat()
 
-        if (pendingUpdateTxListOps.length <= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
+        if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
           newPendingTxs.push(tx)
         } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
           newPendingTxs[pendingUpdateTransactionId] = {
@@ -223,7 +224,7 @@ export const TransactionProvider = ({
 
   const removeListOpsTransaction = (txData: Hex[]) => {
     const filteredPendingTxs = pendingTxs
-      .filter((tx) => tx.id === EFPActionType.UpdateEFPList && !tx.hash)
+      .filter((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
       .map((tx) => {
         const filteredArgs = tx.args
           .slice(-1)
@@ -251,7 +252,7 @@ export const TransactionProvider = ({
     const newTxIndex = (currentTxIndex || 0) + 1
     if (newTxIndex === pendingTxs.length) {
       // Refetch lists if user has minted a new one
-      if (pendingTxs.find((tx) => tx.id === EFPActionType.CreateEFPList)) refetchLists()
+      if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
 
       resetTransactions()
 

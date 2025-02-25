@@ -1,10 +1,10 @@
-import { useTransactions } from '../../../../context';
-import Step from './Step';
-import { TransactionType } from '../../../../types';
-import './Steps.css';
+import { useTransactions } from '../../../../context'
+import Step from './Step'
+import { TransactionType } from '../../../../types'
+import './Steps.css'
 
 interface StepsProps {
-  transactions: TransactionType[];
+  transactions: TransactionType[]
 }
 
 const Steps = ({ transactions }: StepsProps) => {
@@ -13,8 +13,8 @@ const Steps = ({ transactions }: StepsProps) => {
   if (currentTxIndex === undefined || transactions.length < 2) return null
 
   return (
-    <div className='transaction-steps-container'>
-      <div className='transaction-steps'>
+    <div className="transaction-steps-container">
+      <div className="transaction-steps">
         {transactions.map((transaction, index) => (
           <Step key={transaction.id} transaction={transaction} index={index} />
         ))}
@@ -23,4 +23,4 @@ const Steps = ({ transactions }: StepsProps) => {
   )
 }
 
-export default Steps;
+export default Steps

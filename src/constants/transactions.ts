@@ -1,11 +1,17 @@
-import { Cross, FollowIcon } from '../components'
+import { Cross, FollowIcon } from '../components/icons'
 import Mute from '../components/icons/ui/Mute'
 import Tag from '../components/icons/ui/Tag'
 import { EFPActionType } from '../types/transactions'
 
+export const EFPActionIds: Record<EFPActionType, string> = {
+  CreateEFPList: 'CreateEFPList',
+  UpdateEFPList: 'UpdateEFPList',
+  SetEFPListSettings: 'SetEFPListSettings',
+}
+
 export const TRANSACTION_TITLES = {
-  [EFPActionType.CreateEFPList]: 'Create EFP List',
-  [EFPActionType.UpdateEFPList]: 'Update EFP List',
+  [EFPActionIds.CreateEFPList]: 'Create EFP List',
+  [EFPActionIds.UpdateEFPList]: 'Update EFP List',
 }
 
 export const ACTION_ITEM_ICON = {

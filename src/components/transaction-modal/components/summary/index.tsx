@@ -1,21 +1,39 @@
 import { useTransactions } from '../../../../context'
-import { EFPActionType } from '../../../../types'
 import './Summary.css'
 import { Arrow } from '../../../icons'
 import { useMemo } from 'react'
 import Actions from '../actions'
 import { ChainIcons, chains } from '../../../../constants/chains'
+import { EFPActionIds } from '../../../../constants/transactions'
+import { EFPActionType, TransactionType } from '../../../../types/transactions'
+import ListSettings from '../list-settings'
 
 export default function Summary() {
   const { pendingTxs, setCurrentTxIndex, batchTransactions, setSelectedChainId, setChangesOpen } = useTransactions()
 
   const onSummaryClose = () => {
-    const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionType.CreateEFPList)
+    const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
     if (mintTxIndex >= 0) return setSelectedChainId(undefined)
     if (batchTransactions) return setChangesOpen(true)
   }
 
   const groupedTransactions = useMemo(() => Object.groupBy(pendingTxs, (tx) => tx.id), [pendingTxs])
+
+  const displayedChanges = (id: EFPActionType | string, txs: TransactionType[]) => {
+    switch (id) {
+      case EFPActionIds.UpdateEFPList:
+        return <Actions transactions={txs} />
+      case EFPActionIds.SetEFPListSettings:
+        return <ListSettings txs={txs} />
+      default:
+        return txs?.map((tx) => (
+          <div key={tx.id} className="summary-item-transaction-container">
+            <p className="summary-item-transaction-title">{tx.title}</p>
+            <p className="summary-item-transaction-description">{tx.description}</p>
+          </div>
+        ))
+    }
+  }
 
   return (
     <div className="summary-container">
@@ -25,6 +43,7 @@ export default function Summary() {
       <p className="summary-title">Summary</p>
       <div className="summary-items-container">
         {Object.entries(groupedTransactions).map(([id, txs]) => {
+          if (!txs) return null
           const Chain = chains.find((chain) => chain.id === txs?.[0]?.chainId)
           if (!Chain) return null
           const chainName = Chain.name
@@ -37,13 +56,7 @@ export default function Summary() {
                 <ChainIcon height={18} width={18} />
                 <p className="summary-item-chain-name">{chainName}</p>
               </div>
-              {txs && (id === EFPActionType.UpdateEFPList ? <Actions transactions={txs} /> :
-                txs.map((tx) => (
-                  <div key={tx.id} className='summary-item-transaction-container'>
-                    <p className='summary-item-transaction-title'>{tx.title}</p>
-                    <p className='summary-item-transaction-description'>{tx.description}</p>
-                  </div>))
-              )}
+              {displayedChanges(id, txs)}
             </div>
           )
         })}

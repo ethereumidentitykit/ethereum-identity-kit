@@ -1,10 +1,9 @@
 import { Address, encodePacked, fromHex, Hex, toHex } from 'viem'
 import * as abi from '../constants/abi'
 import { DEFAULT_CHAIN } from '../constants/chains'
-import { efpListRecordsAbi } from '../constants/abi'
-import { coreEfpContracts } from '../constants/contracts'
-import { ListRecordContracts } from '../constants/contracts'
-import { EFPActionType, GetListOpsTransactionProps, ListOpType, TransactionType } from '../types/transactions'
+import { EFPActionIds } from '../constants/transactions'
+import { coreEfpContracts, ListRecordContracts } from '../constants/contracts'
+import { GetListOpsTransactionProps, ListOpType, TransactionType } from '../types/transactions'
 
 export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAddress }: GetListOpsTransactionProps) => {
   const operations = listOps.map((listOp: ListOpType) =>
@@ -12,10 +11,10 @@ export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAdd
   )
 
   return {
-    id: EFPActionType.UpdateEFPList,
+    id: EFPActionIds.UpdateEFPList,
     title: 'EFP Update',
     address: chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords,
-    abi: efpListRecordsAbi,
+    abi: abi.efpListRecordsAbi,
     chainId,
     functionName: chainId ? 'applyListOps' : 'setMetadataValuesAndApplyListOps',
     args: chainId ? [nonce, operations] : [nonce, [{ key: 'user', value: connectedAddress }], operations],
@@ -51,7 +50,7 @@ export const getMintTxRecordsAddress = (transaction: TransactionType) => `0x${tr
 
 export const getPendingTxAddresses = (txs: TransactionType[]) => {
   return txs
-    .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
+    .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
     .flatMap((tx) => {
       const listOps = getListOpsFromTransaction(tx)
       return listOps.map((listOp) => listOp.data.slice(0))
@@ -69,12 +68,12 @@ export const extractAddressAndTag = (data: Hex) => {
 }
 
 export const getPendingTxListOps = (txs: TransactionType[]) => {
-  return txs.filter((tx) => tx.id === EFPActionType.UpdateEFPList).flatMap((tx) => getListOpsFromTransaction(tx))
+  return txs.filter((tx) => tx.id === EFPActionIds.UpdateEFPList).flatMap((tx) => getListOpsFromTransaction(tx))
 }
 
 export const getPendingTxAddressesAndTags = (txs: TransactionType[]) =>
   txs
-    .filter((tx) => tx.id === EFPActionType.UpdateEFPList)
+    .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
     .flatMap((tx) => {
       const listOps = getListOpsFromTransaction(tx)
       return listOps.map((listOp) => extractAddressAndTag(listOp.data))
@@ -84,7 +83,7 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
   const mintTransaction = {
     title: 'Mint New List',
     description: 'An NFT representing your List will appear in your wallet. This must be done on Base.',
-    id: EFPActionType.CreateEFPList,
+    id: EFPActionIds.CreateEFPList,
     chainId: DEFAULT_CHAIN.id,
     address: coreEfpContracts.EFPListMinter,
     abi: abi.efpListMinterAbi,
@@ -103,7 +102,7 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
 export const transformTxsForLocalStorage = (txs: TransactionType[]) =>
   txs.map((tx) => {
     const args = tx.args
-    if (tx.id === EFPActionType.UpdateEFPList) args[0] = (args[0] as bigint).toString()
+    if (tx.id === EFPActionIds.UpdateEFPList) args[0] = (args[0] as bigint).toString()
 
     return {
       ...tx,

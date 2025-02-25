@@ -1,9 +1,6 @@
 import { Address, Abi, Hex } from 'viem'
 
-export enum EFPActionType {
-  CreateEFPList = 'CreateEFPList',
-  UpdateEFPList = 'UpdateEFPList',
-}
+export type EFPActionType = 'CreateEFPList' | 'UpdateEFPList' | 'SetEFPListSettings'
 
 export type TransactionType = {
   title?: string
