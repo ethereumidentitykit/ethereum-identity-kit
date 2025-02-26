@@ -25,6 +25,8 @@ export default function Summary() {
         return <Actions transactions={txs} />
       case EFPActionIds.SetEFPListSettings:
         return <ListSettings txs={txs} />
+      // case EFPActionIds.UpdateENSProfile:
+      //   return <UpdateENSProfile txs={txs} />
       default:
         return txs?.map((tx) => (
           <div key={tx.id} className="summary-item-transaction-container">

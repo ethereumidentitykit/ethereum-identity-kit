@@ -7,6 +7,7 @@ export const EFPActionIds: Record<EFPActionType, string> = {
   CreateEFPList: 'CreateEFPList',
   UpdateEFPList: 'UpdateEFPList',
   SetEFPListSettings: 'SetEFPListSettings',
+  UpdateENSProfile: 'UpdateENSProfile',
 }
 
 export const TRANSACTION_TITLES = {

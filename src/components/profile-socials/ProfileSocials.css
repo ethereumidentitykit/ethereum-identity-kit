@@ -39,18 +39,12 @@
 }
 
 .profile-link-dark {
-  background-color: #71717a;
+  background-color: #666666;
+  color: rgb(96 165 250);
 }
 
 .profile-link-light {
   background-color: #e4e4e7;
-}
-
-.profile-link-dark .profile-link-text {
-  color: rgb(96 165 250);
-}
-
-.profile-link-light .profile-link-text {
   color: rgb(0, 89, 255);
 }
 
