@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
   justify-content: space-between;
-  width: 400px;
+  width: 440px;
   position: relative;
   padding: 20px;
 }
@@ -45,8 +46,9 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  padding: 6px;
-  width: 20px;
+  padding-right: 6px;
+  width: 32px;
+  height: 32px;
   border-radius: 20px;
   color: #000000;
   z-index: 10;
@@ -60,12 +62,12 @@
 }
 
 .transaction-progress-bar-re-initiate {
-  width: calc(100% - 12px);
+  width: 100%;
   background-color: #ff6b6b;
 }
 
 .transaction-progress-bar-done {
-  width: calc(100% - 12px);
+  width: 100%;
   background-color: #49de80;
 }
 
@@ -149,7 +151,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  width: calc(100% - 24px);
+  width: 100%;
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 12px;
@@ -232,6 +234,7 @@
   height: 46px;
   font-size: 18px;
   font-weight: 800;
+  color: #000;
   background-color: #ffe066;
 }
 
@@ -242,11 +245,11 @@
 @media screen and (max-width: 600px) {
   .transaction-item {
     gap: 16px;
-    width: calc(100vw - 20px);
-    padding: 20px 6px 10px 6px;
+    width: 100vw;
+    padding: 20px 10px 12px 10px;
   }
 
   .transaction-modal-initiate-button {
-    width: calc(100vw - 32px);
+    width: calc(100vw - 20px);
   }
 }

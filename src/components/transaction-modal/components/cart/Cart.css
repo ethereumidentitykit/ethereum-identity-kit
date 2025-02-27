@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  padding: 0px 10px 64px 10px;
+  padding: 20px 10px 64px 10px;
   overflow: visible;
   z-index: 1000;
   background-color: white;
@@ -19,6 +19,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
+  width: 100%;
   max-height: 80vh;
   overflow-y: auto;
 }
@@ -38,14 +39,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 400px;
+  width: 100%;
   gap: 12px;
   padding: 0 10px;
 }
 
 .cart-changes-list {
-  width: 380px;
-  padding: 4px 20px 4px 0px;
+  width: 400px;
+  padding: 8px;
   border-radius: 6px;
   height: fit-content;
   background-color: #f4f4f4;
@@ -121,7 +122,7 @@
   position: absolute;
   bottom: 0;
   z-index: 1000;
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
@@ -186,7 +187,21 @@
 
 @media screen and (max-width: 600px) {
   .cart-container {
-    padding: 20px 2px 0 2px;
+    padding: 0;
+    width: 100vw;
+  }
+
+  .cart-content {
+    padding: 0 12px;
+    width: 100vw;
+  }
+
+  .cart-changes-list {
+    width: 100%;
+  }
+
+  .cart-recommended-container {
+    width: 100%;
   }
 }
 
@@ -199,30 +214,32 @@
 @media screen and (min-width: 1024px) {
   .cart-container {
     width: 860px;
-    padding-bottom: 0px;
+    padding: 20px 10px 0px 10px;
   }
 
   .cart-content {
     flex-direction: row-reverse;
-    width: 840px;
+    width: 860px;
     gap: 20px;
     overflow: hidden;
   }
 
   .cart-changes-list {
-    padding: 12px 30px 16px 8px;
-    max-height: calc(80vh - 210px);
+    padding: 12px 6px 16px 6px;
+    max-height: calc(80vh - 170px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
 
   .cart-recommended-container {
     max-height: calc(80vh - 50px);
+    width: 400px;
+    padding-bottom: 10px;
     overflow-y: scroll;
   }
 
   .cart-modal-buttons-container {
     width: 400px;
-    right: 20px;
+    right: 30px;
   }
 }

@@ -7,7 +7,7 @@ import { GetListOpsTransactionProps, ListOpType, TransactionType } from '../type
 
 export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAddress }: GetListOpsTransactionProps) => {
   const operations = listOps.map((listOp: ListOpType) =>
-    encodePacked(['uint8', 'uint8', 'uint8', 'uint8', 'bytes'], [1, listOp.opcode, 1, 1, listOp.data])
+    encodePacked(['uint8', 'uint8', 'uint8', 'uint8', 'bytes'], [listOp.version || 1, listOp.opcode, 1, 1, listOp.data])
   )
 
   return {
@@ -102,7 +102,8 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
 export const transformTxsForLocalStorage = (txs: TransactionType[]) =>
   txs.map((tx) => {
     const args = tx.args
-    if (tx.id === EFPActionIds.UpdateEFPList) args[0] = (args[0] as bigint).toString()
+    if (tx.id === EFPActionIds.UpdateEFPList) args[0] = (args[0] as bigint)?.toString()
+    if (tx.id === EFPActionIds.CreateEFPList) args[4] = (args[4] as bigint)?.toString()
 
     return {
       ...tx,

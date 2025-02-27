@@ -49,7 +49,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
         <CancelModal
           title="Cancel Remaining Transaction?"
           description="You may have to start over."
-          confirmButtonText="Clear cart"
+          confirmButtonText="Yes, Cancel"
           onCancel={() => setCancelModalOpen(false)}
           onConfirm={() => {
             resetTransactions()
@@ -61,7 +61,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
         <CancelModal
           title="Clear Cart?"
           description="Are you sure you want to clear your cart?"
-          confirmButtonText="Yes, cancel"
+          confirmButtonText="Clear Cart"
           onCancel={() => setClearCartModalOpen(false)}
           onConfirm={() => {
             resetTransactions()
@@ -99,7 +99,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
                 transform:
                   window.innerWidth > 600
                     ? `translatex(${-(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 472}px)`
-                    : `translatex(calc(${-(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 100}vw - ${(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 23}px))`,
+                    : `translatex(${-(isCurrentTxIndexValid ? currentTxIndex + 1 : 0) * 100}vw)`,
               }}
             >
               <Summary />

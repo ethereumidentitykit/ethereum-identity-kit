@@ -4,6 +4,7 @@ export type ProfileListProps = {
   profiles: ProfileItemType[]
   darkMode?: boolean
   connectedAddress?: Address
+  selectedList?: string
   isLoading?: boolean
   loadingRows?: number
 }

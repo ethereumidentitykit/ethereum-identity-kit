@@ -9,12 +9,14 @@ import { EFPActionType, TransactionType } from '../../../../types/transactions'
 import ListSettings from '../list-settings'
 
 export default function Summary() {
-  const { pendingTxs, setCurrentTxIndex, batchTransactions, setSelectedChainId, setChangesOpen } = useTransactions()
+  const { pendingTxs, setCurrentTxIndex, batchTransactions, setSelectedChainId, setChangesOpen, setTxModalOpen } =
+    useTransactions()
 
   const onSummaryClose = () => {
     const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
     if (mintTxIndex >= 0) return setSelectedChainId(undefined)
     if (batchTransactions) return setChangesOpen(true)
+    else return setTxModalOpen(false)
   }
 
   const groupedTransactions = useMemo(() => Object.groupBy(pendingTxs, (tx) => tx.id), [pendingTxs])

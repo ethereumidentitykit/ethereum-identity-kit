@@ -1,9 +1,9 @@
 .transaction-steps-container {
   position: absolute;
   top: 62px;
-  left: 20px;
+  left: 0;
   display: flex;
-  width: 400px;
+  width: 440px;
   align-items: center;
   justify-content: center;
 }
@@ -24,6 +24,7 @@
   height: 30px;
   border-radius: 50%;
   background-color: #d8d8d8;
+  color: #333;
   position: relative;
 }
 
@@ -59,4 +60,12 @@
 .transaction-step-error,
 .transaction-step-error:after {
   background-color: #ff7c7c;
+}
+
+@media screen and (max-width: 600px) {
+  .transaction-steps-container {
+    width: 100vw;
+    padding: 0 10px;
+    left: 0;
+  }
 }

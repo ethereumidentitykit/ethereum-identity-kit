@@ -17,6 +17,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     resetTransactions,
     goToNextTransaction,
   } = useTransactions()
+
   const { isPending, isSuccess, isError } = useWaitForTransactionReceipt({
     hash: transaction.hash,
     chainId: transaction.chainId,

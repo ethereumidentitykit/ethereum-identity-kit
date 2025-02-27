@@ -8,7 +8,7 @@ import { fetchProfileAccount } from '../../utils/api/fetch-profile-account'
 import { truncateAddress } from '../../utils'
 import './ProfileListRow.css'
 
-const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddress }) => {
+const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddress, selectedList }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => await fetchProfileAccount(profile.address),
@@ -29,14 +29,10 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddre
         {isAccountLoading ? (
           <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
         ) : (
-          <p>{account?.ens?.name || truncateAddress(profile.address)}</p>
+          <p className="profile-list-row-name">{account?.ens?.name || truncateAddress(profile.address)}</p>
         )}
       </div>
-      <FollowButton
-        lookupAddress={profile.address}
-        connectedAddress={connectedAddress}
-        style={{ height: '39px', width: '110px', borderRadius: '11px' }}
-      />
+      <FollowButton lookupAddress={profile.address} connectedAddress={connectedAddress} selectedList={selectedList} />
     </div>
   )
 }

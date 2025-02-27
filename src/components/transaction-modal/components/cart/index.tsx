@@ -18,12 +18,13 @@ interface CartProps {
 }
 
 const Cart = ({ setClearCartModalOpen }: CartProps) => {
-  const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen } = useTransactions()
+  const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
   const { address: connectedAddress } = useAccount()
 
   const profiles = useMemo(() => {
-    const pendingChanges = getPendingTxAddressesAndTags(pendingTxs)
+    if (!pendingTxs || pendingTxs.length === 0) return []
 
+    const pendingChanges = getPendingTxAddressesAndTags(pendingTxs)
     const pendingChangesProfiles = new Map<Address, ProfileItemType>()
 
     pendingChanges.forEach(({ address, tag }) => {
@@ -59,14 +60,14 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
               </button>
             </div>
             {profiles.length > 0 ? (
-              <ProfileList profiles={profiles} connectedAddress={connectedAddress} />
+              <ProfileList profiles={profiles} connectedAddress={connectedAddress} selectedList={selectedList} />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>
             )}
           </div>
           <div className="cart-recommended-container">
             <ManualAdd />
-            {connectedAddress && <Recommended connectedAddress={connectedAddress} />}
+            {connectedAddress && <Recommended selectedList={selectedList} connectedAddress={connectedAddress} />}
           </div>
         </div>
         <div className="cart-modal-buttons-container">
@@ -79,8 +80,12 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
               className="cart-modal-to-top-button"
               onClick={() => {
                 const changesList = document.querySelector('.cart-changes-list')
+                const cartContainer = document.querySelector('.cart-container-inner')
                 if (changesList) {
                   changesList.scrollTo({ top: 0, behavior: 'smooth' })
+                }
+                if (cartContainer) {
+                  cartContainer.scrollTo({ top: 0, behavior: 'smooth' })
                 }
               }}
             >

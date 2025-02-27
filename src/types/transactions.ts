@@ -25,6 +25,7 @@ export type SubmitButtonText =
   | 'Next'
 
 export type ListOpType = {
+  version?: number
   opcode: number
   data: Hex
 }

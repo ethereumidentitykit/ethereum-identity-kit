@@ -13,9 +13,11 @@ import { FollowingState } from '../types'
 export const useFollowButton = ({
   lookupAddress,
   connectedAddress,
+  selectedList,
 }: {
   lookupAddress: Address
   connectedAddress?: Address
+  selectedList?: string
 }) => {
   const [disableHover, setDisableHover] = useState(false)
 
@@ -32,7 +34,7 @@ export const useFollowButton = ({
   const { state: followState, isLoading } = useFollowingState({
     lookupAddressOrName: lookupAddress,
     connectedAddress,
-    list: lists?.primary_list,
+    list: selectedList === 'new list' ? undefined : (selectedList ?? lists?.primary_list),
   })
 
   const pendingListOps = useMemo(() => {
@@ -142,6 +144,7 @@ export const useFollowButton = ({
       listOps,
       connectedAddress,
     })
+
     addListOpsTransaction(transaction)
   }
 

@@ -12,8 +12,9 @@
   color: #27272a;
   cursor: pointer;
   position: relative;
+  box-sizing: border-box;
   border: 3px solid transparent;
-  transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out !important;
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -32,7 +33,6 @@
   background-size: 300% auto;
   transition: all 0.3s;
   border-radius: 6px;
-  border: none;
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -44,23 +44,22 @@
 .follow-button-pending,
 .follow-button-following {
   background-color: #ffffff;
-  border: 3px solid #ffe066;
+  border-color: #ffe066 !important;
 }
 
 /* Add :not(.disable-hover) before :hover */
-.follow-button-following:not(.disable-hover):hover,
 .follow-button-pending:not(.disable-hover):hover {
-  border-color: transparent;
+  border-color: transparent !important;
   background: #d0d0d0;
-  padding: 6px 10px;
 }
 
+.follow-button-following:not(.disable-hover):hover,
 .follow-button-block,
 .follow-button-unfollow,
 .follow-button-muted,
 .follow-button-unblock,
 .follow-button-unmute {
-  border-color: transparent;
+  border-color: transparent !important;
   background: #ff7c7c;
 }
 

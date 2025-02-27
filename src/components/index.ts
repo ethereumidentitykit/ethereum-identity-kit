@@ -33,6 +33,7 @@ import { CommonFollowersProps } from './common-followers/CommonFollowers.types'
 import { ImageWithFallbackProps } from './image-with-fallback/ImageWithFallback.types'
 import { FollowButtonProps } from './follow-button/FollowButton.types'
 import { TransactionModalProps } from './transaction-modal/TransactionModal.types'
+
 export type {
   ProfileCardProps,
   ProfileSocialsProps,

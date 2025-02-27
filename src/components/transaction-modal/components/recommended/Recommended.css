@@ -1,6 +1,6 @@
 .recommended-container {
-  width: 380px;
-  padding: 3px 20px 0px 0px;
+  width: 100%;
+  padding: 3px 4px 12px 4px;
   border-radius: 6px;
   background-color: #f4f4f4;
   margin-bottom: 10px;
@@ -18,5 +18,5 @@
 .recommended-title {
   font-size: 22px;
   font-weight: 600;
-  padding: 12px 0px 12px 16px;
+  padding: 12px 0px 12px 12px;
 }

@@ -4,11 +4,17 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { fetchRecommended } from '../utils/api/fetch-recommended'
 import { RecommendedItemType } from '../types'
 
-export const useRecommended = (connectedAddress: Address, limit: number) => {
+export const useRecommended = (connectedAddress: Address, limit: number, list?: string) => {
   const { data, isLoading, isRefetching, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['recommended', connectedAddress, limit],
+    queryKey: ['recommended', connectedAddress, limit, list],
     queryFn: async ({ pageParam = 0 }) => {
-      const discoverAccounts = await fetchRecommended('recommended', connectedAddress, undefined, limit, pageParam)
+      const discoverAccounts = await fetchRecommended(
+        'recommended',
+        connectedAddress,
+        list === 'new list' ? undefined : list,
+        limit,
+        pageParam
+      )
 
       return {
         results: discoverAccounts,

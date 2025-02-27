@@ -3,8 +3,16 @@ import ProfileList from '../../../profile-list/ProfileList'
 import { useRecommended } from '../../../../hooks/useRecommended'
 import './Recommended.css'
 
-const Recommended = ({ connectedAddress, limit = 20 }: { connectedAddress: Address; limit?: number }) => {
-  const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(connectedAddress, limit)
+const Recommended = ({
+  connectedAddress,
+  selectedList,
+  limit = 20,
+}: {
+  connectedAddress: Address
+  selectedList?: string
+  limit?: number
+}) => {
+  const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(connectedAddress, limit, selectedList)
 
   return (
     <div className="recommended-container">
@@ -15,6 +23,7 @@ const Recommended = ({ connectedAddress, limit = 20 }: { connectedAddress: Addre
           connectedAddress={connectedAddress}
           isLoading={isLoading}
           loadingRows={limit}
+          selectedList={selectedList}
         />
       )}
       <div

@@ -11,13 +11,7 @@ import {
 import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import {
-  getMintTxChainId,
-  getMintTxNonce,
-  getPendingTxAddresses,
-  prepareMintTransaction,
-  transformTxsForLocalStorage,
-} from '../utils/transactions'
+import { getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
@@ -33,6 +27,8 @@ type TransactionContextType = {
   setTxModalOpen: (txModalOpen: boolean) => void
   changesOpen: boolean
   setChangesOpen: (changesOpen: boolean) => void
+  selectedList?: string
+  setSelectedList: (selectedList: string | undefined) => void
   pendingTxs: TransactionType[]
   setPendingTxs: Dispatch<SetStateAction<TransactionType[]>>
   lists?: ProfileListsResponse | null
@@ -48,6 +44,8 @@ type TransactionContextType = {
   resetTransactions: () => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
+  onCheckoutFinish: (() => void) | undefined
+  setOnCheckoutFinish: (onCheckoutFinish: (() => void) | undefined) => void
 }
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
@@ -63,6 +61,9 @@ export const TransactionProvider = ({
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
   const [changesOpen, setChangesOpen] = useState(batchTransactions && !currentTxIndex)
+
+  const [selectedList, setSelectedList] = useState<string | undefined>(undefined)
+  const [onCheckoutFinish, setOnCheckoutFinish] = useState<(() => void) | undefined>(undefined)
 
   useEffect(() => {
     if (!txModalOpen) {
@@ -96,11 +97,11 @@ export const TransactionProvider = ({
   })
 
   const getListDetails = async () => {
-    if (!lists?.primary_list) {
+    if (selectedList === 'new list' || !lists?.primary_list) {
       setSelectedChainId(undefined)
       setNonce(undefined)
     } else {
-      const { chainId, slot } = await getListStorageLocation(lists?.primary_list)
+      const { chainId, slot } = await getListStorageLocation(selectedList ?? lists?.primary_list)
       setSelectedChainId(chainId)
       setNonce(slot)
     }
@@ -113,10 +114,11 @@ export const TransactionProvider = ({
     setListDetailsLoading(true)
 
     const storedPendingTxs = JSON.parse(
-      localStorage.getItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`) || '[]'
+      localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
+      '[]'
     ) as TransactionType[]
 
-    if (storedPendingTxs.length > 0) {
+    if (storedPendingTxs && storedPendingTxs.length > 0) {
       // Find the mint transaction and extract the nonce and chainId
       const mintTx = storedPendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)
 
@@ -136,30 +138,30 @@ export const TransactionProvider = ({
       const txIndex = incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex
 
       setPendingTxs(storedPendingTxs)
-      setCurrentTxIndex(txIndex || undefined)
+      setCurrentTxIndex(txIndex === 0 ? undefined : txIndex)
       setChangesOpen(batchTransactions && incompleteTxIndex === 0)
-      if (!batchTransactions || txIndex > 0 || txIndex === storedPendingTxs.length - 1) setTxModalOpen(true)
+      if (!batchTransactions || (txIndex > 0 && txIndex === storedPendingTxs.length - 1)) setTxModalOpen(true)
     } else {
       getListDetails()
       setPendingTxs([])
       setTxModalOpen(false)
       setCurrentTxIndex(undefined)
     }
-  }, [connectedAddress, lists?.primary_list])
+  }, [connectedAddress, lists?.primary_list, selectedList])
 
   // Save pending transactions to local storage
   useEffect(() => {
     if (!connectedAddress) return
 
     if (pendingTxs.length === 0) {
-      localStorage.removeItem(`eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`)
+      localStorage.removeItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`)
       return
     }
 
-    const transformPendingTxs = transformTxsForLocalStorage(pendingTxs)
+    // const transformPendingTxs = transformTxsForLocalStorage(pendingTxs)
     localStorage.setItem(
-      `eik-pending-txs-${connectedAddress}-${lists?.primary_list || 'null'}`,
-      JSON.stringify(transformPendingTxs)
+      `eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`,
+      JSON.stringify(pendingTxs, (_, v) => (typeof v === 'bigint' ? v.toString() : v))
     )
   }, [pendingTxs])
 
@@ -175,7 +177,7 @@ export const TransactionProvider = ({
     if (newPendingTxs.length === 0 || !batchTransactions) {
       newPendingTxs.push(tx)
 
-      if (!lists?.primary_list) {
+      if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
         const mintNonce = nonce || generateSlot()
 
         if (mintNonce !== nonce) {
@@ -253,12 +255,13 @@ export const TransactionProvider = ({
     if (newTxIndex === pendingTxs.length) {
       // Refetch lists if user has minted a new one
       if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
-
       resetTransactions()
 
-      // Refetch follow button and profile data
+      // Refetch follow button data
       queryClient.invalidateQueries({ queryKey: ['followingState'] })
-      queryClient.refetchQueries({ queryKey: ['profile'] })
+
+      // custom callback to run when transactions are finished (update profile, stats, etc.)
+      onCheckoutFinish?.()
     } else {
       setCurrentTxIndex(newTxIndex)
     }
@@ -273,6 +276,8 @@ export const TransactionProvider = ({
   const value = {
     lists,
     nonce,
+    selectedList,
+    setSelectedList,
     pendingTxs,
     txModalOpen,
     changesOpen,
@@ -290,6 +295,8 @@ export const TransactionProvider = ({
     setCurrentTxIndex,
     setSelectedChainId,
     goToNextTransaction,
+    onCheckoutFinish,
+    setOnCheckoutFinish,
     listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
   }
 
