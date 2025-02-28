@@ -11,15 +11,15 @@ import {
 import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
-import { EFPActionType } from '../types/transactions'
-import { TransactionType } from '../types/transactions'
-import { ProfileListsResponse } from '../types'
+import { getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
 import { LIST_OP_LIMITS } from '../constants/chains'
 import { EFPActionIds } from '../constants/transactions'
+import { ProfileListsResponse } from '../types'
+import { EFPActionType } from '../types/transactions'
+import { TransactionType } from '../types/transactions'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -42,10 +42,11 @@ type TransactionContextType = {
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
   resetTransactions: () => void
+  resetListopTransactions: () => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
-  onCheckoutFinish: (() => void) | undefined
-  setOnCheckoutFinish: (onCheckoutFinish: (() => void) | undefined) => void
+  isCheckoutFinished: boolean
+  setIsCheckoutFinished: (isCheckoutFinished: boolean) => void
 }
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
@@ -63,10 +64,12 @@ export const TransactionProvider = ({
   const [changesOpen, setChangesOpen] = useState(batchTransactions && !currentTxIndex)
 
   const [selectedList, setSelectedList] = useState<string | undefined>(undefined)
-  const [onCheckoutFinish, setOnCheckoutFinish] = useState<(() => void) | undefined>(undefined)
+  const [isCheckoutFinished, setIsCheckoutFinished] = useState<boolean>(false)
 
   useEffect(() => {
     if (!txModalOpen) {
+      if (isCheckoutFinished) setIsCheckoutFinished(false)
+
       const includesUpdateEFPList = pendingTxs.some((tx) => tx.id === EFPActionIds.UpdateEFPList)
       if (includesUpdateEFPList || pendingTxs.length === 0)
         setChangesOpen(batchTransactions && !currentTxIndex && pendingTxs[0]?.hash === undefined)
@@ -135,12 +138,11 @@ export const TransactionProvider = ({
 
       // Find the index of the first incomplete transaction to set it as the current transaction
       const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
-      const txIndex = incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex
 
       setPendingTxs(storedPendingTxs)
-      setCurrentTxIndex(txIndex === 0 ? undefined : txIndex)
+      setCurrentTxIndex(incompleteTxIndex === 0 ? undefined : incompleteTxIndex)
       setChangesOpen(batchTransactions && incompleteTxIndex === 0)
-      if (!batchTransactions || (txIndex > 0 && txIndex === storedPendingTxs.length - 1)) setTxModalOpen(true)
+      if (!batchTransactions || incompleteTxIndex > 0 || incompleteTxIndex === -1) setTxModalOpen(true)
     } else {
       getListDetails()
       setPendingTxs([])
@@ -174,7 +176,7 @@ export const TransactionProvider = ({
     const newPendingTxs = batchTransactions ? [...pendingTxs] : []
 
     // Add new transaction and mint if user has no list and there is no pending transaction
-    if (newPendingTxs.length === 0 || !batchTransactions) {
+    if (newPendingTxs.filter((tx) => tx.id === EFPActionIds.UpdateEFPList).length === 0 || !batchTransactions) {
       newPendingTxs.push(tx)
 
       if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
@@ -191,9 +193,9 @@ export const TransactionProvider = ({
       }
     } else if (batchTransactions) {
       // Update the UpdateEFPList transaction if it exists and is not yet complete
-      const pendingUpdateTransactionId = newPendingTxs
-        .reverse()
-        .findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
+      const pendingUpdateTransactionId = newPendingTxs.findIndex(
+        (tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash
+      )
 
       if (pendingUpdateTransactionId === -1) {
         newPendingTxs.push(tx)
@@ -225,25 +227,28 @@ export const TransactionProvider = ({
   }
 
   const removeListOpsTransaction = (txData: Hex[]) => {
-    const filteredPendingTxs = pendingTxs
-      .filter((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
-      .map((tx) => {
-        const filteredArgs = tx.args
-          .slice(-1)
-          .flat()
-          .filter((data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase()))
+    const filteredPendingTxs = [...pendingTxs]
+    const updateEFPListTxId = filteredPendingTxs.findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
 
-        return {
-          ...tx,
-          // Only change the last argument that represents the list ops
-          args: [...tx.args.slice(0, -1), filteredArgs],
-        }
-      })
+    if (updateEFPListTxId !== -1) {
+      const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
+      const updateEFPListTxData = updateEFPListTx.args.slice(-1).flat()
+      const filteredArgs = updateEFPListTxData.filter(
+        (data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase())
+      )
+
+      filteredPendingTxs[updateEFPListTxId] = {
+        ...updateEFPListTx,
+        args: [...updateEFPListTx.args.slice(0, -1), filteredArgs],
+      }
+    }
 
     const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
 
     if (pendingTxAddresses.length === 0) {
-      resetTransactions()
+      setPendingTxs(
+        filteredPendingTxs.filter((tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList)
+      )
     } else {
       setPendingTxs(filteredPendingTxs)
     }
@@ -261,11 +266,17 @@ export const TransactionProvider = ({
       queryClient.invalidateQueries({ queryKey: ['followingState'] })
 
       // custom callback to run when transactions are finished (update profile, stats, etc.)
-      onCheckoutFinish?.()
+      setIsCheckoutFinished(true)
     } else {
       setCurrentTxIndex(newTxIndex)
     }
   }
+
+  const resetListopTransactions = useCallback(() => {
+    setPendingTxs(
+      pendingTxs.filter((tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList)
+    )
+  }, [pendingTxs])
 
   const resetTransactions = useCallback(() => {
     setTxModalOpen(false)
@@ -292,11 +303,12 @@ export const TransactionProvider = ({
     removeListOpsTransaction,
     batchTransactions,
     resetTransactions,
+    resetListopTransactions,
     setCurrentTxIndex,
     setSelectedChainId,
     goToNextTransaction,
-    onCheckoutFinish,
-    setOnCheckoutFinish,
+    isCheckoutFinished,
+    setIsCheckoutFinished,
     listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
   }
 

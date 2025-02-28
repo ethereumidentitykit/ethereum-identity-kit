@@ -5,9 +5,9 @@ import { useState, useEffect, useCallback } from 'react'
 import { useTransactions } from '../../../../context'
 import { Arrow, Check } from '../../../icons'
 import { ListRecordContracts } from '../../../../constants/contracts'
+import { EFPActionIds } from '../../../../constants/transactions'
 import { Chain, ChainIcons, chains } from '../../../../constants/chains'
 import './ChainSelector.css'
-import { EFPActionIds } from '../../../../constants/transactions'
 
 const ChainSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,9 +25,13 @@ const ChainSelector = () => {
   } = useTransactions()
 
   useEffect(() => {
-    if (selectedChainId) setIsOpen(false)
-    else setIsOpen(true)
-  }, [selectedChainId])
+    if (pendingTxs.some((tx) => tx.id === EFPActionIds.UpdateEFPList)) {
+      if (selectedChainId) setIsOpen(false)
+      else setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [selectedChainId, pendingTxs])
 
   const onConfirm = useCallback(() => {
     if (!currSelectedChain || !nonce) return
@@ -35,23 +39,26 @@ const ChainSelector = () => {
     setIsOpen(false)
     setSelectedChainId(currSelectedChain?.id)
 
-    const newPendingTxs = pendingTxs.map((tx) => ({
+    const newPendingTxs = [...pendingTxs].map((tx) => ({
       ...tx,
       address: tx.id === EFPActionIds.UpdateEFPList ? ListRecordContracts[currSelectedChain.id] : tx.address,
       chainId: tx.id === EFPActionIds.UpdateEFPList ? currSelectedChain.id : tx.chainId,
-      args:
-        tx.id === EFPActionIds.CreateEFPList
-          ? [
-              encodePacked(
-                ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-                [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
-              ),
-            ]
-          : tx.args,
     }))
 
+    const mintTxIndex = newPendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
+    const mintTx = newPendingTxs[mintTxIndex]
+    newPendingTxs[mintTxIndex] = {
+      ...mintTx,
+      args: [
+        encodePacked(
+          ['uint8', 'uint8', 'uint256', 'address', 'uint'],
+          [1, 1, BigInt(currSelectedChain.id), ListRecordContracts[currSelectedChain.id], nonce]
+        ),
+      ],
+    }
+
     setPendingTxs(newPendingTxs)
-  }, [currSelectedChain, nonce])
+  }, [currSelectedChain, nonce, pendingTxs])
 
   return (
     <div className="chain-selector-container" style={{ display: isOpen ? 'flex' : 'none' }}>

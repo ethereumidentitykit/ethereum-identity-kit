@@ -6,6 +6,7 @@ import Avatar from '../../../avatar/Avatar'
 import { DEFAULT_FALLBACK_AVATAR } from '../../../../constants'
 import { truncateAddress } from '../../../../utils'
 import { Address } from '../../../../types/address'
+import './ListSettings.css'
 
 interface ListAccountProps {
   address: Address

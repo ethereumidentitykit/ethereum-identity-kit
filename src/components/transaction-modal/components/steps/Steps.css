@@ -28,6 +28,10 @@
   position: relative;
 }
 
+.dark .transaction-step {
+  background-color: #666666;
+}
+
 .transaction-step:after {
   content: '';
   position: absolute;
@@ -38,28 +42,32 @@
   background-color: #d8d8d8;
 }
 
+.dark .transaction-step:after {
+  background-color: #666666;
+}
+
 .no-line:after {
   display: none;
 }
 
 .transaction-step-current,
 .transaction-step-current:after {
-  background-color: #ffe066;
+  background-color: #ffe066 !important;
 }
 
 .transaction-step-pending,
 .transaction-step-pending:after {
-  background-color: #ffe066;
+  background-color: #ffe066 !important;
 }
 
 .transaction-step-done,
 .transaction-step-done:after {
-  background-color: #49de80;
+  background-color: #49de80 !important;
 }
 
 .transaction-step-error,
 .transaction-step-error:after {
-  background-color: #ff7c7c;
+  background-color: #ff7c7c !important;
 }
 
 @media screen and (max-width: 600px) {

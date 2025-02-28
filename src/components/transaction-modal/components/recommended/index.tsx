@@ -26,6 +26,7 @@ const Recommended = ({
           selectedList={selectedList}
         />
       )}
+      {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}
       <div
         className="recommended-load-more"
         ref={fetchMoreRef}

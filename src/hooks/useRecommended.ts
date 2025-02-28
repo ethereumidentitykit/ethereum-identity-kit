@@ -33,7 +33,10 @@ export const useRecommended = (connectedAddress: Address, limit: number, list?: 
       ...profile,
       tags: [],
     }))
-  const hasNextPage = (recommendedProfiles?.length || 0) % limit === 0
+
+  const hasNextPage =
+    (recommendedProfiles?.length || 0) % limit === 0 &&
+    (data?.pages[data?.pages.length - 1]?.results.length || 0) === limit
   const recommendedLoading = isLoading || isFetchingNextPage
 
   const fetchMoreRef = useRef<HTMLDivElement>(null)

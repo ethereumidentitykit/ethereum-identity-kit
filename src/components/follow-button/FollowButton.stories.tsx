@@ -27,7 +27,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
-  const { pendingTxs, setTxModalOpen } = useTransactions()
+  const { pendingTxs, setTxModalOpen, selectedList } = useTransactions()
 
   return (
     <div
@@ -114,6 +114,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
         )}
       </div>
       <FollowButton
+        selectedList={selectedList}
         lookupAddress={args.lookupAddress}
         connectedAddress={connectedAddress || args.connectedAddress}
         disabled={!connectedAddress}

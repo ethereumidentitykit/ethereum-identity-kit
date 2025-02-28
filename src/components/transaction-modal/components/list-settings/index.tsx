@@ -19,8 +19,8 @@ const ListSettings: React.FC<ListSettingsProps> = ({ txs }) => {
     <div className="list-settings-container">
       <p className="list-settings-title">Update List Settings</p>
       <div className="list-settings-items-container">
-        {txs.map((tx) => (
-          <ListSetting key={tx.id} title={tx.title} description={tx.description} />
+        {txs.map((tx, index) => (
+          <ListSetting key={index} title={tx.title} description={tx.description} />
         ))}
       </div>
     </div>

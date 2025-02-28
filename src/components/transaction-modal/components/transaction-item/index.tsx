@@ -48,7 +48,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
           >
             <Arrow height={18} width={18} />
           </div>
-          <p className="transaction-title">{transaction.title ?? 'Transaction'}</p>
+          <p className="transaction-title">Onchain Update</p>
           <div>
             <div className="transaction-progress-container">
               <div className={clsx('transaction-progress-bar', ProgressionClassName)}>

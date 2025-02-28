@@ -9,8 +9,16 @@ import { EFPActionType, TransactionType } from '../../../../types/transactions'
 import ListSettings from '../list-settings'
 
 export default function Summary() {
-  const { pendingTxs, setCurrentTxIndex, batchTransactions, setSelectedChainId, setChangesOpen, setTxModalOpen } =
-    useTransactions()
+  const {
+    pendingTxs,
+    selectedChainId,
+    setCurrentTxIndex,
+    batchTransactions,
+    setSelectedChainId,
+    setChangesOpen,
+    setTxModalOpen,
+    currentTxIndex,
+  } = useTransactions()
 
   const onSummaryClose = () => {
     const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
@@ -39,13 +47,17 @@ export default function Summary() {
     }
   }
 
+  const isSummaryVisible =
+    currentTxIndex === undefined &&
+    (pendingTxs.some((tx) => tx.id === EFPActionIds.UpdateEFPList) ? selectedChainId : true)
+
   return (
     <div className="summary-container">
       <div className="transaction-modal-arrow-back" onClick={onSummaryClose}>
         <Arrow height={18} width={18} />
       </div>
       <p className="summary-title">Summary</p>
-      <div className="summary-items-container">
+      <div className="summary-items-container" style={{ display: isSummaryVisible ? 'flex' : 'none' }}>
         {Object.entries(groupedTransactions).map(([id, txs]) => {
           if (!txs) return null
           const Chain = chains.find((chain) => chain.id === txs?.[0]?.chainId)

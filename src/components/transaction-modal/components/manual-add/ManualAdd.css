@@ -1,3 +1,10 @@
+.manual-add-outer-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .manual-add-container {
   display: flex;
   width: 100%;
@@ -35,10 +42,41 @@
 .manual-add-button {
   width: 25%;
   height: 46px;
-  padding: 20px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 6px;
   color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #ffe066;
+}
+
+.manual-add-error {
+  width: 100%;
+  padding: 0px 12px;
+  color: #ff0000;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.loader {
+  width: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, rgb(60, 60, 60) 94%, #0000) top/4px 4px no-repeat,
+    conic-gradient(#0000 30%, rgb(60, 60, 60));
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

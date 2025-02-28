@@ -20,3 +20,19 @@
   font-weight: 600;
   padding: 12px 0px 12px 12px;
 }
+
+.recommended-empty {
+  width: 100%;
+  height: 200px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .recommended-empty {
+    height: calc(80vh - 230px);
+  }
+}

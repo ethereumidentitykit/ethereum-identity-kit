@@ -104,7 +104,10 @@
   font-style: italic;
   color: #888;
   text-align: center;
-  padding: 24px 0px 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
 }
 
 .dark .cart-changes-list-empty {
@@ -229,6 +232,10 @@
     max-height: calc(80vh - 170px);
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  .cart-changes-list-empty {
+    height: calc(80vh - 250px);
   }
 
   .cart-recommended-container {

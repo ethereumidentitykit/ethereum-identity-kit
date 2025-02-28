@@ -5,7 +5,7 @@ import { EFP_API_URL } from '../../constants'
 export const fetchRecommended = async (
   endpoint: 'discover' | 'recommended',
   addressOrName?: string | Address,
-  list?: string,
+  list?: string | null,
   limit = 10,
   pageParam = 1
 ) => {

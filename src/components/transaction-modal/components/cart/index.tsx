@@ -6,12 +6,11 @@ import ManualAdd from '../manual-add'
 import { Cross } from '../../../icons'
 import Recommended from '../recommended'
 import Trash from '../../../icons/ui/Trash'
-import { Address } from '../../../../types'
+import ShortArrow from '../../../icons/ui/ShortArrow'
 import ProfileList from '../../../profile-list/ProfileList'
+import { Address } from '../../../../types'
 import { ProfileItemType } from '../../../profile-list/ProfileList.types'
 import './Cart.css'
-import { EFPActionIds } from '../../../../constants/transactions'
-import ShortArrow from '../../../icons/ui/ShortArrow'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void
@@ -74,7 +73,7 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
           <div className="cart-modal-buttons-container-top">
             <div className="cart-modal-buttons-container-top-info">
               <p>{profiles.length} Actions</p>
-              <p>{pendingTxs.filter((tx) => tx.id === EFPActionIds.UpdateEFPList).length} Transactions</p>
+              <p>{pendingTxs.length} Transactions</p>
             </div>
             <button
               className="cart-modal-to-top-button"

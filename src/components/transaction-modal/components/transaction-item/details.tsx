@@ -3,6 +3,8 @@ import Actions from '../actions'
 import { BLOCK_EXPLORERS } from '../../../../constants/chains'
 import { EFPActionIds } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
+import './TransactionItem.css'
+import ListSettings from '../list-settings'
 
 interface TransactionItemDetailsProps {
   transactionDetails: {
@@ -19,11 +21,14 @@ interface TransactionItemDetailsProps {
 
 const TransactionItemDetails: React.FC<TransactionItemDetailsProps> = ({ transactionDetails, transaction }) => {
   const isUpdateEFPList = transaction.id === EFPActionIds.UpdateEFPList
+  const isSetListSettings = transaction.id === EFPActionIds.SetEFPListSettings
 
   return (
     <div className="transaction-details-container">
       {isUpdateEFPList ? (
         <Actions transactions={[transaction]} />
+      ) : isSetListSettings ? (
+        <ListSettings txs={[transaction]} />
       ) : (
         <div className="transaction-item-details-description">
           <p className="transaction-item-details-description-title">{transaction.title}</p>
