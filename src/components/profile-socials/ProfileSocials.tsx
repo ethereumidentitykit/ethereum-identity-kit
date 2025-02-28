@@ -1,11 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
-import { PROFILE_CARD_SOCIALS } from '../../constants/socials'
-import Dweb from '../icons/Dweb'
-import Link from '../icons/Link'
+import { Link, Dweb } from '../icons'
 import LoadingCell from '../loading-cell/LoadingCell'
-import './ProfileSocials.css'
+import { PROFILE_CARD_SOCIALS } from '../../constants/socials'
 import type { ProfileSocialsProps } from './ProfileSocials.types'
+import './ProfileSocials.css'
 
 /**
  * Component to display the social links of a user

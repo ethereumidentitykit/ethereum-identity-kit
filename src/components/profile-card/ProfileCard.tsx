@@ -141,33 +141,35 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                   ? truncateAddress(addressOrName as Address)
                   : ens_beautify(addressOrName)}
             </p>
-            {showFollowerTag && <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} />}
+            {showFollowerTag && (
+              <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
+            )}
           </div>
         )}
-        <div className="profile-stats-container">
+        <div className="profile-card-stats-container">
           <div
-            className="profile-stats-item"
+            className="profile-card-stats-item"
             enable-hover={!!onStatClick ? 'true' : 'false'}
             onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
           >
             {isStatsLoading ? (
               <LoadingCell height="24px" width="50px" />
             ) : (
-              <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
+              <div className="profile-card-stats-item-value">{following ? formatNumber(following) : '-'}</div>
             )}
-            <div className="profile-stats-item-label">Following</div>
+            <div className="profile-card-stats-item-label">Following</div>
           </div>
           <div
-            className="profile-stats-item"
+            className="profile-card-stats-item"
             enable-hover={!!onStatClick ? 'true' : 'false'}
             onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
           >
             {isStatsLoading ? (
               <LoadingCell height="24px" width="50px" />
             ) : (
-              <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
+              <div className="profile-card-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
             )}
-            <div className="profile-stats-item-label">Followers</div>
+            <div className="profile-card-stats-item-label">Followers</div>
           </div>
         </div>
         <div className="profile-bio">
@@ -181,7 +183,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               {ens?.records?.description ? (
                 ens.records.description.split(' ').map((word) =>
                   word.includes('@') ? (
-                    <a key={word} href={`https://ethfollow.xyz/${word.replace('@', '')}`} className="profile-bio-link">
+                    <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
                       {word}{' '}
                     </a>
                   ) : (
@@ -203,7 +205,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           />
         </div>
       </div>
-
       {!isConnectedUserCard && connectedAddress && (
         <CommonFollowers
           connectedAddress={connectedAddress}

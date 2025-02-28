@@ -74,6 +74,12 @@ export type ProfileDetailsResponse = {
   ranks: ProfileRanks
 }
 
+export type ProfileAccountResponse = {
+  address: Address
+  ens: ENSProfile
+  primary_list?: string | null
+}
+
 export interface ProfileBadgesResponse {
   eventId: string
   participated: boolean
@@ -131,6 +137,25 @@ export type ProfileStatType = 'followers' | 'following'
 export type ProfileStatsClickProps = {
   addressOrName: Address | string
   stat: ProfileStatType
+}
+
+export type DiscoverItemType = {
+  address: Address
+  name: string | null
+  avatar: string | null
+  followers: number
+  following: number
+}
+
+export type RecommendedItemType = {
+  address: Address
+  name: string | null
+  avatar: string | null
+}
+
+export type DiscoverResponseType = {
+  latestFollows: DiscoverItemType[]
+  recommended: RecommendedItemType[]
 }
 
 export type CommonFollower = {

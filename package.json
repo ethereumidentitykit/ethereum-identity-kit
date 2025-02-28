@@ -36,7 +36,23 @@
       "types": "./dist/types.d.ts",
       "default": "./dist/esm/index.js"
     },
-    "./css": "./dist/esm/index.css"
+    "./css": "./dist/esm/index.css",
+    "./hooks": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/hooks/index.js"
+    },
+    "./utils": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/utils/index.js"
+    },
+    "./constants": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/constants/index.js"
+    },
+    "./components": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/components/index.js"
+    }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
   "author": {
@@ -80,6 +96,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^29.0.0",
+    "jest-fixed-jsdom": "^0.0.9",
     "prettier": "^3.4.2",
     "rollup": "^4.28.1",
     "rollup-plugin-dts": "^6.1.1",
@@ -93,6 +110,8 @@
   "peerDependencies": {
     "@tanstack/react-query": "^5.0.0",
     "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "viem": "^2.0.0",
+    "wagmi": "^2.0.0"
   }
 }
