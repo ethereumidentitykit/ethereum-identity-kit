@@ -12,6 +12,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
   selectedList,
   isLoading,
   loadingRows,
+  showTags,
 }) => {
   return (
     <div className={clsx('profile-list-container', darkMode && 'dark')}>
@@ -21,6 +22,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
           profile={profile}
           connectedAddress={connectedAddress}
           selectedList={selectedList}
+          showTags={showTags}
         />
       ))}
       {isLoading &&

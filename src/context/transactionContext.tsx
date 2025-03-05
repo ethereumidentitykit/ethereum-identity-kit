@@ -118,7 +118,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-      '[]'
+        '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -140,7 +140,9 @@ export const TransactionProvider = ({
       const incompleteTxIndex = storedPendingTxs.findIndex((tx) => !tx.hash)
 
       setPendingTxs(storedPendingTxs)
-      setCurrentTxIndex(incompleteTxIndex === 0 ? undefined : incompleteTxIndex)
+      setCurrentTxIndex(
+        incompleteTxIndex === 0 ? undefined : incompleteTxIndex === -1 ? storedPendingTxs.length - 1 : incompleteTxIndex
+      )
       setChangesOpen(batchTransactions && incompleteTxIndex === 0)
       if (!batchTransactions || incompleteTxIndex > 0 || incompleteTxIndex === -1) setTxModalOpen(true)
     } else {
@@ -168,90 +170,93 @@ export const TransactionProvider = ({
   }, [pendingTxs])
 
   const addTransactions = (txs: TransactionType[]) => {
-    const newPendingTxs = batchTransactions ? [...pendingTxs, ...txs] : txs
-    setPendingTxs(newPendingTxs)
+    setPendingTxs((prev) => (batchTransactions ? [...prev, ...txs] : txs))
   }
 
   const addListOpsTransaction = (tx: TransactionType) => {
-    const newPendingTxs = batchTransactions ? [...pendingTxs] : []
+    setPendingTxs((prev) => {
+      const newPendingTxs = batchTransactions ? [...prev] : []
 
-    // Add new transaction and mint if user has no list and there is no pending transaction
-    if (newPendingTxs.filter((tx) => tx.id === EFPActionIds.UpdateEFPList).length === 0 || !batchTransactions) {
-      newPendingTxs.push(tx)
-
-      if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
-        const mintNonce = nonce || generateSlot()
-
-        if (mintNonce !== nonce) {
-          setNonce(mintNonce)
-          newPendingTxs[0].args[0] = mintNonce
-        }
-
-        const mintTransaction = prepareMintTransaction(mintNonce)
-
-        newPendingTxs.push(mintTransaction)
-      }
-    } else if (batchTransactions) {
-      // Update the UpdateEFPList transaction if it exists and is not yet complete
-      const pendingUpdateTransactionId = newPendingTxs.findIndex(
-        (tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash
-      )
-
-      if (pendingUpdateTransactionId === -1) {
+      // Add new transaction and mint if user has no list and there is no pending transaction
+      if (newPendingTxs.filter((tx) => tx.id === EFPActionIds.UpdateEFPList).length === 0 || !batchTransactions) {
         newPendingTxs.push(tx)
-      } else {
-        const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransactionId].args.slice(-1).flat()
-        const txListOps = tx.args.slice(-1).flat()
 
-        if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
+        if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
+          const mintNonce = nonce || generateSlot()
+
+          if (mintNonce !== nonce) {
+            setNonce(mintNonce)
+            newPendingTxs[0].args[0] = mintNonce
+          }
+
+          const mintTransaction = prepareMintTransaction(mintNonce)
+
+          newPendingTxs.push(mintTransaction)
+        }
+      } else if (batchTransactions) {
+        // Update the UpdateEFPList transaction if it exists and is not yet complete
+        const pendingUpdateTransactionId = newPendingTxs.findIndex(
+          (tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash
+        )
+
+        if (pendingUpdateTransactionId === -1) {
           newPendingTxs.push(tx)
-        } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
-          newPendingTxs[pendingUpdateTransactionId] = {
-            ...newPendingTxs[pendingUpdateTransactionId],
-            args: [
-              ...newPendingTxs[pendingUpdateTransactionId].args.slice(0, -1),
-              [...pendingUpdateTxListOps, ...txListOps],
-            ],
+        } else {
+          const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransactionId].args.slice(-1).flat()
+          const txListOps = tx.args.slice(-1).flat()
+
+          if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
+            newPendingTxs.push(tx)
+          } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
+            newPendingTxs[pendingUpdateTransactionId] = {
+              ...newPendingTxs[pendingUpdateTransactionId],
+              args: [
+                ...newPendingTxs[pendingUpdateTransactionId].args.slice(0, -1),
+                [...pendingUpdateTxListOps, ...txListOps],
+              ],
+            }
           }
         }
       }
-    }
 
-    setPendingTxs(newPendingTxs)
+      return newPendingTxs
+    })
+
     if (!batchTransactions) setTxModalOpen(true)
   }
 
   const removeTransactions = (ids: (EFPActionType | string)[]) => {
-    const filteredPendingTxs = pendingTxs.filter((tx) => !ids.includes(tx.id))
-    setPendingTxs(filteredPendingTxs)
+    setPendingTxs((prev) => prev.filter((tx) => !ids.includes(tx.id)))
   }
 
   const removeListOpsTransaction = (txData: Hex[]) => {
-    const filteredPendingTxs = [...pendingTxs]
-    const updateEFPListTxId = filteredPendingTxs.findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
+    setPendingTxs((prev) => {
+      const filteredPendingTxs = [...prev]
+      const updateEFPListTxId = filteredPendingTxs.findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
 
-    if (updateEFPListTxId !== -1) {
-      const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
-      const updateEFPListTxData = updateEFPListTx.args.slice(-1).flat()
-      const filteredArgs = updateEFPListTxData.filter(
-        (data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase())
-      )
+      if (updateEFPListTxId !== -1) {
+        const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
+        const updateEFPListTxData = updateEFPListTx.args.slice(-1).flat()
+        const filteredArgs = updateEFPListTxData.filter(
+          (data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase())
+        )
 
-      filteredPendingTxs[updateEFPListTxId] = {
-        ...updateEFPListTx,
-        args: [...updateEFPListTx.args.slice(0, -1), filteredArgs],
+        filteredPendingTxs[updateEFPListTxId] = {
+          ...updateEFPListTx,
+          args: [...updateEFPListTx.args.slice(0, -1), filteredArgs],
+        }
       }
-    }
 
-    const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
+      const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
 
-    if (pendingTxAddresses.length === 0) {
-      setPendingTxs(
-        filteredPendingTxs.filter((tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList)
-      )
-    } else {
-      setPendingTxs(filteredPendingTxs)
-    }
+      if (pendingTxAddresses.length === 0) {
+        return filteredPendingTxs.filter(
+          (tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList
+        )
+      } else {
+        return filteredPendingTxs
+      }
+    })
   }
 
   const queryClient = useQueryClient()

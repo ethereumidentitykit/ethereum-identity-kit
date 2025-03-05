@@ -1,10 +1,10 @@
 import clsx from 'clsx'
+import { useTransactions } from '../../../../context'
 import { useTransactionItem } from '../../../../hooks'
 import TransactionItemDetails from './details'
 import { Check, Cross, Clock, Wallet, Arrow } from '../../../icons'
 import { TransactionType } from '../../../../types'
 import './TransactionItem.css'
-import { useTransactions } from '../../../../context'
 
 interface TransactionItemProps {
   id: number

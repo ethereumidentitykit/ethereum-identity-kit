@@ -62,7 +62,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   }
 
   return isLoading ? (
-    customLoader || <LoadingCell height="39px" width="110px" radius="10px" />
+    customLoader || <LoadingCell height="39px" width="110px" radius="4px" />
   ) : (
     <button
       ref={buttonRef}
@@ -82,7 +82,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       <FollowIcon
         height={20}
         width={14}
-        color={buttonState === 'Muted' || buttonState === 'Blocked' ? '#ef4444' : '#333333'}
+        color={buttonText === 'Muted' || buttonText === 'Blocked' ? '#ef4444' : '#333333'}
       />
       <p>{buttonText}</p>
     </button>

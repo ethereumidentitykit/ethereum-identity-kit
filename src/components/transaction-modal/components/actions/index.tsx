@@ -1,46 +1,74 @@
 import React from 'react'
-import { TransactionType } from '../../../../types'
-import { extractAddressAndTag, getPendingTxListOps } from '../../../../utils/transactions'
 import ActionAccount from './ActionAccount'
-import './Actions.css'
+import { Address, ListOpType, TransactionType } from '../../../../types'
+import { extractAddressAndTag, getPendingTxListOps } from '../../../../utils/transactions'
 import { ACTION_ITEM_ICON } from '../../../../constants/transactions'
+import './Actions.css'
 
 interface ActionsProps {
   transactions: TransactionType[]
 }
 
 type ActionsItem = {
-  opCode: number
+  opcode: number
   address: string
   tag: string
 }
 
 const Actions: React.FC<ActionsProps> = ({ transactions }) => {
-  const transactionListOps = getPendingTxListOps(transactions).map((listOp) => {
+  const transactionListOps = getPendingTxListOps(transactions)
+  const transactionAddressesAndTags = transactionListOps.map((listOp) => {
     const { address, tag } = extractAddressAndTag(listOp.data)
     return {
-      opCode: listOp.opcode,
+      opcode: listOp.opcode,
       address,
       tag,
     }
   })
 
-  const fiterBlockedAndMuted = (listOps: ActionsItem[]) => {
-    const blockAndMuteListOpsAddresses = listOps
-      .filter((op) => op.tag === 'block' || op.tag === 'mute')
-      .map((op) => op.address)
-    return listOps.filter((op) => !blockAndMuteListOpsAddresses.includes(op.address))
+  const fiterBlockedMutedTop8 = (listOps: ListOpType[]) => {
+    const blockAndMuteListOpsData = listOps
+      .filter((op) => {
+        const { tag } = extractAddressAndTag(op.data)
+        return tag === 'block' || tag === 'mute' || tag === 'top8'
+      })
+      .map((op) => op.data)
+
+    return listOps
+      .filter((op) => !blockAndMuteListOpsData.includes(op.data))
+      .map((listOp) => {
+        const { address, tag } = extractAddressAndTag(listOp.data)
+        return {
+          opcode: listOp.opcode,
+          address,
+          tag,
+        }
+      })
+  }
+
+  const removeDuplicateAddresses = (listOps: ActionsItem[]) => {
+    const newListOps: ActionsItem[] = []
+    const seen: Record<string, boolean> = {}
+
+    listOps.forEach((op) => {
+      if (seen[op.address]) return
+      seen[op.address] = true
+      newListOps.push(op)
+    })
+
+    return newListOps
   }
 
   const allActions = {
-    follow: fiterBlockedAndMuted(transactionListOps).filter((op) => op.opCode === 1),
-    unfollow: fiterBlockedAndMuted(transactionListOps).filter((op) => op.opCode === 2),
-    tag: fiterBlockedAndMuted(transactionListOps).filter((op) => op.opCode === 3),
-    untag: fiterBlockedAndMuted(transactionListOps).filter((op) => op.opCode === 4),
-    block: transactionListOps.filter((op) => op.opCode === 3 && op.tag === 'block'),
-    unblock: transactionListOps.filter((op) => op.opCode === 4 && op.tag === 'block'),
-    mute: transactionListOps.filter((op) => op.opCode === 3 && op.tag === 'mute'),
-    unmute: transactionListOps.filter((op) => op.opCode === 4 && op.tag === 'mute'),
+    follow: fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 1),
+    unfollow: fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 2),
+    tag: removeDuplicateAddresses(fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 3)),
+    untag: removeDuplicateAddresses(fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 4)),
+    unblock: transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'block'),
+    mute: transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'mute'),
+    unmute: transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'mute'),
+    'add to Top 8': transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'top8'),
+    'remove to Top 8': transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'top8'),
   }
 
   return (
@@ -58,17 +86,23 @@ const Actions: React.FC<ActionsProps> = ({ transactions }) => {
           <div key={key} className="transaction-modal-actions-item">
             <div className="transaction-modal-actions-item-header">
               <div style={{ backgroundColor: actionColor }}>
-                <ActionIcon height={20} width={20} />
+                <ActionIcon height={20} width={20} color="#333333" />
               </div>
               <p>{key}</p>
             </div>
             <div className="transaction-modal-actions-item-accounts">
-              <div className="transaction-modal-actions-item-accounts-container">
-                {value.slice(0, 3).map((op) => (
-                  <ActionAccount key={op.address} address={op.address} />
-                ))}
-              </div>
-              <p>{value.length} accounts</p>
+              {value.length === 1 ? (
+                <ActionAccount address={value[0].address as Address} showName />
+              ) : (
+                <div className="transaction-modal-actions-item-accounts">
+                  <div className="transaction-modal-actions-item-accounts-container">
+                    {value.slice(0, 3).map((op, index) => (
+                      <ActionAccount key={`${op.address}-${index}`} address={op.address as Address} />
+                    ))}
+                  </div>
+                  <p>{`${value.length} accounts`}</p>
+                </div>
+              )}
             </div>
           </div>
         )

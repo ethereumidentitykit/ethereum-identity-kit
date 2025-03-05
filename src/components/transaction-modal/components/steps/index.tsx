@@ -16,7 +16,7 @@ const Steps = ({ transactions }: StepsProps) => {
     <div className="transaction-steps-container">
       <div className="transaction-steps">
         {transactions.map((transaction, index) => (
-          <Step key={transaction.id} transaction={transaction} index={index} />
+          <Step key={`${transaction.id}-${index}`} transaction={transaction} index={index} />
         ))}
       </div>
     </div>

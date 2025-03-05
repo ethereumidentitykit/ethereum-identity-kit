@@ -97,3 +97,10 @@
   font-size: 16px;
   font-weight: 500;
 }
+
+.transaction-modal-action-account {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}

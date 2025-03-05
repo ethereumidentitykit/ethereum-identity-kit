@@ -1,12 +1,12 @@
-import { useTransactions } from '../../../../context'
-import './Summary.css'
-import { Arrow } from '../../../icons'
 import { useMemo } from 'react'
+import { useTransactions } from '../../../../context'
+import { Arrow } from '../../../icons'
+import ListSettings from '../list-settings'
 import Actions from '../actions'
 import { ChainIcons, chains } from '../../../../constants/chains'
 import { EFPActionIds } from '../../../../constants/transactions'
 import { EFPActionType, TransactionType } from '../../../../types/transactions'
-import ListSettings from '../list-settings'
+import './Summary.css'
 
 export default function Summary() {
   const {
@@ -68,7 +68,9 @@ export default function Summary() {
           return (
             <div key={id} className="summary-item-container">
               <div className="summary-item-chain-container">
-                <p>{txs?.length} txns on</p>
+                <p>
+                  {txs?.length} {txs?.length === 1 ? 'txn' : 'txns'} on
+                </p>
                 <ChainIcon height={18} width={18} />
                 <p className="summary-item-chain-name">{chainName}</p>
               </div>

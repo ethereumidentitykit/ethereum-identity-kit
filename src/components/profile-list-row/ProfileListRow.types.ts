@@ -5,4 +5,5 @@ export type ProfileListRowProps = {
   profile: ProfileItemType
   connectedAddress?: Address
   selectedList?: string
+  showTags?: boolean
 }

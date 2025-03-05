@@ -9,8 +9,8 @@ export const FOLLOW_BUTTON_STYLES: Record<FollowingState, string> = {
   Muted: 'follow-button-muted',
   'Pending Following': 'follow-button-pending',
   Unfollow: 'follow-button-unfollow',
-  'Pending Block': 'follow-button-pending',
-  'Pending Mute': 'follow-button-pending',
+  'Pending Block': 'follow-button-blocked',
+  'Pending Mute': 'follow-button-muted',
   Unblock: 'follow-button-unblock',
   Unmute: 'follow-button-unmute',
 }

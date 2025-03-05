@@ -8,7 +8,7 @@ const ProfileListLoadingRow = () => {
         <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
         <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
       </div>
-      <LoadingCell style={{ width: '110px', height: '39px', borderRadius: '11px' }} />
+      <LoadingCell style={{ width: '110px', height: '39px', borderRadius: '4px' }} />
     </div>
   )
 }

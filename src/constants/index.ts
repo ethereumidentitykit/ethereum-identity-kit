@@ -4,6 +4,8 @@ export const EFP_API_URL = 'https://data.ethfollow.xyz/api/v1'
 export const DEFAULT_FALLBACK_AVATAR = 'https://efp.app/assets/art/default-avatar.svg'
 export const DEFAULT_FALLBACK_HEADER = 'https://efp.app/assets/art/default-header.svg'
 
+export const DEFAULT_RECENT_TAGS = ['irl', 'bff', 'based', 'degen', 'top8']
+
 export const DEFAULT_LOADING_GRADIENT =
   'linear-gradient(90deg, rgba(200, 200, 200, 0.7) 0%, rgba(172, 172, 172, 0.05) 50%, rgba(200, 200, 200, 0.7) 100%)'
 export const LIGHT_LOADING_GRADIENT =
@@ -22,3 +24,4 @@ export * from './contracts'
 export * from './transactions'
 export * from './abi'
 export * from './follow-button'
+export * from './transports'

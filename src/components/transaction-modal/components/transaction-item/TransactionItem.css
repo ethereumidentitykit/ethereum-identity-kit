@@ -185,21 +185,33 @@
 
 .transaction-details-gas-fee-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.transaction-details-gas-fee-container-usd {
+  display: flex;
   flex-direction: row;
   align-items: end;
   gap: 4px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
 }
 
-.transaction-details-gas-fee-container span {
+.transaction-details-gas-fee-container-usd span {
   font-size: 12px;
   font-weight: 600;
   color: #888888;
 }
 
-.dark .transaction-details-gas-fee-container span {
+.dark .transaction-details-gas-fee-container-usd span {
   color: #aaaaaa;
+}
+
+.transaction-details-gas-fee-container-eth {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888888;
 }
 
 .transaction-details-block-explorer-container {
@@ -234,13 +246,17 @@
   width: 400px;
   height: 46px;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   color: #000;
   background-color: #ffe066;
 }
 
 .transaction-modal-initiate-button-done {
   background-color: #49de80;
+}
+
+.transaction-modal-initiate-button:disabled {
+  font-style: italic;
 }
 
 @media screen and (max-width: 600px) {

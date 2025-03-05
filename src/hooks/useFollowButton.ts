@@ -2,13 +2,9 @@ import { Address } from 'viem'
 import { useMemo, useState } from 'react'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
-import {
-  getListOpData,
-  getPendingTxListOps,
-  extractAddressAndTag,
-  formatListOpsTransaction,
-} from '../utils/transactions'
+import { getPendingTxListOps, extractAddressAndTag, formatListOpsTransaction } from '../utils/transactions'
 import { FollowingState } from '../types'
+import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
 
 export const useFollowButton = ({
   lookupAddress,
@@ -90,6 +86,8 @@ export const useFollowButton = ({
 
     if (pendingState) {
       if (pendingState === 'Pending Following') return 'Following'
+      if (pendingState === 'Pending Block') return 'Blocked'
+      if (pendingState === 'Pending Mute') return 'Muted'
       return pendingState
     }
 
@@ -118,25 +116,25 @@ export const useFollowButton = ({
     const listOps = []
 
     if (buttonState === 'Block') {
-      if (followState !== 'follows') listOps.push({ opcode: 1, data: getListOpData(lookupAddress) })
-      listOps.push({ opcode: 3, data: getListOpData(lookupAddress, 'block') })
+      if (followState !== 'follows') listOps.push(listOpAddListRecord(lookupAddress))
+      listOps.push(listOpAddTag(lookupAddress, 'block'))
     }
     if (buttonState === 'Blocked') {
-      listOps.push({ opcode: 2, data: getListOpData(lookupAddress) })
-      listOps.push({ opcode: 4, data: getListOpData(lookupAddress, 'block') })
+      listOps.push(listOpRemoveListRecord(lookupAddress))
+      listOps.push(listOpRemoveTag(lookupAddress, 'block'))
     }
 
     if (buttonState === 'Mute') {
-      if (followState !== 'follows') listOps.push({ opcode: 1, data: getListOpData(lookupAddress) })
-      listOps.push({ opcode: 3, data: getListOpData(lookupAddress, 'mute') })
+      if (followState !== 'follows') listOps.push(listOpAddListRecord(lookupAddress))
+      listOps.push(listOpAddTag(lookupAddress, 'mute'))
     }
     if (buttonState === 'Muted') {
-      listOps.push({ opcode: 2, data: getListOpData(lookupAddress) })
-      listOps.push({ opcode: 4, data: getListOpData(lookupAddress, 'mute') })
+      listOps.push(listOpRemoveListRecord(lookupAddress))
+      listOps.push(listOpRemoveTag(lookupAddress, 'mute'))
     }
 
-    if (buttonText === 'Follow') listOps.push({ opcode: 1, data: getListOpData(lookupAddress) })
-    if (buttonText === 'Following') listOps.push({ opcode: 2, data: getListOpData(lookupAddress) })
+    if (buttonText === 'Follow') listOps.push(listOpAddListRecord(lookupAddress))
+    if (buttonText === 'Following') listOps.push(listOpRemoveListRecord(lookupAddress))
 
     const transaction = formatListOpsTransaction({
       nonce,

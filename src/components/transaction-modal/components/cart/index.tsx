@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../context'
 import { getPendingTxAddressesAndTags } from '../../../../utils/transactions'
@@ -17,8 +17,8 @@ interface CartProps {
 }
 
 const Cart = ({ setClearCartModalOpen }: CartProps) => {
-  const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
   const { address: connectedAddress } = useAccount()
+  const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
 
   const profiles = useMemo(() => {
     if (!pendingTxs || pendingTxs.length === 0) return []
@@ -36,6 +36,29 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
 
     return Array.from(pendingChangesProfiles.values())
   }, [pendingTxs, connectedAddress])
+
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false)
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement
+      const scrollY = target.scrollTop
+
+      setShowBackToTopButton(scrollY > 50)
+    }
+
+    const abortController = new AbortController()
+    const changesList = document.querySelector('.cart-changes-list')
+    const cartContainer = document.querySelector('.cart-container-inner')
+
+    if (changesList) {
+      changesList.addEventListener('scroll', handleScroll, { signal: abortController.signal })
+    }
+    if (cartContainer) {
+      cartContainer.addEventListener('scroll', handleScroll, { signal: abortController.signal })
+    }
+
+    return () => abortController.abort()
+  }, [])
 
   return (
     <div
@@ -59,7 +82,12 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
               </button>
             </div>
             {profiles.length > 0 ? (
-              <ProfileList profiles={profiles} connectedAddress={connectedAddress} selectedList={selectedList} />
+              <ProfileList
+                profiles={profiles}
+                connectedAddress={connectedAddress}
+                selectedList={selectedList}
+                showTags={true}
+              />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>
             )}
@@ -72,11 +100,19 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
         <div className="cart-modal-buttons-container">
           <div className="cart-modal-buttons-container-top">
             <div className="cart-modal-buttons-container-top-info">
-              <p>{profiles.length} Actions</p>
-              <p>{pendingTxs.length} Transactions</p>
+              <p>
+                {profiles.length} {profiles.length === 1 ? 'Action' : 'Actions'}
+              </p>
+              <p>
+                {pendingTxs.length} {pendingTxs.length === 1 ? 'Transaction' : 'Transactions'}
+              </p>
             </div>
             <button
               className="cart-modal-to-top-button"
+              style={{
+                opacity: showBackToTopButton ? 1 : 0,
+                pointerEvents: showBackToTopButton ? 'auto' : 'none',
+              }}
               onClick={() => {
                 const changesList = document.querySelector('.cart-changes-list')
                 const cartContainer = document.querySelector('.cart-container-inner')

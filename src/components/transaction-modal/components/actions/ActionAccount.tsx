@@ -4,29 +4,42 @@ import { fetchAccount } from '../../../../utils/api/fetch-account'
 import LoadingCell from '../../../loading-cell/LoadingCell'
 import Avatar from '../../../avatar/Avatar'
 import { DEFAULT_FALLBACK_AVATAR } from '../../../../constants'
+import { truncateAddress } from '../../../../utils/address'
+import { Address } from '../../../../types'
 
 interface ActionAccountProps {
-  address: string
+  address: Address
   height?: string
   width?: string
+  showName?: boolean
 }
 
-const ActionAccount: React.FC<ActionAccountProps> = ({ address, height = '24px', width = '24px' }) => {
+const ActionAccount: React.FC<ActionAccountProps> = ({ address, showName, height = '24px', width = '24px' }) => {
   const { data: account, isLoading } = useQuery({
     queryKey: ['account', address],
     queryFn: () => fetchAccount(address),
   })
 
-  return isLoading ? (
-    <LoadingCell height={height} width={width} radius="50%" />
-  ) : (
-    <Avatar
-      address={address}
-      src={account?.ens.avatar}
-      name={account?.ens.name}
-      fallback={DEFAULT_FALLBACK_AVATAR}
-      style={{ height, width }}
-    />
+  return (
+    <div className="transaction-modal-action-account">
+      {isLoading ? (
+        <>
+          <LoadingCell height={height} width={width} radius="50%" />
+          {showName && <LoadingCell height="18px" width="70px" radius="4px" />}
+        </>
+      ) : (
+        <>
+          <Avatar
+            address={address}
+            src={account?.ens.avatar}
+            name={account?.ens.name}
+            fallback={DEFAULT_FALLBACK_AVATAR}
+            style={{ height, width }}
+          />
+          {showName && <p>{account?.ens.name || truncateAddress(address)}</p>}
+        </>
+      )}
+    </div>
   )
 }
 

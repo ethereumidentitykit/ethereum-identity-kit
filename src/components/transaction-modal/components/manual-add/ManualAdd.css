@@ -60,7 +60,7 @@
   font-weight: 500;
 }
 
-.loader {
+.manual-add-loader {
   width: 24px;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -69,10 +69,10 @@
     conic-gradient(#0000 30%, rgb(60, 60, 60));
   mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
-  animation: spin 1s infinite linear;
+  animation: manual-add-spin 1s infinite linear;
 }
 
-@keyframes spin {
+@keyframes manual-add-spin {
   from {
     transform: rotate(0);
   }

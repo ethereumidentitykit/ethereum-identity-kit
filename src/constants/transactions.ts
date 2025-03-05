@@ -1,6 +1,7 @@
 import { Cross, FollowIcon } from '../components/icons'
 import Mute from '../components/icons/ui/Mute'
 import Tag from '../components/icons/ui/Tag'
+import Top8 from '../components/icons/ui/Top8'
 import { EFPActionType } from '../types/transactions'
 
 export const EFPActionIds: Record<EFPActionType, string> = {
@@ -47,5 +48,13 @@ export const ACTION_ITEM_ICON = {
   unmute: {
     icon: Mute,
     color: '#FFE066',
+  },
+  'add to Top 8': {
+    icon: Top8,
+    color: '#FFE066',
+  },
+  'remove to Top 8': {
+    icon: Top8,
+    color: '#FF7C7C',
   },
 }

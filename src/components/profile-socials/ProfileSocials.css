@@ -62,9 +62,14 @@
 
 .social-link {
   opacity: 1;
+  color: #000;
   transition:
     opacity 0.2s ease,
     scale 0.2s ease;
+}
+
+.dark .social-link {
+  color: #fff;
 }
 
 .social-link[aria-disabled='true'] {

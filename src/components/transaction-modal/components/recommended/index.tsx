@@ -17,7 +17,7 @@ const Recommended = ({
   return (
     <div className="recommended-container">
       <div className="recommended-title">Recommended</div>
-      {(recommended || isLoading) && (
+      {((recommended && recommended.length > 0) || isLoading) && (
         <ProfileList
           profiles={recommended || []}
           connectedAddress={connectedAddress}

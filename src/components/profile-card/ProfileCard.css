@@ -8,16 +8,18 @@
   flex-direction: column;
   align-items: start;
   gap: 2px;
+  color: #000;
+  background-color: #fff;
 }
 
-.profile-card-dark {
+.dark-profile-card {
   color: #fff;
   background-color: #333;
 }
 
-.profile-card-light {
-  color: #000;
-  background-color: #fff;
+.dark .profile-card {
+  color: #fff;
+  background-color: #333;
 }
 
 .profile-avatar-container {
@@ -67,7 +69,7 @@
 
 .profile-name[enable-hover='true']:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .profile-bio {
@@ -79,37 +81,11 @@
   max-width: 90%;
 }
 
-.profile-bio-link {
-  text-decoration: none;
-}
-
-.profile-card-dark .profile-bio-link {
-  color: rgb(96 165 250);
-}
-
-.profile-card-dark .profile-bio-link:hover {
-  color: rgb(147 197 253);
-}
-
-.profile-card-light .profile-bio-link {
-  color: rgb(0, 89, 255);
-}
-
-.profile-card-light .profile-bio-link:hover {
-  color: rgb(37 99 235);
-}
-
 .profile-bio-loading {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  margin: 0;
-}
-
-.profile-bio-text {
-  opacity: 0.8;
-  padding: 0;
   margin: 0;
 }
 
@@ -124,6 +100,12 @@
   flex-direction: row !important;
   align-items: center;
   gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.profile-card-stats-item[enable-hover='true']:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 .profile-card-stats-item-value {
@@ -141,6 +123,6 @@
   margin: 0 auto;
 }
 
-.profile-card-dark .common-followers-text-container {
+.dark .common-followers-text-container {
   color: #aaa;
 }

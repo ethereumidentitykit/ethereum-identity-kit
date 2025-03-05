@@ -43,7 +43,10 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
       {isLoading ? (
         <LoadingCell height="32px" width="100%" style={{ transform: 'translateX(-32px)' }} />
       ) : (
-        <p className="common-followers-text-container">
+        <p
+          className="common-followers-text-container"
+          style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
+        >
           {displayedNames && formatCommonFollowersText(displayedNames, resultLength)}
         </p>
       )}

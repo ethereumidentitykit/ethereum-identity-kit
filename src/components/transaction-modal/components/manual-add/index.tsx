@@ -2,15 +2,10 @@ import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../context'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
-import {
-  fetchFollowState,
-  formatListOpsTransaction,
-  getListOpData,
-  getPendingTxAddresses,
-  isAddress,
-} from '../../../../utils'
+import { fetchFollowState, formatListOpsTransaction, getPendingTxAddresses, isAddress } from '../../../../utils'
 import { Address } from '../../../../types'
 import './ManualAdd.css'
+import { listOpAddListRecord } from '../../../../utils/list-ops'
 
 const ManualAdd = () => {
   const [search, setSearch] = useState('')
@@ -49,7 +44,7 @@ const ManualAdd = () => {
           continue
         }
 
-        listOps.push({ opcode: 1, data: getListOpData(address) })
+        listOps.push(listOpAddListRecord(address))
       } else {
         const account = await fetchAccount(name)
 
@@ -71,7 +66,7 @@ const ManualAdd = () => {
             continue
           }
 
-          listOps.push({ opcode: 1, data: getListOpData(account.address) })
+          listOps.push(listOpAddListRecord(account.address))
         } else {
           setError('Account not found')
         }
@@ -110,7 +105,7 @@ const ManualAdd = () => {
           }}
         />
         <button className="manual-add-button" onClick={handleAdd}>
-          {isAdding ? <div className="loader" /> : 'Add'}
+          {isAdding ? <div className="manual-add-loader" /> : 'Add'}
         </button>
       </div>
     </div>

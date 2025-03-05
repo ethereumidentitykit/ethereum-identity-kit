@@ -5,10 +5,11 @@ import Avatar from '../avatar/Avatar'
 import FollowButton from '../follow-button/FollowButton'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { fetchProfileAccount } from '../../utils/api/fetch-profile-account'
+import Tags from '../transaction-modal/components/cart/tags'
 import { truncateAddress } from '../../utils'
 import './ProfileListRow.css'
 
-const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddress, selectedList }) => {
+const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddress, selectedList, showTags }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => await fetchProfileAccount(profile.address),
@@ -29,7 +30,10 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddre
         {isAccountLoading ? (
           <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
         ) : (
-          <p className="profile-list-row-name">{account?.ens?.name || truncateAddress(profile.address)}</p>
+          <div className="profile-list-row-name-container">
+            <p className="profile-list-row-name">{account?.ens?.name || truncateAddress(profile.address)}</p>
+            {showTags && <Tags address={profile.address} />}
+          </div>
         )}
       </div>
       <FollowButton lookupAddress={profile.address} connectedAddress={connectedAddress} selectedList={selectedList} />

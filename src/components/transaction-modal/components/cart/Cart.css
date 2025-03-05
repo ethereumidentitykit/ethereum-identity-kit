@@ -186,11 +186,13 @@
   padding: 0 !important;
   color: inherit;
   background: none;
+  transition: all 0.2s;
 }
 
 @media screen and (max-width: 600px) {
   .cart-container {
     padding: 0;
+    padding-top: 16px;
     width: 100vw;
   }
 
@@ -216,7 +218,7 @@
 
 @media screen and (min-width: 1024px) {
   .cart-container {
-    width: 860px;
+    width: 880px;
     padding: 20px 10px 0px 10px;
   }
 
@@ -228,8 +230,8 @@
   }
 
   .cart-changes-list {
-    padding: 12px 6px 16px 6px;
-    max-height: calc(80vh - 170px);
+    padding: 12px 6px 150px 6px;
+    max-height: calc(80vh - 80px);
     overflow-y: scroll;
     overflow-x: hidden;
   }

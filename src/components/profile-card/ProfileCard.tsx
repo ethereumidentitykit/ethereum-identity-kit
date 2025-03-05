@@ -17,6 +17,7 @@ import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
 import './ProfileCard.css'
+import Bio from './components/bio'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -65,6 +66,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     prefetchedProfileLoading,
     followButton,
     nameMenu,
+    openListSettings,
   } = options || {}
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
@@ -93,19 +95,19 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
   return (
     <div
-      className={clsx('profile-card', darkMode ? 'profile-card-dark' : 'profile-card-light', className)}
+      className={clsx('profile-card', darkMode && 'dark dark-profile-card', className)}
       data-testid="profile-card"
       style={{ fontFamily: 'Inter, sans-serif', ...style }}
       {...props}
     >
       <HeaderImage src={ens?.records?.header} isLoaded={isDetailsLoading} />
       <CardHeader
+        openListSettings={openListSettings}
         name={ens?.name}
         refetchData={() => {
           refreshProfileDetails()
           refreshProfileStats()
         }}
-        isConnectedUserCard={!!isConnectedUserCard}
         list={list}
         primaryList={primaryList}
         detailsLoading={isDetailsLoading}
@@ -179,21 +181,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               <LoadingCell height="18px" width="140px" />
             </div>
           ) : (
-            <p className="profile-bio-text">
-              {ens?.records?.description ? (
-                ens.records.description.split(' ').map((word) =>
-                  word.includes('@') ? (
-                    <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
-                      {word}{' '}
-                    </a>
-                  ) : (
-                    `${word} `
-                  )
-                )
-              ) : (
-                <i>No bio set</i>
-              )}
-            </p>
+            <Bio description={ens?.records?.description} />
           )}
           <ProfileSocials
             records={ens?.records}

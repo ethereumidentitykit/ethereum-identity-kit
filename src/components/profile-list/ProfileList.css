@@ -6,5 +6,5 @@
   gap: 16px;
   box-sizing: border-box;
   padding: 6px 10px;
-  overflow-y: auto;
+  overflow-y: visible;
 }

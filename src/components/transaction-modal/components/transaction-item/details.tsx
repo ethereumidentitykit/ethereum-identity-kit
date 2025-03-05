@@ -3,8 +3,8 @@ import Actions from '../actions'
 import { BLOCK_EXPLORERS } from '../../../../constants/chains'
 import { EFPActionIds } from '../../../../constants/transactions'
 import { TransactionType } from '../../../../types'
-import './TransactionItem.css'
 import ListSettings from '../list-settings'
+import './TransactionItem.css'
 
 interface TransactionItemDetailsProps {
   transactionDetails: {
@@ -14,7 +14,8 @@ interface TransactionItemDetailsProps {
       name?: string
       icon: React.FC<React.SVGProps<SVGSVGElement>> | null
     }
-    'Est. gas fee': string
+    gasEth: string
+    gasUsd: string
   }
   transaction: TransactionType
 }
@@ -41,8 +42,11 @@ const TransactionItemDetails: React.FC<TransactionItemDetailsProps> = ({ transac
           <p>{transactionDetails.chain.name}</p>
         </div>
         <div className="transaction-details-gas-fee-container">
-          <p>{transactionDetails['Est. gas fee']}</p>
-          <span>est. gas</span>
+          <div className="transaction-details-gas-fee-container-usd">
+            <p>{transactionDetails.gasUsd}</p>
+            <span>est. gas</span>
+          </div>
+          <p className="transaction-details-gas-fee-container-eth">({transactionDetails.gasEth})</p>
         </div>
         <div className="transaction-details-block-explorer-container">
           {transactionDetails.chain.id &&

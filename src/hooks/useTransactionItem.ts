@@ -1,11 +1,13 @@
-import { formatEther } from 'viem'
-import { estimateContractGas } from 'viem/actions'
+import { createPublicClient, formatEther, http } from 'viem'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
-import { useWalletClient, useWaitForTransactionReceipt } from 'wagmi'
+import { useWalletClient, useWaitForTransactionReceipt, useGasPrice } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
+import { fetchEthPrice } from '../utils/api/fetch-eth-price'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
+import { base, publicActionsL2 } from 'viem/op-stack'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -42,28 +44,41 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     return typeof currentTxIndex === 'number' && currentTxIndex === id
   }, [currentTxIndex, id])
 
+  const { data: gasPrice } = useGasPrice()
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
   const estimateGas = async () => {
     if (!transaction.chainId || !walletClient) return
 
-    const gas = await estimateContractGas(walletClient, {
+    const publicClient = createPublicClient({
+      chain: base,
+      transport: http(),
+    }).extend(publicActionsL2())
+
+    const gas = await publicClient.estimateContractTotalFee({
+      account: walletClient.account,
       address: transaction.address,
       abi: transaction.abi,
       functionName: transaction.functionName,
       args: transaction.args,
     })
 
-    const formattedGas = formatEther(gas, 'gwei')
+    const formattedGas = Number(formatEther(gas)).toLocaleString(undefined, {
+      maximumFractionDigits: 8,
+      minimumFractionDigits: 2,
+    })
 
-    setEstimatedGas(
-      Number(formattedGas).toLocaleString(undefined, { maximumFractionDigits: 5, minimumFractionDigits: 2 })
-    )
+    setEstimatedGas(formattedGas)
   }
 
   useEffect(() => {
     estimateGas()
-  }, [transaction.chainId, walletClient])
+  }, [transaction.chainId, walletClient, gasPrice])
+
+  const ethPrice = useQuery({
+    queryKey: ['ethPrice'],
+    queryFn: fetchEthPrice,
+  })
 
   const initiateTransaction = async () => {
     if (!transaction.chainId) return
@@ -111,7 +126,16 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
         name: chains.find((chain) => chain.id === transaction.chainId)?.name as string,
         icon: ChainIcon,
       },
-      'Est. gas fee': `${estimatedGas || '0.00'} ETH`,
+      gasEth: `${estimatedGas || '0.00'} ETH`,
+      gasUsd: estimatedGas
+        ? Number(estimatedGas) * (ethPrice.data || 0) < 0.01
+          ? '< $0.01'
+          : `$${(Number(estimatedGas) * (ethPrice.data || 0)).toLocaleString(undefined, {
+              currency: 'USD',
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })}`
+        : '$0.00',
     }
   }, [transaction, ChainIcon, estimatedGas, lists])
 

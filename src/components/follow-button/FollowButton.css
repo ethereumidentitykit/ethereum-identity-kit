@@ -88,11 +88,11 @@
 .follow-button-muted,
 .follow-button-mute-pending {
   background: white;
-  border-color: #ef4444;
+  border-color: #ef4444 !important;
   color: #ef4444;
 }
 
-.pending:after {
+.pending::after {
   background: #4ade80;
   height: 12px;
   width: 12px;
