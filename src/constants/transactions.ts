@@ -53,7 +53,7 @@ export const ACTION_ITEM_ICON = {
     icon: Top8,
     color: '#FFE066',
   },
-  'remove to Top 8': {
+  'remove from Top 8': {
     icon: Top8,
     color: '#FF7C7C',
   },

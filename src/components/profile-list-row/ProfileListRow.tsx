@@ -9,7 +9,14 @@ import Tags from '../transaction-modal/components/cart/tags'
 import { truncateAddress } from '../../utils'
 import './ProfileListRow.css'
 
-const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddress, selectedList, showTags }) => {
+const ProfileListRow: React.FC<ProfileListRowProps> = ({
+  profile,
+  connectedAddress,
+  selectedList,
+  showTags,
+  canEditTags,
+  tags,
+}) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => await fetchProfileAccount(profile.address),
@@ -32,7 +39,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({ profile, connectedAddre
         ) : (
           <div className="profile-list-row-name-container">
             <p className="profile-list-row-name">{account?.ens?.name || truncateAddress(profile.address)}</p>
-            {showTags && <Tags address={profile.address} />}
+            {showTags && <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />}
           </div>
         )}
       </div>

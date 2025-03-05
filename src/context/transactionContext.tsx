@@ -10,7 +10,7 @@ import {
 } from 'react'
 import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
@@ -42,10 +42,10 @@ type TransactionContextType = {
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
   resetTransactions: () => void
-  resetListopTransactions: () => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
   isCheckoutFinished: boolean
+  followingAddressesToFetchFresh: string[]
   setIsCheckoutFinished: (isCheckoutFinished: boolean) => void
 }
 
@@ -62,6 +62,7 @@ export const TransactionProvider = ({
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
   const [changesOpen, setChangesOpen] = useState(batchTransactions && !currentTxIndex)
+  const [followingAddressesToFetchFresh, setFollowingAddressesToFetchFresh] = useState<string[]>([])
 
   const [selectedList, setSelectedList] = useState<string | undefined>(undefined)
   const [isCheckoutFinished, setIsCheckoutFinished] = useState<boolean>(false)
@@ -118,7 +119,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -259,29 +260,22 @@ export const TransactionProvider = ({
     })
   }
 
-  const queryClient = useQueryClient()
   const goToNextTransaction = () => {
     const newTxIndex = (currentTxIndex || 0) + 1
     if (newTxIndex === pendingTxs.length) {
+      setIsCheckoutFinished(true)
+
       // Refetch lists if user has minted a new one
       if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
+
+      const addresses = getPendingTxAddresses(pendingTxs)
+      setFollowingAddressesToFetchFresh(addresses)
+
       resetTransactions()
-
-      // Refetch follow button data
-      queryClient.invalidateQueries({ queryKey: ['followingState'] })
-
-      // custom callback to run when transactions are finished (update profile, stats, etc.)
-      setIsCheckoutFinished(true)
     } else {
       setCurrentTxIndex(newTxIndex)
     }
   }
-
-  const resetListopTransactions = useCallback(() => {
-    setPendingTxs(
-      pendingTxs.filter((tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList)
-    )
-  }, [pendingTxs])
 
   const resetTransactions = useCallback(() => {
     setTxModalOpen(false)
@@ -308,12 +302,12 @@ export const TransactionProvider = ({
     removeListOpsTransaction,
     batchTransactions,
     resetTransactions,
-    resetListopTransactions,
     setCurrentTxIndex,
     setSelectedChainId,
     goToNextTransaction,
     isCheckoutFinished,
     setIsCheckoutFinished,
+    followingAddressesToFetchFresh,
     listsLoading: listsLoading || listsIsRefetching || listDetailsLoading,
   }
 

@@ -76,10 +76,12 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
               <div className="cart-changes-list-title">
                 Changes <span className="cart-changes-list-title-count">{profiles.length}</span>
               </div>
-              <button className="cart-changes-list-header-button" onClick={() => setClearCartModalOpen(true)}>
-                <p>Clear Cart</p>
-                <Trash height={16} width={14} />
-              </button>
+              {pendingTxs.length > 0 && (
+                <button className="cart-changes-list-header-button" onClick={() => setClearCartModalOpen(true)}>
+                  <p>Clear Cart</p>
+                  <Trash height={16} width={14} />
+                </button>
+              )}
             </div>
             {profiles.length > 0 ? (
               <ProfileList
@@ -87,6 +89,7 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
                 connectedAddress={connectedAddress}
                 selectedList={selectedList}
                 showTags={true}
+                canEditTags={true}
               />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>

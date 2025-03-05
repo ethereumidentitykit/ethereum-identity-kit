@@ -33,7 +33,6 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
     changesOpen,
     batchTransactions,
     resetTransactions,
-    resetListopTransactions,
   } = useTransactions()
 
   if (!txModalOpen) return null
@@ -65,7 +64,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
           confirmButtonText="Clear Cart"
           onCancel={() => setClearCartModalOpen(false)}
           onConfirm={() => {
-            resetListopTransactions()
+            resetTransactions()
             setClearCartModalOpen(false)
           }}
         />

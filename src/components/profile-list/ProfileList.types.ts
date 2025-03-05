@@ -7,7 +7,9 @@ export type ProfileListProps = {
   selectedList?: string
   isLoading?: boolean
   loadingRows?: number
+  tags?: string[]
   showTags?: boolean
+  canEditTags?: boolean
 }
 
 export type ProfileItemType = {

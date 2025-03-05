@@ -68,7 +68,7 @@ const Actions: React.FC<ActionsProps> = ({ transactions }) => {
     mute: transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'mute'),
     unmute: transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'mute'),
     'add to Top 8': transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'top8'),
-    'remove to Top 8': transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'top8'),
+    'remove from Top 8': transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'top8'),
   }
 
   return (

@@ -19,9 +19,10 @@ import './Tags.css'
 interface TagsProps {
   address: Address
   existingTags?: string[]
+  canEditTags?: boolean
 }
 
-const Tags: React.FC<TagsProps> = ({ address, existingTags }) => {
+const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
   const { addListOpsTransaction, removeListOpsTransaction, pendingTxs, selectedList, nonce, selectedChainId } =
     useTransactions()
 
@@ -49,7 +50,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags }) => {
   }, [pendingTxs, address])
 
   const handleAddTag = (tag: string) => {
-    if (tags.includes(tag) || !connectedAddress) return
+    if (tags.includes(tag) || !connectedAddress || !canEditTags) return
 
     const listOp = listOpAddTag(address, tag)
     const tx = formatListOpsTransaction({
@@ -63,7 +64,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags }) => {
   }
 
   const handleRemoveTag = (tag: string) => {
-    if (!tags.includes(tag) || !connectedAddress) return
+    if (!tags.includes(tag) || !connectedAddress || !canEditTags) return
 
     const listOp = listOpRemoveTag(address, tag)
     if (existingTags?.includes(tag)) {
@@ -84,9 +85,11 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags }) => {
 
   return (
     <div className="cart-tags-container" ref={outsideClickRef as React.RefObject<HTMLDivElement>}>
-      <button className="cart-tags-button" onClick={() => setTagDropdownOpen(!tagDropdownOpen)}>
-        <Plus height={13} width={13} />
-      </button>
+      {canEditTags && (
+        <button className="cart-tags-button" onClick={() => setTagDropdownOpen(!tagDropdownOpen)}>
+          <Plus height={13} width={13} />
+        </button>
+      )}
       {tags.map((tag) => {
         const isBeingRemoved = pendingTxs
           .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
@@ -105,7 +108,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags }) => {
           </button>
         )
       })}
-      {tagDropdownOpen && (
+      {canEditTags && tagDropdownOpen && (
         <div className="cart-tags-dropdown">
           <div className="cart-tags-dropdown-input-container">
             <input

@@ -44,6 +44,7 @@
   position: relative;
   height: 22px;
   display: flex;
+  font-size: 12px;
   font-weight: 600;
   align-items: center;
   justify-content: center;
@@ -149,17 +150,20 @@
 }
 
 .cart-tags-dropdown-tags-container button {
+  border: none;
+  cursor: pointer;
+  padding: 0 3px !important;
+  margin: 0;
+  position: relative;
   height: 22px;
-  width: auto;
-  padding: 0 3px;
-  border-radius: 2px !important;
   display: flex;
+  font-size: 12px;
+  font-weight: 600;
   align-items: center;
   justify-content: center;
   color: #333;
-  font-weight: 600;
-  background-color: #eeeeee;
-  transition: background-color 0.2s ease-in-out;
+  border-radius: 4px !important;
+  background-color: #cdcdcd;
 }
 
 .dark .cart-tags-dropdown-tags-container button {
