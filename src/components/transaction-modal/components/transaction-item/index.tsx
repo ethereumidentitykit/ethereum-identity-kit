@@ -12,10 +12,16 @@ interface TransactionItemProps {
 }
 
 const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
-  const { handleClick, currentTxIndex, setCurrentTxIndex, submitButtonText, transactionDetails } = useTransactionItem(
-    id,
-    transaction
-  )
+  const {
+    handleClick,
+    currentTxIndex,
+    setCurrentTxIndex,
+    submitButtonText,
+    transactionDetails,
+    claimPOAP,
+    poapLink,
+    setClaimPOAP,
+  } = useTransactionItem(id, transaction)
   const { pendingTxs } = useTransactions()
 
   const ProgressIcon = {
@@ -73,6 +79,31 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
             </div>
           </div>
         </>
+      )}
+      {claimPOAP && (
+        <div className="transaction-item-poap">
+          <p className="transaction-item-poap-title">Claim your POAP</p>
+          <p className="transaction-item-poap-description">
+            Congratulations! You&apos;ve earned a POAP for being an early user of EFP.
+          </p>
+          <div className="transaction-item-poap-icon">
+            <img src="https://efp.app/assets/art/early-user-poap-2025.svg" height={20} width={20} />
+          </div>
+          <div className="transaction-item-poap-button-container">
+            <button onClick={() => setClaimPOAP(false)} className="transaction-item-refuse-poap-button">
+              No thanks
+            </button>
+            <button
+              onClick={() => {
+                window.open(poapLink, '_blank')
+                setClaimPOAP(false)
+              }}
+              className="transaction-item-claim-poap-button"
+            >
+              Claim
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )

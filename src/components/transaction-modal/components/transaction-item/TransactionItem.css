@@ -259,6 +259,77 @@
   font-style: italic;
 }
 
+.transaction-item-poap {
+  z-index: 20;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 30px 20px 20px 20px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.dark .transaction-item-poap {
+  background-color: #333333;
+}
+
+.transaction-item-poap-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 10px 0 40px 0;
+}
+
+.transaction-item-poap-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #888888;
+  text-align: center;
+}
+
+.dark .transaction-item-poap-description {
+  color: #bbbbbb;
+}
+
+.transaction-item-poap-icon {
+  width: 140px;
+  height: 140px;
+}
+
+.transaction-item-poap-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.transaction-item-poap-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.transaction-item-poap-button-container button {
+  width: calc(50% - 8px);
+  height: 46px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transaction-item-refuse-poap-button {
+  background-color: #aaaaaa;
+}
+
+.transaction-item-claim-poap-button {
+  background-color: #ffe066;
+}
+
 @media screen and (max-width: 600px) {
   .transaction-item {
     gap: 16px;

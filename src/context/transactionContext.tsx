@@ -41,7 +41,7 @@ type TransactionContextType = {
   currentTxIndex: number | undefined
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
-  resetTransactions: () => void
+  resetTransactions: (keepModalOpen?: boolean) => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
   isCheckoutFinished: boolean
@@ -119,7 +119,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-      '[]'
+        '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -277,8 +277,8 @@ export const TransactionProvider = ({
     }
   }
 
-  const resetTransactions = useCallback(() => {
-    setTxModalOpen(false)
+  const resetTransactions = useCallback((keepModalOpen?: boolean) => {
+    setTxModalOpen(keepModalOpen ?? false)
     setPendingTxs([])
     setCurrentTxIndex(undefined)
   }, [])

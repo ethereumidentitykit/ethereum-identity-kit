@@ -1,13 +1,15 @@
 import { createPublicClient, formatEther, http } from 'viem'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
-import { useWalletClient, useWaitForTransactionReceipt, useGasPrice } from 'wagmi'
+import { useWalletClient, useWaitForTransactionReceipt, useGasPrice, useAccount } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
 import { fetchEthPrice } from '../utils/api/fetch-eth-price'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
 import { base, publicActionsL2 } from 'viem/op-stack'
+import { EFPActionIds } from '../constants/transactions'
+import { EFP_API_URL } from '../constants'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -35,6 +37,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     }
   }, [isLastTransaction, isSuccess])
 
+  const { address: userAddress } = useAccount()
   const { data: walletClient } = useWalletClient()
   const { currentChainId, checkChain } = useChain()
   const isCorrectChain = useMemo(() => currentChainId === transaction.chainId, [currentChainId, transaction.chainId])
@@ -153,8 +156,34 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       ? 'Initiate'
       : 'Switch Chain'
 
+  // Users can claim a POAP after minting a new list
+  const [claimPOAP, setClaimPOAP] = useState(false)
+  const [poapLink, setPoapLink] = useState('')
+
+  const fetchPoapLink = async () => {
+    try {
+      const response = await fetch(`${EFP_API_URL}/users/${userAddress}/poap`)
+      const data = await response.json()
+      setPoapLink(data.link)
+    } catch (error) {
+      console.error(error)
+      setPoapLink('')
+      setClaimPOAP(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!lists?.primary_list && transaction.id === EFPActionIds.CreateEFPList && transaction.hash) {
+      if (isSuccess) setClaimPOAP(true)
+      if (!poapLink) fetchPoapLink()
+    }
+  }, [transaction.hash, isSuccess])
+
   return {
     isActive,
+    poapLink,
+    claimPOAP,
+    setClaimPOAP,
     handleClick,
     handleCancel,
     submitButtonText,

@@ -35,7 +35,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   isLoading = false,
 }) => {
   return (
-    <div className="profile-socials">
+    <div className={clsx('profile-socials', darkMode && 'dark')}>
       {includeUrls &&
         (isLoading ? (
           <div className="profile-links-container">
@@ -49,7 +49,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 href={`https://${records?.url.replace('https://', '').replace('http://', '')}`}
                 target="_blank"
                 rel="noreferrer"
-                className={clsx('profile-link', darkMode ? 'profile-link-dark' : 'profile-link-light')}
+                className="profile-link"
               >
                 <p className="profile-link-text">
                   {records?.url.slice(-1) === '/'
@@ -64,7 +64,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 href={`https://${name}.limo`}
                 target="_blank"
                 rel="noreferrer"
-                className={clsx('profile-link', darkMode ? 'profile-link-dark' : 'profile-link-light')}
+                className="profile-link"
                 style={{
                   paddingRight: '2px',
                 }}
@@ -88,13 +88,13 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 rel="noreferrer"
                 aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
                 className="social-link"
-                // Hide social links that don't exist, can be switched to just reducing opacity
               >
-                {darkMode ? (
-                  <social.icon.dark className="social-icon" height={iconSize} width={iconSize} />
-                ) : (
-                  <social.icon.light className="social-icon" height={iconSize} width={iconSize} />
-                )}
+                <div className="social-icon-dark">
+                  <social.icon.dark height={iconSize} width={iconSize} />
+                </div>
+                <div className="social-icon">
+                  <social.icon.light height={iconSize} width={iconSize} />
+                </div>
               </a>
             ))}
       </div>
