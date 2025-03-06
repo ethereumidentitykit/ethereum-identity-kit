@@ -11,6 +11,7 @@ import Summary from './components/summary'
 import Steps from './components/steps'
 import { useState } from 'react'
 import CancelModal from './components/cancel-modal'
+
 /**
  * Transaction Modal - allows user to initiate transactions on-chain
  *

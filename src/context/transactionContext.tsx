@@ -52,10 +52,10 @@ type TransactionContextType = {
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
 
 export const TransactionProvider = ({
-  batchTransactions,
+  batchTransactions = false,
   children,
 }: {
-  batchTransactions: boolean
+  batchTransactions?: boolean
   children: ReactNode
 }) => {
   const [txModalOpen, setTxModalOpen] = useState(false)
@@ -119,7 +119,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {

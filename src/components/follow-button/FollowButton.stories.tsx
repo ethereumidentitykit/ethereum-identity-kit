@@ -124,7 +124,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
 }
 
 export default {
-  title: 'Molecules/Follow Button & Transaction Modal',
+  title: 'Organisms/Follow Button & Transaction Modal',
   component: FollowButtonWrapper,
   decorators: [
     (Story) => (

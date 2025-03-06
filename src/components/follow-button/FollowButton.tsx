@@ -1,14 +1,15 @@
 import clsx from 'clsx'
+import { useRef } from 'react'
 import { useCoolMode, useFollowButton } from '../../hooks'
 import { FollowIcon } from '../icons'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'
 import './FollowButton.css'
-import { useRef } from 'react'
 
 /**
- * Follower State Tag - displays the relation of address to connectedAddress/list
+ * Follow Button - displays current state of the relation between lookupAddress and connectedAddress
+ * and allows the user to perform actions towards the lookupAddress
  *
  * @param lookupAddress - the address of the follower
  *
@@ -16,13 +17,17 @@ import { useRef } from 'react'
  *
  * @param disabled - whether the button is disabled
  *
+ * @param onDisconnectedClick - the function to call when the button is clicked and the user is not connected
+ *
+ * @param sounds - the sounds to play when the button is clicked
+ *
  * @param className - the additional class name to apply to the follower tag
  *
  * @param customLoader - the custom loader to use instead of the default one
  *
- * @param props - HTML div element props
+ * @param props - HTML button element props
  *
- * @returns FollowerTag component
+ * @returns FollowButton component
  */
 const FollowButton: React.FC<FollowButtonProps> = ({
   lookupAddress,
