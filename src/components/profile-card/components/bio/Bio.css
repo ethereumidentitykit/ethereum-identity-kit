@@ -1,0 +1,80 @@
+.profile-bio-text-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: 4px;
+}
+
+.profile-bio-text {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  transition: all 0.2s ease-in-out;
+}
+
+.profile-bio-text-expanded {
+  line-clamp: none !important;
+  -webkit-line-clamp: none !important;
+}
+
+.dark .profile-bio-text {
+  color: #ddd;
+}
+
+.profile-bio-link {
+  text-decoration: none;
+  color: rgb(0, 89, 255);
+}
+
+.profile-bio-link:hover {
+  color: rgb(37 99 235);
+}
+
+.dark .profile-bio-link {
+  color: rgb(96 165 250);
+}
+
+.dark .profile-bio-link:hover {
+  color: rgb(147 197 253);
+}
+
+.profile-bio-expand-button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  height: 20px;
+  cursor: pointer;
+  color: rgb(0, 89, 255);
+}
+
+.profile-bio-expand-button:hover {
+  color: rgb(37 99 235);
+}
+
+.dark .profile-bio-expand-button {
+  color: rgb(96 165 250);
+}
+
+.dark .profile-bio-expand-button:hover {
+  color: rgb(147 197 253);
+}

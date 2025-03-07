@@ -5,7 +5,7 @@ export const fetchProfileStats = async (addressOrName: string, list?: ProfileLis
   try {
     const url = `${EFP_API_URL}${
       list !== undefined ? `/lists/${list}` : `/users/${addressOrName}`
-    }/stats${isLive ? '?live=true&cache=fresh' : '?live=true'}`
+    }/stats${isLive ? '?live=true' : ''}`
 
     const response = await fetch(url, {
       cache: 'default',

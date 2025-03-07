@@ -1,8 +1,8 @@
 import React from 'react'
-import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import ImageWithFallback from '../image-with-fallback/ImageWithFallback'
-import './Avatar.css'
+import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import type { AvatarProps } from './Avatar.types'
+import './Avatar.css'
 
 /**
  * Avatar component - displays an avatar image of a profile

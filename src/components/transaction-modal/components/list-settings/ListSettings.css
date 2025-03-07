@@ -1,0 +1,72 @@
+.list-settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 16px 12px;
+  border-radius: 4px;
+}
+
+.dark .list-settings-container {
+  background-color: #444444;
+}
+
+.list-settings-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.list-settings-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.list-setting-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 4px;
+}
+
+.list-setting-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  text-transform: capitalize;
+}
+
+.list-setting-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.dark .list-setting-icon-container {
+  background-color: #333333;
+}
+
+.list-setting-description {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.dark .list-setting-description {
+  color: #bbbbbb;
+}
+
+.list-account-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
