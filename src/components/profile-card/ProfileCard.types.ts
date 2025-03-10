@@ -10,6 +10,7 @@ type ProfileCardOptions = {
   statsData?: StatsResponse | null
   prefetchedStatsLoading?: boolean
   refetchStatsData?: () => void
+  openListSettings?: () => void
 }
 
 export type ProfileCardProps = {
