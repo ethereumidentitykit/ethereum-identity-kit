@@ -1,18 +1,24 @@
-import { useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useEffect, useMemo, useState } from 'react'
+import { useTransactions } from '../context'
 import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
-import { FollowState } from '../types/followState'
 import { ProfileListType } from '../types/profile'
-import { useTransactions } from '../context'
+import { FollowState, InitialFollowingState } from '../types/followState'
 
 interface UseFollowingStateProps {
   lookupAddressOrName: Address | string
   connectedAddress?: Address
   list?: ProfileListType
+  initialState?: InitialFollowingState
 }
 
-export const useFollowingState = ({ lookupAddressOrName, connectedAddress, list }: UseFollowingStateProps) => {
+export const useFollowingState = ({
+  lookupAddressOrName,
+  connectedAddress,
+  list,
+  initialState,
+}: UseFollowingStateProps) => {
   const { followingAddressesToFetchFresh } = useTransactions()
   const [fetchFresh, setFetchFresh] = useState(followingAddressesToFetchFresh.includes(lookupAddressOrName))
 
@@ -21,9 +27,28 @@ export const useFollowingState = ({ lookupAddressOrName, connectedAddress, list 
   }, [followingAddressesToFetchFresh, lookupAddressOrName])
 
   const { data, isLoading, isRefetching } = useQuery({
-    queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh],
-    queryFn: () =>
-      fetchFollowState({ lookupAddressOrName, connectedAddress, list, type: 'following', fresh: fetchFresh }),
+    queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState],
+    queryFn: async () => {
+      if (initialState && !fetchFresh)
+        return {
+          state:
+            initialState === 'Follow'
+              ? undefined
+              : {
+                  follow: initialState === 'Following',
+                  block: initialState === 'Blocked',
+                  mute: initialState === 'Muted',
+                },
+        }
+
+      return await fetchFollowState({
+        lookupAddressOrName,
+        connectedAddress,
+        list,
+        type: 'following',
+        fresh: fetchFresh,
+      })
+    },
     staleTime: Infinity,
     refetchOnWindowFocus: false,
   })

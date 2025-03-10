@@ -118,6 +118,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
         lookupAddress={args.lookupAddress}
         connectedAddress={connectedAddress || args.connectedAddress}
         disabled={!connectedAddress}
+        initialState={args.initialState}
       />
     </div>
   )
@@ -126,6 +127,7 @@ const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; bat
 export default {
   title: 'Organisms/Follow Button & Transaction Modal',
   component: FollowButtonWrapper,
+  tags: ['!autodocs'],
   decorators: [
     (Story) => (
       <WagmiProvider config={config}>
@@ -154,4 +156,12 @@ FollowButtonBatchTx.args = {
   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
   darkMode: false,
   batchTransactions: true,
+}
+
+export const FollowButtonInitialState = Template.bind({})
+FollowButtonInitialState.args = {
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  darkMode: false,
+  batchTransactions: false,
+  initialState: 'Follow',
 }

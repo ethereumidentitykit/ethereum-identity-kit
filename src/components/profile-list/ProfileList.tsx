@@ -15,6 +15,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
   tags,
   showTags,
   canEditTags,
+  initialFollowState,
 }) => {
   return (
     <div className={clsx('profile-list-container', darkMode && 'dark')}>
@@ -27,6 +28,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
           tags={tags}
           showTags={showTags}
           canEditTags={canEditTags}
+          initialFollowState={initialFollowState}
         />
       ))}
       {isLoading &&

@@ -24,6 +24,7 @@ const Recommended = ({
           isLoading={isLoading}
           loadingRows={limit}
           selectedList={selectedList}
+          initialFollowState={'Follow'}
         />
       )}
       {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}

@@ -16,10 +16,12 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   showTags,
   canEditTags,
   tags,
+  initialFollowState,
 }) => {
+  console.log('profile', profile)
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
-    queryFn: async () => await fetchProfileAccount(profile.address),
+    queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
   })
 
   return (
@@ -43,7 +45,12 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
           </div>
         )}
       </div>
-      <FollowButton lookupAddress={profile.address} connectedAddress={connectedAddress} selectedList={selectedList} />
+      <FollowButton
+        lookupAddress={profile.address}
+        connectedAddress={connectedAddress}
+        selectedList={selectedList}
+        initialState={initialFollowState}
+      />
     </div>
   )
 }

@@ -94,7 +94,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
         const isBeingRemoved = pendingTxs
           .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
           .flatMap((tx) => getListOpsFromTransaction(tx))
-          .some((op) => extractAddressAndTag(op.data).tag === tag && op.opcode === 3)
+          .some((op) => extractAddressAndTag(op.data).tag === tag && op.opcode === 4)
 
         return (
           <button
@@ -113,7 +113,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
           <div className="cart-tags-dropdown-input-container">
             <input
               value={tagDropdownInput}
-              placeholder="Add tag"
+              placeholder="custom tag"
               onChange={(e) => setTagDropdownInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -124,7 +124,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
               }}
             />
             <button className="cart-tags-input-button" onClick={() => handleAddTag(tagDropdownInput)}>
-              <Plus height={12} width={12} />
+              <Plus height={20} width={20} />
             </button>
           </div>
           <div className="cart-tags-dropdown-tags-container">

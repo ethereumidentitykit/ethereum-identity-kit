@@ -31,6 +31,11 @@ export const useRecommended = (connectedAddress: Address, limit: number, list?: 
     .reduce((acc: RecommendedItemType[], page) => [...acc, ...page.results], [])
     .map((profile) => ({
       ...profile,
+      ens: {
+        name: profile.name,
+        avatar: profile.avatar,
+        records: profile.header ? { header: profile.header } : undefined,
+      },
       tags: [],
     }))
 

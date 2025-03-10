@@ -139,22 +139,15 @@ export type ProfileStatsClickProps = {
   stat: ProfileStatType
 }
 
-export type DiscoverItemType = {
-  address: Address
-  name: string | null
-  avatar: string | null
-  followers: number
-  following: number
-}
-
 export type RecommendedItemType = {
   address: Address
-  name: string | null
-  avatar: string | null
+  name?: string
+  avatar?: string
+  header?: string
 }
 
 export type DiscoverResponseType = {
-  latestFollows: DiscoverItemType[]
+  latestFollows: RecommendedItemType[]
   recommended: RecommendedItemType[]
 }
 

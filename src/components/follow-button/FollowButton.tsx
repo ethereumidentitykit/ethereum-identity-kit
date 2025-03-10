@@ -36,6 +36,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   disabled,
   onDisconnectedClick,
   sounds,
+  initialState,
   className,
   customLoader,
   ...props
@@ -45,6 +46,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       lookupAddress,
       connectedAddress,
       selectedList,
+      initialState,
     })
 
   const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)

@@ -3,17 +3,19 @@ import { useMemo, useState } from 'react'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { getPendingTxListOps, extractAddressAndTag, formatListOpsTransaction } from '../utils/transactions'
-import { FollowingState } from '../types'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
+import { FollowingState, InitialFollowingState } from '../types'
 
 export const useFollowButton = ({
   lookupAddress,
   connectedAddress,
   selectedList,
+  initialState,
 }: {
   lookupAddress: Address
   connectedAddress?: Address
   selectedList?: string
+  initialState?: InitialFollowingState
 }) => {
   const [disableHover, setDisableHover] = useState(false)
 
@@ -31,6 +33,7 @@ export const useFollowButton = ({
     lookupAddressOrName: lookupAddress,
     connectedAddress,
     list: selectedList === 'new list' ? undefined : (selectedList ?? lists?.primary_list),
+    initialState,
   })
 
   const pendingListOps = useMemo(() => {

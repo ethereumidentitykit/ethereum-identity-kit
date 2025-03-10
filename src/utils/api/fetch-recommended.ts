@@ -1,5 +1,5 @@
 import type { Address } from 'viem'
-import { DiscoverItemType, DiscoverResponseType } from '../../types'
+import { DiscoverResponseType } from '../../types'
 import { EFP_API_URL } from '../../constants'
 
 export const fetchRecommended = async (
@@ -27,7 +27,7 @@ export const fetchRecommended = async (
     })
 
     const data = (await res.json()) as DiscoverResponseType
-    const formattedData = endpoint === 'recommended' ? data.recommended : (data.latestFollows as DiscoverItemType[])
+    const formattedData = endpoint === 'recommended' ? data.recommended : data.latestFollows
     return formattedData
   } catch (err: unknown) {
     console.error(err)

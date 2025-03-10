@@ -36,3 +36,5 @@ export type FollowingState =
   | 'Pending Mute'
   | 'Unblock'
   | 'Unmute'
+
+export type InitialFollowingState = 'Follow' | 'Blocked' | 'Muted' | 'Following'
