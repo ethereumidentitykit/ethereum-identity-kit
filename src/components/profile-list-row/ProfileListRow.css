@@ -21,6 +21,15 @@
   white-space: nowrap;
 }
 
+.clickable {
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+}
+
 .profile-list-row-details {
   display: flex;
   align-items: center;

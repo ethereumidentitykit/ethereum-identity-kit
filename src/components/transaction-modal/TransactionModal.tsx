@@ -21,7 +21,7 @@ import CancelModal from './components/cancel-modal'
  *
  * @returns TransactionModal component
  */
-const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className, ...props }) => {
+const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className, onCartProfileClick, ...props }) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [clearCartModalOpen, setClearCartModalOpen] = useState(false)
 
@@ -91,7 +91,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
             >
               <Cross height={16} width={16} />
             </div>
-            <Cart setClearCartModalOpen={setClearCartModalOpen} />
+            <Cart setClearCartModalOpen={setClearCartModalOpen} onProfileClick={onCartProfileClick} />
             <ChainSelector />
             <Steps transactions={pendingTxs} />
             <div

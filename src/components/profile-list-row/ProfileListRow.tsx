@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ProfileListRowProps } from './ProfileListRow.types'
@@ -17,8 +18,8 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   canEditTags,
   tags,
   initialFollowState,
+  onProfileClick,
 }) => {
-  console.log('profile', profile)
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
@@ -34,13 +35,19 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             address={profile.address}
             name={account?.ens?.name}
             style={{ width: '45px', height: '45px', borderRadius: '50%' }}
+            onClick={() => onProfileClick?.(profile.address)}
           />
         )}
         {isAccountLoading ? (
           <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
         ) : (
           <div className="profile-list-row-name-container">
-            <p className="profile-list-row-name">{account?.ens?.name || truncateAddress(profile.address)}</p>
+            <p
+              className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
+              onClick={() => onProfileClick?.(profile.address)}
+            >
+              {account?.ens?.name || truncateAddress(profile.address)}
+            </p>
             {showTags && <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />}
           </div>
         )}

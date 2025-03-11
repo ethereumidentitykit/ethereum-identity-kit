@@ -9,4 +9,5 @@ export type ProfileListRowProps = {
   showTags?: boolean
   canEditTags?: boolean
   initialFollowState?: InitialFollowingState
+  onProfileClick?: (address: Address) => void
 }

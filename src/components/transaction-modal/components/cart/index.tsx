@@ -14,9 +14,10 @@ import './Cart.css'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void
+  onProfileClick?: (address: Address) => void
 }
 
-const Cart = ({ setClearCartModalOpen }: CartProps) => {
+const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
   const { address: connectedAddress } = useAccount()
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
 
@@ -90,6 +91,7 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
                 selectedList={selectedList}
                 showTags={true}
                 canEditTags={true}
+                onProfileClick={onProfileClick}
               />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>
@@ -97,7 +99,13 @@ const Cart = ({ setClearCartModalOpen }: CartProps) => {
           </div>
           <div className="cart-recommended-container">
             <ManualAdd />
-            {connectedAddress && <Recommended selectedList={selectedList} connectedAddress={connectedAddress} />}
+            {connectedAddress && (
+              <Recommended
+                selectedList={selectedList}
+                connectedAddress={connectedAddress}
+                onProfileClick={onProfileClick}
+              />
+            )}
           </div>
         </div>
         <div className="cart-modal-buttons-container">

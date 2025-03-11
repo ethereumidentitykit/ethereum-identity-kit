@@ -11,6 +11,7 @@ export type ProfileListProps = {
   showTags?: boolean
   canEditTags?: boolean
   initialFollowState?: InitialFollowingState
+  onProfileClick?: (address: Address) => void
 }
 
 export type ProfileItemType = {

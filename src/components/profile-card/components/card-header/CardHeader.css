@@ -25,7 +25,7 @@
   border-radius: 4px;
   display: flex;
   align-items: center;
-  background-color: #fffe;
+  background-color: #eeeeee;
 }
 
 .dark .header-refresh,
@@ -33,7 +33,16 @@
 .dark .header-not-confirmed,
 .dark .header-left-list-number,
 .dark .header-not-confirmed-description {
-  background-color: #333e;
+  background-color: #555555;
+}
+
+.list-clickable {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.list-clickable:hover {
+  transform: scale(1.1);
 }
 
 .header-right {
@@ -61,7 +70,7 @@
 }
 
 .header-edit-profile:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .header-refresh {
@@ -77,7 +86,7 @@
 }
 
 .header-refresh:hover {
-  scale: 1.1;
+  transform: scale(1.1);
 }
 
 .header-not-confirmed {

@@ -50,7 +50,10 @@ const CardHeader: React.FC<CardHeaderProps> = ({
         <LoadingCell height="28px" width="65px" radius="4px" style={{ marginLeft: '10px' }} />
       ) : list || primaryList ? (
         <div className="header-left">
-          <div className="header-left-list-number" onClick={() => openListSettings?.()}>
+          <div
+            className={clsx('header-left-list-number', openListSettings && 'list-clickable')}
+            onClick={() => openListSettings?.()}
+          >
             #{formatNumber(Number(list || primaryList))}
           </div>
           {!(detailsLoading || isPrimaryListProfile) && (

@@ -7,10 +7,12 @@ const Recommended = ({
   connectedAddress,
   selectedList,
   limit = 20,
+  onProfileClick,
 }: {
   connectedAddress: Address
   selectedList?: string
   limit?: number
+  onProfileClick?: (address: Address) => void
 }) => {
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(connectedAddress, limit, selectedList)
 
@@ -25,6 +27,7 @@ const Recommended = ({
           loadingRows={limit}
           selectedList={selectedList}
           initialFollowState={'Follow'}
+          onProfileClick={onProfileClick}
         />
       )}
       {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}
