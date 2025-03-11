@@ -3,21 +3,23 @@
   position: relative;
   text-align: center;
   border-radius: 4px;
-  padding: 54px 16px 12px 16px;
+  padding: 54px 16px 6px 16px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 16px;
+  gap: 2px;
+  color: #000;
+  background-color: #fff;
 }
 
-.profile-card-dark {
+.dark-profile-card {
   color: #fff;
   background-color: #333;
 }
 
-.profile-card-light {
-  color: #000;
-  background-color: #fff;
+.dark .profile-card {
+  color: #fff;
+  background-color: #333;
 }
 
 .profile-avatar-container {
@@ -67,7 +69,7 @@
 
 .profile-name[enable-hover='true']:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .profile-bio {
@@ -79,26 +81,6 @@
   max-width: 90%;
 }
 
-.profile-bio-link {
-  text-decoration: none;
-}
-
-.profile-card-dark .profile-bio-link {
-  color: rgb(96 165 250);
-}
-
-.profile-card-dark .profile-bio-link:hover {
-  color: rgb(147 197 253);
-}
-
-.profile-card-light .profile-bio-link {
-  color: rgb(0, 89, 255);
-}
-
-.profile-card-light .profile-bio-link:hover {
-  color: rgb(37 99 235);
-}
-
 .profile-bio-loading {
   display: flex;
   flex-direction: column;
@@ -107,31 +89,31 @@
   margin: 0;
 }
 
-.profile-bio-text {
-  opacity: 0.8;
-  padding: 0;
-  margin: 0;
-}
-
-.profile-stats-container {
+.profile-card-stats-container {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-.profile-stats-item {
+.profile-card-stats-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   align-items: center;
   gap: 6px;
+  transition: transform 0.2s ease;
 }
 
-.profile-stats-item-value {
-  font-size: 19px;
+.profile-card-stats-item[enable-hover='true']:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.profile-card-stats-item-value {
+  font-size: 18px;
   font-weight: 600;
 }
 
-.profile-stats-item-label {
+.profile-card-stats-item-label {
   font-size: 15px;
   font-weight: 500;
 }
@@ -141,6 +123,6 @@
   margin: 0 auto;
 }
 
-.profile-card-dark .common-followers-text-container {
+.dark .common-followers-text-container {
   color: #aaa;
 }

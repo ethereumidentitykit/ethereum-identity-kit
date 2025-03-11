@@ -1,0 +1,343 @@
+.transaction-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+  width: 440px;
+  position: relative;
+  padding: 20px;
+}
+
+.transaction-modal-arrow-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  cursor: pointer;
+}
+
+.transaction-modal-arrow-back:hover {
+  opacity: 0.6;
+}
+
+.transaction-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 10px 0 40px 0;
+}
+
+.transaction-progress-container {
+  width: 100%;
+  height: 32px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.transaction-progress-container {
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.dark .transaction-progress-container {
+  background-color: #555555;
+}
+
+.transaction-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 20px;
+  color: #000000;
+  z-index: 10;
+  background-color: #ffe066;
+  transition: width 0.25s ease-out;
+}
+
+.transaction-progress-bar-pending {
+  transition: width 12s linear;
+  width: 80%;
+}
+
+.transaction-progress-bar-re-initiate {
+  width: 100%;
+  background-color: #ff6b6b;
+}
+
+.transaction-progress-bar-done {
+  width: 100%;
+  background-color: #49de80;
+}
+
+.transaction-progress-indexing-bar {
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  border-radius: 20px;
+  background-color: #24ad57;
+  z-index: -10;
+  animation: indexing-bar-animation 5s linear;
+}
+
+@keyframes indexing-bar-animation {
+  0% {
+    width: 0;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  95% {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  100% {
+    width: calc(100% + 8px);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+}
+.transaction-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.transaction-item-details-description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.dark .transaction-item-details-description {
+  background-color: #555555;
+}
+
+.transaction-item-details-description-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+.dark .transaction-item-details-description-title {
+  color: #fff;
+}
+
+.transaction-item-details-description-description {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888888;
+  max-width: 66%;
+  text-align: right;
+  overflow-wrap: break-word;
+}
+
+.dark .transaction-item-details-description-description {
+  color: #aaaaaa;
+}
+
+.transaction-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  background-color: #f5f5f5;
+}
+
+.dark .transaction-details {
+  background-color: #444444;
+}
+
+.transaction-details-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.transaction-details-chain-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.transaction-details-chain-container p {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.transaction-details-gas-fee-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.transaction-details-gas-fee-container-usd {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.transaction-details-gas-fee-container-usd span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888888;
+}
+
+.dark .transaction-details-gas-fee-container-usd span {
+  color: #aaaaaa;
+}
+
+.transaction-details-gas-fee-container-eth {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888888;
+}
+
+.transaction-details-block-explorer-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.transaction-details-block-explorer-container a {
+  border-radius: 50%;
+  display: block;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.transaction-details-block-explorer-container a:hover {
+  opacity: 0.6 !important;
+}
+
+.transaction-modal-initiate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.transaction-modal-initiate-button {
+  width: 400px;
+  height: 46px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  background-color: #ffe066;
+}
+
+.transaction-modal-initiate-button-done {
+  background-color: #49de80;
+}
+
+.transaction-modal-initiate-button:disabled {
+  font-style: italic;
+}
+
+.transaction-item-poap {
+  z-index: 20;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 30px 20px 20px 20px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.dark .transaction-item-poap {
+  background-color: #333333;
+}
+
+.transaction-item-poap-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 10px 0 40px 0;
+}
+
+.transaction-item-poap-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #888888;
+  text-align: center;
+}
+
+.dark .transaction-item-poap-description {
+  color: #bbbbbb;
+}
+
+.transaction-item-poap-icon {
+  width: 140px;
+  height: 140px;
+}
+
+.transaction-item-poap-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.transaction-item-poap-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.transaction-item-poap-button-container button {
+  width: calc(50% - 8px);
+  height: 46px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transaction-item-refuse-poap-button {
+  background-color: #aaaaaa;
+}
+
+.transaction-item-claim-poap-button {
+  background-color: #ffe066;
+}
+
+@media screen and (max-width: 600px) {
+  .transaction-item {
+    gap: 16px;
+    width: 100vw;
+    padding: 20px 10px 12px 10px;
+  }
+
+  .transaction-modal-initiate-button {
+    width: calc(100vw - 20px);
+  }
+}

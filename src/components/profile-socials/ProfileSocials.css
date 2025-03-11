@@ -38,20 +38,12 @@
   white-space: nowrap;
 }
 
-.profile-link-dark {
-  background-color: #71717a;
-}
-
-.profile-link-light {
-  background-color: #e4e4e7;
-}
-
-.profile-link-dark .profile-link-text {
-  color: rgb(96 165 250);
-}
-
-.profile-link-light .profile-link-text {
+.profile-link {
   color: rgb(0, 89, 255);
+}
+
+.dark .profile-link {
+  color: rgb(96 165 250);
 }
 
 .profile-link:hover {
@@ -68,9 +60,14 @@
 
 .social-link {
   opacity: 1;
+  color: #000;
   transition:
     opacity 0.2s ease,
     scale 0.2s ease;
+}
+
+.dark .social-link {
+  color: #fff;
 }
 
 .social-link[aria-disabled='true'] {
@@ -86,4 +83,16 @@
 .social-icon {
   border-radius: 50%;
   color: inherit;
+}
+
+.dark .social-icon {
+  display: none;
+}
+
+.social-icon-dark {
+  display: none;
+}
+
+.dark .social-icon-dark {
+  display: block;
 }

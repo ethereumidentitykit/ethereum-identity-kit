@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Address } from '../types/address'
-import { ProfileListType, StatsResponse } from '../types/profile'
-import { fetchProfileStats } from '../utils/api/fetch-profile-stats'
+import { fetchProfileStats } from '../utils'
+import { ProfileListType, StatsResponse, Address } from '../types'
 
 interface UseProfileStatsProps {
   addressOrName: Address | string
@@ -18,6 +17,7 @@ export const useProfileStats = ({
   refetchPrefetchedData,
 }: UseProfileStatsProps) => {
   const [fetchFreshStats, setFetchFreshStats] = useState(false)
+
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['stats', addressOrName, list, fetchFreshStats, prefetchedData],
     queryFn: async () => prefetchedData ?? (await fetchProfileStats(addressOrName, list, fetchFreshStats)),

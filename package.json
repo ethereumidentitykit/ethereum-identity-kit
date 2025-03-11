@@ -1,6 +1,6 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
   "keywords": [
     "ethereum identity kit",
@@ -36,7 +36,23 @@
       "types": "./dist/types.d.ts",
       "default": "./dist/esm/index.js"
     },
-    "./css": "./dist/esm/index.css"
+    "./css": "./dist/esm/index.css",
+    "./hooks": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/hooks/index.js"
+    },
+    "./utils": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/utils/index.js"
+    },
+    "./constants": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/constants/index.js"
+    },
+    "./components": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/esm/components/index.js"
+    }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
   "author": {
@@ -93,6 +109,8 @@
   "peerDependencies": {
     "@tanstack/react-query": "^5.0.0",
     "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "viem": "^2.0.0",
+    "wagmi": "^2.0.0"
   }
 }

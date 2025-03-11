@@ -1,0 +1,164 @@
+.transaction-modal-backdrop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.transaction-modal-backdrop * {
+  box-sizing: border-box;
+}
+
+.transaction-modal-container {
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
+  width: 440px;
+  height: auto;
+  max-height: 85vh;
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  font-family: 'Inter', sans-serif;
+}
+
+.transaction-modal-container::-webkit-scrollbar,
+.transaction-modal-container *::-webkit-scrollbar {
+  display: none;
+}
+
+.dark .transaction-modal-container {
+  background: #333333;
+  color: #fff;
+}
+
+.transaction-modal-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.transaction-modal-container button {
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 3px solid transparent;
+}
+
+.transaction-modal-container button:hover {
+  opacity: 0.8;
+}
+
+.transaction-modal-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.transaction-modal-close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.dark .transaction-modal-close-button {
+  background-color: #333333;
+}
+
+.transaction-modal-close-button:hover {
+  opacity: 0.6;
+}
+
+.transaction-modal-transactions-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.transaction-modal-buttons-container {
+  display: flex;
+  gap: 8px;
+  padding: 12px 10px;
+}
+
+.transaction-modal-cancel-button {
+  background-color: #e5e5e5;
+}
+
+.dark .transaction-modal-cancel-button {
+  background-color: #555555;
+  color: #fff;
+}
+
+.transaction-modal-confirm-button {
+  background-color: #ffe066;
+  color: #000;
+  width: 100%;
+  height: 46px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.transaction-modal-loading-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 120px auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, #ffe066 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #ffe066);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: loading-spinner-animation 1s infinite linear;
+}
+
+@keyframes loading-spinner-animation {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .transaction-modal-container {
+    padding: 0px;
+    width: 100vw;
+    height: fit-content;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .transaction-modal-transactions-container {
+    gap: 0px;
+  }
+
+  .transaction-modal-confirm-button {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .transaction-modal-container.changes-open {
+    width: 880px;
+  }
+}

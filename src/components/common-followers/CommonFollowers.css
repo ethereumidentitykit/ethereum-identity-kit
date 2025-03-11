@@ -4,7 +4,6 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  position: relative;
 }
 
 .common-followers-avatars-container {
@@ -14,8 +13,7 @@
 }
 
 .common-followers-text-container {
-  width: calc(100% - 74px);
-  position: absolute;
+  width: 100%;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
@@ -25,8 +23,7 @@
   text-overflow: ellipsis;
   white-space: normal;
   display: -webkit-box;
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  left: 74px;
 }
