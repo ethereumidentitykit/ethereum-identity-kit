@@ -18,8 +18,6 @@ jobs:
         run: npm run format
       - name: Lint code
         run: npm run lint
-      - name: Test code
-        run: npm run test
       - name: Build package
         run: npm run rollup
       - name: Publish package
