@@ -21,6 +21,7 @@ export const useProfileDetails = ({
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['profile', addressOrName, list, fetchFreshProfileDetails],
     queryFn: async () => prefetchedData || (await fetchProfileDetails(addressOrName, list, fetchFreshProfileDetails)),
+    refetchOnWindowFocus: false,
   })
 
   const refreshProfileDetails = () => {

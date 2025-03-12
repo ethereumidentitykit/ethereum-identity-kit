@@ -29,6 +29,7 @@ export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseF
       return fetchedStatus
     },
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
   })
 
   const followState = useMemo((): FollowState => {

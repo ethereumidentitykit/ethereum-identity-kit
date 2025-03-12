@@ -25,6 +25,7 @@ export const useRecommended = (connectedAddress: Address, limit: number, list?: 
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextPageParam,
     getPreviousPageParam: (lastPage) => lastPage.previousPageParam,
+    refetchOnWindowFocus: false,
   })
 
   const recommendedProfiles = data?.pages

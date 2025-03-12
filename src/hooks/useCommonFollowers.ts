@@ -13,6 +13,7 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
       const response = await fetchCommonFollowers(connectedAddress, lookupAddressOrName)
       return response
     },
+    refetchOnWindowFocus: false,
   })
 
   const displayedAvatars =
