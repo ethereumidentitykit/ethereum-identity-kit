@@ -18,13 +18,17 @@ export default function Summary() {
     setChangesOpen,
     setTxModalOpen,
     currentTxIndex,
+    resetTransactions,
   } = useTransactions()
 
   const onSummaryClose = () => {
     const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
     if (mintTxIndex >= 0) return setSelectedChainId(undefined)
     if (batchTransactions) return setChangesOpen(true)
-    else return setTxModalOpen(false)
+    else {
+      setTxModalOpen(false)
+      resetTransactions()
+    }
   }
 
   const groupedTransactions = useMemo(() => Object.groupBy(pendingTxs, (tx) => tx.id), [pendingTxs])

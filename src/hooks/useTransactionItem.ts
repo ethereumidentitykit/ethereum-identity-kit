@@ -1,15 +1,16 @@
-import { createPublicClient, formatEther, http } from 'viem'
+import { mainnet } from 'viem/chains'
+import { publicActionsL2 } from 'viem/op-stack'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
+import { createPublicClient, formatEther, http } from 'viem'
 import { useWalletClient, useWaitForTransactionReceipt, useGasPrice, useAccount } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
 import { fetchEthPrice } from '../utils/api/fetch-eth-price'
+import { EFP_API_URL } from '../constants'
+import { EFPActionIds } from '../constants/transactions'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
-import { base, publicActionsL2 } from 'viem/op-stack'
-import { EFPActionIds } from '../constants/transactions'
-import { EFP_API_URL } from '../constants'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -31,6 +32,10 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const [lastTransactionSuccessful, setLastTransactionSuccessful] = useState(false)
   const isLastTransaction = useMemo(() => id === pendingTxs.length - 1, [id, pendingTxs])
   useEffect(() => {
+    // Only add delay to last transaction if it's an EFP action
+    const actionids = Object.values(EFPActionIds)
+    if (!actionids.includes(transaction.id)) return setLastTransactionSuccessful(true)
+
     if (isLastTransaction && isSuccess) {
       const timeout = setTimeout(() => setLastTransactionSuccessful(true), 5000)
       return () => clearTimeout(timeout)
@@ -47,14 +52,39 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     return typeof currentTxIndex === 'number' && currentTxIndex === id
   }, [currentTxIndex, id])
 
-  const { data: gasPrice } = useGasPrice()
+  const { data: gasPrice } = useGasPrice({
+    chainId: transaction.chainId,
+  })
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
   const estimateGas = async () => {
     if (!transaction.chainId || !walletClient) return
 
+    if (transaction.chainId === mainnet.id) {
+      const publicClient = createPublicClient({
+        chain: mainnet,
+        transport: http(),
+      })
+
+      const gas = await publicClient.estimateContractGas({
+        account: walletClient.account,
+        address: transaction.address,
+        abi: transaction.abi,
+        functionName: transaction.functionName,
+        args: transaction.args,
+      })
+
+      const formattedGas = Number(formatEther(gas * BigInt(gasPrice || 0))).toLocaleString(undefined, {
+        maximumFractionDigits: 8,
+        minimumFractionDigits: 2,
+      })
+
+      setEstimatedGas(formattedGas)
+      return
+    }
+
     const publicClient = createPublicClient({
-      chain: base,
+      chain: chains.find((chain) => chain.id === transaction.chainId),
       transport: http(),
     }).extend(publicActionsL2())
 

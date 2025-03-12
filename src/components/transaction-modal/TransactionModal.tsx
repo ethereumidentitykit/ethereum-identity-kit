@@ -82,7 +82,10 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
             <div
               className="transaction-modal-close-button"
               onClick={() => {
-                if (pendingTxs.findIndex((tx) => tx.hash) === -1 || changesOpen) {
+                if (!batchTransactions) {
+                  setTxModalOpen(false)
+                  resetTransactions()
+                } else if (pendingTxs.findIndex((tx) => tx.hash) === -1 || changesOpen) {
                   setTxModalOpen(false)
                 } else {
                   setCancelModalOpen(true)
