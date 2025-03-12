@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
+import { isAddress } from 'viem'
 import { useTransactions } from '../context'
-import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
-import { ProfileListType } from '../types/profile'
 import { FollowState, InitialFollowingState } from '../types/followState'
+import { ProfileListType } from '../types/profile'
+import { fetchFollowState } from '../utils/api/fetch-follow-state'
 
 interface UseFollowingStateProps {
-  lookupAddressOrName: Address | string
-  connectedAddress?: Address
+  lookupAddressOrName?: Address | string
+  connectedAddress?: Address | string
   list?: ProfileListType
   initialState?: InitialFollowingState
 }
@@ -20,15 +21,22 @@ export const useFollowingState = ({
   initialState,
 }: UseFollowingStateProps) => {
   const { followingAddressesToFetchFresh } = useTransactions()
-  const [fetchFresh, setFetchFresh] = useState(followingAddressesToFetchFresh.includes(lookupAddressOrName))
+  const [fetchFresh, setFetchFresh] = useState(
+    !!lookupAddressOrName && followingAddressesToFetchFresh.includes(lookupAddressOrName)
+  )
 
   useEffect(() => {
-    if (followingAddressesToFetchFresh.includes(lookupAddressOrName)) setFetchFresh(true)
+    if (lookupAddressOrName && followingAddressesToFetchFresh.includes(lookupAddressOrName)) setFetchFresh(true)
   }, [followingAddressesToFetchFresh, lookupAddressOrName])
 
   const { data, isLoading, isRefetching } = useQuery({
     queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState],
     queryFn: async () => {
+      if (!lookupAddressOrName) throw new Error('lookupAddressOrName is required')
+      if (!connectedAddress) throw new Error('connectedAddress is required')
+      if (!isAddress(connectedAddress)) throw new Error('connectedAddress must be a valid address')
+      if (!isAddress(lookupAddressOrName)) throw new Error('lookupAddressOrName must be a valid address')
+
       if (initialState && !fetchFresh)
         return {
           state:
@@ -51,6 +59,7 @@ export const useFollowingState = ({
     },
     staleTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: !!lookupAddressOrName,
   })
 
   const isFollowingStateLoading = isLoading || isRefetching

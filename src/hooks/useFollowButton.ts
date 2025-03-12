@@ -1,10 +1,10 @@
-import { Address } from 'viem'
 import { useMemo, useState } from 'react'
-import { useFollowingState } from './useFollowingState'
+import { Address } from 'viem'
 import { useTransactions } from '../context/transactionContext'
-import { getPendingTxListOps, extractAddressAndTag, formatListOpsTransaction } from '../utils/transactions'
-import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
 import { FollowingState, InitialFollowingState } from '../types'
+import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
+import { extractAddressAndTag, formatListOpsTransaction, getPendingTxListOps } from '../utils/transactions'
+import { useFollowingState } from './useFollowingState'
 
 export const useFollowButton = ({
   lookupAddress,
@@ -12,7 +12,7 @@ export const useFollowButton = ({
   selectedList,
   initialState,
 }: {
-  lookupAddress: Address
+  lookupAddress?: Address
   connectedAddress?: Address
   selectedList?: string
   initialState?: InitialFollowingState
@@ -43,7 +43,7 @@ export const useFollowButton = ({
     const allPendingListOps = getPendingTxListOps(pendingTxs)
     const filteredPendingListOps = allPendingListOps.filter((op) => {
       const { address } = extractAddressAndTag(op.data)
-      return address.toLowerCase() === lookupAddress.toLowerCase()
+      return address.toLowerCase() === lookupAddress?.toLowerCase()
     })
 
     return filteredPendingListOps
@@ -107,7 +107,8 @@ export const useFollowButton = ({
   }, [followState, connectedAddress, pendingState])
 
   const handleAction = () => {
-    if (!connectedAddress) return
+    if (!connectedAddress) throw new Error('connectedAddress is required')
+    if (!lookupAddress) throw new Error('lookupAddress is required')
 
     setDisableHover(true)
 
