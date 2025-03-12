@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
-import { isAddress } from 'viem'
 import { useTransactions } from '../context'
+import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
 import { FollowState, InitialFollowingState } from '../types/followState'
 import { ProfileListType } from '../types/profile'
-import { fetchFollowState } from '../utils/api/fetch-follow-state'
 
 interface UseFollowingStateProps {
   lookupAddressOrName?: Address | string
-  connectedAddress?: Address | string
+  connectedAddress?: Address
   list?: ProfileListType
   initialState?: InitialFollowingState
 }
@@ -33,9 +32,6 @@ export const useFollowingState = ({
     queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState],
     queryFn: async () => {
       if (!lookupAddressOrName) throw new Error('lookupAddressOrName is required')
-      if (!connectedAddress) throw new Error('connectedAddress is required')
-      if (!isAddress(connectedAddress)) throw new Error('connectedAddress must be a valid address')
-      if (!isAddress(lookupAddressOrName)) throw new Error('lookupAddressOrName must be a valid address')
 
       if (initialState && !fetchFresh)
         return {

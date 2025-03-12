@@ -107,8 +107,8 @@ export const useFollowButton = ({
   }, [followState, connectedAddress, pendingState])
 
   const handleAction = () => {
-    if (!connectedAddress) throw new Error('connectedAddress is required')
     if (!lookupAddress) throw new Error('lookupAddress is required')
+    if (!connectedAddress) return console.error('No connected address')
 
     setDisableHover(true)
 
