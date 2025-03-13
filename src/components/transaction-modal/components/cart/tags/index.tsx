@@ -94,7 +94,10 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
         const isBeingRemoved = pendingTxs
           .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
           .flatMap((tx) => getListOpsFromTransaction(tx))
-          .some((op) => extractAddressAndTag(op.data).tag === tag && op.opcode === 4)
+          .some((op) => {
+            const { address: opAddress, tag: opTag } = extractAddressAndTag(op.data)
+            return opAddress === address && opTag === tag && op.opcode === 4
+          })
 
         return (
           <button
