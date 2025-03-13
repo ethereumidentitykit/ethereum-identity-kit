@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { ens_beautify } from '@adraffy/ens-normalize'
 import { ProfileListRowProps } from './ProfileListRow.types'
 import Avatar from '../avatar/Avatar'
 import FollowButton from '../follow-button/FollowButton'
@@ -46,7 +47,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
               className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
               onClick={() => onProfileClick?.(profile.address)}
             >
-              {account?.ens?.name || truncateAddress(profile.address)}
+              {account?.ens?.name ? ens_beautify(account?.ens?.name) : truncateAddress(profile.address)}
             </p>
             {showTags && <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />}
           </div>

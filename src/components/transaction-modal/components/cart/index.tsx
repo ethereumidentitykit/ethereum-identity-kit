@@ -21,10 +21,10 @@ const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
   const { address: connectedAddress } = useAccount()
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
 
+  const pendingChanges = getPendingTxAddressesAndTags(pendingTxs)
   const profiles = useMemo(() => {
-    if (!pendingTxs || pendingTxs.length === 0) return []
+    if (!pendingChanges || pendingChanges.length === 0) return []
 
-    const pendingChanges = getPendingTxAddressesAndTags(pendingTxs)
     const pendingChangesProfiles = new Map<Address, ProfileItemType>()
 
     pendingChanges.forEach(({ address, tag }) => {
@@ -36,7 +36,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
     })
 
     return Array.from(pendingChangesProfiles.values())
-  }, [pendingTxs, connectedAddress])
+  }, [pendingChanges, connectedAddress])
 
   const [showBackToTopButton, setShowBackToTopButton] = useState(false)
   useEffect(() => {
@@ -75,7 +75,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
           <div className="cart-changes-list">
             <div className="cart-changes-list-header">
               <div className="cart-changes-list-title">
-                Changes <span className="cart-changes-list-title-count">{profiles.length}</span>
+                Changes <span className="cart-changes-list-title-count">{pendingChanges.length}</span>
               </div>
               {pendingTxs.length > 0 && (
                 <button className="cart-changes-list-header-button" onClick={() => setClearCartModalOpen(true)}>
