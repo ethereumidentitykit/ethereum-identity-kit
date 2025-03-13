@@ -3,11 +3,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTransactions } from '../context'
 import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
-import { ProfileListType } from '../types/profile'
 import { FollowState, InitialFollowingState } from '../types/followState'
+import { ProfileListType } from '../types/profile'
 
 interface UseFollowingStateProps {
-  lookupAddressOrName: Address | string
+  lookupAddressOrName?: Address | string
   connectedAddress?: Address
   list?: ProfileListType
   initialState?: InitialFollowingState
@@ -20,15 +20,19 @@ export const useFollowingState = ({
   initialState,
 }: UseFollowingStateProps) => {
   const { followingAddressesToFetchFresh } = useTransactions()
-  const [fetchFresh, setFetchFresh] = useState(followingAddressesToFetchFresh.includes(lookupAddressOrName))
+  const [fetchFresh, setFetchFresh] = useState(
+    !!lookupAddressOrName && followingAddressesToFetchFresh.includes(lookupAddressOrName)
+  )
 
   useEffect(() => {
-    if (followingAddressesToFetchFresh.includes(lookupAddressOrName)) setFetchFresh(true)
+    if (lookupAddressOrName && followingAddressesToFetchFresh.includes(lookupAddressOrName)) setFetchFresh(true)
   }, [followingAddressesToFetchFresh, lookupAddressOrName])
 
   const { data, isLoading, isRefetching } = useQuery({
     queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState],
     queryFn: async () => {
+      if (!lookupAddressOrName) throw new Error('lookupAddressOrName is required')
+
       if (initialState && !fetchFresh)
         return {
           state:
@@ -51,6 +55,7 @@ export const useFollowingState = ({
     },
     staleTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: !!lookupAddressOrName,
   })
 
   const isFollowingStateLoading = isLoading || isRefetching
