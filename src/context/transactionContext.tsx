@@ -100,12 +100,17 @@ export const TransactionProvider = ({
     staleTime: Infinity,
   })
 
+  useEffect(() => {
+    if (lists?.lists?.length && !lists.primary_list && !selectedList) setSelectedList(lists.lists[0])
+    else setSelectedList(undefined)
+  }, [lists])
+
   const getListDetails = async () => {
-    if (selectedList === 'new list' || !lists?.primary_list) {
+    if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
       setSelectedChainId(undefined)
       setNonce(undefined)
     } else {
-      const { chainId, slot } = await getListStorageLocation(selectedList ?? lists?.primary_list)
+      const { chainId, slot } = await getListStorageLocation(selectedList ?? lists?.primary_list ?? '')
       setSelectedChainId(chainId)
       setNonce(slot)
     }
@@ -119,7 +124,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {

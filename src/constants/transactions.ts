@@ -58,3 +58,13 @@ export const ACTION_ITEM_ICON = {
     color: '#FF7C7C',
   },
 }
+
+/**
+ * Opcodes for list operations
+ */
+export const Opcode = {
+  FOLLOW: 1,
+  UNFOLLOW: 2,
+  TAG: 3,
+  UNTAG: 4,
+} as const

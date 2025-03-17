@@ -91,7 +91,7 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
     args: [
       encodePacked(
         ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-        [1, 1, BigInt(0o0), coreEfpContracts.EFPListRecords, mintNonce]
+        [1, 1, BigInt(0), coreEfpContracts.EFPListRecords, mintNonce]
       ),
     ],
   }
