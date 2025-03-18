@@ -14,11 +14,11 @@ import { useQuery } from '@tanstack/react-query'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
-import { getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
+import { formatListOpsTransaction, getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
 import { LIST_OP_LIMITS } from '../constants/chains'
 import { EFPActionIds } from '../constants/transactions'
 import { ProfileListsResponse } from '../types'
-import { EFPActionType } from '../types/transactions'
+import { EFPActionType, ListOpType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
 
 type TransactionContextType = {
@@ -35,7 +35,7 @@ type TransactionContextType = {
   listsLoading: boolean
   nonce: bigint | undefined
   addTransactions: (txs: TransactionType[]) => void
-  addListOpsTransaction: (tx: TransactionType) => void
+  addListOpsTransaction: (listOps: ListOpType[]) => void
   removeTransactions: (ids: (EFPActionType | string)[]) => void
   removeListOpsTransaction: (txData: Hex[]) => void
   currentTxIndex: number | undefined
@@ -179,7 +179,10 @@ export const TransactionProvider = ({
     setPendingTxs((prev) => (batchTransactions ? [...prev, ...txs] : txs))
   }
 
-  const addListOpsTransaction = (tx: TransactionType) => {
+  const addListOpsTransaction = (listOps: ListOpType[]) => {
+    if (!connectedAddress) return
+    const tx = formatListOpsTransaction({ listOps, connectedAddress, nonce, chainId: selectedChainId })
+
     setPendingTxs((prev) => {
       const newPendingTxs = batchTransactions ? [...prev] : []
 

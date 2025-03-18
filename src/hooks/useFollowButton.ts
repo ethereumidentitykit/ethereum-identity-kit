@@ -2,7 +2,7 @@ import { Address } from 'viem'
 import { useMemo, useState } from 'react'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
-import { getPendingTxListOps, extractAddressAndTag, formatListOpsTransaction } from '../utils/transactions'
+import { getPendingTxListOps, extractAddressAndTag } from '../utils/transactions'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
 import { FollowingState, InitialFollowingState } from '../types'
 
@@ -21,12 +21,10 @@ export const useFollowButton = ({
 
   const {
     lists,
-    nonce,
     pendingTxs,
     listsLoading,
     addListOpsTransaction,
     removeListOpsTransaction,
-    selectedChainId,
     batchTransactions,
   } = useTransactions()
   const { state: followState, isLoading } = useFollowingState({
@@ -139,14 +137,7 @@ export const useFollowButton = ({
     if (buttonText === 'Follow') listOps.push(listOpAddListRecord(lookupAddress))
     if (buttonText === 'Following') listOps.push(listOpRemoveListRecord(lookupAddress))
 
-    const transaction = formatListOpsTransaction({
-      nonce,
-      chainId: selectedChainId,
-      listOps,
-      connectedAddress,
-    })
-
-    addListOpsTransaction(transaction)
+    addListOpsTransaction(listOps)
   }
 
   return {

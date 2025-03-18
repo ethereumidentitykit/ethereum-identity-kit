@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../context'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
-import { fetchFollowState, formatListOpsTransaction, getPendingTxAddresses, isAddress } from '../../../../utils'
+import { fetchFollowState, getPendingTxAddresses, isAddress } from '../../../../utils'
 import { Address } from '../../../../types'
 import './ManualAdd.css'
 import { listOpAddListRecord } from '../../../../utils/list-ops'
@@ -12,7 +12,7 @@ const ManualAdd = () => {
   const [isAdding, setIsAdding] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { address: connectedAddress } = useAccount()
-  const { addListOpsTransaction, nonce, selectedChainId, selectedList, lists, pendingTxs } = useTransactions()
+  const { addListOpsTransaction, selectedList, lists, pendingTxs } = useTransactions()
 
   const handleAdd = async () => {
     if (!connectedAddress) return
@@ -73,14 +73,7 @@ const ManualAdd = () => {
       }
     }
 
-    const tx = formatListOpsTransaction({
-      nonce,
-      connectedAddress,
-      listOps,
-      chainId: selectedChainId,
-    })
-
-    addListOpsTransaction(tx)
+    addListOpsTransaction(listOps)
     setSearch('')
     setIsAdding(false)
   }

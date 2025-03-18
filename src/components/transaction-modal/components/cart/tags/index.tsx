@@ -7,7 +7,6 @@ import { useOutsideClick } from '../../../../../hooks/useOutsideClick'
 import { listOpAddTag, listOpRemoveTag } from '../../../../../utils/list-ops'
 import {
   extractAddressAndTag,
-  formatListOpsTransaction,
   getListOpsFromTransaction,
   getPendingTxAddressesAndTags,
 } from '../../../../../utils/transactions'
@@ -23,8 +22,7 @@ interface TagsProps {
 }
 
 const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
-  const { addListOpsTransaction, removeListOpsTransaction, pendingTxs, selectedList, nonce, selectedChainId } =
-    useTransactions()
+  const { addListOpsTransaction, removeListOpsTransaction, pendingTxs, selectedList } = useTransactions()
 
   const { address: connectedAddress } = useAccount()
   const { buttonState } = useFollowButton({ lookupAddress: address, connectedAddress, selectedList })
@@ -53,14 +51,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
     if (tags.includes(tag) || !connectedAddress || !canEditTags) return
 
     const listOp = listOpAddTag(address, tag)
-    const tx = formatListOpsTransaction({
-      nonce,
-      chainId: selectedChainId,
-      connectedAddress,
-      listOps: [listOp],
-    })
-
-    addListOpsTransaction(tx)
+    addListOpsTransaction([listOp])
   }
 
   const handleRemoveTag = (tag: string) => {
@@ -68,14 +59,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
 
     const listOp = listOpRemoveTag(address, tag)
     if (existingTags?.includes(tag)) {
-      addListOpsTransaction(
-        formatListOpsTransaction({
-          nonce,
-          chainId: selectedChainId,
-          connectedAddress,
-          listOps: [listOp],
-        })
-      )
+      addListOpsTransaction([listOp])
     } else {
       removeListOpsTransaction([listOp.data])
     }
