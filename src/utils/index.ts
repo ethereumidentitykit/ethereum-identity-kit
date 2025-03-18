@@ -23,4 +23,5 @@ export {
 
 export * from './transactions'
 export * from './profile'
+export * from './list-ops'
 export * from './list-storage-location'

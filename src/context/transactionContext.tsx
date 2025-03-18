@@ -14,7 +14,13 @@ import { useQuery } from '@tanstack/react-query'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
-import { formatListOpsTransaction, getMintTxChainId, getMintTxNonce, getPendingTxAddresses, prepareMintTransaction } from '../utils/transactions'
+import {
+  formatListOpsTransaction,
+  getMintTxChainId,
+  getMintTxNonce,
+  getPendingTxAddresses,
+  prepareMintTransaction,
+} from '../utils/transactions'
 import { LIST_OP_LIMITS } from '../constants/chains'
 import { EFPActionIds } from '../constants/transactions'
 import { ProfileListsResponse } from '../types'
@@ -124,7 +130,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-      '[]'
+        '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {

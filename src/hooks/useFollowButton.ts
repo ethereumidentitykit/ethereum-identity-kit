@@ -19,14 +19,8 @@ export const useFollowButton = ({
 }) => {
   const [disableHover, setDisableHover] = useState(false)
 
-  const {
-    lists,
-    pendingTxs,
-    listsLoading,
-    addListOpsTransaction,
-    removeListOpsTransaction,
-    batchTransactions,
-  } = useTransactions()
+  const { lists, pendingTxs, listsLoading, addListOpsTransaction, removeListOpsTransaction, batchTransactions } =
+    useTransactions()
   const { state: followState, isLoading } = useFollowingState({
     lookupAddressOrName: lookupAddress,
     connectedAddress,
