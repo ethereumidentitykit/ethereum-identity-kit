@@ -3,10 +3,11 @@
   flex-direction: column;
   gap: 20px;
   justify-content: space-between;
-  height: 100%;
   width: 440px;
   padding: 20px;
   z-index: 100;
+  height: auto;
+  min-height: 385px;
 }
 
 .chain-selector-content-container {

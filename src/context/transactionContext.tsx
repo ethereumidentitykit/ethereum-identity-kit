@@ -210,25 +210,22 @@ export const TransactionProvider = ({
         }
       } else if (batchTransactions) {
         // Update the UpdateEFPList transaction if it exists and is not yet complete
-        const pendingUpdateTransactionId = newPendingTxs.findIndex(
-          (tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash
-        )
+        const pendingUpdateTransaction = newPendingTxs
+          .filter((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
+          .slice(-1)[0]
 
-        if (pendingUpdateTransactionId === -1) {
+        if (!pendingUpdateTransaction) {
           newPendingTxs.push(tx)
         } else {
-          const pendingUpdateTxListOps = newPendingTxs[pendingUpdateTransactionId].args.slice(-1).flat()
+          const pendingUpdateTxListOps = pendingUpdateTransaction.args.slice(-1).flat()
           const txListOps = tx.args.slice(-1).flat()
 
           if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
             newPendingTxs.push(tx)
           } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
-            newPendingTxs[pendingUpdateTransactionId] = {
-              ...newPendingTxs[pendingUpdateTransactionId],
-              args: [
-                ...newPendingTxs[pendingUpdateTransactionId].args.slice(0, -1),
-                [...pendingUpdateTxListOps, ...txListOps],
-              ],
+            newPendingTxs[newPendingTxs.indexOf(pendingUpdateTransaction)] = {
+              ...pendingUpdateTransaction,
+              args: [...pendingUpdateTransaction.args.slice(0, -1), [...pendingUpdateTxListOps, ...txListOps]],
             }
           }
         }
