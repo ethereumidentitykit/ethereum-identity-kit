@@ -11,13 +11,15 @@ import ProfileList from '../../../profile-list/ProfileList'
 import { Address } from '../../../../types'
 import { ProfileItemType } from '../../../profile-list/ProfileList.types'
 import './Cart.css'
+import clsx from 'clsx'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void
   onProfileClick?: (address: Address) => void
+  showRecommendations?: boolean
 }
 
-const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
+const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = true }: CartProps) => {
   const { address: connectedAddress } = useAccount()
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
 
@@ -63,7 +65,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
 
   return (
     <div
-      className="cart-container"
+      className={clsx('cart-container', !showRecommendations && 'cart-container-no-recommendations')}
       style={{ display: changesOpen ? 'flex' : 'none', flexDirection: 'column', gap: '16px' }}
     >
       <div className="cart-container-inner">
@@ -97,22 +99,24 @@ const Cart = ({ setClearCartModalOpen, onProfileClick }: CartProps) => {
               <div className="cart-changes-list-empty">No items in cart</div>
             )}
           </div>
-          <div className="cart-recommended-container">
-            <ManualAdd />
-            {connectedAddress && (
-              <Recommended
-                selectedList={selectedList}
-                connectedAddress={connectedAddress}
-                onProfileClick={onProfileClick}
-              />
-            )}
-          </div>
+          {showRecommendations && (
+            <div className="cart-recommended-container">
+              <ManualAdd />
+              {connectedAddress && (
+                <Recommended
+                  selectedList={selectedList}
+                  connectedAddress={connectedAddress}
+                  onProfileClick={onProfileClick}
+                />
+              )}
+            </div>
+          )}
         </div>
         <div className="cart-modal-buttons-container">
           <div className="cart-modal-buttons-container-top">
             <div className="cart-modal-buttons-container-top-info">
               <p>
-                {profiles.length} {profiles.length === 1 ? 'Action' : 'Actions'}
+                {pendingChanges.length} {profiles.length === 1 ? 'Action' : 'Actions'}
               </p>
               <p>
                 {pendingTxs.length} {pendingTxs.length === 1 ? 'Transaction' : 'Transactions'}

@@ -158,7 +158,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .transaction-modal-container.changes-open {
+  .transaction-modal-container.changes-open.show-recommendations {
     width: 880px;
   }
 }

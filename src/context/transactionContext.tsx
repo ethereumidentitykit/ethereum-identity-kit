@@ -244,30 +244,35 @@ export const TransactionProvider = ({
   const removeListOpsTransaction = (txData: Hex[]) => {
     setPendingTxs((prev) => {
       const filteredPendingTxs = [...prev]
-      const updateEFPListTxId = filteredPendingTxs.findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList && !tx.hash)
 
-      if (updateEFPListTxId !== -1) {
-        const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
-        const updateEFPListTxData = updateEFPListTx.args.slice(-1).flat()
-        const filteredArgs = updateEFPListTxData.filter(
-          (data: Hex) => !txData.map((op) => op.slice(2).toLowerCase()).includes(data.slice(10).toLowerCase())
+      txData.forEach((data) => {
+        const updateEFPListTxId = filteredPendingTxs.findIndex(
+          (tx) =>
+            tx.id === EFPActionIds.UpdateEFPList &&
+            !tx.hash &&
+            !!tx.args
+              .slice(-1)
+              .flat()
+              .find((op) => op.toLowerCase().includes(data.slice(2).toLowerCase()))
         )
 
-        filteredPendingTxs[updateEFPListTxId] = {
-          ...updateEFPListTx,
-          args: [...updateEFPListTx.args.slice(0, -1), filteredArgs],
+        if (updateEFPListTxId !== -1) {
+          const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
+          const updateEFPListTxListOps = updateEFPListTx.args.slice(-1).flat()
+          const filteredArgs = updateEFPListTxListOps.filter(
+            (op: Hex) => !op.toLowerCase().includes(data.slice(2).toLowerCase())
+          )
+
+          filteredPendingTxs[updateEFPListTxId] = {
+            ...updateEFPListTx,
+            args: [...updateEFPListTx.args.slice(0, -1), filteredArgs],
+          }
         }
-      }
+      })
 
-      const pendingTxAddresses = getPendingTxAddresses(filteredPendingTxs)
-
-      if (pendingTxAddresses.length === 0) {
-        return filteredPendingTxs.filter(
-          (tx) => tx.id !== EFPActionIds.UpdateEFPList && tx.id !== EFPActionIds.CreateEFPList
-        )
-      } else {
-        return filteredPendingTxs
-      }
+      return filteredPendingTxs.filter((tx) =>
+        tx.id === EFPActionIds.UpdateEFPList ? tx.args.slice(-1).flat().length > 0 : true
+      )
     })
   }
 

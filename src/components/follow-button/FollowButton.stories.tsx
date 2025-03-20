@@ -23,7 +23,9 @@ const config = createConfig({
 
 const queryClient = new QueryClient()
 
-const FollowButtonWrapper = (args: FollowButtonProps & { darkMode?: boolean; batchTransactions?: boolean }) => {
+const FollowButtonWrapper = (
+  args: FollowButtonProps & { darkMode?: boolean; batchTransactions?: boolean; showRecommendations?: boolean }
+) => {
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
@@ -133,7 +135,10 @@ export default {
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <TransactionProvider batchTransactions={Story().props.batchTransactions}>
-            <TransactionModal darkMode={Story().props.darkMode} />
+            <TransactionModal
+              darkMode={Story().props.darkMode}
+              showRecommendations={Story().props.showRecommendations}
+            />
             {Story()}
           </TransactionProvider>
         </QueryClientProvider>
@@ -156,6 +161,7 @@ FollowButtonBatchTx.args = {
   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
   darkMode: false,
   batchTransactions: true,
+  showRecommendations: true,
 }
 
 export const FollowButtonInitialState = Template.bind({})
@@ -164,4 +170,5 @@ FollowButtonInitialState.args = {
   darkMode: false,
   batchTransactions: false,
   initialState: 'Follow',
+  showRecommendations: true,
 }

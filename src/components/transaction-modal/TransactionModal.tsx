@@ -21,7 +21,13 @@ import CancelModal from './components/cancel-modal'
  *
  * @returns TransactionModal component
  */
-const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className, onCartProfileClick, ...props }) => {
+const TransactionModal: React.FC<TransactionModalProps> = ({
+  darkMode,
+  className,
+  onCartProfileClick,
+  showRecommendations,
+  ...props
+}) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [clearCartModalOpen, setClearCartModalOpen] = useState(false)
 
@@ -71,7 +77,12 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
         />
       )}
       <div
-        className={clsx('transaction-modal-container', changesOpen && 'changes-open', className)}
+        className={clsx(
+          'transaction-modal-container',
+          changesOpen && 'changes-open',
+          showRecommendations && 'show-recommendations',
+          className
+        )}
         onClick={(e) => e.stopPropagation()}
         {...props}
       >
@@ -94,7 +105,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({ darkMode, className
             >
               <Cross height={16} width={16} />
             </div>
-            <Cart setClearCartModalOpen={setClearCartModalOpen} onProfileClick={onCartProfileClick} />
+            <Cart
+              setClearCartModalOpen={setClearCartModalOpen}
+              onProfileClick={onCartProfileClick}
+              showRecommendations={showRecommendations}
+            />
             <ChainSelector />
             <Steps transactions={pendingTxs} />
             <div
