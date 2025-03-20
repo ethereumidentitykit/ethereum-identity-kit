@@ -25,7 +25,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   darkMode,
   className,
   onCartProfileClick,
-  showRecommendations,
+  showRecommendations = true,
   ...props
 }) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
