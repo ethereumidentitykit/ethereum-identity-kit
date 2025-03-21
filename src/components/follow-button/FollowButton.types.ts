@@ -6,6 +6,7 @@ export type FollowButtonProps = {
   onDisconnectedClick?: () => void
   disabled?: boolean
   sounds?: Record<FollowingState, string | undefined>
+  customClassNames?: Record<FollowingState, string>
   customLoader?: React.ReactNode
   selectedList?: string
   initialState?: InitialFollowingState

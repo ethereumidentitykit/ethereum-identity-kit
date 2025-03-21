@@ -21,6 +21,8 @@ import './FollowButton.css'
  *
  * @param sounds - the sounds to play when the button is clicked
  *
+ * @param customClassNames - the custom class names to apply to the button depending on the state of the button
+ *
  * @param className - the additional class name to apply to the follower tag
  *
  * @param customLoader - the custom loader to use instead of the default one
@@ -38,6 +40,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   sounds,
   initialState,
   className,
+  customClassNames,
   customLoader,
   ...props
 }) => {
@@ -75,7 +78,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       ref={buttonRef}
       className={clsx(
         'follow-button',
-        FOLLOW_BUTTON_STYLES[buttonState],
+        (customClassNames || FOLLOW_BUTTON_STYLES)[buttonState],
         pendingState && 'pending',
         disableHover && 'disable-hover',
         className
@@ -89,7 +92,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       <FollowIcon
         height={20}
         width={14}
-        color={buttonText === 'Muted' || buttonText === 'Blocked' ? '#ef4444' : '#333333'}
+        color={'currentColor'}
       />
       <p>{buttonText}</p>
     </button>

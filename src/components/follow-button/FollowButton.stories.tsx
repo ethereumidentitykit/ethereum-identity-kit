@@ -4,11 +4,11 @@ import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
-import FollowButton from './FollowButton'
-import { FollowButtonProps } from './FollowButton.types'
-import TransactionModal from '../transaction-modal/TransactionModal'
 import { TransactionProvider, useTransactions } from '../../context/transactionContext'
+import FollowButton from './FollowButton'
+import TransactionModal from '../transaction-modal/TransactionModal'
 import { transports } from '../../constants/transports'
+import { FollowButtonProps } from './FollowButton.types'
 
 const config = createConfig({
   chains: [mainnet, base, optimism],
@@ -130,6 +130,12 @@ export default {
   title: 'Organisms/Follow Button & Transaction Modal',
   component: FollowButtonWrapper,
   tags: ['!autodocs'],
+  // args: {
+  //   customClassNames: Object.keys(FOLLOW_BUTTON_STYLES).reduce((acc, key) => {
+  //     acc[key] = FOLLOW_BUTTON_STYLES[key]
+  //     return acc
+  //   }, {}),
+  // },
   decorators: [
     (Story) => (
       <WagmiProvider config={config}>
@@ -172,3 +178,24 @@ FollowButtonInitialState.args = {
   initialState: 'Follow',
   showRecommendations: true,
 }
+
+// export const FollowButtonCustomClassNames = Template.bind({})
+// FollowButtonCustomClassNames.args = {
+//   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+//   darkMode: false,
+//   batchTransactions: false,
+//   customClassNames: {
+//     Follow: 'follow-button-follow',
+//     Following: 'follow-button-following',
+//     Block: 'follow-button-block',
+//     Blocked: 'follow-button-blocked',
+//     Mute: 'follow-button-mute',
+//     Muted: 'follow-button-muted',
+//     'Pending Following': 'follow-button-pending',
+//     Unfollow: 'follow-button-unfollow',
+//     'Pending Block': 'follow-button-blocked',
+//     'Pending Mute': 'follow-button-muted',
+//     Unblock: 'follow-button-unblock',
+//     Unmute: 'follow-button-unmute',
+//   },
+// }
