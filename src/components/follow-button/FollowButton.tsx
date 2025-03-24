@@ -89,11 +89,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       {...props}
     >
       <audio src={playSound} ref={soundRef} />
-      <FollowIcon
-        height={20}
-        width={14}
-        color={'currentColor'}
-      />
+      <FollowIcon height={20} width={14} color={'currentColor'} />
       <p>{buttonText}</p>
     </button>
   )

@@ -51,7 +51,11 @@ export default function Summary() {
   })
 
   const estimateGas = async () => {
-    if (!balanceMainnet || !balanceBase || !balanceOptimism) return
+    if (!balanceMainnet || !balanceBase || !balanceOptimism) {
+      console.error('Unable to load wallet balance')
+      setGasIsLoading(false)
+      return
+    }
 
     const gasErrors: Record<string, boolean> = {
       [mainnet.id]: false,
@@ -104,7 +108,6 @@ export default function Summary() {
           totalGas[tx.chainId] += Number(formatEther(gas))
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          console.log(error.message.slice(0, 100))
           if (
             error.message.includes('insufficient funds for transfer') ||
             error.message.includes('gas required exceeds allowance')
