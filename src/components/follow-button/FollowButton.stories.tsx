@@ -168,7 +168,7 @@ FollowButtonBatchTx.args = {
   darkMode: false,
   batchTransactions: true,
   showRecommendations: true,
-  paymasterService: 'https://api.developer.coinbase.com/rpc/v1/base/evu4lWvVmFBs3HGJotpPIyHOmvelMwKJ',
+  // paymasterService: 'https://api.developer.coinbase.com/rpc/v1/base/evu4lWvVmFBs3HGJotpPIyHOmvelMwKJ',
 }
 
 export const FollowButtonInitialState = Template.bind({})
