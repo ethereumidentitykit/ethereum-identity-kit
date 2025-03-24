@@ -1,6 +1,7 @@
 import { formatEther, http } from 'viem'
 import { createPublicClient } from 'viem'
 import { publicActionsL2 } from 'viem/op-stack'
+import { useCapabilities } from 'wagmi/experimental'
 import { useEffect, useMemo, useState } from 'react'
 import { base, mainnet, optimism } from 'viem/chains'
 import { useBalance, useGasPrice, useWalletClient } from 'wagmi'
@@ -25,12 +26,16 @@ export default function Summary() {
     setTxModalOpen,
     currentTxIndex,
     resetTransactions,
+    paymasterService,
   } = useTransactions()
 
   const { data: gasPrice } = useGasPrice({
     chainId: mainnet.id,
   })
   const { data: walletClient } = useWalletClient()
+  const { data: availableCapabilities } = useCapabilities({
+    account: walletClient?.account,
+  })
   const { data: balanceMainnet } = useBalance({
     address: walletClient?.account.address,
     chainId: mainnet.id,
@@ -72,6 +77,13 @@ export default function Summary() {
     await Promise.all(
       pendingTxs.map(async (tx) => {
         if (!tx.chainId || !walletClient) return
+
+        if (paymasterService && availableCapabilities) {
+          const capabilitiesForChain = availableCapabilities[tx.chainId]
+          if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
+            return
+          }
+        }
 
         try {
           if (tx.chainId === mainnet.id) {

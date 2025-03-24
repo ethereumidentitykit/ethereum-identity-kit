@@ -30,6 +30,7 @@ import { TransactionType } from '../types/transactions'
 type TransactionContextType = {
   txModalOpen: boolean
   batchTransactions: boolean
+  paymasterService?: string
   setTxModalOpen: (txModalOpen: boolean) => void
   changesOpen: boolean
   setChangesOpen: (changesOpen: boolean) => void
@@ -59,9 +60,11 @@ const TransactionContext = createContext<TransactionContextType | undefined>(und
 
 export const TransactionProvider = ({
   batchTransactions = false,
+  paymasterService,
   children,
 }: {
   batchTransactions?: boolean
+  paymasterService?: string
   children: ReactNode
 }) => {
   const [txModalOpen, setTxModalOpen] = useState(false)
@@ -130,7 +133,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -314,6 +317,7 @@ export const TransactionProvider = ({
     addListOpsTransaction,
     currentTxIndex,
     selectedChainId,
+    paymasterService,
     removeTransactions,
     removeListOpsTransaction,
     batchTransactions,

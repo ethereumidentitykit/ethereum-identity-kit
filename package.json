@@ -37,21 +37,9 @@
       "default": "./dist/esm/index.js"
     },
     "./css": "./dist/esm/index.css",
-    "./hooks": {
-      "types": "./dist/types.d.ts",
-      "default": "./dist/esm/hooks/index.js"
-    },
     "./utils": {
       "types": "./dist/types.d.ts",
       "default": "./dist/esm/utils/index.js"
-    },
-    "./constants": {
-      "types": "./dist/types.d.ts",
-      "default": "./dist/esm/constants/index.js"
-    },
-    "./components": {
-      "types": "./dist/types.d.ts",
-      "default": "./dist/esm/components/index.js"
     }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",

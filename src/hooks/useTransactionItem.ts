@@ -11,6 +11,7 @@ import { EFP_API_URL } from '../constants'
 import { EFPActionIds } from '../constants/transactions'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
+import { useWriteContracts, useCapabilities } from 'wagmi/experimental'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -18,11 +19,14 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     pendingTxs,
     setPendingTxs,
     currentTxIndex,
+    paymasterService,
     setCurrentTxIndex,
     resetTransactions,
     goToNextTransaction,
   } = useTransactions()
 
+  console.log(transaction.hash)
+  const { writeContractsAsync } = useWriteContracts()
   const { isPending, isSuccess, isError } = useWaitForTransactionReceipt({
     hash: transaction.hash,
     chainId: transaction.chainId,
@@ -58,7 +62,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
   const estimateGas = async () => {
-    if (!transaction.chainId || !walletClient) return
+    if (!transaction.chainId || !walletClient || !!capabilities?.paymasterService?.url) return
 
     if (transaction.chainId === mainnet.id) {
       const publicClient = createPublicClient({
@@ -113,16 +117,47 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     queryFn: fetchEthPrice,
   })
 
+  // Check for paymaster capabilities with `useCapabilities`
+  const { data: availableCapabilities } = useCapabilities({
+    account: walletClient?.account,
+  })
+  const capabilities = useMemo(() => {
+    if (!availableCapabilities || !walletClient?.account || !transaction.chainId) return {}
+    const capabilitiesForChain = availableCapabilities[transaction.chainId]
+    if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
+      return {
+        paymasterService: {
+          url: paymasterService, //For production use proxy
+        },
+      }
+    }
+    return {}
+  }, [availableCapabilities, transaction.chainId])
+
   const initiateTransaction = async () => {
     if (!transaction.chainId) return
 
-    const hash = await walletClient?.writeContract({
-      address: transaction.address,
-      abi: transaction.abi,
-      functionName: transaction.functionName,
-      args: transaction.args,
-    })
+    const hash = paymasterService
+      ? await writeContractsAsync({
+          account: walletClient?.account,
+          contracts: [
+            {
+              address: transaction.address,
+              abi: transaction.abi,
+              functionName: transaction.functionName,
+              args: transaction.args,
+            },
+          ],
+          capabilities,
+        }).then((hash) => hash.slice(0, 66) as `0x${string}`)
+      : await walletClient?.writeContract({
+          address: transaction.address,
+          abi: transaction.abi,
+          functionName: transaction.functionName,
+          args: transaction.args,
+        })
 
+    console.log(hash)
     // Appends executed transaction's hash to the pedning array
     // to mark it as executed and provide ability to view in a block explorer
     setPendingTxs((pendingTxs) => {

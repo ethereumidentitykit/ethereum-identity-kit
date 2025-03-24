@@ -24,7 +24,7 @@ const config = createConfig({
 const queryClient = new QueryClient()
 
 const FollowButtonWrapper = (
-  args: FollowButtonProps & { darkMode?: boolean; batchTransactions?: boolean; showRecommendations?: boolean }
+  args: FollowButtonProps & { darkMode?: boolean; batchTransactions?: boolean; showRecommendations?: boolean; paymasterService?: string }
 ) => {
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
@@ -140,7 +140,7 @@ export default {
     (Story) => (
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <TransactionProvider batchTransactions={Story().props.batchTransactions}>
+          <TransactionProvider batchTransactions={Story().props.batchTransactions} paymasterService={Story().props.paymasterService}>
             <TransactionModal
               darkMode={Story().props.darkMode}
               showRecommendations={Story().props.showRecommendations}
@@ -168,6 +168,7 @@ FollowButtonBatchTx.args = {
   darkMode: false,
   batchTransactions: true,
   showRecommendations: true,
+  paymasterService: 'https://api.developer.coinbase.com/rpc/v1/base/evu4lWvVmFBs3HGJotpPIyHOmvelMwKJ',
 }
 
 export const FollowButtonInitialState = Template.bind({})
