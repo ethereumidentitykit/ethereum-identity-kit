@@ -83,6 +83,10 @@
   animation: indexing-bar-animation 5s linear;
 }
 
+.transaction-progress-indexing-bar.transaction-progress-bar-paymaster {
+  animation: indexing-bar-animation 10s linear;
+}
+
 @keyframes indexing-bar-animation {
   0% {
     width: 0;

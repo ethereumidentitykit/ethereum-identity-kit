@@ -24,7 +24,13 @@ const config = createConfig({
 const queryClient = new QueryClient()
 
 const FollowButtonWrapper = (
-  args: FollowButtonProps & { darkMode?: boolean; batchTransactions?: boolean; showRecommendations?: boolean; paymasterService?: string }
+  args: FollowButtonProps & {
+    darkMode?: boolean
+    batchTransactions?: boolean
+    showRecommendations?: boolean
+    paymasterService?: string
+    defaultChainId?: number
+  }
 ) => {
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
@@ -136,11 +142,24 @@ export default {
   //     return acc
   //   }, {}),
   // },
+  argTypes: {
+    defaultChainId: {
+      control: 'select',
+      options: [mainnet.id, base.id, optimism.id],
+    },
+    paymasterService: {
+      control: 'text',
+    },
+  },
   decorators: [
     (Story) => (
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <TransactionProvider batchTransactions={Story().props.batchTransactions} paymasterService={Story().props.paymasterService}>
+          <TransactionProvider
+            batchTransactions={Story().props.batchTransactions}
+            paymasterService={Story().props.paymasterService}
+            defaultChainId={Story().props.defaultChainId}
+          >
             <TransactionModal
               darkMode={Story().props.darkMode}
               showRecommendations={Story().props.showRecommendations}
@@ -160,6 +179,8 @@ FollowButtonSingleTx.args = {
   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
   darkMode: false,
   batchTransactions: false,
+  defaultChainId: undefined,
+  paymasterService: undefined,
 }
 
 export const FollowButtonBatchTx = Template.bind({})
@@ -168,7 +189,8 @@ FollowButtonBatchTx.args = {
   darkMode: false,
   batchTransactions: true,
   showRecommendations: true,
-  // paymasterService: 'https://api.developer.coinbase.com/rpc/v1/base/evu4lWvVmFBs3HGJotpPIyHOmvelMwKJ',
+  paymasterService: undefined,
+  defaultChainId: undefined,
 }
 
 export const FollowButtonInitialState = Template.bind({})
@@ -178,6 +200,8 @@ FollowButtonInitialState.args = {
   batchTransactions: false,
   initialState: 'Follow',
   showRecommendations: true,
+  defaultChainId: undefined,
+  paymasterService: undefined,
 }
 
 // export const FollowButtonCustomClassNames = Template.bind({})

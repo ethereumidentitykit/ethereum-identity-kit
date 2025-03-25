@@ -26,6 +26,7 @@ import { EFPActionIds } from '../constants/transactions'
 import { ProfileListsResponse } from '../types'
 import { EFPActionType, ListOpType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
+import { ListRecordContracts } from '../constants'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -51,6 +52,7 @@ type TransactionContextType = {
   resetTransactions: (keepModalOpen?: boolean) => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
+  defaultChainId: number | undefined
   isCheckoutFinished: boolean
   followingAddressesToFetchFresh: string[]
   setIsCheckoutFinished: (isCheckoutFinished: boolean) => void
@@ -61,10 +63,12 @@ const TransactionContext = createContext<TransactionContextType | undefined>(und
 export const TransactionProvider = ({
   batchTransactions = false,
   paymasterService,
+  defaultChainId,
   children,
 }: {
   batchTransactions?: boolean
   paymasterService?: string
+  defaultChainId?: number
   children: ReactNode
 }) => {
   const [txModalOpen, setTxModalOpen] = useState(false)
@@ -133,7 +137,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-      '[]'
+        '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -207,6 +211,12 @@ export const TransactionProvider = ({
             newPendingTxs[0].args[0] = mintNonce
           }
 
+          if (defaultChainId) {
+            setSelectedChainId(defaultChainId)
+            newPendingTxs[0].chainId = defaultChainId
+            newPendingTxs[0].address = ListRecordContracts[defaultChainId]
+          }
+
           const mintTransaction = prepareMintTransaction(mintNonce)
 
           newPendingTxs.push(mintTransaction)
@@ -259,7 +269,7 @@ export const TransactionProvider = ({
               .find((op) => op.toLowerCase().includes(data.slice(2).toLowerCase()))
         )
 
-        if (updateEFPListTxId !== -1) {
+        if (updateEFPListTxId > -1) {
           const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
           const updateEFPListTxListOps = updateEFPListTx.args.slice(-1).flat()
           const filteredArgs = updateEFPListTxListOps.filter(
@@ -273,9 +283,16 @@ export const TransactionProvider = ({
         }
       })
 
-      return filteredPendingTxs.filter((tx) =>
+      const updatedPendingTxs = filteredPendingTxs.filter((tx) =>
         tx.id === EFPActionIds.UpdateEFPList ? tx.args.slice(-1).flat().length > 0 : true
       )
+
+      // Remove the Mint transaction if no EFP List Update transactions are left
+      if (updatedPendingTxs.findIndex((tx) => tx.id === EFPActionIds.UpdateEFPList) === -1) {
+        return updatedPendingTxs.filter((tx) => tx.id !== EFPActionIds.CreateEFPList)
+      }
+
+      return updatedPendingTxs
     })
   }
 
@@ -317,6 +334,7 @@ export const TransactionProvider = ({
     addListOpsTransaction,
     currentTxIndex,
     selectedChainId,
+    defaultChainId,
     paymasterService,
     removeTransactions,
     removeListOpsTransaction,

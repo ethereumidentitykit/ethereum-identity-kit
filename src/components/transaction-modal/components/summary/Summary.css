@@ -55,6 +55,23 @@
   color: #ffffff;
 }
 
+.summary-item-change-chain {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  cursor: pointer;
+  position: absolute;
+  right: 26px;
+}
+
+.dark .summary-item-change-chain {
+  color: #aaaaaa;
+}
+
+.summary-item-change-chain:hover {
+  opacity: 0.7;
+}
+
 .summary-item-transaction-container {
   display: flex;
   flex-direction: row;

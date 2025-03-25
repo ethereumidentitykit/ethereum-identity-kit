@@ -21,6 +21,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
     claimPOAP,
     poapLink,
     setClaimPOAP,
+    usesPaymaster,
   } = useTransactionItem(id, transaction)
   const { pendingTxs } = useTransactions()
 
@@ -34,7 +35,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
     Next: Check,
   }[submitButtonText]
 
-  const ProgressionClassName = {
+  const ProgressBarClassName = {
     'Switch Chain': null,
     Initiate: null,
     'Pending...': 'transaction-progress-bar-pending',
@@ -57,11 +58,16 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
           <p className="transaction-title">Onchain Update</p>
           <div>
             <div className="transaction-progress-container">
-              <div className={clsx('transaction-progress-bar', ProgressionClassName)}>
+              <div className={clsx('transaction-progress-bar', ProgressBarClassName)}>
                 <ProgressIcon height={20} width={20} />
               </div>
               {(submitButtonText === 'Indexing...' || submitButtonText === 'Finish') && (
-                <div className="transaction-progress-indexing-bar" />
+                <div
+                  className={clsx(
+                    'transaction-progress-indexing-bar',
+                    usesPaymaster && 'transaction-progress-bar-paymaster'
+                  )}
+                />
               )}
             </div>
             <TransactionItemDetails transactionDetails={transactionDetails} transaction={transaction} />

@@ -1,8 +1,9 @@
 import { mainnet } from 'viem/chains'
 import { publicActionsL2 } from 'viem/op-stack'
-import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import { createPublicClient, formatEther, http } from 'viem'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useWriteContracts, useCapabilities } from 'wagmi/experimental'
 import { useWalletClient, useWaitForTransactionReceipt, useGasPrice, useAccount } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
@@ -11,7 +12,6 @@ import { EFP_API_URL } from '../constants'
 import { EFPActionIds } from '../constants/transactions'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
-import { useWriteContracts, useCapabilities } from 'wagmi/experimental'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -25,29 +25,46 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     goToNextTransaction,
   } = useTransactions()
 
-  console.log(transaction.hash)
-  const { writeContractsAsync } = useWriteContracts()
-  const { isPending, isSuccess, isError } = useWaitForTransactionReceipt({
+  const {
+    writeContractsAsync,
+    isPending: writePending,
+    isSuccess: writeSuccess,
+    isError: writeError,
+  } = useWriteContracts()
+  const {
+    isPending: receiptPending,
+    isSuccess: receiptSuccess,
+    isError: receiptError,
+  } = useWaitForTransactionReceipt({
     hash: transaction.hash,
     chainId: transaction.chainId,
   })
 
-  // Delay last transaction due to indexing
-  const [lastTransactionSuccessful, setLastTransactionSuccessful] = useState(false)
-  const isLastTransaction = useMemo(() => id === pendingTxs.length - 1, [id, pendingTxs])
-  useEffect(() => {
-    // Only add delay to last transaction if it's an EFP action
-    const actionids = Object.values(EFPActionIds)
-    if (!actionids.includes(transaction.id)) return setLastTransactionSuccessful(true)
-
-    if (isLastTransaction && isSuccess) {
-      const timeout = setTimeout(() => setLastTransactionSuccessful(true), 5000)
-      return () => clearTimeout(timeout)
-    }
-  }, [isLastTransaction, isSuccess])
-
   const { address: userAddress } = useAccount()
   const { data: walletClient } = useWalletClient()
+
+  // Check for paymaster capabilities with `useCapabilities`
+  const { data: availableCapabilities } = useCapabilities({
+    account: walletClient?.account,
+  })
+  const capabilities = useMemo(() => {
+    if (!availableCapabilities || !walletClient?.account || !transaction.chainId) return {}
+    const capabilitiesForChain = availableCapabilities[transaction.chainId]
+    if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
+      return {
+        paymasterService: {
+          url: paymasterService, //For production use proxy
+        },
+      }
+    }
+    return {}
+  }, [availableCapabilities, transaction.chainId])
+
+  const usesPaymaster = useMemo(
+    () => Boolean(paymasterService && capabilities?.paymasterService?.url),
+    [paymasterService, capabilities]
+  )
+
   const { currentChainId, checkChain } = useChain()
   const isCorrectChain = useMemo(() => currentChainId === transaction.chainId, [currentChainId, transaction.chainId])
   const ChainIcon = transaction.chainId ? ChainIcons[transaction.chainId as keyof typeof ChainIcons] : null
@@ -62,7 +79,8 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
 
   const estimateGas = async () => {
-    if (!transaction.chainId || !walletClient || !!capabilities?.paymasterService?.url) return
+    if (!transaction.chainId || !walletClient) return
+    if (usesPaymaster) return
 
     if (transaction.chainId === mainnet.id) {
       const publicClient = createPublicClient({
@@ -117,58 +135,47 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     queryFn: fetchEthPrice,
   })
 
-  // Check for paymaster capabilities with `useCapabilities`
-  const { data: availableCapabilities } = useCapabilities({
-    account: walletClient?.account,
+  const { mutate: initiateTransaction } = useMutation({
+    mutationFn: async () => {
+      if (!transaction.chainId) return
+
+      const hash = usesPaymaster
+        ? await writeContractsAsync({
+            account: walletClient?.account,
+            contracts: [
+              {
+                address: transaction.address,
+                abi: transaction.abi,
+                functionName: transaction.functionName,
+                args: transaction.args,
+              },
+            ],
+            capabilities,
+          }).then((hash) => hash.slice(0, 66) as `0x${string}`)
+        : await walletClient?.writeContract({
+            address: transaction.address,
+            abi: transaction.abi,
+            functionName: transaction.functionName,
+            args: transaction.args,
+          })
+
+      if (!hash) {
+        throw new Error('Failed to initiate transaction')
+      }
+
+      return hash
+    },
+    onSuccess: (hash) => {
+      setPendingTxs((pendingTxs) => {
+        const newPendingTxs = [...pendingTxs]
+        newPendingTxs[id] = { ...newPendingTxs[id], hash }
+        return newPendingTxs
+      })
+    },
+    onError: (error) => {
+      console.error(error)
+    },
   })
-  const capabilities = useMemo(() => {
-    if (!availableCapabilities || !walletClient?.account || !transaction.chainId) return {}
-    const capabilitiesForChain = availableCapabilities[transaction.chainId]
-    if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
-      return {
-        paymasterService: {
-          url: paymasterService, //For production use proxy
-        },
-      }
-    }
-    return {}
-  }, [availableCapabilities, transaction.chainId])
-
-  const initiateTransaction = async () => {
-    if (!transaction.chainId) return
-
-    const hash = paymasterService
-      ? await writeContractsAsync({
-          account: walletClient?.account,
-          contracts: [
-            {
-              address: transaction.address,
-              abi: transaction.abi,
-              functionName: transaction.functionName,
-              args: transaction.args,
-            },
-          ],
-          capabilities,
-        }).then((hash) => hash.slice(0, 66) as `0x${string}`)
-      : await walletClient?.writeContract({
-          address: transaction.address,
-          abi: transaction.abi,
-          functionName: transaction.functionName,
-          args: transaction.args,
-        })
-
-    console.log(hash)
-    // Appends executed transaction's hash to the pedning array
-    // to mark it as executed and provide ability to view in a block explorer
-    setPendingTxs((pendingTxs) => {
-      const newPendingTxs = [...pendingTxs]
-      newPendingTxs[id] = {
-        ...newPendingTxs[id],
-        hash,
-      }
-      return newPendingTxs
-    })
-  }
 
   const handleClick = () => {
     if (transaction.hash && isSuccess) {
@@ -186,6 +193,24 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     resetTransactions()
   }
 
+  const isPending = usesPaymaster ? writePending : receiptPending
+  const isSuccess = usesPaymaster ? writeSuccess : receiptSuccess
+  const isError = usesPaymaster ? writeError : receiptError
+
+  // Delay last transaction due to indexing
+  const [lastTransactionSuccessful, setLastTransactionSuccessful] = useState(false)
+  const isLastTransaction = useMemo(() => id === pendingTxs.length - 1, [id, pendingTxs])
+  useEffect(() => {
+    // Only add delay to last transaction if it's an EFP action
+    const actionIds = Object.values(EFPActionIds)
+    if (!actionIds.includes(transaction.id)) return setLastTransactionSuccessful(true)
+
+    if (isLastTransaction && isSuccess) {
+      const timeout = setTimeout(() => setLastTransactionSuccessful(true), usesPaymaster ? 10000 : 5000)
+      return () => clearTimeout(timeout)
+    }
+  }, [isLastTransaction, isSuccess])
+
   const transactionDetails = useMemo(() => {
     return {
       hash: transaction.hash,
@@ -194,7 +219,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
         name: chains.find((chain) => chain.id === transaction.chainId)?.name as string,
         icon: ChainIcon,
       },
-      gasEth: `${estimatedGas || '0.00'} ETH`,
+      gasEth: usesPaymaster ? 'Sponsored' : `${estimatedGas || '0.00'} ETH`,
       gasUsd: estimatedGas
         ? Number(estimatedGas) * (ethPrice.data || 0) < 0.01
           ? '< $0.01'
@@ -205,7 +230,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
             })}`
         : '$0.00',
     }
-  }, [transaction, ChainIcon, estimatedGas, lists])
+  }, [transaction, ChainIcon, estimatedGas, lists, usesPaymaster])
 
   const submitButtonText: SubmitButtonText = transaction.hash
     ? isPending
@@ -255,5 +280,6 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     transactionDetails,
     currentTxIndex,
     setCurrentTxIndex,
+    usesPaymaster,
   }
 }

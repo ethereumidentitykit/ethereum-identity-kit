@@ -27,6 +27,7 @@ export default function Summary() {
     currentTxIndex,
     resetTransactions,
     paymasterService,
+    defaultChainId,
   } = useTransactions()
 
   const { data: gasPrice } = useGasPrice({
@@ -156,7 +157,7 @@ export default function Summary() {
 
   const onSummaryClose = () => {
     const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)
-    if (mintTxIndex >= 0) return setSelectedChainId(undefined)
+    if (mintTxIndex >= 0 && !defaultChainId) return setSelectedChainId(undefined)
     if (batchTransactions) return setChangesOpen(true)
     else {
       setTxModalOpen(false)
@@ -210,6 +211,13 @@ export default function Summary() {
                 </p>
                 <ChainIcon height={18} width={18} />
                 <p className="summary-item-chain-name">{chainName}</p>
+                {id === EFPActionIds.UpdateEFPList &&
+                  defaultChainId &&
+                  pendingTxs.some((tx) => tx.id === EFPActionIds.CreateEFPList) && (
+                    <p className="summary-item-change-chain" onClick={() => setSelectedChainId(undefined)}>
+                      Change Chain
+                    </p>
+                  )}
               </div>
               {displayedChanges(id, txs)}
             </div>
