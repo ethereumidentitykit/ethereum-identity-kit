@@ -82,13 +82,36 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     if (!transaction.chainId || !walletClient) return
     if (usesPaymaster) return
 
-    if (transaction.chainId === mainnet.id) {
-      const publicClient = createPublicClient({
-        chain: mainnet,
-        transport: http(),
-      })
+    try {
+      if (transaction.chainId === mainnet.id) {
+        const publicClient = createPublicClient({
+          chain: mainnet,
+          transport: http(),
+        })
 
-      const gas = await publicClient.estimateContractGas({
+        const gas = await publicClient.estimateContractGas({
+          account: walletClient.account,
+          address: transaction.address,
+          abi: transaction.abi,
+          functionName: transaction.functionName,
+          args: transaction.args,
+        })
+
+        const formattedGas = Number(formatEther(gas * BigInt(gasPrice || 0))).toLocaleString(undefined, {
+          maximumFractionDigits: 8,
+          minimumFractionDigits: 2,
+        })
+
+        setEstimatedGas(formattedGas)
+        return
+      }
+
+      const publicClient = createPublicClient({
+        chain: chains.find((chain) => chain.id === transaction.chainId),
+        transport: http(),
+      }).extend(publicActionsL2())
+
+      const gas = await publicClient.estimateContractTotalFee({
         account: walletClient.account,
         address: transaction.address,
         abi: transaction.abi,
@@ -96,34 +119,15 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
         args: transaction.args,
       })
 
-      const formattedGas = Number(formatEther(gas * BigInt(gasPrice || 0))).toLocaleString(undefined, {
+      const formattedGas = Number(formatEther(gas)).toLocaleString(undefined, {
         maximumFractionDigits: 8,
         minimumFractionDigits: 2,
       })
 
       setEstimatedGas(formattedGas)
-      return
+    } catch (err) {
+      console.error("Couldn't estimate gas for transaction", transaction.id, (err as Error).message.slice(0, 172))
     }
-
-    const publicClient = createPublicClient({
-      chain: chains.find((chain) => chain.id === transaction.chainId),
-      transport: http(),
-    }).extend(publicActionsL2())
-
-    const gas = await publicClient.estimateContractTotalFee({
-      account: walletClient.account,
-      address: transaction.address,
-      abi: transaction.abi,
-      functionName: transaction.functionName,
-      args: transaction.args,
-    })
-
-    const formattedGas = Number(formatEther(gas)).toLocaleString(undefined, {
-      maximumFractionDigits: 8,
-      minimumFractionDigits: 2,
-    })
-
-    setEstimatedGas(formattedGas)
   }
 
   useEffect(() => {
