@@ -1,22 +1,24 @@
 import clsx from 'clsx'
+import { useState } from 'react'
 import { useTransactions } from '../../context'
 import { Cross } from '../icons'
 import Cart from './components/cart'
+import Steps from './components/steps'
+import Summary from './components/summary'
+import CancelModal from './components/cancel-modal'
 import ChainSelector from './components/chain-selector'
 import TransactionItem from './components/transaction-item'
 import { TransactionType } from '../../types'
 import type { TransactionModalProps } from './TransactionModal.types'
 import './TransactionModal.css'
-import Summary from './components/summary'
-import Steps from './components/steps'
-import { useState } from 'react'
-import CancelModal from './components/cancel-modal'
 
 /**
  * Transaction Modal - allows user to initiate transactions on-chain
  *
+ * @param darkMode - whether the component is in dark mode
  * @param className - additional class name for the transaction modal
- *
+ * @param onCartProfileClick - the function to call when the profile displayed in the cart is clicked
+ * @param showRecommendations - whether to show recommendations and manual add beside the items in the cart
  * @param props - HTML div element props
  *
  * @returns TransactionModal component

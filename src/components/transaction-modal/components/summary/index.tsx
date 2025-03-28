@@ -58,7 +58,6 @@ export default function Summary() {
 
   const estimateGas = async () => {
     if (!balanceMainnet || !balanceBase || !balanceOptimism) {
-      console.error('Unable to load wallet balance')
       setGasIsLoading(false)
       return
     }
@@ -153,7 +152,7 @@ export default function Summary() {
   useEffect(() => {
     setGasIsLoading(true)
     estimateGas()
-  }, [pendingTxs, gasPrice, balanceMainnet, balanceBase, balanceOptimism])
+  }, [pendingTxs, gasPrice, balanceMainnet, balanceBase, balanceOptimism, paymasterService, availableCapabilities])
 
   const onSummaryClose = () => {
     const mintTxIndex = pendingTxs.findIndex((tx) => tx.id === EFPActionIds.CreateEFPList)

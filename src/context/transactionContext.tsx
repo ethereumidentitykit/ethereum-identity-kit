@@ -10,23 +10,23 @@ import {
 } from 'react'
 import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  getMintTxNonce,
+  getMintTxChainId,
+  getPendingTxAddresses,
+  prepareMintTransaction,
+  formatListOpsTransaction,
+} from '../utils/transactions'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
-import {
-  formatListOpsTransaction,
-  getMintTxChainId,
-  getMintTxNonce,
-  getPendingTxAddresses,
-  prepareMintTransaction,
-} from '../utils/transactions'
+import { ListRecordContracts } from '../constants'
 import { LIST_OP_LIMITS } from '../constants/chains'
 import { EFPActionIds } from '../constants/transactions'
 import { ProfileListsResponse } from '../types'
-import { EFPActionType, ListOpType } from '../types/transactions'
 import { TransactionType } from '../types/transactions'
-import { ListRecordContracts } from '../constants'
+import { EFPActionType, ListOpType } from '../types/transactions'
 
 type TransactionContextType = {
   txModalOpen: boolean
@@ -60,6 +60,14 @@ type TransactionContextType = {
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
 
+/**
+ * TransactionProvider component - provides the transaction context to the app
+ *
+ * @param batchTransactions - whether to batch transactions (cart)
+ * @param paymasterService - the paymaster service to use
+ * @param defaultChainId - the default chain id to use for users without a list (new list)
+ * @param children - the children to render
+ */
 export const TransactionProvider = ({
   batchTransactions = false,
   paymasterService,
@@ -74,10 +82,15 @@ export const TransactionProvider = ({
   const [txModalOpen, setTxModalOpen] = useState(false)
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
   const [currentTxIndex, setCurrentTxIndex] = useState<number | undefined>(undefined)
+
+  // Whether to show the changes button (cart)
   const [changesOpen, setChangesOpen] = useState(batchTransactions && !currentTxIndex)
+
+  // Addresses to fetch the fresh following state for (FollowButton)
   const [followingAddressesToFetchFresh, setFollowingAddressesToFetchFresh] = useState<string[]>([])
 
   const [selectedList, setSelectedList] = useState<string | undefined>(undefined)
+
   const [isCheckoutFinished, setIsCheckoutFinished] = useState<boolean>(false)
 
   useEffect(() => {
@@ -92,7 +105,10 @@ export const TransactionProvider = ({
   }, [txModalOpen])
 
   const [listDetailsLoading, setListDetailsLoading] = useState(false)
+
+  // Nonce to assign to the EFP trasactions
   const [nonce, setNonce] = useState<bigint | undefined>(undefined)
+  // Chain ID to be used for EFP List Update transactions (List Ops)
   const [selectedChainId, setSelectedChainId] = useState<number | undefined>(undefined)
 
   const { address: connectedAddress } = useAccount()
@@ -120,9 +136,11 @@ export const TransactionProvider = ({
 
   const getListDetails = async () => {
     if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
+      // If the user has no list or is creating a new list, reset the chainId and nonce
       setSelectedChainId(undefined)
       setNonce(undefined)
     } else {
+      // Otherwise, get the list details from the list storage location onchain
       const { chainId, slot } = await getListStorageLocation(selectedList ?? lists?.primary_list ?? '')
       setSelectedChainId(chainId)
       setNonce(slot)
@@ -137,7 +155,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -188,6 +206,7 @@ export const TransactionProvider = ({
     )
   }, [pendingTxs])
 
+  // Add any transaction to the transaction queue (It doesn't need to be an EFP related transaction)
   const addTransactions = (txs: TransactionType[]) => {
     setPendingTxs((prev) => (batchTransactions ? [...prev, ...txs] : txs))
   }
@@ -250,6 +269,7 @@ export const TransactionProvider = ({
     if (!batchTransactions) setTxModalOpen(true)
   }
 
+  // Remove any transaction from the transaction queue (removes the whole transaction)
   const removeTransactions = (ids: (EFPActionType | string)[]) => {
     setPendingTxs((prev) => prev.filter((tx) => !ids.includes(tx.id)))
   }
@@ -270,6 +290,7 @@ export const TransactionProvider = ({
         )
 
         if (updateEFPListTxId > -1) {
+          // Filter out the list op from the UpdateEFPList transaction
           const updateEFPListTx = filteredPendingTxs[updateEFPListTxId]
           const updateEFPListTxListOps = updateEFPListTx.args.slice(-1).flat()
           const filteredArgs = updateEFPListTxListOps.filter(
@@ -283,6 +304,7 @@ export const TransactionProvider = ({
         }
       })
 
+      // Filter out any UpdateEFPList transactions that have no list ops left
       const updatedPendingTxs = filteredPendingTxs.filter((tx) =>
         tx.id === EFPActionIds.UpdateEFPList ? tx.args.slice(-1).flat().length > 0 : true
       )
@@ -296,6 +318,7 @@ export const TransactionProvider = ({
     })
   }
 
+  const queryClient = useQueryClient()
   const goToNextTransaction = () => {
     const newTxIndex = (currentTxIndex || 0) + 1
     if (newTxIndex === pendingTxs.length) {
@@ -304,8 +327,14 @@ export const TransactionProvider = ({
       // Refetch lists if user has minted a new one
       if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
 
+      // Fetch the fresh following state for the addresses that have been updated
       const addresses = getPendingTxAddresses(pendingTxs)
       setFollowingAddressesToFetchFresh(addresses)
+      addresses.forEach((address) => {
+        if (followingAddressesToFetchFresh.includes(address)) {
+          queryClient.refetchQueries({ queryKey: ['followingState', address, connectedAddress, selectedList, true] })
+        }
+      })
 
       resetTransactions()
     } else {
@@ -352,6 +381,11 @@ export const TransactionProvider = ({
   return <TransactionContext.Provider value={value}>{children}</TransactionContext.Provider>
 }
 
+/**
+ * useTransactions hook - enables use of the transaction context
+ *
+ * @returns the transaction context
+ */
 export const useTransactions = (): TransactionContextType => {
   const context = useContext(TransactionContext)
   if (!context) {

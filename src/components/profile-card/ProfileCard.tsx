@@ -6,6 +6,7 @@ import { useProfileDetails } from '../../hooks/useProfileDetails'
 import { formatNumber } from '../../utils/formatters'
 import { isAddress, truncateAddress } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
+import Bio from './components/bio'
 import Avatar from '../avatar/Avatar'
 import HeaderImage from './components/HeaderImage'
 import FollowerTag from '../follower-tag/FollowerTag'
@@ -17,7 +18,6 @@ import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
 import './ProfileCard.css'
-import Bio from './components/bio'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.

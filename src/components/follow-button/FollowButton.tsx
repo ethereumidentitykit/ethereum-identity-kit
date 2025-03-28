@@ -13,19 +13,19 @@ import './FollowButton.css'
  *
  * @param lookupAddress - the address of the follower
  *
- * @param connectedAddress - the address of the currently connected user
+ * @param connectedAddress (optional) - the address of the currently connected user
  *
- * @param disabled - whether the button is disabled
+ * @param disabled (optional) - whether the button is disabled
  *
- * @param onDisconnectedClick - the function to call when the button is clicked and the user is not connected
+ * @param onDisconnectedClick (optional) - the function to call when the button is clicked and the user is not connected
  *
- * @param sounds - the sounds to play when the button is clicked
+ * @param sounds (optional) - the sounds to play when the button is clicked
  *
- * @param customClassNames - the custom class names to apply to the button depending on the state of the button
+ * @param customClassNames (optional) - the custom class names to apply to the button depending on the state of the button
  *
- * @param className - the additional class name to apply to the follower tag
+ * @param className (optional) - the additional class name to apply to the follower tag
  *
- * @param customLoader - the custom loader to use instead of the default one
+ * @param customLoader (optional) - the custom loader to use instead of the default one
  *
  * @param props - HTML button element props
  *

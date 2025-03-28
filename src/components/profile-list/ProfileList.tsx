@@ -5,6 +5,21 @@ import ProfileListLoadingRow from '../profile-list-row/ProfileListLoadingRow'
 import { ProfileListProps } from './ProfileList.types'
 import './ProfileList.css'
 
+/**
+ * ProfileList component - displays a list of profiles
+ *
+ * @param profiles - the profiles to display
+ * @param darkMode - whether the component is in dark mode
+ * @param connectedAddress - the address of the connected user
+ * @param selectedList - the list to display
+ * @param isLoading - whether the component is loading
+ * @param loadingRows - the number of loading rows to display
+ * @param tags - the tags to display
+ * @param showTags - whether to show the tags
+ * @param canEditTags - whether to allow editing of the tags
+ * @param initialFollowState - the initial follow state for FollowButton
+ * @param onProfileClick - the function to call when the name/address or avatar is clicked
+ */
 const ProfileList: React.FC<ProfileListProps> = ({
   profiles,
   darkMode,

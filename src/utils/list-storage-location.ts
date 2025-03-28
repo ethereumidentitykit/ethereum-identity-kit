@@ -4,6 +4,12 @@ import { DEFAULT_CHAIN } from '../constants/chains'
 import { efpListRegistryAbi } from '../constants/abi'
 import { coreEfpContracts } from '../constants/contracts'
 
+/**
+ * Get the list storage location from the list registry contract
+ *
+ * @param list - the list to get the storage location for
+ * @returns the chain id and slot of the list storage location
+ */
 export const getListStorageLocation = async (list: string) => {
   const listRegistryContract = getContract({
     address: coreEfpContracts.EFPListRegistry,
@@ -14,6 +20,7 @@ export const getListStorageLocation = async (list: string) => {
     }),
   })
 
+  // List storage location - https://docs.efp.app/design/list-storage-location/
   const listStorageLocation = await listRegistryContract.read.getListStorageLocation([BigInt(list)])
   const listStorageLocationChainId = fromHex(`0x${listStorageLocation.slice(64, 70)}`, 'number')
   const slot = BigInt(`0x${listStorageLocation.slice(-64)}`)

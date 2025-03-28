@@ -11,6 +11,18 @@ import Tags from '../transaction-modal/components/cart/tags'
 import { truncateAddress } from '../../utils'
 import './ProfileListRow.css'
 
+/**
+ * ProfileListRow component - displays a row of a profile in a list
+ *
+ * @param profile - the profile to display
+ * @param connectedAddress - the address of the connected user
+ * @param selectedList - the list to display
+ * @param showTags - whether to show the tags
+ * @param canEditTags - whether to allow editing of the tags
+ * @param tags - the tags to display
+ * @param initialFollowState - the initial follow state for FollowButton
+ * @param onProfileClick - the function to call when the name/address or avatar is clicked
+ */
 const ProfileListRow: React.FC<ProfileListRowProps> = ({
   profile,
   connectedAddress,

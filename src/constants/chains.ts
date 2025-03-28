@@ -13,7 +13,7 @@ export const ChainIcons = {
   [base.id]: Base,
   [optimism.id]: Optimism,
   [mainnet.id]: Ethereum,
-}
+} as const
 
 export type Chain = (typeof chains)[number]
 

@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useChainId, useChains, useSwitchChain, useWalletClient } from 'wagmi'
 
+/**
+ * useChain hook - keeps track of the current chain id and switching between chains
+ *
+ * @returns the current chain id and a function to switch chains
+ */
 export const useChain = () => {
   const { switchChain } = useSwitchChain()
   const initialCurrentChainId = useChainId()
@@ -18,6 +23,7 @@ export const useChain = () => {
     getCurrentChain()
   }, [walletClient])
 
+  // check the current chain id and switch if it's not the correct chain
   const checkChain = useCallback(
     async ({ chainId, onSuccess, onError }: { chainId?: number; onSuccess?: () => void; onError?: () => void }) => {
       if (!chainId) return false
@@ -29,6 +35,7 @@ export const useChain = () => {
     [currentChainId, switchChain]
   )
 
+  // All supported chains
   const chains = useChains()
   const getChain = (chainId: number | undefined) => chains.find((chain) => chain.id === chainId)
 

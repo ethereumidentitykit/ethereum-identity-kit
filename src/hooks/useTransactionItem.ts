@@ -53,7 +53,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
       return {
         paymasterService: {
-          url: paymasterService, //For production use proxy
+          url: paymasterService,
         },
       }
     }
@@ -69,6 +69,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
   const isCorrectChain = useMemo(() => currentChainId === transaction.chainId, [currentChainId, transaction.chainId])
   const ChainIcon = transaction.chainId ? ChainIcons[transaction.chainId as keyof typeof ChainIcons] : null
 
+  // Whether the transaction is active (displayed in the transaction modal)
   const isActive = useMemo(() => {
     return typeof currentTxIndex === 'number' && currentTxIndex === id
   }, [currentTxIndex, id])
@@ -83,6 +84,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     if (usesPaymaster) return
 
     try {
+      // Estimate the Ethereum Mainnet gas
       if (transaction.chainId === mainnet.id) {
         const publicClient = createPublicClient({
           chain: mainnet,
@@ -106,6 +108,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
         return
       }
 
+      // Estimate the gas for the transaction on any L2 chain
       const publicClient = createPublicClient({
         chain: chains.find((chain) => chain.id === transaction.chainId),
         transport: http(),

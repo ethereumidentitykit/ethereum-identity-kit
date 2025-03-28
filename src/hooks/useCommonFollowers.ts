@@ -16,6 +16,7 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
     refetchOnWindowFocus: false,
   })
 
+  // First 3 avatars and names to be displayed in the component
   const displayedAvatars =
     data && data.results.length > 0
       ? data.results.slice(0, 3).map((result) => ({
