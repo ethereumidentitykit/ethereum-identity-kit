@@ -4,6 +4,7 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
+  padding: 6px 0px;
 }
 
 .common-followers-avatars-container {
@@ -26,4 +27,5 @@
   line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin: 0px;
 }

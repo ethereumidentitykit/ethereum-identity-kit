@@ -79,7 +79,7 @@ export const getPendingTxAddressesAndTags = (txs: TransactionType[]) =>
       return listOps.map((listOp) => extractAddressAndTag(listOp.data))
     })
 
-export const prepareMintTransaction = (mintNonce: bigint) => {
+export const prepareMintTransaction = (mintNonce: bigint, chainId?: number) => {
   const mintTransaction = {
     title: 'Mint New List',
     description: 'An NFT representing your List will appear in your wallet. This must be done on Base.',
@@ -91,7 +91,13 @@ export const prepareMintTransaction = (mintNonce: bigint) => {
     args: [
       encodePacked(
         ['uint8', 'uint8', 'uint256', 'address', 'uint'],
-        [1, 1, BigInt(0), coreEfpContracts.EFPListRecords, mintNonce]
+        [
+          1,
+          1,
+          BigInt(chainId || 0),
+          chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords,
+          mintNonce,
+        ]
       ),
     ],
   }
