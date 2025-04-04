@@ -181,8 +181,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                       </button>
                     </a>
                   ) : (
-                    <div></div>
-                    // <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                    followButton
                   )}
                   {showFollowerTag && (
                     <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />
@@ -198,7 +197,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     onStatClick={onStatClick}
                   />
                   <div className="user-profile-desktop-common-followers-container">
-                    {connectedAddress && (
+                    {connectedAddress && !isConnectedUserCard && (
                       <div className="user-profile-common-followers-container">
                         <CommonFollowers
                           connectedAddress={connectedAddress}
@@ -221,7 +220,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: '16px' }}
                 />
                 <div className="user-profile-mobile-common-followers-container">
-                  {connectedAddress && (
+                  {connectedAddress && !isConnectedUserCard && (
                     <div className="user-profile-common-followers-container">
                       <CommonFollowers
                         lookupAddressOrName={address}

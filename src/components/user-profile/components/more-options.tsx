@@ -1,5 +1,3 @@
-'use client'
-
 import React, { LegacyRef, useState } from 'react'
 import { useOutsideClick } from '../../../hooks'
 import { formatNumber } from '../../../utils'
@@ -57,7 +55,7 @@ const MoreOptions: React.FC<MoreOptionsProps> = ({
       )}
       {refetchData && (
         <button onClick={refetchData} className="more-options-refresh-button">
-          <Refresh height={14} width={14} />
+          <Refresh height={18} width={18} />
         </button>
       )}
       {nameMenu}

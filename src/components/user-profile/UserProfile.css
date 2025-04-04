@@ -34,8 +34,6 @@
 }
 
 .user-profile-container * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
 
@@ -194,8 +192,10 @@
 .user-profile-name-container {
   display: flex;
   width: 100%;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .user-profile-name {
@@ -204,11 +204,13 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  line-height: 1.2;
+  line-height: 1.1;
   color: #333;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s;
+  padding: 0;
+  margin: 0;
 }
 
 .dark .user-profile-name {
@@ -232,6 +234,12 @@
   transition: all 0.2s;
 }
 
+.user-profile-edit-profile-button p {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+}
+
 .user-profile-edit-profile-button:hover {
   cursor: pointer;
   transform: scale(1.1);
@@ -240,13 +248,18 @@
 
 .user-profile-stats-container {
   display: flex;
+  flex-direction: row;
   justify-content: start;
   align-items: center;
   gap: 32px;
+  padding: 0;
+  margin: 0;
 }
 
 .user-profile-desktop-common-followers-container {
   display: flex;
+  padding: 0;
+  margin: 0;
 }
 
 .user-profile-mobile-common-followers-container {
@@ -256,6 +269,7 @@
 .user-profile-bio-container {
   max-width: 50%;
   font-size: 20px;
+  margin-bottom: 4px;
 }
 
 .user-profile-error-container {
@@ -313,7 +327,10 @@
   right: 32px;
   z-index: 1000;
   display: flex;
+  flex-direction: row;
   gap: 8px;
+  padding: 0;
+  height: 28px;
   justify-content: flex-end;
 }
 
@@ -321,6 +338,8 @@
   cursor: help;
   z-index: 100;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .more-options-not-confirmed-text {
@@ -333,12 +352,14 @@
   cursor: help;
   z-index: 10;
   font-weight: 600;
+  margin: 0;
   position: relative;
   font-style: italic;
 }
 
 .dark .more-options-not-confirmed-text {
   background-color: #666;
+  margin: 0;
   box-shadow: 2px 2px 5px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -372,12 +393,14 @@
 .more-options-list-number {
   background-color: #eee;
   padding: 5px 6px;
+  margin: 0;
   border-radius: 4px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
   font-size: 14px;
+  transition: all 0.2s;
 }
 
 .dark .more-options-list-number {
@@ -389,18 +412,19 @@
 .more-options-list-number:hover {
   cursor: pointer;
   transform: scale(1.1);
-  opacity: 0.6;
 }
 
 .more-options-refresh-button {
   background-color: #eee;
-  padding: 4px 5px;
+  height: 28px;
+  width: 28px;
   border-radius: 4px;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 .dark .more-options-refresh-button {
@@ -412,7 +436,6 @@
 .more-options-refresh-button:hover {
   cursor: pointer;
   transform: scale(1.1);
-  opacity: 0.6;
 }
 
 .profile-stats-label {
