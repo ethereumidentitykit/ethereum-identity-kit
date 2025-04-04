@@ -252,7 +252,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           </div>
         </div>
       ) : (
-        <div className="user-profile-error-container">
+        <div className={clsx('user-profile-error-container', darkMode && 'dark')}>
           <p className="user-profile-error-text">User doesn&apos;t exist</p>
         </div>
       )}

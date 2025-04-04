@@ -265,12 +265,23 @@
   justify-content: center;
   height: 384px;
   padding-bottom: 80px;
+  background-color: #eee;
+}
+
+.user-profile-error-container.dark,
+.dark .user-profile-error-container {
+  background-color: #333;
 }
 
 .user-profile-error-text {
   font-size: 24px;
   font-weight: 600;
   font-style: italic;
+  color: #333;
+}
+
+.dark .user-profile-error-text {
+  color: #fff;
 }
 
 @media (max-width: 1024px) {
