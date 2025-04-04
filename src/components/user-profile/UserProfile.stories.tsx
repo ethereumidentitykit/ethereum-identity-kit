@@ -37,6 +37,8 @@ ProfileCardByAddress.args = {
   onProfileClick,
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
+  role: 'Frontend developer',
+
   // options: {
   //   followButton: <button style={{
   //     backgroundColor: '#ffE060',

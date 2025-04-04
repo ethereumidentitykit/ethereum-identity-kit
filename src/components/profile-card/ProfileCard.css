@@ -85,6 +85,11 @@
   margin: 2px 0;
 }
 
+.dark .profile-status {
+  color: white;
+  background-color: #555;
+}
+
 .profile-bio {
   font-size: 14px;
   display: flex;

@@ -87,8 +87,13 @@
   top: 16px;
   left: 32px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
+  margin: 0;
   font-style: italic;
+}
+
+.dark .user-profile-role {
+  color: #eee;
 }
 
 .user-profile-status-container {
@@ -113,6 +118,7 @@
   font-style: italic;
   display: flex;
   z-index: 100;
+  margin: 0;
 }
 
 .user-profile-status-mobile {
@@ -142,7 +148,7 @@
   flex-direction: row;
   gap: 16px;
   z-index: 200;
-  padding: 48px 32px;
+  padding: 52px 32px;
 }
 
 .user-profile-avatar-container {
@@ -151,6 +157,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 50%;
+  transition: all 0.2s;
 }
 
 @media screen and (max-width: 1536px) {
@@ -323,7 +330,7 @@
 
 .more-options {
   position: absolute;
-  top: 24px;
+  top: 18px;
   right: 32px;
   z-index: 1000;
   display: flex;
@@ -441,6 +448,7 @@
 .profile-stats-label {
   font-size: 18px;
   font-weight: 600;
+  color: #666;
 }
 
 .dark .profile-stats-label {

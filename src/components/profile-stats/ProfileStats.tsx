@@ -3,7 +3,6 @@ import { useProfileStats } from '../../hooks/useProfileStats'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { formatNumber } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
-import { ProfileStatType } from '../../types/profile'
 import type { ProfileStatsProps } from './ProfileStats.types'
 import './ProfileStats.css'
 
@@ -57,7 +56,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
           ...statsStyle,
         }}
         enable-hover={!!onStatClick ? 'true' : 'false'}
-        onClick={() => onStatClick({ addressOrName: addressOrName, stat: 'followers' })}
+        onClick={() => onStatClick({ addressOrName: addressOrName, stat: 'following' })}
       >
         {statsLoading ? (
           <LoadingCell height="24px" width="64px" />
@@ -73,7 +72,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
           ...statsStyle,
         }}
         enable-hover={!!onStatClick ? 'true' : 'false'}
-        onClick={() => onStatClick({ addressOrName, stat: 'followers' as ProfileStatType })}
+        onClick={() => onStatClick({ addressOrName, stat: 'followers' })}
       >
         {statsLoading ? (
           <LoadingCell height="24px" width="64px" />
