@@ -1,5 +1,7 @@
 import { useChain } from './useChain'
 import { useCoolMode } from './useCoolMode'
+import { useEFPPoaps } from './useEFPPoaps'
+import { useIsClient } from './useIsClient'
 import { useRecommended } from './useRecommended'
 import { useFollowButton } from './useFollowButton'
 import { useProfileStats } from './useProfileStats'
@@ -22,4 +24,6 @@ export {
   useRecommended,
   useCommonFollowers,
   useOutsideClick,
+  useEFPPoaps,
+  useIsClient,
 }

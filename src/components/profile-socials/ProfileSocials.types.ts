@@ -9,4 +9,5 @@ export interface ProfileSocialsProps {
   iconSize?: number
   isLoading?: boolean
   darkMode?: boolean
+  style?: React.CSSProperties
 }

@@ -13,6 +13,8 @@ import CommonFollowers from './common-followers/CommonFollowers'
 import HeaderImage from './profile-card/components/HeaderImage'
 import TransactionModal from './transaction-modal/TransactionModal'
 import ImageWithFallback from './image-with-fallback/ImageWithFallback'
+import UserProfile from './user-profile/UserProfile'
+import EFPPoaps from './efp-poaps/EFPPoaps'
 export {
   ProfileCard,
   ProfileSocials,
@@ -29,6 +31,8 @@ export {
   ProfileList,
   ProfileListRow,
   Tags,
+  UserProfile,
+  EFPPoaps,
 }
 
 import { AvatarProps } from './avatar/Avatar.types'
@@ -43,6 +47,8 @@ import { FollowButtonProps } from './follow-button/FollowButton.types'
 import { TransactionModalProps } from './transaction-modal/TransactionModal.types'
 import { ProfileListProps } from './profile-list/ProfileList.types'
 import { ProfileListRowProps } from './profile-list-row/ProfileListRow.types'
+import { UserProfileProps } from './user-profile/UserProfile.types'
+import { EFPPoapsProps } from './efp-poaps/EFPPoaps.types'
 
 export type {
   ProfileCardProps,
@@ -57,6 +63,8 @@ export type {
   TransactionModalProps,
   ProfileListProps,
   ProfileListRowProps,
+  UserProfileProps,
+  EFPPoapsProps,
 }
 
 export * from './icons'

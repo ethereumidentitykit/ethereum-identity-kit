@@ -34,8 +34,8 @@ const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoaded, style }) => {
           height="100%"
           width="100%"
           style={{
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
+            borderTopLeftRadius: style?.borderTopLeftRadius || '4px',
+            borderTopRightRadius: style?.borderTopRightRadius || '4px',
           }}
         />
       ) : (
@@ -47,8 +47,8 @@ const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoaded, style }) => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
+            borderTopLeftRadius: style?.borderTopLeftRadius || '4px',
+            borderTopRightRadius: style?.borderTopRightRadius || '4px',
           }}
         />
       )}

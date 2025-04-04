@@ -18,6 +18,7 @@ import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
 import './ProfileCard.css'
+import EFPPoaps from '../efp-poaps/EFPPoaps'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -50,6 +51,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   connectedAddress,
   darkMode,
   showFollowerState,
+  showPoaps,
   onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
@@ -100,7 +102,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       style={{ fontFamily: 'Inter, sans-serif', ...style }}
       {...props}
     >
-      <HeaderImage src={ens?.records?.header} isLoaded={isDetailsLoading} />
+      <HeaderImage
+        src={ens?.records?.header}
+        isLoaded={isDetailsLoading}
+        style={{ borderTopLeftRadius: style?.borderRadius, borderTopRightRadius: style?.borderRadius }}
+      />
       <CardHeader
         openListSettings={openListSettings}
         name={ens?.name}
@@ -174,6 +180,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             <div className="profile-card-stats-item-label">Followers</div>
           </div>
         </div>
+        {ens?.records?.status && <p className="profile-status">&quot;{ens?.records?.status}&quot;</p>}
         <div className="profile-bio">
           {isDetailsLoading ? (
             <div className="profile-bio-loading">
@@ -198,8 +205,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           connectedAddress={connectedAddress}
           lookupAddressOrName={list ? address || addressOrName : addressOrName}
           displayEmpty={false}
+          onProfileClick={onProfileClick}
         />
       )}
+      {showPoaps && <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} />}
     </div>
   )
 }

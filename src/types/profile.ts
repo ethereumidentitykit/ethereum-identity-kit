@@ -162,3 +162,28 @@ export interface CommonFollowersResponse {
   results: CommonFollower[]
   length: number
 }
+
+export interface ProfileEFPPoapResponse {
+  eventId: string
+  participated: boolean
+  collection: ProfileEFPPoapColletionType | null
+}
+
+export interface ProfileEFPPoapColletionType {
+  event: {
+    id: number
+    fancy_id: string
+    name: string
+    event_url: string
+    image_url: string
+    country: string
+    city: string
+    description: string
+    year: number
+    start_date: string
+    end_date: string
+    expiry_date: string
+  }
+  tokenId: string
+  owner: string
+}

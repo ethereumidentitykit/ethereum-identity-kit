@@ -1,3 +1,5 @@
+import { ens_beautify } from '@adraffy/ens-normalize'
+
 export const formatNumber = (number: number) => {
   const formattedNumber = new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
 
@@ -7,7 +9,11 @@ export const formatNumber = (number: number) => {
 export const formatCommonFollowersText = (displayedNames: string[], resultLength: number) => {
   if (resultLength === 0) return 'No common followers'
 
-  let text = displayedNames?.map((name, index) => `${name}${resultLength > 2 && index === 1 ? ',' : ''}`).join(', ')
+  if (resultLength === 2) return `${ens_beautify(displayedNames[0])} and ${ens_beautify(displayedNames[1])} follow them`
+
+  let text = displayedNames
+    ?.map((name, index) => `${ens_beautify(name)}${resultLength > 2 && index === 1 ? ',' : ''}`)
+    .join(', ')
 
   if (resultLength > 2) {
     text += ` and ${resultLength - 2} `

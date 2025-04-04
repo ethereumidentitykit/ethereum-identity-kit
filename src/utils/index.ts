@@ -7,6 +7,7 @@ import { fetchProfileLists } from './api/fetch-profile-lists'
 import { fetchProfileStats } from './api/fetch-profile-stats'
 import { fetchProfileDetails } from './api/fetch-profile-details'
 import { fetchCommonFollowers } from './api/fetch-common-followers'
+import { fetchProfileEFPPoaps } from './api/fetch-profile-efp-poaps'
 
 export {
   isAddress,
@@ -19,9 +20,11 @@ export {
   fetchRecommended,
   fetchProfileLists,
   fetchCommonFollowers,
+  fetchProfileEFPPoaps,
 }
 
-export * from './transactions'
 export * from './profile'
+export * from './validity'
 export * from './list-ops'
+export * from './transactions'
 export * from './list-storage-location'

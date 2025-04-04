@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { ens_beautify } from '@adraffy/ens-normalize'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
 import LoadingCell from '../../../loading-cell/LoadingCell'
 import Avatar from '../../../avatar/Avatar'
@@ -36,7 +37,7 @@ const ActionAccount: React.FC<ActionAccountProps> = ({ address, showName, height
             fallback={DEFAULT_FALLBACK_AVATAR}
             style={{ height, width }}
           />
-          {showName && <p>{account?.ens.name || truncateAddress(address)}</p>}
+          {showName && <p>{account?.ens.name ? ens_beautify(account.ens.name) : truncateAddress(address)}</p>}
         </>
       )}
     </div>

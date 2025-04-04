@@ -1,12 +1,13 @@
 .avatar-container {
   overflow: hidden;
   border-radius: 50%;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .avatar-container[enable-hover='true']:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  scale: 1.1;
 }
 
 .avatar-image {

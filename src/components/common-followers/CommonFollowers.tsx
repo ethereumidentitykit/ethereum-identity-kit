@@ -21,6 +21,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
   connectedAddress,
   lookupAddressOrName,
   displayEmpty = true,
+  onProfileClick,
 }) => {
   const { displayedAvatars, displayedNames, resultLength, isLoading } = useCommonFollowers(
     connectedAddress,
@@ -48,6 +49,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
                 key={address}
                 src={avatar}
                 address={address}
+                onClick={() => onProfileClick?.(address)}
                 style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
               />
             ))}

@@ -33,9 +33,10 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   includeUrls = false,
   iconSize = 32,
   isLoading = false,
+  style,
 }) => {
   return (
-    <div className={clsx('profile-socials', darkMode && 'dark')}>
+    <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>
       {includeUrls &&
         (isLoading ? (
           <div className="profile-links-container">
@@ -50,6 +51,9 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 target="_blank"
                 rel="noreferrer"
                 className="profile-link"
+                style={{
+                  paddingRight: '6px',
+                }}
               >
                 <p className="profile-link-text">
                   {records?.url.slice(-1) === '/'
@@ -70,7 +74,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 }}
               >
                 <p className="profile-link-text">dweb</p>
-                <Dweb height={20} width={20} />
+                <Dweb height={20} width={20} style={{ borderRadius: '4px' }} />
               </a>
             )}
           </div>
@@ -78,7 +82,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
       <div className="socials-container">
         {isLoading
           ? Array.from({ length: 5 }).map((_, index) => (
-              <LoadingCell key={index} height="36px" width="36px" radius="18px" />
+              <LoadingCell key={index} height={iconSize} width={iconSize} radius="18px" />
             ))
           : PROFILE_CARD_SOCIALS.map((social) => (
               <a

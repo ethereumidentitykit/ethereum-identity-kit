@@ -4,4 +4,5 @@ export type CommonFollowersProps = {
   connectedAddress: Address
   lookupAddressOrName: Address | string
   displayEmpty?: boolean
+  onProfileClick?: (address: Address) => void
 }

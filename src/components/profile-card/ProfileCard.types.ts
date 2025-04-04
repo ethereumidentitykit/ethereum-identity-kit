@@ -1,16 +1,9 @@
 import { Address } from '../../types/address'
-import { ProfileDetailsResponse, ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../types/profile'
+import { ProfileListType, ProfileStatsClickProps } from '../../types/profile'
+import { UserProfileOptions } from '../user-profile/UserProfile.types'
 
-type ProfileCardOptions = {
+type ProfileCardOptions = UserProfileOptions & {
   followButton?: React.ReactNode
-  nameMenu?: React.ReactNode
-  profileData?: ProfileDetailsResponse
-  prefetchedProfileLoading?: boolean
-  refetchProfileData?: () => void
-  statsData?: StatsResponse | null
-  prefetchedStatsLoading?: boolean
-  refetchStatsData?: () => void
-  openListSettings?: () => void
 }
 
 export type ProfileCardProps = {
@@ -19,6 +12,7 @@ export type ProfileCardProps = {
   connectedAddress?: Address
   darkMode?: boolean
   showFollowerState?: boolean
+  showPoaps?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions

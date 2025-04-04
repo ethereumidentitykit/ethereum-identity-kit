@@ -1,0 +1,35 @@
+.efp-poaps-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: end;
+  gap: 8px;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .efp-poaps-container {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .efp-poaps-container {
+    justify-content: start;
+    margin-top: 8px;
+    max-width: 100%;
+  }
+}
+
+.efp-poaps-poap-image {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.efp-poaps-poap-image:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
