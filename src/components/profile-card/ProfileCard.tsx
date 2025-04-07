@@ -4,7 +4,7 @@ import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileStats } from '../../hooks/useProfileStats'
 import { useProfileDetails } from '../../hooks/useProfileDetails'
 import { formatNumber } from '../../utils/formatters'
-import { isAddress, truncateAddress } from '../../utils'
+import { truncateAddress } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
 import Bio from './components/bio'
 import Avatar from '../avatar/Avatar'
@@ -15,10 +15,9 @@ import CardHeader from './components/card-header/CardHeader'
 import ProfileSocials from '../profile-socials/ProfileSocials'
 import CommonFollowers from '../common-followers/CommonFollowers'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
-import { Address } from '../../types/address'
 import { ProfileCardProps } from './ProfileCard.types'
-import './ProfileCard.css'
 import EFPPoaps from '../efp-poaps/EFPPoaps'
+import './ProfileCard.css'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -32,6 +31,8 @@ import EFPPoaps from '../efp-poaps/EFPPoaps'
  * @param darkMode - (optional)
  *
  * @param showFollowerState - shows follower state tag (follows you, blocks you, mutes you) (optional)
+ *
+ * @param showPoaps - shows EFP POAPs on the profile card (optional)
  *
  * @param onStatClick - action to be performed when a stat is clicked - default goes to EFP profile with selected stat (optional)
  *
@@ -143,11 +144,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               enable-hover={!!onProfileClick ? 'true' : 'false'}
               onClick={() => onProfileClick?.(addressOrName)}
             >
-              {ens?.name
-                ? ens_beautify(ens.name)
-                : isAddress(addressOrName)
-                  ? truncateAddress(addressOrName as Address)
-                  : ens_beautify(addressOrName)}
+              {ens?.name ? ens_beautify(ens.name) : address ? truncateAddress(address) : addressOrName}
             </p>
             {showFollowerTag && (
               <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
