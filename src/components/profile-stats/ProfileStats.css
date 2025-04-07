@@ -9,14 +9,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
 .profile-stats-item[enable-hover='true']:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .profile-stats-item-value {
@@ -36,4 +36,44 @@
 
 .dark .profile-stats-item-value {
   color: #fff;
+}
+
+.profile-stats-item-xs .profile-stats-item-label {
+  font-size: 10px;
+}
+
+.profile-stats-item-xs .profile-stats-item-value {
+  font-size: 12px;
+}
+
+.profile-stats-item-sm .profile-stats-item-label {
+  font-size: 12px;
+}
+
+.profile-stats-item-sm .profile-stats-item-value {
+  font-size: 14px;
+}
+
+.profile-stats-item-md .profile-stats-item-label {
+  font-size: 16px;
+}
+
+.profile-stats-item-md .profile-stats-item-value {
+  font-size: 18px;
+}
+
+.profile-stats-item-lg .profile-stats-item-label {
+  font-size: 18px;
+}
+
+.profile-stats-item-lg .profile-stats-item-value {
+  font-size: 22px;
+}
+
+.profile-stats-item-xl .profile-stats-item-label {
+  font-size: 20px;
+}
+
+.profile-stats-item-xl .profile-stats-item-value {
+  font-size: 26px;
 }

@@ -1,7 +1,9 @@
+import clsx from 'clsx'
 import React from 'react'
 import { useProfileStats } from '../../hooks/useProfileStats'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { formatNumber } from '../../utils'
+import { ProfileStatType } from '../../types/profile'
 import { defaultOnStatClick } from '../../utils/profile'
 import type { ProfileStatsProps } from './ProfileStats.types'
 import './ProfileStats.css'
@@ -17,11 +19,11 @@ import './ProfileStats.css'
  *
  * @param statsDirection - Direction of the stats (optional, default: 'column')
  *
- * @param statsStyle - Style of the stats (optional)
+ * @param fontSize - Font size of the stats (optional, default: 'md')
  *
- * @param containerStyle - Style of the container (optional)
+ * @param gap - Gap between the stats (optional, default: '32px')
  *
- * @param onProfileClick - Function to be called when the name/address or Avatar is clicked (optional)
+ * @param isPrefetchedStatsLoading - Whether the stats are prefetched and loading (optional, default: false)
  *
  * @param onStatClick - Function to be called when a stat is clicked (optional)
  *
@@ -30,57 +32,62 @@ import './ProfileStats.css'
  * @returns ProfileStats component
  */
 const ProfileStats: React.FC<ProfileStatsProps> = ({
-  addressOrName,
   list,
-  containerDirection = 'row',
+  addressOrName,
+  fontSize = 'md',
+  gap = '32px',
   statsDirection = 'column',
-  statsStyle,
-  containerStyle,
+  containerDirection = 'row',
+  isPrefetchedStatsLoading = false,
   onStatClick = defaultOnStatClick,
 }) => {
   const { followers, following, statsLoading } = useProfileStats({ addressOrName, list })
+  const isLoading = isPrefetchedStatsLoading || statsLoading
+
+  const stats = {
+    followers: {
+      value: followers,
+      label: 'Followers',
+    },
+    following: {
+      value: following,
+      label: 'Following',
+    },
+  }
 
   return (
     <div
       className="profile-stats-container"
       style={{
         flexDirection: containerDirection,
-        gap: '32px',
-        ...containerStyle,
+        gap,
       }}
     >
-      <div
-        className="profile-stats-item"
-        style={{
-          flexDirection: statsDirection,
-          ...statsStyle,
-        }}
-        enable-hover={!!onStatClick ? 'true' : 'false'}
-        onClick={() => onStatClick({ addressOrName: addressOrName, stat: 'following' })}
-      >
-        {statsLoading ? (
-          <LoadingCell height="24px" width="64px" />
-        ) : (
-          <div className="profile-stats-item-value">{following ? formatNumber(following) : '-'}</div>
-        )}
-        <div className="profile-stats-item-label">Following</div>
-      </div>
-      <div
-        className="profile-stats-item"
-        style={{
-          flexDirection: statsDirection,
-          ...statsStyle,
-        }}
-        enable-hover={!!onStatClick ? 'true' : 'false'}
-        onClick={() => onStatClick({ addressOrName, stat: 'followers' })}
-      >
-        {statsLoading ? (
-          <LoadingCell height="24px" width="64px" />
-        ) : (
-          <div className="profile-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
-        )}
-        <div className="profile-stats-item-label">Followers</div>
-      </div>
+      {Object.entries(stats).map(([key, { value, label }]) => (
+        <div
+          key={key}
+          className={clsx('profile-stats-item', {
+            'profile-stats-item-xs': fontSize === 'xs',
+            'profile-stats-item-sm': fontSize === 'sm',
+            'profile-stats-item-md': fontSize === 'md',
+            'profile-stats-item-lg': fontSize === 'lg',
+            'profile-stats-item-xl': fontSize === 'xl',
+          })}
+          style={{
+            flexDirection: statsDirection,
+            fontSize,
+          }}
+          enable-hover={!!onStatClick ? 'true' : 'false'}
+          onClick={() => onStatClick({ addressOrName, stat: key as ProfileStatType })}
+        >
+          {isLoading ? (
+            <LoadingCell height="24px" width="64px" />
+          ) : (
+            <div className="profile-stats-item-value">{value ? formatNumber(value) : '0'}</div>
+          )}
+          <div className="profile-stats-item-label">{label}</div>
+        </div>
+      ))}
     </div>
   )
 }

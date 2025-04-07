@@ -194,6 +194,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                     prefetchedStats={statsData}
                     containerDirection="row"
                     statsDirection="row"
+                    fontSize="lg"
                     onStatClick={onStatClick}
                   />
                   <div className="user-profile-desktop-common-followers-container">

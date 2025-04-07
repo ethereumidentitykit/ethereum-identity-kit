@@ -1,5 +1,5 @@
 .profile-card {
-  width: 300px;
+  width: 350px;
   position: relative;
   text-align: center;
   border-radius: 4px;
@@ -83,6 +83,7 @@
   border-radius: 4px;
   color: #000;
   margin: 2px 0;
+  text-align: left;
 }
 
 .dark .profile-status {
@@ -105,35 +106,6 @@
   align-items: flex-start;
   gap: 4px;
   margin: 0;
-}
-
-.profile-card-stats-container {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.profile-card-stats-item {
-  display: flex;
-  flex-direction: row !important;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.2s ease;
-}
-
-.profile-card-stats-item[enable-hover='true']:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
-
-.profile-card-stats-item-value {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.profile-card-stats-item-label {
-  font-size: 15px;
-  font-weight: 500;
 }
 
 .common-followers-container {

@@ -3,7 +3,6 @@ import { clsx } from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileStats } from '../../hooks/useProfileStats'
 import { useProfileDetails } from '../../hooks/useProfileDetails'
-import { formatNumber } from '../../utils/formatters'
 import { truncateAddress } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
 import Bio from './components/bio'
@@ -17,6 +16,7 @@ import CommonFollowers from '../common-followers/CommonFollowers'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { ProfileCardProps } from './ProfileCard.types'
 import EFPPoaps from '../efp-poaps/EFPPoaps'
+import ProfileStats from '../profile-stats/ProfileStats'
 import './ProfileCard.css'
 
 /**
@@ -151,32 +151,20 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             )}
           </div>
         )}
-        <div className="profile-card-stats-container">
-          <div
-            className="profile-card-stats-item"
-            enable-hover={!!onStatClick ? 'true' : 'false'}
-            onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'following' })}
-          >
-            {isStatsLoading ? (
-              <LoadingCell height="24px" width="50px" />
-            ) : (
-              <div className="profile-card-stats-item-value">{following ? formatNumber(following) : '-'}</div>
-            )}
-            <div className="profile-card-stats-item-label">Following</div>
-          </div>
-          <div
-            className="profile-card-stats-item"
-            enable-hover={!!onStatClick ? 'true' : 'false'}
-            onClick={() => onStatClick({ addressOrName: address || addressOrName, stat: 'followers' })}
-          >
-            {isStatsLoading ? (
-              <LoadingCell height="24px" width="50px" />
-            ) : (
-              <div className="profile-card-stats-item-value">{followers ? formatNumber(followers) : '-'}</div>
-            )}
-            <div className="profile-card-stats-item-label">Followers</div>
-          </div>
-        </div>
+        <ProfileStats
+          addressOrName={addressOrName}
+          list={list}
+          onStatClick={onStatClick}
+          prefetchedStats={{
+            followers_count: followers || 0,
+            following_count: following || 0,
+          }}
+          isPrefetchedStatsLoading={isStatsLoading}
+          fontSize="md"
+          gap="20px"
+          statsDirection="row"
+          containerDirection="row"
+        />
         {ens?.records?.status && <p className="profile-status">&quot;{ens?.records?.status}&quot;</p>}
         <div className="profile-bio">
           {isDetailsLoading ? (

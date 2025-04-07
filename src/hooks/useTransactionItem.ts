@@ -48,7 +48,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     account: walletClient?.account,
   })
   const capabilities = useMemo(() => {
-    if (!availableCapabilities || !walletClient?.account || !transaction.chainId) return {}
+    if (!availableCapabilities || !walletClient?.account || !transaction.chainId || !paymasterService) return {}
     const capabilitiesForChain = availableCapabilities[transaction.chainId]
     if (capabilitiesForChain['paymasterService'] && capabilitiesForChain['paymasterService'].supported) {
       return {
@@ -58,7 +58,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       }
     }
     return {}
-  }, [availableCapabilities, transaction.chainId])
+  }, [availableCapabilities, transaction.chainId, paymasterService])
 
   const usesPaymaster = useMemo(
     () => Boolean(paymasterService && capabilities?.paymasterService?.url),

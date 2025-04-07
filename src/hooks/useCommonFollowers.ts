@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { truncateAddress } from '../utils'
 import { fetchCommonFollowers } from '../utils/api/fetch-common-followers'
@@ -16,18 +17,21 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
     refetchOnWindowFocus: false,
   })
 
+  const sortedResults = useMemo(() => {
+    return data && data.results.length > 0
+      ? data.results.sort((a, b) =>
+          // sort by avatar                                         // sort by name
+          a.avatar && b.avatar ? 1 : a.avatar ? -1 : b.avatar ? 1 : a.name && b.name ? 1 : a.name ? -1 : b.name ? 1 : -1
+        )
+      : []
+  }, [data])
+
   // First 3 avatars and names to be displayed in the component
-  const displayedAvatars =
-    data && data.results.length > 0
-      ? data.results.slice(0, 3).map((result) => ({
-          avatar: result.avatar,
-          address: result.address,
-        }))
-      : []
-  const displayedNames =
-    data && data.results.length > 0
-      ? data.results.slice(0, 2).map((result) => result.name || truncateAddress(result.address))
-      : []
+  const displayedAvatars = sortedResults.slice(0, 3).map((result) => ({
+    avatar: result.avatar,
+    address: result.address,
+  }))
+  const displayedNames = sortedResults.slice(0, 2).map((result) => result.name || truncateAddress(result.address))
   const resultLength = data?.length || 0
 
   return {

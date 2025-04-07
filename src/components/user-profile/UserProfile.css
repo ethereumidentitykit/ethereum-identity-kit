@@ -134,6 +134,7 @@
   font-style: italic;
   font-weight: 500;
   z-index: 10;
+  margin: 0;
 }
 
 .dark .user-profile-status-mobile,
@@ -170,6 +171,10 @@
 @media screen and (max-width: 1280px) {
   .user-profile-content {
     padding: 48px 16px;
+  }
+
+  .user-profile-role {
+    left: 16px;
   }
 }
 

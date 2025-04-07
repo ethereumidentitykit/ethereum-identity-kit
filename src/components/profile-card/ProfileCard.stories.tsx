@@ -29,21 +29,10 @@ ProfileCardByAddress.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
   style: {
-    width: '300px',
+    width: '400px',
   },
   darkMode: false,
   onProfileClick,
-  // options: {
-  //   followButton: <button style={{
-  //     backgroundColor: '#ffE060',
-  //     color: '#000',
-  //     width: '110px',
-  //     height: '37px',
-  //     borderRadius: '4px',
-  //     border: 'none',
-  //     cursor: 'pointer',
-  //   }}>Follow</button>,
-  // },
 }
 
 export const ProfileCardByENS = Template.bind({})
@@ -52,7 +41,7 @@ ProfileCardByENS.args = {
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
   style: {
-    width: '300px',
+    width: '400px',
   },
   darkMode: false,
   onProfileClick,
@@ -64,9 +53,6 @@ ProfileCardByList.args = {
   list: '5',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
-  style: {
-    width: '300px',
-  },
   darkMode: false,
   onProfileClick,
 }
