@@ -16,4 +16,5 @@ export type ProfileCardProps = {
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions
+  selectedList?: ProfileListType
 } & React.HTMLAttributes<HTMLDivElement>

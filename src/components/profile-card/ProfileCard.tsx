@@ -58,6 +58,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   options,
   className,
   style,
+  selectedList,
   ...props
 }) => {
   const {
@@ -192,6 +193,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           displayEmpty={false}
           onProfileClick={onProfileClick}
           hasModal={true}
+          selectedList={selectedList}
         />
       )}
       {showPoaps && <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} />}
