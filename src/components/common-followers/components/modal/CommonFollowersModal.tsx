@@ -31,6 +31,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
           </button>
         </div>
         <ProfileList
+          connectedAddress={connectedAddress}
           profiles={commonFollowersProfiles}
           isLoading={commonFollowersIsLoading}
           onProfileClick={onProfileClick}
