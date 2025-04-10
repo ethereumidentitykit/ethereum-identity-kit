@@ -23,6 +23,8 @@ import CommonFollowersModal from './components/modal/CommonFollowersModal'
  *
  * @param darkMode (optional) - whether to use dark mode
  *
+ * @param selectedList (optional) - the list to use for the common followers
+ *
  * @returns CommonFollowers component
  */
 const CommonFollowers: React.FC<CommonFollowersProps> = ({
@@ -32,6 +34,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
   onProfileClick,
   hasModal = false,
   darkMode = false,
+  selectedList,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -52,6 +55,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
           lookupAddressOrName={lookupAddressOrName}
           onProfileClick={onProfileClick}
           darkMode={darkMode}
+          selectedList={selectedList}
         />
       )}
       <div
@@ -62,24 +66,24 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
         <div className="common-followers-avatars-container">
           {isLoading
             ? new Array(3)
-                .fill(null)
-                .map((_, index) => (
-                  <LoadingCell
-                    key={index}
-                    height="32px"
-                    width="32px"
-                    style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
-                  />
-                ))
-            : displayedAvatars?.map(({ avatar, address }, index) => (
-                <Avatar
-                  key={address}
-                  src={avatar}
-                  address={address}
-                  onClick={() => !hasModal && onProfileClick?.(address)}
-                  style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+              .fill(null)
+              .map((_, index) => (
+                <LoadingCell
+                  key={index}
+                  height="32px"
+                  width="32px"
+                  style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
                 />
-              ))}
+              ))
+            : displayedAvatars?.map(({ avatar, address }, index) => (
+              <Avatar
+                key={address}
+                src={avatar}
+                address={address}
+                onClick={() => !hasModal && onProfileClick?.(address)}
+                style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+              />
+            ))}
         </div>
         {isLoading ? (
           <LoadingCell height="32px" width="100%" style={{ transform: 'translateX(-32px)' }} />

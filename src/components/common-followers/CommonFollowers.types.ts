@@ -1,4 +1,4 @@
-import { Address } from '../../types'
+import { Address, ProfileListType } from '../../types'
 
 export type CommonFollowersProps = {
   connectedAddress: Address
@@ -7,4 +7,5 @@ export type CommonFollowersProps = {
   onProfileClick?: (address: Address) => void
   hasModal?: boolean
   darkMode?: boolean
+  selectedList?: ProfileListType
 }

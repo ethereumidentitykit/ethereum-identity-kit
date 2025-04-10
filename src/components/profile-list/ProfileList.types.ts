@@ -1,10 +1,10 @@
-import { Address, ENSProfile, InitialFollowingState } from '../../types'
+import { Address, ENSProfile, InitialFollowingState, ProfileListType } from '../../types'
 
 export type ProfileListProps = {
   profiles: ProfileItemType[]
   darkMode?: boolean
   connectedAddress?: Address
-  selectedList?: string
+  selectedList?: ProfileListType
   isLoading?: boolean
   loadingRows?: number
   tags?: string[]

@@ -1,10 +1,10 @@
-import { Address, InitialFollowingState } from '../../types'
+import { Address, InitialFollowingState, ProfileListType } from '../../types'
 import { ProfileItemType } from '../profile-list/ProfileList.types'
 
 export type ProfileListRowProps = {
   profile: ProfileItemType
   connectedAddress?: Address
-  selectedList?: string
+  selectedList?: ProfileListType
   tags?: string[]
   showTags?: boolean
   canEditTags?: boolean

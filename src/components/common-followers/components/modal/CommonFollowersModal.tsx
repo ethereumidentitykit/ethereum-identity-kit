@@ -13,6 +13,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
   lookupAddressOrName,
   onProfileClick,
   darkMode,
+  selectedList,
 }) => {
   const { commonFollowersProfiles, isEndOfFollowing, commonFollowersIsLoading, loadMoreRef } = useCommonFollowersModal({
     connectedAddress,
@@ -31,6 +32,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
           </button>
         </div>
         <ProfileList
+          selectedList={selectedList}
           connectedAddress={connectedAddress}
           profiles={commonFollowersProfiles}
           isLoading={commonFollowersIsLoading}

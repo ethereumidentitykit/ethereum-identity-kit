@@ -1,4 +1,4 @@
-import { Address, InitialFollowingState, FollowingState } from '../../types'
+import { Address, InitialFollowingState, FollowingState, ProfileListType } from '../../types'
 
 export type FollowButtonProps = {
   lookupAddress: Address
@@ -8,6 +8,6 @@ export type FollowButtonProps = {
   sounds?: Record<FollowingState, string | undefined>
   customClassNames?: Record<FollowingState, string>
   customLoader?: React.ReactNode
-  selectedList?: string
+  selectedList?: ProfileListType
   initialState?: InitialFollowingState
 } & React.HTMLAttributes<HTMLButtonElement>

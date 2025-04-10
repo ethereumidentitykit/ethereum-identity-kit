@@ -37,6 +37,7 @@ CommonFollowersByAddress.args = {
     console.log(address)
   },
   darkMode: false,
+  selectedList: '5',
 }
 
 export const CommonFollowersByENS = Template.bind({})

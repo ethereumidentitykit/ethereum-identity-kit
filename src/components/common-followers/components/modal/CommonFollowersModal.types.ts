@@ -1,4 +1,5 @@
 import { Address } from '../../../../types/address'
+import { ProfileListType } from '../../../../types'
 
 export interface CommonFollowersModalProps {
   isOpen: boolean
@@ -7,4 +8,5 @@ export interface CommonFollowersModalProps {
   connectedAddress: Address
   lookupAddressOrName: Address | string
   onProfileClick?: (address: Address) => void
+  selectedList?: ProfileListType
 }
