@@ -18,12 +18,18 @@
   max-width: 660px;
   box-sizing: border-box;
   background-color: #fff;
+  color: #000;
   border-radius: 4px;
   padding: 12px 12px 20px 12px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.dark .common-followers-modal-container {
+  background-color: #333;
+  color: #fff;
 }
 
 .common-followers-modal-header {
@@ -45,6 +51,10 @@
   transition: all 0.2s ease;
   border: none;
   background: none;
+}
+
+.dark .common-followers-modal-close-button {
+  color: #fff;
 }
 
 .common-followers-modal-close-button:hover {

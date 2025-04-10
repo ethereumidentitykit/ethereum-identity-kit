@@ -17,6 +17,12 @@ import CommonFollowersModal from './components/modal/CommonFollowersModal'
  *
  * @param displayEmpty (optional) - whether to display the component when there are no common followers
  *
+ * @param onProfileClick (optional) - the function to call when a profile is clicked
+ *
+ * @param hasModal (optional) - whether to show the modal when the component is clicked
+ *
+ * @param darkMode (optional) - whether to use dark mode
+ *
  * @returns CommonFollowers component
  */
 const CommonFollowers: React.FC<CommonFollowersProps> = ({
@@ -25,6 +31,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
   displayEmpty = true,
   onProfileClick,
   hasModal = false,
+  darkMode = false,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -44,10 +51,11 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
           connectedAddress={connectedAddress}
           lookupAddressOrName={lookupAddressOrName}
           onProfileClick={onProfileClick}
+          darkMode={darkMode}
         />
       )}
       <div
-        className="common-followers-container"
+        className={`common-followers-container ${darkMode ? 'dark' : ''}`}
         enable-hover={hasModal ? 'true' : 'false'}
         onClick={() => setIsModalOpen(true)}
       >

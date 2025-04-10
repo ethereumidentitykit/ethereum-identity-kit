@@ -36,10 +36,12 @@ CommonFollowersByAddress.args = {
   onProfileClick: (address) => {
     console.log(address)
   },
+  darkMode: false,
 }
 
 export const CommonFollowersByENS = Template.bind({})
 CommonFollowersByENS.args = {
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   lookupAddressOrName: 'encrypteddegen.eth',
+  darkMode: false,
 }

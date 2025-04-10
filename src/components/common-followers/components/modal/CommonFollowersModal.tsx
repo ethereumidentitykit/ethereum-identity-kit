@@ -12,6 +12,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
   connectedAddress,
   lookupAddressOrName,
   onProfileClick,
+  darkMode,
 }) => {
   const { commonFollowersProfiles, isEndOfFollowing, commonFollowersIsLoading, loadMoreRef } = useCommonFollowersModal({
     connectedAddress,
@@ -21,7 +22,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
   if (!isOpen) return null
 
   return (
-    <div className="common-followers-modal-backdrop" onClick={onClose}>
+    <div className={`common-followers-modal-backdrop ${darkMode ? 'dark' : ''}`} onClick={onClose}>
       <div className="common-followers-modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="common-followers-modal-header">
           <h3 className="common-followers-modal-title">Common Followers</h3>

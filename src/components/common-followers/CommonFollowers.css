@@ -27,7 +27,7 @@
   padding-top: 4px;
   padding-bottom: 2px;
   text-align: left;
-  color: #888;
+  color: #666;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -36,4 +36,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   margin: 0px;
+}
+
+.dark .common-followers-text-container {
+  color: #aaa;
 }

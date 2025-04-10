@@ -6,4 +6,5 @@ export type CommonFollowersProps = {
   displayEmpty?: boolean
   onProfileClick?: (address: Address) => void
   hasModal?: boolean
+  darkMode?: boolean
 }
