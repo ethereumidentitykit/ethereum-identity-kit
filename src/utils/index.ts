@@ -8,6 +8,7 @@ import { fetchProfileStats } from './api/fetch-profile-stats'
 import { fetchProfileDetails } from './api/fetch-profile-details'
 import { fetchCommonFollowers } from './api/fetch-common-followers'
 import { fetchProfileEFPPoaps } from './api/fetch-profile-efp-poaps'
+import { fetchAllCommonFollowers } from './api/fetch-all-common-followers'
 
 export {
   isAddress,
@@ -21,6 +22,7 @@ export {
   fetchProfileLists,
   fetchCommonFollowers,
   fetchProfileEFPPoaps,
+  fetchAllCommonFollowers,
 }
 
 export * from './profile'

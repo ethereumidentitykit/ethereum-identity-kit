@@ -5,4 +5,5 @@ export type CommonFollowersProps = {
   lookupAddressOrName: Address | string
   displayEmpty?: boolean
   onProfileClick?: (address: Address) => void
+  hasModal?: boolean
 }

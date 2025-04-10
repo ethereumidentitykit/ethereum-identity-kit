@@ -18,6 +18,8 @@ export const noCommonFollowers = {
   length: 0,
 } satisfies CommonFollowersResponse
 
+export const FETCH_LIMIT = 20
+
 export * from './socials'
 export * from './chains'
 export * from './contracts'

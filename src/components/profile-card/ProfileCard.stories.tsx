@@ -2,6 +2,10 @@ import { StoryFn, Meta } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProfileCard from './ProfileCard'
 import { Address } from '../../types/address'
+import { WagmiProvider } from 'wagmi'
+import { wagmiConfig } from '../../constants/wagmi'
+import { TransactionProvider } from '../../context'
+import TransactionModal from '../transaction-modal/TransactionModal'
 
 const queryClient = new QueryClient()
 
@@ -15,7 +19,12 @@ export default {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
+        <WagmiProvider config={wagmiConfig}>
+          <TransactionProvider>
+            <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
+            <TransactionModal />
+          </TransactionProvider>
+        </WagmiProvider>
       </QueryClientProvider>
     ),
   ],

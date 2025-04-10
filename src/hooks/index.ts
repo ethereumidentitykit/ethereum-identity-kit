@@ -11,6 +11,7 @@ import { useFollowingState } from './useFollowingState'
 import { useProfileDetails } from './useProfileDetails'
 import { useTransactionItem } from './useTransactionItem'
 import { useCommonFollowers } from './useCommonFollowers'
+import { useCommonFollowersModal } from './useCommonFollowersModal'
 
 export {
   useFollowingState,
@@ -26,4 +27,5 @@ export {
   useOutsideClick,
   useEFPPoaps,
   useIsClient,
+  useCommonFollowersModal,
 }

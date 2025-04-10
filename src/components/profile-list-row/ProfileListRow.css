@@ -15,7 +15,7 @@
 }
 
 .profile-list-row-name {
-  width: 100%;
+  width: fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -28,6 +28,7 @@
 
 .clickable:hover {
   opacity: 0.8;
+  scale: 1.05;
 }
 
 .profile-list-row-details {

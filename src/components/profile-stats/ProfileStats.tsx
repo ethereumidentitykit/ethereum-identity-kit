@@ -45,13 +45,13 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   const isLoading = isPrefetchedStatsLoading || statsLoading
 
   const stats = {
-    followers: {
-      value: followers,
-      label: 'Followers',
-    },
     following: {
       value: following,
       label: 'Following',
+    },
+    followers: {
+      value: followers,
+      label: 'Followers',
     },
   }
 

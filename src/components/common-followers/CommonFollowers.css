@@ -1,10 +1,16 @@
 .common-followers-container {
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 12px;
   padding: 2px 0px;
+  transition: all 0.2s ease;
+}
+
+.common-followers-container[enable-hover='true']:hover {
+  cursor: pointer;
+  scale: 1.05;
 }
 
 .common-followers-avatars-container {

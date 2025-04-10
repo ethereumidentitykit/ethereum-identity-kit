@@ -1,0 +1,53 @@
+.common-followers-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  z-index: 1000;
+  justify-content: center;
+  padding: 40px 12px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.common-followers-modal-container {
+  width: 100%;
+  max-width: 660px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 12px 12px 20px 12px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.common-followers-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+.common-followers-modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+}
+
+.common-followers-modal-close-button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+}
+
+.common-followers-modal-close-button:hover {
+  scale: 1.1;
+  opacity: 0.8;
+}

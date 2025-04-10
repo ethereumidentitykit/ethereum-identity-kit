@@ -204,6 +204,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                           connectedAddress={connectedAddress}
                           lookupAddressOrName={address}
                           onProfileClick={onProfileClick}
+                          hasModal={true}
                         />
                       </div>
                     )}
@@ -227,6 +228,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                         lookupAddressOrName={address}
                         connectedAddress={connectedAddress}
                         onProfileClick={onProfileClick}
+                        hasModal={true}
                       />
                     </div>
                   )}

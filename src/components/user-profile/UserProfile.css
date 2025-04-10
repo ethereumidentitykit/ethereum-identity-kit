@@ -206,7 +206,7 @@
   width: 100%;
   gap: 12px;
   align-items: center;
-  padding: 0;
+  padding: 10px 0 0 0;
   margin: 0;
 }
 
@@ -218,7 +218,7 @@
   white-space: nowrap;
   line-height: 1.1;
   color: #333;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   transition: all 0.2s;
   padding: 0;

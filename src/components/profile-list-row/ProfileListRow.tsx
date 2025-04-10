@@ -15,12 +15,19 @@ import './ProfileListRow.css'
  * ProfileListRow component - displays a row of a profile in a list
  *
  * @param profile - the profile to display
+ *
  * @param connectedAddress - the address of the connected user
+ *
  * @param selectedList - the list to display
+ *
  * @param showTags - whether to show the tags
+ *
  * @param canEditTags - whether to allow editing of the tags
+ *
  * @param tags - the tags to display
+ *
  * @param initialFollowState - the initial follow state for FollowButton
+ *
  * @param onProfileClick - the function to call when the name/address or avatar is clicked
  */
 const ProfileListRow: React.FC<ProfileListRowProps> = ({
@@ -48,7 +55,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             address={profile.address}
             name={account?.ens?.name}
             style={{ width: '45px', height: '45px', borderRadius: '50%' }}
-            onClick={() => onProfileClick?.(profile.address)}
+            onClick={onProfileClick ? () => onProfileClick(profile.address) : undefined}
           />
         )}
         {isAccountLoading ? (

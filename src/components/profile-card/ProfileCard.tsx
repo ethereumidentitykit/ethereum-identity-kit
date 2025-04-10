@@ -191,6 +191,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           lookupAddressOrName={list ? address || addressOrName : addressOrName}
           displayEmpty={false}
           onProfileClick={onProfileClick}
+          hasModal={true}
         />
       )}
       {showPoaps && <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} />}

@@ -2,6 +2,10 @@ import { StoryFn, Meta } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import UserProfile from './UserProfile'
 import { Address } from '../../types/address'
+import { WagmiProvider } from 'wagmi'
+import { wagmiConfig } from '../../constants/wagmi'
+import { TransactionProvider } from '../../context'
+import TransactionModal from '../transaction-modal/TransactionModal'
 
 const queryClient = new QueryClient()
 
@@ -10,7 +14,7 @@ const onProfileClick = (addressOrName: Address | string) => {
 }
 
 export default {
-  title: 'Organisms/User Profile',
+  title: 'Organisms/Full width Profile Card',
   component: UserProfile,
   argTypes: {
     alignProfileContent: {
@@ -21,7 +25,12 @@ export default {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
+        <WagmiProvider config={wagmiConfig}>
+          <TransactionProvider>
+            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
+            <TransactionModal />
+          </TransactionProvider>
+        </WagmiProvider>
       </QueryClientProvider>
     ),
   ],
@@ -29,31 +38,18 @@ export default {
 
 const Template: StoryFn<typeof UserProfile> = (args) => <UserProfile {...args} />
 
-export const ProfileCardByAddress = Template.bind({})
-ProfileCardByAddress.args = {
+export const FullWidthProfileCardByAddress = Template.bind({})
+FullWidthProfileCardByAddress.args = {
   addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
   darkMode: false,
   onProfileClick,
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
-  role: 'Frontend developer',
-
-  // options: {
-  //   followButton: <button style={{
-  //     backgroundColor: '#ffE060',
-  //     color: '#000',
-  //     width: '110px',
-  //     height: '37px',
-  //     borderRadius: '4px',
-  //     border: 'none',
-  //     cursor: 'pointer',
-  //   }}>Follow</button>,
-  // },
 }
 
-export const ProfileCardByENS = Template.bind({})
-ProfileCardByENS.args = {
+export const FullWidthProfileCardByENS = Template.bind({})
+FullWidthProfileCardByENS.args = {
   addressOrName: 'encrypteddegen.eth',
   showFollowerState: true,
   darkMode: false,
@@ -61,10 +57,11 @@ ProfileCardByENS.args = {
   style: {
     paddingBottom: '120px',
   },
+  role: 'Frontend developer',
 }
 
-export const ProfileCardByList = Template.bind({})
-ProfileCardByList.args = {
+export const FullWidthProfileCardByList = Template.bind({})
+FullWidthProfileCardByList.args = {
   addressOrName: '',
   list: '5',
   showFollowerState: true,
@@ -72,8 +69,8 @@ ProfileCardByList.args = {
   onProfileClick,
 }
 
-export const ProfileCardPrefetched = Template.bind({})
-ProfileCardPrefetched.args = {
+export const FullWidthProfileCardPrefetched = Template.bind({})
+FullWidthProfileCardPrefetched.args = {
   addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
   options: {
