@@ -55,8 +55,6 @@ export const useCommonFollowersModal = ({ connectedAddress, lookupAddressOrName 
     refetchOnWindowFocus: false,
   })
 
-  console.log(fetchedCommonFollowers)
-
   const commonFollowers = fetchedCommonFollowers
     ? fetchedCommonFollowers.pages.reduce((acc, el) => [...acc, ...el.commonFollowers], [] as CommonFollower[])
     : []
