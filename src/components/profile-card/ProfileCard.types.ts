@@ -17,4 +17,5 @@ export type ProfileCardProps = {
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions
   selectedList?: ProfileListType
+  hasCommonFollowersModal?: boolean
 } & React.HTMLAttributes<HTMLDivElement>

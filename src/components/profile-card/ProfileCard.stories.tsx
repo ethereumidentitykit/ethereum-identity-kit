@@ -42,6 +42,7 @@ ProfileCardByAddress.args = {
   },
   darkMode: false,
   onProfileClick,
+  hasCommonFollowersModal: true,
 }
 
 export const ProfileCardByENS = Template.bind({})
@@ -54,6 +55,7 @@ ProfileCardByENS.args = {
   },
   darkMode: false,
   onProfileClick,
+  hasCommonFollowersModal: true,
 }
 
 export const ProfileCardByList = Template.bind({})
@@ -64,6 +66,7 @@ ProfileCardByList.args = {
   showFollowerState: true,
   darkMode: false,
   onProfileClick,
+  hasCommonFollowersModal: true,
 }
 
 export const ProfileCardPrefetched = Template.bind({})
@@ -99,4 +102,5 @@ ProfileCardPrefetched.args = {
     },
   },
   onProfileClick,
+  hasCommonFollowersModal: true,
 }

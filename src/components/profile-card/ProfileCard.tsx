@@ -44,6 +44,8 @@ import './ProfileCard.css'
  *
  * @param props - HTML div element props (optional)
  *
+ * @param hasCommonFollowersModal - Whether to show the common followers modal (optional)
+ *
  * @returns ProfileCard component
  */
 const ProfileCard: React.FC<ProfileCardProps> = ({
@@ -59,6 +61,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   className,
   style,
   selectedList,
+  hasCommonFollowersModal = true,
   ...props
 }) => {
   const {
@@ -192,7 +195,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           lookupAddressOrName={list ? address || addressOrName : addressOrName}
           displayEmpty={false}
           onProfileClick={onProfileClick}
-          hasModal={true}
+          hasModal={hasCommonFollowersModal}
           selectedList={selectedList}
         />
       )}

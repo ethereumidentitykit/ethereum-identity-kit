@@ -8,7 +8,6 @@ export const formatNumber = (number: number) => {
 
 export const formatCommonFollowersText = (displayedNames: string[], resultLength: number) => {
   if (resultLength === 0) return 'No common followers'
-
   if (resultLength === 2) return `${ens_beautify(displayedNames[0])} and ${ens_beautify(displayedNames[1])} follow them`
 
   let text = displayedNames
@@ -19,10 +18,8 @@ export const formatCommonFollowersText = (displayedNames: string[], resultLength
     text += ` and ${resultLength - 2} `
   }
 
-  if (resultLength === 1) return (text += 'follows them')
-  if (resultLength === 2) return (text += 'follow them')
+  if (resultLength === 1) return (text += ' follows them')
   if (resultLength === 3) return (text += 'other you know follows them')
-
   return (text += 'others you know follow them')
 }
 

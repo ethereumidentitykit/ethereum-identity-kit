@@ -46,6 +46,7 @@ FullWidthProfileCardByAddress.args = {
   onProfileClick,
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
+  showPoaps: true,
 }
 
 export const FullWidthProfileCardByENS = Template.bind({})
@@ -58,6 +59,7 @@ FullWidthProfileCardByENS.args = {
     paddingBottom: '120px',
   },
   role: 'Frontend developer',
+  showPoaps: true,
 }
 
 export const FullWidthProfileCardByList = Template.bind({})
@@ -67,6 +69,7 @@ FullWidthProfileCardByList.args = {
   showFollowerState: true,
   darkMode: false,
   onProfileClick,
+  showPoaps: false,
 }
 
 export const FullWidthProfileCardPrefetched = Template.bind({})
@@ -101,4 +104,5 @@ FullWidthProfileCardPrefetched.args = {
     },
   },
   onProfileClick,
+  showPoaps: true,
 }

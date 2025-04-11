@@ -23,12 +23,12 @@
 
 .clickable {
   cursor: pointer;
-  transition: opacity 0.2s ease-in-out;
+  transition: all 0.2s;
 }
 
 .clickable:hover {
   opacity: 0.8;
-  scale: 1.05;
+  scale: 1.075;
 }
 
 .profile-list-row-details {
@@ -52,6 +52,7 @@
   .profile-list-row {
     width: 100%;
   }
+
   .profile-list-row-details p {
     max-width: calc(100vw - 110px - 45px - 32px - 40px);
   }

@@ -158,7 +158,12 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
               },
             ],
             capabilities,
-          }).then((hash) => hash.slice(0, 66) as `0x${string}`)
+          }).then((hash) => {
+            // Older versions of wagmi are returning a string
+            if (typeof hash === 'string') return (hash as string).slice(0, 66) as `0x${string}`
+            // Newer versions of wagmi are returning an object where hash is in the id property
+            return hash.id?.slice(0, 66) as `0x${string}`
+          })
         : await walletClient?.writeContract({
             address: transaction.address,
             abi: transaction.abi,
