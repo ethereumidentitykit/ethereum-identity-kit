@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { ens_beautify } from '@adraffy/ens-normalize'
 import { truncateAddress } from '../utils'
 import { fetchCommonFollowers } from '../utils/api/fetch-common-followers'
 import { noCommonFollowers } from '../constants'
@@ -31,7 +32,9 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
     avatar: result.avatar,
     address: result.address,
   }))
-  const displayedNames = sortedResults.slice(0, 2).map((result) => result.name || truncateAddress(result.address))
+  const displayedNames = sortedResults
+    .slice(0, 2)
+    .map((result) => (result.name ? ens_beautify(result.name) : truncateAddress(result.address)))
   const resultLength = data?.length || 0
 
   return {

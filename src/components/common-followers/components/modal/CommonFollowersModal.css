@@ -20,11 +20,11 @@
   background-color: #fff;
   color: #000;
   border-radius: 4px;
-  padding: 12px 12px 20px 12px;
+  padding: 24px 16px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .dark .common-followers-modal-container {
@@ -36,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 0 20px;
 }
 
 .common-followers-modal-title {
@@ -60,4 +60,36 @@
 .common-followers-modal-close-button:hover {
   scale: 1.1;
   opacity: 0.8;
+}
+
+.common-followers-modal-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #f0f0f0;
+  padding: 16px 10px;
+  border-radius: 4px;
+}
+
+.dark .common-followers-modal-list-container {
+  background-color: #333;
+}
+
+@media screen and (max-width: 640px) {
+  .common-followers-modal-container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .common-followers-modal-header {
+    padding: 12px;
+  }
+
+  .common-followers-modal-title {
+    font-size: 20px;
+  }
+
+  .common-followers-modal-list-container {
+    padding: 12px 2px;
+  }
 }

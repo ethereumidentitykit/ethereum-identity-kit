@@ -26,22 +26,24 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
     <div className={`common-followers-modal-backdrop ${darkMode ? 'dark' : ''}`} onClick={onClose}>
       <div className="common-followers-modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="common-followers-modal-header">
-          <h3 className="common-followers-modal-title">Common Followers</h3>
+          <h3 className="common-followers-modal-title">Friends who follow them</h3>
           <button onClick={onClose} className="common-followers-modal-close-button">
             <Cross height={16} width={16} />
           </button>
         </div>
-        <ProfileList
-          selectedList={selectedList}
-          connectedAddress={connectedAddress}
-          profiles={commonFollowersProfiles}
-          isLoading={commonFollowersIsLoading}
-          onProfileClick={onProfileClick}
-          loadingRows={FETCH_LIMIT}
-        />
-        {!isEndOfFollowing && !commonFollowersIsLoading && (
-          <div id="load-more-container" ref={loadMoreRef as React.RefObject<HTMLDivElement>} />
-        )}
+        <div className="common-followers-modal-list-container">
+          <ProfileList
+            selectedList={selectedList}
+            connectedAddress={connectedAddress}
+            profiles={commonFollowersProfiles}
+            isLoading={commonFollowersIsLoading}
+            onProfileClick={onProfileClick}
+            loadingRows={FETCH_LIMIT}
+          />
+          {!isEndOfFollowing && !commonFollowersIsLoading && (
+            <div id="load-more-container" ref={loadMoreRef as React.RefObject<HTMLDivElement>} />
+          )}
+        </div>
       </div>
     </div>
   )

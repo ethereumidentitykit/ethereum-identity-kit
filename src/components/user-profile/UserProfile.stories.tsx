@@ -1,11 +1,11 @@
+import { WagmiProvider } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import UserProfile from './UserProfile'
-import { Address } from '../../types/address'
-import { WagmiProvider } from 'wagmi'
-import { wagmiConfig } from '../../constants/wagmi'
 import { TransactionProvider } from '../../context'
+import UserProfile from './UserProfile'
 import TransactionModal from '../transaction-modal/TransactionModal'
+import { wagmiConfig } from '../../constants/wagmi'
+import { Address } from '../../types/address'
 
 const queryClient = new QueryClient()
 
@@ -17,6 +17,10 @@ export default {
   title: 'Organisms/Full width Profile Card',
   component: UserProfile,
   argTypes: {
+    addressOrName: {
+      control: 'text',
+      type: 'string',
+    },
     alignProfileContent: {
       control: 'select',
       options: ['center', 'start', 'end'],
@@ -47,6 +51,7 @@ FullWidthProfileCardByAddress.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
   showPoaps: true,
+  options: {},
 }
 
 export const FullWidthProfileCardByENS = Template.bind({})
@@ -64,7 +69,7 @@ FullWidthProfileCardByENS.args = {
 
 export const FullWidthProfileCardByList = Template.bind({})
 FullWidthProfileCardByList.args = {
-  addressOrName: '',
+  addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   list: '5',
   showFollowerState: true,
   darkMode: false,

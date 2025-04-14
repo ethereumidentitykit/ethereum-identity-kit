@@ -1,18 +1,11 @@
-import { ens_beautify } from '@adraffy/ens-normalize'
+export const formatNumber = (number: number) => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
 
-export const formatNumber = (number: number) => {
-  const formattedNumber = new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
-
-  return formattedNumber
-}
-
+// formats the text shown in the common followers component next to the avatars
 export const formatCommonFollowersText = (displayedNames: string[], resultLength: number) => {
   if (resultLength === 0) return 'No common followers'
-  if (resultLength === 2) return `${ens_beautify(displayedNames[0])} and ${ens_beautify(displayedNames[1])} follow them`
+  if (resultLength === 2) return `${displayedNames[0]} and ${displayedNames[1]} follow them`
 
-  let text = displayedNames
-    ?.map((name, index) => `${ens_beautify(name)}${resultLength > 2 && index === 1 ? ',' : ''}`)
-    .join(', ')
+  let text = displayedNames?.map((name, index) => `${name}${resultLength > 2 && index === 1 ? ',' : ''}`).join(', ')
 
   if (resultLength > 2) {
     text += ` and ${resultLength - 2} `
@@ -23,6 +16,7 @@ export const formatCommonFollowersText = (displayedNames: string[], resultLength
   return (text += 'others you know follow them')
 }
 
+// formats the query parameters for api calls
 export const formatQueryParams = (inputs: Record<string, string | number | string[] | null | undefined>) =>
   Object.entries(inputs)
     .filter(([, value]) => !!value)
