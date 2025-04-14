@@ -28,4 +28,8 @@ export const ProfileStatsByList = Template.bind({})
 ProfileStatsByList.args = {
   addressOrName: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   list: '1',
+  prefetchedStats: {
+    followers_count: 100,
+    following_count: 100,
+  },
 }

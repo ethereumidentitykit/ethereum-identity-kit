@@ -20,7 +20,7 @@ export const useProfileStats = ({
 
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['stats', addressOrName, list, fetchFreshStats, prefetchedData],
-    queryFn: async () => prefetchedData ?? (await fetchProfileStats(addressOrName, list, fetchFreshStats)),
+    queryFn: async () => prefetchedData || (await fetchProfileStats(addressOrName, list, fetchFreshStats)),
     refetchOnWindowFocus: false,
   })
 

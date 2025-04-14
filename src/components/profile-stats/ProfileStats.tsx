@@ -36,12 +36,17 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   addressOrName,
   fontSize = 'md',
   gap = '32px',
+  prefetchedStats,
   statsDirection = 'column',
   containerDirection = 'row',
   isPrefetchedStatsLoading = false,
   onStatClick = defaultOnStatClick,
 }) => {
-  const { followers, following, statsLoading } = useProfileStats({ addressOrName, list })
+  const { followers, following, statsLoading } = useProfileStats({
+    addressOrName,
+    list,
+    prefetchedData: prefetchedStats,
+  })
   const isLoading = isPrefetchedStatsLoading || statsLoading
 
   const stats = {

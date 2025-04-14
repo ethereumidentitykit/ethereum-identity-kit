@@ -107,6 +107,10 @@ FullWidthProfileCardPrefetched.args = {
       },
       primary_list: '1',
     },
+    statsData: {
+      followers_count: 100,
+      following_count: 100,
+    },
   },
   onProfileClick,
   showPoaps: true,
