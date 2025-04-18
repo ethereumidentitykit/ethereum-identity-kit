@@ -12,6 +12,11 @@ export type ProfileListProps = {
   canEditTags?: boolean
   initialFollowState?: InitialFollowingState
   onProfileClick?: (address: Address) => void
+  showHeaderImage?: boolean
+  rowHeight?: number
+  visibleCount?: number
+  overscanCount?: number
+  listHeight?: string
 }
 
 export type ProfileItemType = {

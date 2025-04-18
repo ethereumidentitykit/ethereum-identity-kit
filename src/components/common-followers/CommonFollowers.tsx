@@ -39,7 +39,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { displayedAvatars, displayedNames, resultLength, isLoading } = useCommonFollowers(
+  const { displayedAvatars, displayedNames, displayedAddresses, resultLength, isLoading } = useCommonFollowers(
     connectedAddress,
     lookupAddressOrName
   )
@@ -91,7 +91,32 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
             onClick={() => hasModal && setIsModalOpen(true)}
             style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
           >
-            {displayedNames && formatCommonFollowersText(displayedNames, resultLength)}
+            {resultLength === 0 && 'No common followers'}
+            {displayedNames?.[0] && displayedAddresses?.[0] && (
+              <span
+                className="common-followers-name"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onProfileClick?.(displayedAddresses[0])
+                }}
+              >
+                {displayedNames[0]}
+              </span>
+            )}
+            {resultLength === 2 ? ' and ' : resultLength > 2 ? ', ' : ' '}
+            {displayedNames?.[1] && displayedAddresses?.[1] && (
+              <span
+                className="common-followers-name"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onProfileClick?.(displayedAddresses[1])
+                }}
+              >
+                {displayedNames[1]}
+              </span>
+            )}
+            {resultLength >= 3 && ' and '}
+            {formatCommonFollowersText(resultLength)}
           </p>
         )}
       </div>

@@ -156,6 +156,7 @@ export type CommonFollower = {
   name: string | null
   avatar: string | null
   mutuals_rank: string
+  header: string | null
 }
 
 export interface CommonFollowersResponse {

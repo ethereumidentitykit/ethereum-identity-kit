@@ -1,6 +1,6 @@
 .recommended-container {
   width: 100%;
-  padding: 3px 4px 12px 4px;
+  padding: 3px 0 12px 0;
   border-radius: 6px;
   background-color: #f4f4f4;
   margin-bottom: 10px;
@@ -18,7 +18,7 @@
 .recommended-title {
   font-size: 22px;
   font-weight: 600;
-  padding: 12px 0px 12px 12px;
+  padding: 16px 0px 16px 16px;
 }
 
 .recommended-empty {
@@ -39,6 +39,7 @@
 
 @media screen and (min-width: 1024px) {
   .recommended-empty {
-    height: calc(80vh - 230px);
+    min-height: calc(80vh - 230px);
+    height: fit-content;
   }
 }

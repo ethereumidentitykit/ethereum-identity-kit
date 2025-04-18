@@ -10,4 +10,5 @@ export type ProfileListRowProps = {
   canEditTags?: boolean
   initialFollowState?: InitialFollowingState
   onProfileClick?: (address: Address) => void
+  showHeaderImage?: boolean
 }

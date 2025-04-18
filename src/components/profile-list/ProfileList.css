@@ -5,6 +5,4 @@
   flex-direction: column;
   gap: 24px;
   box-sizing: border-box;
-  padding: 6px 10px;
-  overflow-y: visible;
 }

@@ -32,6 +32,7 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
     avatar: result.avatar,
     address: result.address,
   }))
+  const displayedAddresses = sortedResults.slice(0, 3).map((result) => result.address)
   const displayedNames = sortedResults
     .slice(0, 2)
     .map((result) => (result.name ? ens_beautify(result.name) : truncateAddress(result.address)))
@@ -41,6 +42,7 @@ export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrNam
     isLoading,
     displayedAvatars,
     displayedNames,
+    displayedAddresses,
     resultLength,
   }
 }

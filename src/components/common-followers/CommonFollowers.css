@@ -41,3 +41,11 @@
 .dark .common-followers-text-container {
   color: #aaa;
 }
+
+.common-followers-name {
+  cursor: pointer;
+}
+
+.common-followers-name:hover {
+  text-decoration: underline;
+}

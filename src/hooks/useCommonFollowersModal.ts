@@ -64,6 +64,7 @@ export const useCommonFollowersModal = ({ connectedAddress, lookupAddressOrName 
     ens: {
       name: commonFollower.name ?? undefined,
       avatar: commonFollower.avatar ?? undefined,
+      header: commonFollower.header ?? undefined,
     },
     tags: [],
   }))

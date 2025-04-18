@@ -39,6 +39,9 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
             isLoading={commonFollowersIsLoading}
             onProfileClick={onProfileClick}
             loadingRows={FETCH_LIMIT}
+            rowHeight={80}
+            showHeaderImage={true}
+            listHeight="calc(100vh - 190px)"
           />
           {!isEndOfFollowing && !commonFollowersIsLoading && (
             <div id="load-more-container" ref={loadMoreRef as React.RefObject<HTMLDivElement>} />

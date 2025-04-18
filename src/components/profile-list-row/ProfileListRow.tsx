@@ -39,14 +39,20 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   tags,
   initialFollowState,
   onProfileClick,
+  showHeaderImage = false,
 }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
   })
 
+  const headerImage = account?.ens?.header
+
   return (
-    <div className="profile-list-row">
+    <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')}>
+      {showHeaderImage && headerImage && (
+        <img src={headerImage} alt="header" className="profile-list-row-header-image" />
+      )}
       <div className="profile-list-row-details">
         {isAccountLoading ? (
           <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
@@ -54,7 +60,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
           <Avatar
             address={profile.address}
             name={account?.ens?.name}
-            style={{ width: '45px', height: '45px', borderRadius: '50%' }}
+            style={{ width: '45px', height: '45px', borderRadius: '50%', zIndex: 1 }}
             onClick={onProfileClick ? () => onProfileClick(profile.address) : undefined}
           />
         )}

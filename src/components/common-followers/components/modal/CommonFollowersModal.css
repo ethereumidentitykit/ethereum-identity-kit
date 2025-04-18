@@ -7,7 +7,7 @@
   display: flex;
   z-index: 1000;
   justify-content: center;
-  padding: 40px 12px;
+  padding: 32px 10px;
   overflow-y: auto;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.5);
@@ -20,7 +20,7 @@
   background-color: #fff;
   color: #000;
   border-radius: 4px;
-  padding: 24px 16px;
+  padding: 24px 16px 16px 16px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,6 @@
   flex-direction: column;
   gap: 12px;
   background-color: #f0f0f0;
-  padding: 16px 10px;
   border-radius: 4px;
 }
 
@@ -77,7 +76,7 @@
 
 @media screen and (max-width: 640px) {
   .common-followers-modal-container {
-    padding: 12px;
+    padding: 12px 8px 8px 8px;
     gap: 12px;
   }
 

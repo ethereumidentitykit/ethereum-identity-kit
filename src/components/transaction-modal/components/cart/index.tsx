@@ -12,6 +12,7 @@ import { Address } from '../../../../types'
 import { ProfileItemType } from '../../../profile-list/ProfileList.types'
 import './Cart.css'
 import clsx from 'clsx'
+import { useWindowSize } from '../../../../hooks/useWindowSize'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void
@@ -20,6 +21,7 @@ interface CartProps {
 }
 
 const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = true }: CartProps) => {
+  const { width } = useWindowSize()
   const { address: connectedAddress } = useAccount()
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
 
@@ -94,6 +96,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 showTags={true}
                 canEditTags={true}
                 onProfileClick={onProfileClick}
+                listHeight={width && width < 1024 ? '80vh' : 'calc(80vh - 230px)'}
               />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>

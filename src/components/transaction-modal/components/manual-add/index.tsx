@@ -2,10 +2,9 @@ import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../context'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
-import { fetchFollowState, getPendingTxAddresses, isAddress } from '../../../../utils'
+import { fetchFollowState, getPendingTxAddresses, isAddress, listOpAddListRecord } from '../../../../utils'
 import { Address } from '../../../../types'
 import './ManualAdd.css'
-import { listOpAddListRecord } from '../../../../utils/list-ops'
 
 const ManualAdd = () => {
   const [search, setSearch] = useState('')
@@ -32,12 +31,17 @@ const ManualAdd = () => {
           continue
         }
 
-        const followState = await fetchFollowState({
-          lookupAddressOrName: address,
-          connectedAddress,
-          list: selectedList === 'new list' ? undefined : selectedList || lists?.primary_list,
-          type: 'following',
-        })
+        const followState = {
+          state: {
+            follow: false,
+          },
+        }
+        // const followState = await fetchFollowState({
+        //   lookupAddressOrName: address,
+        //   connectedAddress,
+        //   list: selectedList === 'new list' ? undefined : selectedList || lists?.primary_list,
+        //   type: 'following',
+        // })
 
         if (followState?.state.follow) {
           setError('Already following')

@@ -10,7 +10,7 @@ import TransactionModal from '../transaction-modal/TransactionModal'
 const queryClient = new QueryClient()
 
 export default {
-  title: 'Molecules/Common Followers',
+  title: 'Molecules/Friends who follow them',
   component: CommonFollowers,
   decorators: [
     (Story) => (
@@ -28,20 +28,13 @@ export default {
 
 const Template: StoryFn<typeof CommonFollowers> = (args) => <CommonFollowers {...args} />
 
-export const CommonFollowersByAddress = Template.bind({})
-CommonFollowersByAddress.args = {
+export const FriendsWhoFollowThem = Template.bind({})
+FriendsWhoFollowThem.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   lookupAddressOrName: '0x983110309620d911731ac0932219af06091b6744',
   hasModal: true,
   onProfileClick: (address) => {
-    console.log(address)
+    alert(address)
   },
-  darkMode: false,
-}
-
-export const CommonFollowersByENS = Template.bind({})
-CommonFollowersByENS.args = {
-  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
-  lookupAddressOrName: 'encrypteddegen.eth',
   darkMode: false,
 }
