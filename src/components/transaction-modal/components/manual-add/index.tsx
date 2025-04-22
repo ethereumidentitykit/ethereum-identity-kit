@@ -3,6 +3,7 @@ import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../context'
 import { fetchAccount } from '../../../../utils/api/fetch-account'
 import { fetchFollowState, getPendingTxAddresses, isAddress, listOpAddListRecord } from '../../../../utils'
+import { DEFAULT_CHAIN, LIST_OP_LIMITS } from '../../../../constants'
 import { Address } from '../../../../types'
 import './ManualAdd.css'
 
@@ -11,7 +12,7 @@ const ManualAdd = () => {
   const [isAdding, setIsAdding] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { address: connectedAddress } = useAccount()
-  const { addListOpsTransaction, selectedList, lists, pendingTxs } = useTransactions()
+  const { addListOpsTransaction, selectedList, lists, pendingTxs, selectedChainId } = useTransactions()
 
   const handleAdd = async () => {
     if (!connectedAddress) return
@@ -77,7 +78,19 @@ const ManualAdd = () => {
       }
     }
 
-    addListOpsTransaction(listOps)
+    const listOpsSize = Math.ceil(
+      listOps.length / LIST_OP_LIMITS[(selectedChainId || DEFAULT_CHAIN.id) as keyof typeof LIST_OP_LIMITS]
+    )
+
+    // split list ops by the limit of the chain
+    for (let i = 0; i < listOpsSize; i++) {
+      const listOpsChunk = listOps.slice(
+        i * LIST_OP_LIMITS[(selectedChainId || DEFAULT_CHAIN.id) as keyof typeof LIST_OP_LIMITS],
+        (i + 1) * LIST_OP_LIMITS[(selectedChainId || DEFAULT_CHAIN.id) as keyof typeof LIST_OP_LIMITS]
+      )
+      addListOpsTransaction(listOpsChunk)
+    }
+
     setSearch('')
     setIsAdding(false)
   }

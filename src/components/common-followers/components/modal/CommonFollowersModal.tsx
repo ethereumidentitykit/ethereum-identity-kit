@@ -26,7 +26,7 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
     <div className={`common-followers-modal-backdrop ${darkMode ? 'dark' : ''}`} onClick={onClose}>
       <div className="common-followers-modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="common-followers-modal-header">
-          <h3 className="common-followers-modal-title">Friends who follow them</h3>
+          <h3 className="common-followers-modal-title">Followers you know</h3>
           <button onClick={onClose} className="common-followers-modal-close-button">
             <Cross height={16} width={16} />
           </button>

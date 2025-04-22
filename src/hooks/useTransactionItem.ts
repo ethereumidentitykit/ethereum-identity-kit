@@ -23,6 +23,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     setCurrentTxIndex,
     resetTransactions,
     goToNextTransaction,
+    refetchAssociatedQueries,
   } = useTransactions()
 
   const {
@@ -218,7 +219,13 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     if (!actionIds.includes(transaction.id)) return setLastTransactionSuccessful(true)
 
     if (isLastTransaction && isSuccess) {
-      const timeout = setTimeout(() => setLastTransactionSuccessful(true), usesPaymaster ? 10000 : 5000)
+      const timeout = setTimeout(
+        () => {
+          setLastTransactionSuccessful(true)
+          refetchAssociatedQueries()
+        },
+        usesPaymaster ? 10000 : 5000
+      )
       return () => clearTimeout(timeout)
     }
   }, [isLastTransaction, isSuccess])

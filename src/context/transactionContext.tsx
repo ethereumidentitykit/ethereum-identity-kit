@@ -50,6 +50,7 @@ type TransactionContextType = {
   setCurrentTxIndex: (currentTxIndex: number | undefined) => void
   goToNextTransaction: () => void
   resetTransactions: (keepModalOpen?: boolean) => void
+  refetchAssociatedQueries: () => void
   selectedChainId: number | undefined
   setSelectedChainId: (chainId: number | undefined) => void
   defaultChainId: number | undefined
@@ -88,9 +89,7 @@ export const TransactionProvider = ({
 
   // Addresses to fetch the fresh following state for (FollowButton)
   const [followingAddressesToFetchFresh, setFollowingAddressesToFetchFresh] = useState<string[]>([])
-
   const [selectedList, setSelectedList] = useState<string | undefined>(undefined)
-
   const [isCheckoutFinished, setIsCheckoutFinished] = useState<boolean>(false)
 
   useEffect(() => {
@@ -252,6 +251,8 @@ export const TransactionProvider = ({
           const pendingUpdateTxListOps = pendingUpdateTransaction.args.slice(-1).flat()
           const txListOps = tx.args.slice(-1).flat()
 
+          console.log('pendingUpdateTxListOps', pendingUpdateTxListOps.length)
+
           if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
             newPendingTxs.push(tx)
           } else if (!pendingUpdateTxListOps.includes(txListOps[0])) {
@@ -318,28 +319,32 @@ export const TransactionProvider = ({
     })
   }
 
-  const queryClient = useQueryClient()
   const goToNextTransaction = () => {
     const newTxIndex = (currentTxIndex || 0) + 1
+
     if (newTxIndex === pendingTxs.length) {
-      setIsCheckoutFinished(true)
-
-      // Refetch lists if user has minted a new one
-      if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
-
-      // Fetch the fresh following state for the addresses that have been updated
-      const addresses = getPendingTxAddresses(pendingTxs)
-      setFollowingAddressesToFetchFresh(addresses)
-      addresses.forEach((address) => {
-        if (followingAddressesToFetchFresh.includes(address)) {
-          queryClient.refetchQueries({ queryKey: ['followingState', address, connectedAddress, selectedList, true] })
-        }
-      })
-
       resetTransactions()
     } else {
       setCurrentTxIndex(newTxIndex)
     }
+  }
+
+  const queryClient = useQueryClient()
+
+  const refetchAssociatedQueries = () => {
+    setIsCheckoutFinished(true)
+
+    // Refetch lists if user has minted a new one
+    if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
+
+    // Fetch the fresh following state for the addresses that have been updated
+    const addresses = getPendingTxAddresses(pendingTxs)
+    setFollowingAddressesToFetchFresh(addresses)
+    addresses.forEach((address) => {
+      if (followingAddressesToFetchFresh.includes(address)) {
+        queryClient.refetchQueries({ queryKey: ['followingState', address, connectedAddress, selectedList, true] })
+      }
+    })
   }
 
   const resetTransactions = useCallback((keepModalOpen?: boolean) => {
@@ -369,6 +374,7 @@ export const TransactionProvider = ({
     removeListOpsTransaction,
     batchTransactions,
     resetTransactions,
+    refetchAssociatedQueries,
     setCurrentTxIndex,
     setSelectedChainId,
     goToNextTransaction,

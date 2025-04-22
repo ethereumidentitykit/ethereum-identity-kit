@@ -9,9 +9,10 @@ import './TransactionItem.css'
 interface TransactionItemProps {
   id: number
   transaction: TransactionType
+  hidePoapClaim?: boolean
 }
 
-const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) => {
+const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction, hidePoapClaim }) => {
   const {
     handleClick,
     currentTxIndex,
@@ -86,7 +87,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction }) =>
           </div>
         </>
       )}
-      {claimPOAP && (
+      {!hidePoapClaim && claimPOAP && (
         <div className="transaction-item-poap">
           <p className="transaction-item-poap-title">Claim your POAP</p>
           <p className="transaction-item-poap-description">

@@ -19,6 +19,7 @@ import './TransactionModal.css'
  * @param className - additional class name for the transaction modal
  * @param onCartProfileClick - the function to call when the profile displayed in the cart is clicked
  * @param showRecommendations - whether to show recommendations and manual add beside the items in the cart
+ * @param hidePoapClaim - whether to show claim poap modal after minting a new list
  * @param props - HTML div element props
  *
  * @returns TransactionModal component
@@ -28,6 +29,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   className,
   onCartProfileClick,
   showRecommendations = true,
+  hidePoapClaim = false,
   ...props
 }) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
@@ -48,15 +50,29 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
   const isCurrentTxIndexValid = currentTxIndex !== undefined && currentTxIndex >= 0
 
+  const onClose = () => {
+    if (pendingTxs.findIndex((tx) => tx.hash) > -1) {
+      setCancelModalOpen(true)
+      return
+    }
+
+    if (!batchTransactions) {
+      setTxModalOpen(false)
+      resetTransactions()
+    } else {
+      setTxModalOpen(false)
+    }
+  }
+
   return (
     <div
       className={clsx('transaction-modal-backdrop', darkMode && 'dark')}
       style={{ display: txModalOpen ? 'flex' : 'none' }}
-      onClick={() => (batchTransactions ? setTxModalOpen(false) : resetTransactions())}
+      onClick={onClose}
     >
       {cancelModalOpen && (
         <CancelModal
-          title="Cancel Remaining Transaction?"
+          title="Cancel Remaining Transactions?"
           description="You may have to start over."
           confirmButtonText="Yes, Cancel"
           onCancel={() => setCancelModalOpen(false)}
@@ -92,19 +108,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
           <div className="transaction-modal-loading-spinner" />
         ) : (
           <>
-            <div
-              className="transaction-modal-close-button"
-              onClick={() => {
-                if (!batchTransactions) {
-                  setTxModalOpen(false)
-                  resetTransactions()
-                } else if (pendingTxs.findIndex((tx) => tx.hash) === -1 || changesOpen) {
-                  setTxModalOpen(false)
-                } else {
-                  setCancelModalOpen(true)
-                }
-              }}
-            >
+            <div className="transaction-modal-close-button" onClick={onClose}>
               <Cross height={16} width={16} />
             </div>
             <Cart
@@ -125,7 +129,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             >
               <Summary />
               {pendingTxs.map((tx: TransactionType, index: number) => (
-                <TransactionItem key={index} id={index} transaction={tx} />
+                <TransactionItem key={index} id={index} transaction={tx} hidePoapClaim={hidePoapClaim} />
               ))}
             </div>
           </>
