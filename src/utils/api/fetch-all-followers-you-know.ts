@@ -1,8 +1,8 @@
 import { formatQueryParams } from '../formatters'
-import { CommonFollower, Address } from '../../types'
+import { FollowerYouKnow, Address } from '../../types'
 import { EFP_API_URL, FETCH_LIMIT } from '../../constants'
 
-interface FetchAllCommonFollowersProps {
+interface FetchAllFollowersYouKnowProps {
   connectedAddress: Address
   lookupAddressOrName: Address | string
   limit?: number
@@ -10,13 +10,13 @@ interface FetchAllCommonFollowersProps {
   pageParam: number
 }
 
-export const fetchAllCommonFollowers = async ({
+export const fetchAllFollowersYouKnow = async ({
   connectedAddress,
   lookupAddressOrName,
   limit = FETCH_LIMIT,
   search,
   pageParam,
-}: FetchAllCommonFollowersProps) => {
+}: FetchAllFollowersYouKnowProps) => {
   try {
     const queryParams = formatQueryParams({
       leader: lookupAddressOrName,
@@ -35,16 +35,16 @@ export const fetchAllCommonFollowers = async ({
       },
     })
 
-    const data = (await response.json()).results as CommonFollower[]
+    const data = (await response.json()).results as FollowerYouKnow[]
     return {
-      commonFollowers: data ?? [],
+      followersYouKnow: data ?? [],
       nextPageParam: pageParam + 1,
     }
   } catch (err: unknown) {
     console.error(err)
 
     return {
-      commonFollowers: [],
+      followersYouKnow: [],
       nextPageParam: pageParam + 1,
     }
   }

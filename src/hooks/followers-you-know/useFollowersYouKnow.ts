@@ -1,18 +1,18 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ens_beautify } from '@adraffy/ens-normalize'
-import { truncateAddress } from '../utils'
-import { fetchCommonFollowers } from '../utils/api/fetch-common-followers'
-import { noCommonFollowers } from '../constants'
-import { Address } from '../types'
+import { truncateAddress } from '../../utils'
+import { fetchFollowersYouKnow } from '../../utils/api/fetch-followers-you-know'
+import { noFollowersYouKnow } from '../../constants'
+import { Address } from '../../types'
 
-export const useCommonFollowers = (connectedAddress: Address, lookupAddressOrName: Address | string) => {
+export const useFollowersYouKnow = (connectedAddress: Address, lookupAddressOrName: Address | string) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['common-followers', connectedAddress, lookupAddressOrName],
+    queryKey: ['followers-you-know', connectedAddress, lookupAddressOrName],
     queryFn: async () => {
-      if (!connectedAddress) return noCommonFollowers
+      if (!connectedAddress) return noFollowersYouKnow
 
-      const response = await fetchCommonFollowers(connectedAddress, lookupAddressOrName)
+      const response = await fetchFollowersYouKnow(connectedAddress, lookupAddressOrName)
       return response
     },
     refetchOnWindowFocus: false,

@@ -13,6 +13,11 @@
   color: #fff;
 }
 
+.full-width-profile-container {
+  width: 100%;
+  height: fit-content;
+}
+
 .user-profile-container a {
   text-decoration: none;
 }
@@ -24,7 +29,7 @@
 }
 
 @media (max-width: 768px) {
-  .user-profile-container {
+  .full-width-profile-container {
     display: none;
   }
 

@@ -1,7 +1,7 @@
 export const formatNumber = (number: number) => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
 
 // formats the text shown in the common followers component next to the avatars
-export const formatCommonFollowersText = (resultLength: number) => {
+export const formatFollowersYouKnowText = (resultLength: number) => {
   if (resultLength === 0) return 'No common followers'
   if (resultLength === 2) return ` follow them`
 

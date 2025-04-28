@@ -64,6 +64,7 @@ const Actions: React.FC<ActionsProps> = ({ transactions }) => {
     unfollow: fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 2),
     tag: removeDuplicateAddresses(fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 3)),
     untag: removeDuplicateAddresses(fiterBlockedMutedTop8(transactionListOps).filter((op) => op.opcode === 4)),
+    block: transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'block'),
     unblock: transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'block'),
     mute: transactionAddressesAndTags.filter((op) => op.opcode === 3 && op.tag === 'mute'),
     unmute: transactionAddressesAndTags.filter((op) => op.opcode === 4 && op.tag === 'mute'),

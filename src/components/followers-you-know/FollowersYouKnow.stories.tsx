@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react/*'
 import { StoryFn } from '@storybook/react/*'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import CommonFollowers from './CommonFollowers'
+import CommonFollowers from './FollowersYouKnow'
 import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from '../../constants/wagmi'
 import { TransactionProvider } from '../../context'

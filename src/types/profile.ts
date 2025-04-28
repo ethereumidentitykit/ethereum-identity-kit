@@ -151,7 +151,7 @@ export type DiscoverResponseType = {
   recommended: RecommendedItemType[]
 }
 
-export type CommonFollower = {
+export type FollowerYouKnow = {
   address: Address
   name: string | null
   avatar: string | null
@@ -159,8 +159,8 @@ export type CommonFollower = {
   header: string | null
 }
 
-export interface CommonFollowersResponse {
-  results: CommonFollower[]
+export interface FollowersYouKnowResponse {
+  results: FollowerYouKnow[]
   length: number
 }
 

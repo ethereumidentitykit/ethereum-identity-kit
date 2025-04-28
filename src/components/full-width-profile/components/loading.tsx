@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import LoadingCell from '../../loading-cell/LoadingCell'
-import './../UserProfile.css'
+import '../FullWidthProfile.css'
 
 const Loading = ({ darkMode, style }: { darkMode?: boolean; style?: React.CSSProperties }) => {
   return (

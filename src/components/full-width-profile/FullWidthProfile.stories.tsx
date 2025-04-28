@@ -2,10 +2,10 @@ import { WagmiProvider } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TransactionProvider } from '../../context'
-import UserProfile from './UserProfile'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { wagmiConfig } from '../../constants/wagmi'
 import { Address } from '../../types/address'
+import FullWidthProfile from './FullWidthProfile'
 
 const queryClient = new QueryClient()
 
@@ -14,8 +14,8 @@ const onProfileClick = (addressOrName: Address | string) => {
 }
 
 export default {
-  title: 'Organisms/Full width Profile Card',
-  component: UserProfile,
+  title: 'Organisms/Full Width Profile',
+  component: FullWidthProfile,
   argTypes: {
     addressOrName: {
       control: 'text',
@@ -31,19 +31,21 @@ export default {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <TransactionProvider>
-            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
+            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>
+              {Story()}
+            </div>
             <TransactionModal />
           </TransactionProvider>
         </WagmiProvider>
       </QueryClientProvider>
     ),
   ],
-} as Meta<typeof UserProfile>
+} as Meta<typeof FullWidthProfile>
 
-const Template: StoryFn<typeof UserProfile> = (args) => <UserProfile {...args} />
+const Template: StoryFn<typeof FullWidthProfile> = (args) => <FullWidthProfile {...args} />
 
-export const FullWidthProfileCardByAddress = Template.bind({})
-FullWidthProfileCardByAddress.args = {
+export const FullWidthProfileByAddress = Template.bind({})
+FullWidthProfileByAddress.args = {
   addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
   darkMode: false,
@@ -54,8 +56,8 @@ FullWidthProfileCardByAddress.args = {
   options: {},
 }
 
-export const FullWidthProfileCardByENS = Template.bind({})
-FullWidthProfileCardByENS.args = {
+export const FullWidthProfileByENS = Template.bind({})
+FullWidthProfileByENS.args = {
   addressOrName: 'encrypteddegen.eth',
   showFollowerState: true,
   darkMode: false,
@@ -67,8 +69,8 @@ FullWidthProfileCardByENS.args = {
   showPoaps: true,
 }
 
-export const FullWidthProfileCardByList = Template.bind({})
-FullWidthProfileCardByList.args = {
+export const FullWidthProfileByList = Template.bind({})
+FullWidthProfileByList.args = {
   addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   list: '5',
   showFollowerState: true,
@@ -77,8 +79,8 @@ FullWidthProfileCardByList.args = {
   showPoaps: false,
 }
 
-export const FullWidthProfileCardPrefetched = Template.bind({})
-FullWidthProfileCardPrefetched.args = {
+export const FullWidthProfilePrefetched = Template.bind({})
+FullWidthProfilePrefetched.args = {
   addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
   options: {

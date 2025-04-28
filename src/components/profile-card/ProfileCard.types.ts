@@ -1,8 +1,8 @@
 import { Address } from '../../types/address'
 import { ProfileListType, ProfileStatsClickProps } from '../../types/profile'
-import { UserProfileOptions } from '../user-profile/UserProfile.types'
+import { FullWidthProfileOptions } from '../full-width-profile/FullWidthProfile.types'
 
-type ProfileCardOptions = UserProfileOptions & {
+type ProfileCardOptions = FullWidthProfileOptions & {
   followButton?: React.ReactNode
 }
 

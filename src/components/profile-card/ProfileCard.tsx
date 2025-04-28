@@ -1,8 +1,8 @@
 import React from 'react'
 import { clsx } from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
-import { useProfileStats } from '../../hooks/useProfileStats'
-import { useProfileDetails } from '../../hooks/useProfileDetails'
+import { useProfileStats } from '../../hooks/profile/useProfileStats'
+import { useProfileDetails } from '../../hooks/profile/useProfileDetails'
 import { truncateAddress } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
 import Bio from './components/bio'
@@ -12,7 +12,7 @@ import FollowerTag from '../follower-tag/FollowerTag'
 import LoadingCell from '../loading-cell/LoadingCell'
 import CardHeader from './components/card-header/CardHeader'
 import ProfileSocials from '../profile-socials/ProfileSocials'
-import CommonFollowers from '../common-followers/CommonFollowers'
+import FollowersYouKnow from '../followers-you-know/FollowersYouKnow'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import { ProfileCardProps } from './ProfileCard.types'
 import EFPPoaps from '../efp-poaps/EFPPoaps'
@@ -190,7 +190,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
       </div>
       {!isConnectedUserCard && connectedAddress && (
-        <CommonFollowers
+        <FollowersYouKnow
           connectedAddress={connectedAddress}
           lookupAddressOrName={list ? address || addressOrName : addressOrName}
           displayEmpty={false}

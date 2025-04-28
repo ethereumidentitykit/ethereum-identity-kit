@@ -4,5 +4,5 @@ export type TransactionModalProps = React.HTMLAttributes<HTMLDivElement> & {
   darkMode?: boolean
   onCartProfileClick?: (address: Address) => void
   showRecommendations?: boolean
-  hidePoapClaim?: boolean
+  showPoapClaim?: boolean
 }

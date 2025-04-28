@@ -19,7 +19,7 @@ import './TransactionModal.css'
  * @param className - additional class name for the transaction modal
  * @param onCartProfileClick - the function to call when the profile displayed in the cart is clicked
  * @param showRecommendations - whether to show recommendations and manual add beside the items in the cart
- * @param hidePoapClaim - whether to show claim poap modal after minting a new list
+ * @param showPoapClaim - whether to show claim poap modal after minting a new list
  * @param props - HTML div element props
  *
  * @returns TransactionModal component
@@ -29,7 +29,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   className,
   onCartProfileClick,
   showRecommendations = true,
-  hidePoapClaim = false,
+  showPoapClaim = true,
   ...props
 }) => {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
@@ -129,7 +129,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             >
               <Summary />
               {pendingTxs.map((tx: TransactionType, index: number) => (
-                <TransactionItem key={index} id={index} transaction={tx} hidePoapClaim={hidePoapClaim} />
+                <TransactionItem key={index} id={index} transaction={tx} showPoapClaim={showPoapClaim} />
               ))}
             </div>
           </>

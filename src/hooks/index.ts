@@ -1,17 +1,18 @@
 import { useChain } from './useChain'
-import { useCoolMode } from './useCoolMode'
+import { useCoolMode } from './common/useCoolMode'
 import { useEFPPoaps } from './useEFPPoaps'
-import { useIsClient } from './useIsClient'
+import { useIsClient } from './common/useIsClient'
 import { useRecommended } from './useRecommended'
 import { useFollowButton } from './useFollowButton'
-import { useProfileStats } from './useProfileStats'
-import { useOutsideClick } from './useOutsideClick'
+import { useWindowSize } from './common/useWindowSize'
+import { useProfileStats } from './profile/useProfileStats'
+import { useOutsideClick } from './common/useOutsideClick'
 import { useFollowerState } from './useFollowerState'
 import { useFollowingState } from './useFollowingState'
-import { useProfileDetails } from './useProfileDetails'
+import { useProfileDetails } from './profile/useProfileDetails'
 import { useTransactionItem } from './useTransactionItem'
-import { useCommonFollowers } from './useCommonFollowers'
-import { useCommonFollowersModal } from './useCommonFollowersModal'
+import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
+import { useFollowersYouKnowModal } from './followers-you-know/useModal'
 
 export {
   useFollowingState,
@@ -23,9 +24,10 @@ export {
   useTransactionItem,
   useCoolMode,
   useRecommended,
-  useCommonFollowers,
+  useFollowersYouKnow,
   useOutsideClick,
   useEFPPoaps,
   useIsClient,
-  useCommonFollowersModal,
+  useFollowersYouKnowModal,
+  useWindowSize,
 }

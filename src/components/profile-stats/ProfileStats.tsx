@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import React from 'react'
-import { useProfileStats } from '../../hooks/useProfileStats'
+import { useProfileStats } from '../../hooks/profile/useProfileStats'
 import LoadingCell from '../loading-cell/LoadingCell'
 import { formatNumber } from '../../utils'
 import { ProfileStatType } from '../../types/profile'

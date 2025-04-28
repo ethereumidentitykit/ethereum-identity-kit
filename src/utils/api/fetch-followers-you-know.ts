@@ -1,8 +1,8 @@
 import type { Address } from 'viem'
-import type { CommonFollowersResponse } from '../../types'
-import { EFP_API_URL, noCommonFollowers } from '../../constants'
+import type { FollowersYouKnowResponse } from '../../types'
+import { EFP_API_URL, noFollowersYouKnow } from '../../constants'
 
-export const fetchCommonFollowers = async (connectedAddress: Address, lookupAddressOrName: string) => {
+export const fetchFollowersYouKnow = async (connectedAddress: Address, lookupAddressOrName: string) => {
   try {
     const response = await fetch(
       `${EFP_API_URL}/users/${connectedAddress}/commonFollowers?leader=${lookupAddressOrName}`,
@@ -15,10 +15,10 @@ export const fetchCommonFollowers = async (connectedAddress: Address, lookupAddr
       }
     )
 
-    const data = (await response.json()) as CommonFollowersResponse
+    const data = (await response.json()) as FollowersYouKnowResponse
     return data
   } catch (err: unknown) {
     console.error(err)
-    return noCommonFollowers
+    return noFollowersYouKnow
   }
 }

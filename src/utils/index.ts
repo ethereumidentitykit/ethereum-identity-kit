@@ -6,9 +6,9 @@ import { fetchFollowState } from './api/fetch-follow-state'
 import { fetchProfileLists } from './api/fetch-profile-lists'
 import { fetchProfileStats } from './api/fetch-profile-stats'
 import { fetchProfileDetails } from './api/fetch-profile-details'
-import { fetchCommonFollowers } from './api/fetch-common-followers'
+import { fetchFollowersYouKnow } from './api/fetch-followers-you-know'
 import { fetchProfileEFPPoaps } from './api/fetch-profile-efp-poaps'
-import { fetchAllCommonFollowers } from './api/fetch-all-common-followers'
+import { fetchAllFollowersYouKnow } from './api/fetch-all-followers-you-know'
 
 export {
   isAddress,
@@ -20,9 +20,9 @@ export {
   fetchAccount,
   fetchRecommended,
   fetchProfileLists,
-  fetchCommonFollowers,
+  fetchFollowersYouKnow,
   fetchProfileEFPPoaps,
-  fetchAllCommonFollowers,
+  fetchAllFollowersYouKnow,
 }
 
 export * from './profile'

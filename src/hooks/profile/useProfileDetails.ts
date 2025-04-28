@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Address } from '../types/address'
-import { fetchProfileDetails } from '../utils/api/fetch-profile-details'
-import { ProfileDetailsResponse } from '../types/profile'
-import { ProfileListType } from '../types/profile'
+import { fetchProfileDetails } from '../../utils/api/fetch-profile-details'
+import { Address } from '../../types'
+import { ProfileListType } from '../../types/profile'
+import { ProfileDetailsResponse } from '../../types/profile'
+
 interface UseProfileDetailsProps {
   addressOrName: Address | string
   list?: ProfileListType

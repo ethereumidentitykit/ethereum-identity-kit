@@ -1,7 +1,7 @@
 import { ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../types/profile'
 import { Address, ProfileDetailsResponse } from '../../types'
 
-export type UserProfileOptions = {
+export type FullWidthProfileOptions = {
   followButton?: React.ReactNode
   nameMenu?: React.ReactNode
   profileData?: ProfileDetailsResponse
@@ -13,7 +13,7 @@ export type UserProfileOptions = {
   openListSettings?: () => void
 }
 
-export interface UserProfileProps {
+export interface FullWidthProfileProps {
   addressOrName: Address | string
   connectedAddress?: Address
   list?: ProfileListType
@@ -24,7 +24,7 @@ export interface UserProfileProps {
   showFollowerState?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
-  options?: UserProfileOptions
+  options?: FullWidthProfileOptions
   className?: string
   style?: React.CSSProperties
   alignProfileContent?: 'center' | 'start' | 'end'

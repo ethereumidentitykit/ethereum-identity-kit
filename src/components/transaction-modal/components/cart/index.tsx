@@ -12,7 +12,7 @@ import { Address } from '../../../../types'
 import { ProfileItemType } from '../../../profile-list/ProfileList.types'
 import './Cart.css'
 import clsx from 'clsx'
-import { useWindowSize } from '../../../../hooks/useWindowSize'
+import { useWindowSize } from '../../../../hooks/common/useWindowSize'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void

@@ -9,11 +9,11 @@ import ProfileStats from './profile-stats/ProfileStats'
 import Tags from './transaction-modal/components/cart/tags'
 import ProfileListRow from './profile-list-row/ProfileListRow'
 import ProfileSocials from './profile-socials/ProfileSocials'
-import CommonFollowers from './common-followers/CommonFollowers'
+import FollowersYouKnow from './followers-you-know/FollowersYouKnow'
 import HeaderImage from './profile-card/components/HeaderImage'
 import TransactionModal from './transaction-modal/TransactionModal'
 import ImageWithFallback from './image-with-fallback/ImageWithFallback'
-import UserProfile from './user-profile/UserProfile'
+import FullWidthProfile from './full-width-profile/FullWidthProfile'
 import EFPPoaps from './efp-poaps/EFPPoaps'
 export {
   ProfileCard,
@@ -26,12 +26,12 @@ export {
   FollowerTag,
   TransactionModal,
   FollowButton,
-  CommonFollowers,
+  FollowersYouKnow,
   Bio,
   ProfileList,
   ProfileListRow,
   Tags,
-  UserProfile,
+  FullWidthProfile,
   EFPPoaps,
 }
 
@@ -41,13 +41,13 @@ import { FollowerTagProps } from './follower-tag/FollowerTag.types'
 import { LoadingCellProps } from './loading-cell/LoadingCell.types'
 import { ProfileStatsProps } from './profile-stats/ProfileStats.types'
 import { ProfileSocialsProps } from './profile-socials/ProfileSocials.types'
-import { CommonFollowersProps } from './common-followers/CommonFollowers.types'
+import { FollowersYouKnowProps } from './followers-you-know/FollowersYouKnow.types'
 import { ImageWithFallbackProps } from './image-with-fallback/ImageWithFallback.types'
 import { FollowButtonProps } from './follow-button/FollowButton.types'
 import { TransactionModalProps } from './transaction-modal/TransactionModal.types'
 import { ProfileListProps } from './profile-list/ProfileList.types'
 import { ProfileListRowProps } from './profile-list-row/ProfileListRow.types'
-import { UserProfileProps } from './user-profile/UserProfile.types'
+import { FullWidthProfileProps } from './full-width-profile/FullWidthProfile.types'
 import { EFPPoapsProps } from './efp-poaps/EFPPoaps.types'
 
 export type {
@@ -58,12 +58,12 @@ export type {
   FollowerTagProps,
   LoadingCellProps,
   ImageWithFallbackProps,
-  CommonFollowersProps,
+  FollowersYouKnowProps,
   FollowButtonProps,
   TransactionModalProps,
   ProfileListProps,
   ProfileListRowProps,
-  UserProfileProps,
+  FullWidthProfileProps,
   EFPPoapsProps,
 }
 

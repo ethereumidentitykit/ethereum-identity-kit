@@ -1,12 +1,12 @@
 import React from 'react'
-import { CommonFollowersModalProps } from './CommonFollowersModal.types'
-import { useCommonFollowersModal } from '../../../../hooks/useCommonFollowersModal'
+import { useFollowersYouKnowModal } from '../../../../hooks/followers-you-know/useModal'
 import { Cross } from '../../../icons'
 import ProfileList from '../../../profile-list/ProfileList'
 import { FETCH_LIMIT } from '../../../../constants'
-import './CommonFollowersModal.css'
+import { FollowersYouKnowModalProps } from './modal.types'
+import './modal.css'
 
-const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
+const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
   isOpen,
   onClose,
   connectedAddress,
@@ -15,10 +15,11 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
   darkMode,
   selectedList,
 }) => {
-  const { commonFollowersProfiles, isEndOfFollowing, commonFollowersIsLoading, loadMoreRef } = useCommonFollowersModal({
-    connectedAddress,
-    lookupAddressOrName,
-  })
+  const { followersYouKnowProfiles, isEndOfFollowing, followersYouKnowIsLoading, loadMoreRef } =
+    useFollowersYouKnowModal({
+      connectedAddress,
+      lookupAddressOrName,
+    })
 
   if (!isOpen) return null
 
@@ -35,15 +36,15 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
           <ProfileList
             selectedList={selectedList}
             connectedAddress={connectedAddress}
-            profiles={commonFollowersProfiles}
-            isLoading={commonFollowersIsLoading}
+            profiles={followersYouKnowProfiles}
+            isLoading={followersYouKnowIsLoading}
             onProfileClick={onProfileClick}
             loadingRows={FETCH_LIMIT}
             rowHeight={80}
             showHeaderImage={true}
-            listHeight="calc(100vh - 190px)"
+            listHeight="calc(100vh - 120px)"
           />
-          {!isEndOfFollowing && !commonFollowersIsLoading && (
+          {!isEndOfFollowing && !followersYouKnowIsLoading && (
             <div id="load-more-container" ref={loadMoreRef as React.RefObject<HTMLDivElement>} />
           )}
         </div>
@@ -52,4 +53,4 @@ const CommonFollowersModal: React.FC<CommonFollowersModalProps> = ({
   )
 }
 
-export default CommonFollowersModal
+export default FollowersYouKnowModal

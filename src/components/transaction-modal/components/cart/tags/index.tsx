@@ -3,7 +3,7 @@ import { useAccount } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { useTransactions } from '../../../../../context'
 import { useFollowButton } from '../../../../../hooks'
-import { useOutsideClick } from '../../../../../hooks/useOutsideClick'
+import { useOutsideClick } from '../../../../../hooks/common/useOutsideClick'
 import { listOpAddTag, listOpRemoveTag } from '../../../../../utils/list-ops'
 import {
   extractAddressAndTag,

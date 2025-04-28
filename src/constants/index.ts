@@ -1,4 +1,4 @@
-import { CommonFollowersResponse } from '../types'
+import { FollowersYouKnowResponse } from '../types'
 
 export const EFP_API_URL = 'https://data.ethfollow.xyz/api/v1'
 export const DEFAULT_FALLBACK_AVATAR = 'https://efp.app/assets/art/default-avatar.svg'
@@ -13,10 +13,10 @@ export const LIGHT_LOADING_GRADIENT =
 
 export const THEMES = ['light', 'dark'] as const
 
-export const noCommonFollowers = {
+export const noFollowersYouKnow = {
   results: [],
   length: 0,
-} satisfies CommonFollowersResponse
+} satisfies FollowersYouKnowResponse
 
 export const FETCH_LIMIT = 20
 

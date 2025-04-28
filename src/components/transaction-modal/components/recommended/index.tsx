@@ -2,7 +2,7 @@ import { Address } from '../../../../types'
 import ProfileList from '../../../profile-list/ProfileList'
 import { useRecommended } from '../../../../hooks/useRecommended'
 import './Recommended.css'
-import { useWindowSize } from '../../../../hooks/useWindowSize'
+import { useWindowSize } from '../../../../hooks/common/useWindowSize'
 
 const Recommended = ({
   connectedAddress,

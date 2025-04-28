@@ -1,6 +1,6 @@
 import { Address, ProfileListType } from '../../types'
 
-export type CommonFollowersProps = {
+export type FollowersYouKnowProps = {
   connectedAddress: Address
   lookupAddressOrName: Address | string
   displayEmpty?: boolean

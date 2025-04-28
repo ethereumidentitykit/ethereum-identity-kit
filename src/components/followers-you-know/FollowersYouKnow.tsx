@@ -1,15 +1,15 @@
 import clsx from 'clsx'
 import { useState } from 'react'
-import { useCommonFollowers } from '../../hooks/useCommonFollowers'
-import { formatCommonFollowersText } from '../../utils/formatters'
+import { useFollowersYouKnow } from '../../hooks/followers-you-know/useFollowersYouKnow'
+import { formatFollowersYouKnowText } from '../../utils/formatters'
 import Avatar from '../avatar/Avatar'
 import LoadingCell from '../loading-cell/LoadingCell'
-import CommonFollowersModal from './components/modal/CommonFollowersModal'
-import { CommonFollowersProps } from './CommonFollowers.types'
-import './CommonFollowers.css'
+import { FollowersYouKnowProps } from './FollowersYouKnow.types'
+import FollowersYouKnowModal from './components/modal/modal'
+import './FollowersYouKnow.css'
 
 /**
- * CommonFollowers component - displays the common followers between two addresses
+ * FollowersYouKnow component - displays the common followers between two addresses
  * The component is used to display how many people you follow also follow a given address
  *
  * @param connectedAddress - the address of the connected user
@@ -26,9 +26,9 @@ import './CommonFollowers.css'
  *
  * @param selectedList (optional) - the list to use for the common followers
  *
- * @returns CommonFollowers component
+ * @returns FollowersYouKnow component
  */
-const CommonFollowers: React.FC<CommonFollowersProps> = ({
+const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
   connectedAddress,
   lookupAddressOrName,
   displayEmpty = true,
@@ -39,7 +39,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { displayedAvatars, displayedNames, displayedAddresses, resultLength, isLoading } = useCommonFollowers(
+  const { displayedAvatars, displayedNames, displayedAddresses, resultLength, isLoading } = useFollowersYouKnow(
     connectedAddress,
     lookupAddressOrName
   )
@@ -49,7 +49,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
   return (
     <>
       {hasModal && (
-        <CommonFollowersModal
+        <FollowersYouKnowModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           connectedAddress={connectedAddress}
@@ -63,24 +63,24 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
         <div className="common-followers-avatars-container">
           {isLoading
             ? new Array(3)
-                .fill(null)
-                .map((_, index) => (
-                  <LoadingCell
-                    key={index}
-                    height="32px"
-                    width="32px"
-                    style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
-                  />
-                ))
-            : displayedAvatars?.map(({ avatar, address }, index) => (
-                <Avatar
-                  key={address}
-                  src={avatar}
-                  address={address}
-                  onClick={() => onProfileClick?.(address)}
-                  style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+              .fill(null)
+              .map((_, index) => (
+                <LoadingCell
+                  key={index}
+                  height="32px"
+                  width="32px"
+                  style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
                 />
-              ))}
+              ))
+            : displayedAvatars?.map(({ avatar, address }, index) => (
+              <Avatar
+                key={address}
+                src={avatar}
+                address={address}
+                onClick={() => onProfileClick?.(address)}
+                style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+              />
+            ))}
         </div>
         {isLoading ? (
           <LoadingCell height="32px" width="240px" style={{ transform: 'translateX(-32px)' }} />
@@ -116,7 +116,7 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
               </span>
             )}
             {resultLength >= 3 && ' and '}
-            {formatCommonFollowersText(resultLength)}
+            {formatFollowersYouKnowText(resultLength)}
           </p>
         )}
       </div>
@@ -124,4 +124,4 @@ const CommonFollowers: React.FC<CommonFollowersProps> = ({
   )
 }
 
-export default CommonFollowers
+export default FollowersYouKnow

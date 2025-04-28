@@ -154,7 +154,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -250,8 +250,6 @@ export const TransactionProvider = ({
         } else {
           const pendingUpdateTxListOps = pendingUpdateTransaction.args.slice(-1).flat()
           const txListOps = tx.args.slice(-1).flat()
-
-          console.log('pendingUpdateTxListOps', pendingUpdateTxListOps.length)
 
           if (pendingUpdateTxListOps.length >= LIST_OP_LIMITS[tx.chainId as keyof typeof LIST_OP_LIMITS]) {
             newPendingTxs.push(tx)
