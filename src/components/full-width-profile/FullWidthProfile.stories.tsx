@@ -31,9 +31,7 @@ export default {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <TransactionProvider>
-            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>
-              {Story()}
-            </div>
+            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
             <TransactionModal />
           </TransactionProvider>
         </WagmiProvider>

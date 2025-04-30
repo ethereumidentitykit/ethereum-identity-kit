@@ -154,7 +154,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-      '[]'
+        '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -337,11 +337,13 @@ export const TransactionProvider = ({
 
     // Fetch the fresh following state for the addresses that have been updated
     const addresses = getPendingTxAddresses(pendingTxs)
-    setFollowingAddressesToFetchFresh(addresses)
+    setFollowingAddressesToFetchFresh((prev) => [...prev, ...addresses])
     addresses.forEach((address) => {
-      if (followingAddressesToFetchFresh.includes(address)) {
-        queryClient.refetchQueries({ queryKey: ['followingState', address, connectedAddress, selectedList, true] })
-      }
+      // Use a partial query key match to ensure we catch all followingState queries for this address
+      queryClient.refetchQueries({
+        queryKey: ['followingState', address],
+        exact: false,
+      })
     })
   }
 

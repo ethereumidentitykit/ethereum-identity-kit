@@ -42,7 +42,7 @@ const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
             loadingRows={FETCH_LIMIT}
             rowHeight={80}
             showHeaderImage={true}
-            listHeight="calc(100vh - 120px)"
+            listHeight="calc(100vh - 128px)"
           />
           {!isEndOfFollowing && !followersYouKnowIsLoading && (
             <div id="load-more-container" ref={loadMoreRef as React.RefObject<HTMLDivElement>} />

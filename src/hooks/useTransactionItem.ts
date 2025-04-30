@@ -224,7 +224,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
           setLastTransactionSuccessful(true)
           refetchAssociatedQueries()
         },
-        usesPaymaster ? 10000 : 5000
+        usesPaymaster ? 10000 : 6000
       )
       return () => clearTimeout(timeout)
     }

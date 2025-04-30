@@ -117,7 +117,10 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
         {isDetailsLoading ? (
           <Loading darkMode={darkMode} style={style} />
         ) : address ? (
-          <div className={clsx('user-profile-container', darkMode && 'dark')} style={{ alignItems: alignProfileContent }}>
+          <div
+            className={clsx('user-profile-container', darkMode && 'dark')}
+            style={{ alignItems: alignProfileContent }}
+          >
             <div
               id="user-profile"
               className={clsx('user-profile', className)}
@@ -155,7 +158,9 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                   bottom: `${(typeof style?.paddingBottom === 'string' ? Number(style.paddingBottom.slice(0, -2)) : Number(style?.paddingBottom || 0)) + 24}px`,
                 }}
               >
-                {ens?.records?.status && <p className="user-profile-status-desktop">&quot;{ens.records.status}&quot;</p>}
+                {ens?.records?.status && (
+                  <p className="user-profile-status-desktop">&quot;{ens.records.status}&quot;</p>
+                )}
                 {showPoaps && <EFPPoaps addressOrName={address} isLoading={detailsLoading} />}
               </div>
               <div className="user-profile-content">
@@ -168,7 +173,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       className={clsx(
                         'user-profile-name',
                         address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                        (!!followButton && 'user-profile-name-connected')
+                          (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
@@ -211,7 +216,9 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       )}
                     </div>
                   </div>
-                  {ens?.records?.status && <p className="user-profile-status-mobile">&quot;{ens.records.status}&quot;</p>}
+                  {ens?.records?.status && (
+                    <p className="user-profile-status-mobile">&quot;{ens.records.status}&quot;</p>
+                  )}
                   <div className="user-profile-bio-container">
                     <Bio description={ens?.records?.description} fontSize={18} maxLines={5} />
                   </div>

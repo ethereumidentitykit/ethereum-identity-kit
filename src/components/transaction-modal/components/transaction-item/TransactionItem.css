@@ -80,7 +80,7 @@
   border-radius: 20px;
   background-color: #24ad57;
   z-index: -10;
-  animation: indexing-bar-animation 5s linear;
+  animation: indexing-bar-animation 6s linear;
 }
 
 .transaction-progress-indexing-bar.transaction-progress-bar-paymaster {
