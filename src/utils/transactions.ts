@@ -5,7 +5,13 @@ import { EFPActionIds } from '../constants/transactions'
 import { coreEfpContracts, ListRecordContracts } from '../constants/contracts'
 import { GetListOpsTransactionProps, ListOpType, TransactionType } from '../types/transactions'
 
-export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAddress }: GetListOpsTransactionProps) => {
+export const formatListOpsTransaction = ({
+  nonce,
+  chainId,
+  listOps,
+  connectedAddress,
+  isMintingNewList,
+}: GetListOpsTransactionProps) => {
   const operations = listOps.map((listOp: ListOpType) =>
     encodePacked(['uint8', 'uint8', 'uint8', 'uint8', 'bytes'], [listOp.version || 1, listOp.opcode, 1, 1, listOp.data])
   )
@@ -16,8 +22,9 @@ export const formatListOpsTransaction = ({ nonce, chainId, listOps, connectedAdd
     address: chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords,
     abi: abi.efpListRecordsAbi,
     chainId,
-    functionName: chainId ? 'applyListOps' : 'setMetadataValuesAndApplyListOps',
-    args: chainId ? [nonce, operations] : [nonce, [{ key: 'user', value: connectedAddress }], operations],
+    // If the new list is being minted, different functions have to be used to set the "user" role before applying the list ops
+    functionName: isMintingNewList ? 'setMetadataValuesAndApplyListOps' : 'applyListOps',
+    args: isMintingNewList ? [nonce, [{ key: 'user', value: connectedAddress }], operations] : [nonce, operations],
   }
 }
 

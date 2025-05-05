@@ -129,6 +129,7 @@ export const TransactionProvider = ({
   })
 
   useEffect(() => {
+    // if user has no primary list, and no specific list has been selected, set the first list (list with the lowest number) as the selected list
     if (lists?.lists?.length && !lists.primary_list && !selectedList) setSelectedList(lists.lists[0])
     else setSelectedList(undefined)
   }, [lists])
@@ -154,7 +155,7 @@ export const TransactionProvider = ({
 
     const storedPendingTxs = JSON.parse(
       localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -212,7 +213,16 @@ export const TransactionProvider = ({
 
   const addListOpsTransaction = (listOps: ListOpType[]) => {
     if (!connectedAddress) return
-    const tx = formatListOpsTransaction({ listOps, connectedAddress, nonce, chainId: selectedChainId })
+
+    // If the selectedList is 'new list', the list will definitely be minted. Otherwise, check if there is a valid list selected or the user has a primary list
+    const userHasList = selectedList === 'new list' ? false : selectedList || lists?.primary_list
+    const tx = formatListOpsTransaction({
+      listOps,
+      connectedAddress,
+      nonce,
+      chainId: selectedChainId,
+      isMintingNewList: !userHasList,
+    })
 
     setPendingTxs((prev) => {
       const newPendingTxs = batchTransactions ? [...prev] : []
