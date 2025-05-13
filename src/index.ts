@@ -50,6 +50,7 @@ export {
   prepareMintTransaction,
   transformTxsForLocalStorage,
   getListStorageLocation,
+  getListOpsFromTransaction,
 } from './utils'
 
 // Context
