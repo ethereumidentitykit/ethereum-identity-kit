@@ -53,7 +53,7 @@ export {
 } from './utils'
 
 // Context
-export { TransactionProvider } from './context'
+export { TransactionProvider, useTransactions } from './context'
 
 // Constants
 export {
