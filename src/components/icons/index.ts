@@ -33,6 +33,7 @@ import Optimism from './chains/optimism'
 import X from './socials/x'
 import ENS from './socials/Ens'
 import Dweb from './socials/Dweb'
+import Email from './socials/Email'
 import Github from './socials/Github'
 import Discord from './socials/Discord'
 import Telegram from './socials/Telegram'
@@ -77,4 +78,5 @@ export {
   Mute,
   Key,
   Calendar,
+  Email,
 }

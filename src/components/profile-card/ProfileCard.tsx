@@ -132,6 +132,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             <Avatar
               address={addressOrName}
               src={ens?.avatar}
+              name={ens?.name}
               fallback={DEFAULT_FALLBACK_AVATAR}
               style={{ width: '100px', height: '100px' }}
               onClick={() => onProfileClick?.(addressOrName)}

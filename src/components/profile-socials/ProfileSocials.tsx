@@ -88,10 +88,15 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
               <a
                 key={social.name}
                 href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
-                target="_blank"
+                target={social.name === 'email' ? '_self' : '_blank'}
                 rel="noreferrer"
                 aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
                 className="social-link"
+                onClick={() => {
+                  if (social.name === 'email') {
+                    navigator.clipboard.writeText(records?.[social.name] || '')
+                  }
+                }}
               >
                 <div className="social-icon-dark">
                   <social.icon.dark height={iconSize} width={iconSize} />

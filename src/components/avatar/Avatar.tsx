@@ -1,4 +1,5 @@
 import React from 'react'
+import { isLinkValid } from '../../utils'
 import ImageWithFallback from '../image-with-fallback/ImageWithFallback'
 import { DEFAULT_FALLBACK_AVATAR } from '../../constants'
 import type { AvatarProps } from './Avatar.types'
@@ -32,7 +33,8 @@ const Avatar: React.FC<AvatarProps> = ({
   onClick,
   ...props
 }) => {
-  const imageSrc = src || `https://metadata.ens.domains/mainnet/avatar/${name}`
+  // if there is no src or src is an ipfs hash, use ENS metadata service
+  const imageSrc = src && isLinkValid(src) ? src : `https://metadata.ens.domains/mainnet/avatar/${name}`
 
   return (
     <div

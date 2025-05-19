@@ -1,4 +1,4 @@
-import { Etherscan, Github, Telegram, X, Discord, GithubDark, EtherscanDark } from '../components/icons'
+import { Etherscan, Github, Telegram, X, Discord, GithubDark, EtherscanDark, Email } from '../components/icons'
 
 export const PROFILE_CARD_SOCIALS = [
   {
@@ -39,6 +39,14 @@ export const PROFILE_CARD_SOCIALS = [
     icon: {
       light: Discord,
       dark: Discord,
+    },
+  },
+  {
+    name: 'email',
+    url: (email: string) => `mailto:${email}`,
+    icon: {
+      light: Email,
+      dark: Email,
     },
   },
 ] as const

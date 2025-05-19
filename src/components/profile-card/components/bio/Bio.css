@@ -16,7 +16,7 @@
   font-weight: 500;
   line-height: 1.2;
   text-align: left;
-  color: #555;
+  color: black;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -33,7 +33,7 @@
 }
 
 .dark .profile-bio-text {
-  color: #ddd;
+  color: white;
 }
 
 .profile-bio-link {
