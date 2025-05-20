@@ -16,7 +16,7 @@
   font-weight: 500;
   line-height: 1.2;
   text-align: left;
-  color: black;
+  color: var(--ethereum-identity-kit-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -33,24 +33,24 @@
 }
 
 .dark .profile-bio-text {
-  color: white;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .profile-bio-link {
   text-decoration: none;
-  color: rgb(0, 89, 255);
+  color: var(--ethereum-identity-kit-link);
 }
 
 .profile-bio-link:hover {
-  color: rgb(37 99 235);
+  color: var(--ethereum-identity-kit-link-hover);
 }
 
 .dark .profile-bio-link {
-  color: rgb(96 165 250);
+  color: var(--ethereum-identity-kit-link-dark);
 }
 
 .dark .profile-bio-link:hover {
-  color: rgb(147 197 253);
+  color: var(--ethereum-identity-kit-link-hover-dark);
 }
 
 .profile-bio-expand-button {
@@ -64,17 +64,17 @@
   margin: 0;
   height: 20px;
   cursor: pointer;
-  color: rgb(0, 89, 255);
+  color: var(--ethereum-identity-kit-link);
 }
 
 .profile-bio-expand-button:hover {
-  color: rgb(37 99 235);
+  color: var(--ethereum-identity-kit-link-hover);
 }
 
 .dark .profile-bio-expand-button {
-  color: rgb(96 165 250);
+  color: var(--ethereum-identity-kit-link-dark);
 }
 
 .dark .profile-bio-expand-button:hover {
-  color: rgb(147 197 253);
+  color: var(--ethereum-identity-kit-link-hover-dark);
 }

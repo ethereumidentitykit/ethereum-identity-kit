@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--ethereum-identity-kit-background-overlay);
 }
 
 .cancel-modal-container {
@@ -16,8 +16,8 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  background-color: #fff;
-  color: #000;
+  background-color: var(--ethereum-identity-kit-background);
+  color: var(--ethereum-identity-kit-text-primary);
   border-radius: 10px;
   padding: 20px;
   width: 380px;
@@ -26,8 +26,8 @@
 }
 
 .dark .cancel-modal-container {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--ethereum-identity-kit-background-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .cancel-modal-title {
@@ -59,13 +59,13 @@
   align-items: center;
   gap: 8px;
   width: calc(50% - 4px);
-  background-color: #aaa;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   border: none;
   border-radius: 4px;
   height: 54px;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
@@ -75,7 +75,7 @@
 }
 
 .dark .cancel-modal-cancel-button {
-  background-color: #555;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .cancel-modal-confirm-button {
@@ -84,13 +84,13 @@
   align-items: center;
   gap: 4px;
   width: calc(50% - 4px);
-  background-color: #ff7c7c;
+  background-color: var(--ethereum-identity-deletion);
   border: none;
   border-radius: 4px;
   height: 54px;
   font-size: 16px;
   font-weight: 600;
-  color: white;
+  color: var(--ethereum-identity-kit-text-primary);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

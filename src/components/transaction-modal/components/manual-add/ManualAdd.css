@@ -23,20 +23,20 @@
   padding: 0 16px;
   outline: none;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .manual-add-input::placeholder {
-  color: #888888;
+  color: var(--ethereum-identity-kit-text-secondary);
 }
 
 .dark .manual-add-input {
-  background-color: #444444;
-  color: #ffffff;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .dark .manual-add-input::placeholder {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .manual-add-button {
@@ -45,17 +45,17 @@
   font-size: 16px;
   font-weight: 600;
   border-radius: 6px;
-  color: #000;
+  color: var(--ethereum-identity-kit-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffe066;
+  background-color: var(--ethereum-identity-kit-primary);
 }
 
 .manual-add-error {
   width: 100%;
   padding: 0px 12px;
-  color: #ff0000;
+  color: var(--ethereum-identity-kit-error);
   font-size: 14px;
   font-weight: 500;
 }
@@ -65,8 +65,8 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(farthest-side, rgb(60, 60, 60) 94%, #0000) top/4px 4px no-repeat,
-    conic-gradient(#0000 30%, rgb(60, 60, 60));
+    radial-gradient(farthest-side, var(--ethereum-identity-kit-text-secondary) 94%, #0000) top/4px 4px no-repeat,
+    conic-gradient(#0000 30%, var(--ethereum-identity-kit-text-secondary));
   mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   animation: manual-add-spin 1s infinite linear;

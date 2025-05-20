@@ -29,7 +29,6 @@
   align-items: flex-start;
   gap: 4px;
   width: calc(100% - 120px);
-  z-index: 1;
 }
 
 .profile-list-row-name {

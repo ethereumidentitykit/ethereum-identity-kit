@@ -7,9 +7,9 @@
 [image-loaded='false'] {
   background: linear-gradient(
     90deg,
-    rgba(200, 200, 200, 0.7) 0%,
-    rgba(172, 172, 172, 0.05) 50%,
-    rgba(200, 200, 200, 0.7) 100%
+    var(--ethereum-identity-kit-neutral-light) 0%,
+    var(--ethereum-identity-kit-neutral-hover) 50%,
+    var(--ethereum-identity-kit-neutral-light) 100%
   );
   background-size: 400%;
   animation: loading-gradient 5s ease-in-out infinite forwards;

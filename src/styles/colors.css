@@ -1,0 +1,58 @@
+:root {
+  /* Text Colors */
+  --ethereum-identity-kit-text-primary: #000000;
+  --ethereum-identity-kit-text-primary-dark: #ffffff;
+  --ethereum-identity-kit-text-secondary: #555555;
+  --ethereum-identity-kit-text-secondary-dark: #aaaaaa;
+  --ethereum-identity-kit-text-light: #ffffff;
+  --ethereum-identity-kit-text-light-dark: #ffffff;
+  --ethereum-identity-kit-text-neutral: #555555;
+  --ethereum-identity-kit-text-neutral-dark: #aaaaaa;
+
+  /* Primary Colors */
+  --ethereum-identity-kit-primary: #ffe066;
+  --ethereum-identity-kit-primary-hover: #fde583;
+
+  /* Link Colors */
+  --ethereum-identity-kit-link: #0059ff;
+  --ethereum-identity-kit-link-dark: #4dabff;
+  --ethereum-identity-kit-link-selected: #0056b3;
+  --ethereum-identity-kit-link-selected-dark: #66b3ff;
+  --ethereum-identity-kit-link-hover: #0047cc;
+  --ethereum-identity-kit-link-hover-dark: #3399ff;
+
+  /* Neutral Colors */
+  --ethereum-identity-kit-neutral: #ffffff;
+  --ethereum-identity-kit-neutral-dark: #2d2d2d;
+  --ethereum-identity-kit-neutral-hover: #d0d0d0;
+  --ethereum-identity-kit-neutral-hover-dark: #3d3d3d;
+  --ethereum-identity-kit-neutral-light: #f4f4f4;
+  --ethereum-identity-kit-neutral-light-dark: #444444;
+
+  /* Background Colors */
+  --ethereum-identity-kit-background: #ffffff;
+  --ethereum-identity-kit-background-dark: #333333;
+  --ethereum-identity-kit-background-overlay: rgba(0, 0, 0, 0.5);
+  --ethereum-identity-kit-background-overlay-dark: rgba(0, 0, 0, 0.7);
+
+  /* Status Colors */
+  --ethereum-identity-kit-deletion: #ff7c7c;
+  --ethereum-identity-kit-success: #49de80;
+  --ethereum-identity-kit-indexing-bar: #24ad57;
+
+  /* Shadow Colors */
+  --ethereum-identity-kit-shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --ethereum-identity-kit-shadow-small-dark: 0 2px 4px rgba(255, 255, 255, 0.2);
+  --ethereum-identity-kit-shadow-medium: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --ethereum-identity-kit-shadow-medium-dark: 0 2px 6px rgba(255, 255, 255, 0.2);
+  --ethereum-identity-kit-shadow-large: 0 2px 12px rgba(0, 0, 0, 0.1);
+  --ethereum-identity-kit-shadow-large-dark: 0 2px 12px rgba(255, 255, 255, 0.2);
+
+  /* Social Colors */
+  --ethereum-identity-kit-social-twitter: rgb(0, 89, 255);
+  --ethereum-identity-kit-social-twitter-dark: rgb(96, 165, 250);
+  --ethereum-identity-kit-social-github: #333333;
+  --ethereum-identity-kit-social-github-dark: #666666;
+  --ethereum-identity-kit-social-discord: rgb(37, 99, 235);
+  --ethereum-identity-kit-social-discord-dark: rgb(147, 197, 253);
+}

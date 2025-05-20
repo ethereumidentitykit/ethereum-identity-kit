@@ -29,12 +29,12 @@
   font-size: 14px;
   font-weight: 600;
   margin: 0;
-  color: #888;
+  color: var(--ethereum-identity-kit-text-secondary);
   text-align: center;
 }
 
 .dark .chain-selector-subtitle {
-  color: #aaa;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .chain-selector-options-container {
@@ -48,8 +48,8 @@
   height: 48px;
   width: 100%;
   padding: 4px 4px;
-  background-color: #eeeeee;
-  color: black;
+  background-color: var(--ethereum-identity-kit-neutral-light);
+  color: var(--ethereum-identity-kit-text-primary);
   border-radius: 4px;
   font-size: 16px;
   font-weight: 700;
@@ -61,35 +61,35 @@
 }
 
 .dark .chain-selector-option {
-  background-color: #444444;
-  color: white;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .chain-selector-option:hover {
-  background-color: #f0f0f0;
+  background-color: var(--ethereum-identity-kit-neutral-hover);
 }
 
 .dark .chain-selector-option:hover {
-  background-color: #555;
+  background-color: var(--ethereum-identity-kit-neutral-hover-dark);
 }
 
 .chain-selector-option-selected {
-  border-color: #00cc00 !important;
+  border-color: var(--ethereum-identity-kit-success) !important;
 }
 
 .dark .chain-selector-option-selected {
-  border-color: #00ee00 !important;
+  border-color: var(--ethereum-identity-kit-success-dark) !important;
 }
 
 .chain-selector-option-check {
-  color: #00cc00;
+  color: var(--ethereum-identity-kit-success);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .dark .chain-selector-option-check {
-  color: #00ee00;
+  color: var(--ethereum-identity-kit-success-dark);
 }
 
 .chain-selector-option-title-container {

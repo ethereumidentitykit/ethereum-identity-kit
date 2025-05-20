@@ -1,0 +1,95 @@
+.notification-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: var(--ethereum-identity-kit-neutral);
+  position: relative;
+}
+
+.notification-item.new {
+  background-color: var(--ethereum-identity-kit-neutral-hover);
+}
+
+.follow,
+.unblock,
+.unmute {
+  background-color: #ffe06644;
+}
+
+.unfollow,
+.block,
+.mute {
+  background-color: #ff7c7c44;
+}
+
+.tag,
+.untag {
+  background-color: #d0d0d044;
+}
+
+.notification {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+
+.notification-item-avatars {
+  display: flex;
+  width: fit-content;
+}
+
+.notification-item-content {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
+.notification-item-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.notification-item-description {
+  font-size: 0.75rem;
+  color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.notification-item-time {
+  font-size: 0.75rem;
+  color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.notification-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.notification-item-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: var(--ethereum-identity-kit-primary);
+  color: var(--ethereum-identity-kit-text-light);
+}
+
+.notification-item-button:hover {
+  background-color: var(--ethereum-identity-kit-primary-hover);
+}
+
+.notification-item-button.secondary {
+  background-color: var(--ethereum-identity-kit-neutral-hover);
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.dark .notification-item-button.secondary {
+  background-color: var(--ethereum-identity-kit-neutral-hover-dark);
+}

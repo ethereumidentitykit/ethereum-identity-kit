@@ -21,7 +21,7 @@
   padding-top: 4px;
   padding-bottom: 2px;
   text-align: left;
-  color: #666;
+  color: var(--ethereum-identity-kit-text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -39,7 +39,7 @@
 }
 
 .dark .common-followers-text-container {
-  color: #aaa;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .common-followers-name {

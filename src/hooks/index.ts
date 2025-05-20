@@ -13,6 +13,7 @@ import { useProfileDetails } from './profile/useProfileDetails'
 import { useTransactionItem } from './useTransactionItem'
 import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 import { useFollowersYouKnowModal } from './followers-you-know/useModal'
+import { useNotifications } from './useNotifications'
 
 export {
   useFollowingState,
@@ -30,4 +31,5 @@ export {
   useIsClient,
   useFollowersYouKnowModal,
   useWindowSize,
+  useNotifications,
 }

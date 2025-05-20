@@ -26,7 +26,7 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  background-color: #eee;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   box-sizing: border-box;
   transition:
     opacity 0.2s ease,
@@ -34,7 +34,7 @@
 }
 
 .dark .profile-link {
-  background-color: #666;
+  background-color: var(--ethereum-identity-kit-text-secondary);
 }
 
 .profile-link p {
@@ -45,11 +45,11 @@
 }
 
 .profile-link {
-  color: rgb(0, 89, 255);
+  color: var(--ethereum-identity-kit-link);
 }
 
 .dark .profile-link {
-  color: rgb(96 165 250);
+  color: var(--ethereum-identity-kit-link-dark);
 }
 
 .profile-link:hover {
@@ -66,14 +66,14 @@
 
 .social-link {
   opacity: 1;
-  color: #000;
+  color: var(--ethereum-identity-kit-text-primary);
   transition:
     opacity 0.2s ease,
     scale 0.2s ease;
 }
 
 .dark .social-link {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .social-link[aria-disabled='true'] {

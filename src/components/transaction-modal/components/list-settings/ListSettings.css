@@ -3,13 +3,13 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   padding: 16px 12px;
   border-radius: 4px;
 }
 
 .dark .list-settings-container {
-  background-color: #444444;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .list-settings-title {
@@ -47,21 +47,21 @@
   justify-content: center;
   padding: 6px;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .dark .list-setting-icon-container {
-  background-color: #333333;
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .list-setting-description {
   font-size: 14px;
   font-weight: 400;
-  color: #666666;
+  color: var(--ethereum-identity-kit-text-secondary);
 }
 
 .dark .list-setting-description {
-  color: #bbbbbb;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .list-account-container {

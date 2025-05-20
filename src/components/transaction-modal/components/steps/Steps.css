@@ -23,13 +23,13 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #d8d8d8;
-  color: #333;
+  background-color: var(--ethereum-identity-kit-neutral-light);
+  color: var(--ethereum-identity-kit-text-primary);
   position: relative;
 }
 
 .dark .transaction-step {
-  background-color: #666666;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .transaction-step:after {
@@ -39,11 +39,11 @@
   left: -24px;
   width: 24px;
   height: 3px;
-  background-color: #d8d8d8;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .transaction-step:after {
-  background-color: #666666;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .no-line:after {
@@ -52,22 +52,22 @@
 
 .transaction-step-current,
 .transaction-step-current:after {
-  background-color: #ffe066 !important;
+  background-color: var(--ethereum-identity-kit-primary) !important;
 }
 
 .transaction-step-pending,
 .transaction-step-pending:after {
-  background-color: #ffe066 !important;
+  background-color: var(--ethereum-identity-kit-primary) !important;
 }
 
 .transaction-step-done,
 .transaction-step-done:after {
-  background-color: #49de80 !important;
+  background-color: var(--ethereum-identity-kit-success) !important;
 }
 
 .transaction-step-error,
 .transaction-step-error:after {
-  background-color: #ff7c7c !important;
+  background-color: var(--ethereum-identity-kit-error) !important;
 }
 
 @media screen and (max-width: 600px) {

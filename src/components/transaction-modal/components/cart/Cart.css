@@ -7,11 +7,11 @@
   padding: 12px 10px 116px 10px;
   overflow: visible;
   z-index: 1000;
-  background-color: white;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .dark .cart-container {
-  background-color: #333333;
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .cart-container-inner {
@@ -49,11 +49,11 @@
   padding: 8px;
   border-radius: 6px;
   height: fit-content;
-  background-color: #f4f4f4;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .cart-changes-list {
-  background-color: #444444;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .cart-changes-list-header {
@@ -73,11 +73,11 @@
 .cart-changes-list-title span {
   font-size: 16px;
   font-weight: 500;
-  color: #888;
+  color: var(--ethereum-identity-kit-text-secondary);
 }
 
 .dark .cart-changes-list-title span {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .cart-changes-list-header-button {
@@ -102,7 +102,7 @@
   font-size: 16px;
   font-weight: 500;
   font-style: italic;
-  color: #888;
+  color: var(--ethereum-identity-kit-text-secondary);
   text-align: center;
   display: flex;
   align-items: center;
@@ -111,7 +111,7 @@
 }
 
 .dark .cart-changes-list-empty {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .cart-recommended-container {
@@ -129,11 +129,11 @@
   padding: 10px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  background-color: #ffffff;
+  background-color: var(--ethereum-identity-kit-background);
   display: flex;
   gap: 8px;
   flex-direction: column;
-  box-shadow: 0 -2px 6px 0 #0004;
+  box-shadow: var(--ethereum-identity-kit-shadow-large);
 }
 
 .cart-modal-buttons-container-top {
@@ -150,11 +150,11 @@
   border-radius: 4px;
   padding: 6px 8px;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .cart-modal-buttons-container-top-info {
-  background-color: #555555;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .cart-modal-buttons-container-top-info p {
@@ -164,16 +164,16 @@
 
 .cart-modal-buttons-container-top-info p:nth-child(2) {
   font-size: 13px;
-  color: #777777;
+  color: var(--ethereum-identity-kit-text-secondary);
 }
 
 .dark .cart-modal-buttons-container-top-info p:nth-child(2) {
-  color: #bbbbbb;
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .dark .cart-modal-buttons-container {
-  background-color: #333333;
-  box-shadow: 0 -2px 6px 0 #fff4;
+  background-color: var(--ethereum-identity-kit-background-dark);
+  box-shadow: var(--ethereum-identity-kit-shadow-large-dark);
 }
 
 .cart-modal-to-top-button {

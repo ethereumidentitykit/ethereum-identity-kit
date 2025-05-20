@@ -49,6 +49,7 @@ import { ProfileListProps } from './profile-list/ProfileList.types'
 import { ProfileListRowProps } from './profile-list-row/ProfileListRow.types'
 import { FullWidthProfileProps } from './full-width-profile/FullWidthProfile.types'
 import { EFPPoapsProps } from './efp-poaps/EFPPoaps.types'
+import { NotificationsProps } from './notifications/Notifications.types'
 
 export type {
   ProfileCardProps,
@@ -65,6 +66,7 @@ export type {
   ProfileListRowProps,
   FullWidthProfileProps,
   EFPPoapsProps,
+  NotificationsProps,
 }
 
 export * from './icons'
