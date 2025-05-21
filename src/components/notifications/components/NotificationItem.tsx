@@ -62,33 +62,27 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
   const displayedNames = groupedNotifications.slice(0, 2)
 
   return (
-    <div
-      className={clsx(
-        'notification-item',
-        action,
-        isNew && 'new'
-      )}
-    >
-      <div className='notification-item-content'>
+    <div className={clsx('notification-item', action, isNew && 'new')}>
+      <div className="notification-item-content">
         <div
-          className=''
+          className={clsx('notification-item-icon', action)}
           style={{
-            paddingLeft: (action === 'follow' || action === 'unfollow') ? '8px' : '0px'
+            paddingLeft: action === 'follow' || action === 'unfollow' ? '3px' : '0px',
           }}
         >
-          <Icon className='text-dark-grey h-auto w-5' height={24} width={24} />
+          <Icon height={20} width={20} />
         </div>
-        <div className='notification'>
-          <div className='notification-item-avatars'>
+        <div className="notification">
+          <div className="notification-item-avatars">
             {displayedAvatars.map((profile, index) => (
               <Avatar
                 key={`avatar-${profile.address}-${index}`}
                 src={profile.avatar}
                 name={profile.name || profile.address}
                 style={{
-                  width: '24px',
-                  height: '24px',
-                  transform: `translateX(-${index * 10}px)`,
+                  width: '32px',
+                  height: '32px',
+                  transform: `translateX(-${index * 16}px)`,
                 }}
                 onClick={() => {
                   window.open(`/${profile.address}?ssr=false`, '_blank')
@@ -97,7 +91,13 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
               />
             ))}
           </div>
-          <div className='notification-item-description'>
+          <div
+            className="notification-item-description"
+            style={{
+              // transform: `translateX(${Math.min(0, (displayedAvatars.length - 1) * -16)}px)`,
+              marginLeft: `${Math.min(0, (displayedAvatars.length - 1) * -16)}px`,
+            }}
+          >
             {displayedNames?.map((profile, index) => (
               <span key={`name-${profile.address}-${index}`}>
                 <span
@@ -105,7 +105,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
                     window.open(`/${profile.address}?ssr=false`, '_blank')
                     onClose()
                   }}
-                  className='cursor-pointer transition-all hover:underline hover:opacity-80'
+                  className="cursor-pointer transition-all hover:underline hover:opacity-80"
                 >
                   {`${profile.name || truncateAddress(profile.address)}`}
                 </span>
@@ -116,13 +116,13 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
               `and ${groupedNotifications.length - 2} ${groupedNotifications.length - 2 > 1 ? 'others' : 'other'} `}
             {actionText}
             {(action === 'tag' || action === 'untag') && (
-              <span className='text-text-neutral'>{` ${groupedNotifications[0]?.tag}`}</span>
+              <span className="text-text-neutral">{` ${groupedNotifications[0]?.tag}`}</span>
             )}
           </div>
         </div>
       </div>
-      <p className='notification-item-time'>{formatTimeDiff(timeDiff)}</p>
-      {isNew && <span className='bg-primary absolute -top-1 -right-1 flex h-4 w-4 rounded-full' />}
+      <p className="notification-item-time">{formatTimeDiff(timeDiff)}</p>
+      {isNew && <span className="bg-primary absolute -top-1 -right-1 flex h-4 w-4 rounded-full" />}
     </div>
   )
 }
