@@ -12,12 +12,16 @@ import clsx from 'clsx'
 
 const centerVertical = ['left', 'right']
 
-const Notifications: React.FC<NotificationsProps> = ({ addressOrName, position = 'top', align = 'right', onClose }) => {
+const Notifications: React.FC<NotificationsProps> = ({
+  addressOrName,
+  position = 'top',
+  align = 'right',
+  darkMode = false,
+}) => {
   const { address: userAddress } = useAccount()
   const { notifications, isLoading, isOpen, setIsOpen, newNotifications } = useNotifications(addressOrName)
   const clickAwayRef = useOutsideClick(() => {
     setIsOpen(false)
-    onClose?.()
   })
 
   const alignTooltip = position === 'right' || position === 'left' ? '' : align
@@ -33,7 +37,10 @@ const Notifications: React.FC<NotificationsProps> = ({ addressOrName, position =
   if (!userAddress) return null
 
   return (
-    <div className="notifications-container" ref={clickAwayRef as LegacyRef<HTMLDivElement>}>
+    <div
+      className={clsx('notifications-container', darkMode && 'dark')}
+      ref={clickAwayRef as LegacyRef<HTMLDivElement>}
+    >
       <div className="notifications-bell" onClick={() => setIsOpen(!isOpen)}>
         <div className={clsx('notifications-bell-icon', isOpen && 'notifications-bell-selected')}>
           <Bell width={36} height={36} />
@@ -72,7 +79,6 @@ const Notifications: React.FC<NotificationsProps> = ({ addressOrName, position =
                     action={key as NotificationItemAction}
                     onClose={() => {
                       setIsOpen(false)
-                      onClose?.()
                     }}
                   />
                 ))
@@ -86,7 +92,6 @@ const Notifications: React.FC<NotificationsProps> = ({ addressOrName, position =
                   action={key as NotificationItemAction}
                   onClose={() => {
                     setIsOpen(false)
-                    onClose?.()
                   }}
                 />
               )

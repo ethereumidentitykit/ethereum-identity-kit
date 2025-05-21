@@ -1,4 +1,5 @@
 import Avatar from './avatar/Avatar'
+import EFPPoaps from './efp-poaps/EFPPoaps'
 import Bio from './profile-card/components/bio'
 import FollowerTag from './follower-tag/FollowerTag'
 import ProfileCard from './profile-card/ProfileCard'
@@ -6,15 +7,16 @@ import LoadingCell from './loading-cell/LoadingCell'
 import ProfileList from './profile-list/ProfileList'
 import FollowButton from './follow-button/FollowButton'
 import ProfileStats from './profile-stats/ProfileStats'
+import Notifications from './notifications/Notifications'
 import Tags from './transaction-modal/components/cart/tags'
-import ProfileListRow from './profile-list-row/ProfileListRow'
 import ProfileSocials from './profile-socials/ProfileSocials'
-import FollowersYouKnow from './followers-you-know/FollowersYouKnow'
+import ProfileListRow from './profile-list-row/ProfileListRow'
 import HeaderImage from './profile-card/components/HeaderImage'
 import TransactionModal from './transaction-modal/TransactionModal'
-import ImageWithFallback from './image-with-fallback/ImageWithFallback'
+import FollowersYouKnow from './followers-you-know/FollowersYouKnow'
 import FullWidthProfile from './full-width-profile/FullWidthProfile'
-import EFPPoaps from './efp-poaps/EFPPoaps'
+import ImageWithFallback from './image-with-fallback/ImageWithFallback'
+
 export {
   ProfileCard,
   ProfileSocials,
@@ -33,6 +35,7 @@ export {
   Tags,
   FullWidthProfile,
   EFPPoaps,
+  Notifications,
 }
 
 import { AvatarProps } from './avatar/Avatar.types'

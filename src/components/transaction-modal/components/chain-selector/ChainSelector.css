@@ -74,11 +74,11 @@
 }
 
 .chain-selector-option-selected {
-  border-color: var(--ethereum-identity-kit-success) !important;
+  border-color: #0e0 !important;
 }
 
 .dark .chain-selector-option-selected {
-  border-color: var(--ethereum-identity-kit-success-dark) !important;
+  border-color: #0c0 !important;
 }
 
 .chain-selector-option-check {

@@ -59,13 +59,13 @@
   align-items: center;
   gap: 8px;
   width: calc(50% - 4px);
-  background-color: var(--ethereum-identity-kit-neutral-light);
+  background-color: var(--ethereum-identity-kit-text-neutral-dark);
   border: none;
   border-radius: 4px;
   height: 54px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-primary);
+  color: var(--ethereum-identity-kit-text-primary-dark);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
@@ -75,7 +75,7 @@
 }
 
 .dark .cancel-modal-cancel-button {
-  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+  background-color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .cancel-modal-confirm-button {
@@ -84,13 +84,13 @@
   align-items: center;
   gap: 4px;
   width: calc(50% - 4px);
-  background-color: var(--ethereum-identity-deletion);
+  background-color: var(--ethereum-identity-kit-deletion);
   border: none;
   border-radius: 4px;
   height: 54px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-primary);
+  color: var(--ethereum-identity-kit-text-primary-dark);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

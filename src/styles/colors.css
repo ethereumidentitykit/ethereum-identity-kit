@@ -37,6 +37,8 @@
 
   /* Status Colors */
   --ethereum-identity-kit-deletion: #ff7c7c;
+  --ethereum-identity-kit-restriction: #ef4444;
+  --ethereum-identity-kit-restriction-hover: #ef444433;
   --ethereum-identity-kit-success: #49de80;
   --ethereum-identity-kit-indexing-bar: #24ad57;
 

@@ -4,64 +4,22 @@
   gap: 0.5rem;
   padding: 0.75rem;
   border-radius: 0.125rem;
-  background-color: var(--ethereum-identity-kit-neutral);
+  background-color: var(--ethereum-identity-kit-neutral-light);
+}
+
+.dark .notification-item-loading {
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .notification-item-loading-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.notification-item-loading-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 9999px;
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  gap: 12px;
 }
 
 .notification-item-loading-content {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.notification-item-loading-title {
-  height: 0.875rem;
-  width: 75%;
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-  border-radius: 0.125rem;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.notification-item-loading-description {
-  height: 0.75rem;
-  width: 50%;
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-  border-radius: 0.125rem;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.notification-item-loading::before {
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-}
-
-.notification-item-loading::after {
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-}
-
-.notification-item-loading-text {
-  background-color: var(--ethereum-identity-kit-neutral-hover);
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+  align-items: center;
+  gap: 6px;
 }

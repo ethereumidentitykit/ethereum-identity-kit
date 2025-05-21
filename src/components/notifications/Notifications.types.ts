@@ -4,5 +4,5 @@ export interface NotificationsProps {
   addressOrName: Address | string
   position?: 'top' | 'bottom' | 'left' | 'right'
   align?: 'left' | 'center' | 'right' | 'top' | 'bottom'
-  onClose?: () => void
+  darkMode?: boolean
 }

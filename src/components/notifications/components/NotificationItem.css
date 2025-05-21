@@ -14,20 +14,20 @@
   background-color: var(--ethereum-identity-kit-neutral-hover);
 }
 
-.follow,
-.unblock,
-.unmute {
+.notifications-follow,
+.notifications-unblock,
+.notifications-unmute {
   background-color: #ffe06644;
 }
 
-.unfollow,
-.block,
-.mute {
+.notifications-unfollow,
+.notifications-block,
+.notifications-mute {
   background-color: #ff7c7c44;
 }
 
-.tag,
-.untag {
+.notifications-tag,
+.notifications-untag {
   background-color: #d0d0d044;
 }
 
@@ -40,20 +40,20 @@
   border-radius: 50%;
 }
 
-.notification-item-icon.follow,
-.notification-item-icon.unblock,
-.notification-item-icon.unmute {
+.notifications-follow .notification-item-icon,
+.notifications-unblock .notification-item-icon,
+.notifications-unmute .notification-item-icon {
   background-color: #ffe066;
 }
 
-.notification-item-icon.unfollow,
-.notification-item-icon.block,
-.notification-item-icon.mute {
+.notifications-unfollow .notification-item-icon,
+.notifications-block .notification-item-icon,
+.notifications-mute .notification-item-icon {
   background-color: #ff7c7c;
 }
 
-.notification-item-icon.tag,
-.notification-item-icon.untag {
+.notifications-tag .notification-item-icon,
+.notifications-untag .notification-item-icon {
   background-color: #d0d0d0;
 }
 
@@ -89,9 +89,17 @@
   -webkit-box-orient: vertical;
 }
 
+.dark .notification-item-description {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
 .notification-item-time {
   font-size: 0.75rem;
   color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.dark .notification-item-time {
+  color: var(--ethereum-identity-kit-text-secondary-dark);
 }
 
 .notification-item-actions {

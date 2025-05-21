@@ -60,7 +60,7 @@
 .follow-button-unblock,
 .follow-button-unmute {
   border-color: transparent !important;
-  background: var(--ethereum-identity-deletion);
+  background: var(--ethereum-identity-kit-deletion);
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -70,7 +70,7 @@
 .follow-button-muted:not(.disable-hover):hover,
 .follow-button-unmute:not(.disable-hover):hover {
   border-color: transparent;
-  background: var(--ethereum-identity-deletion-dark);
+  background: var(--ethereum-identity-kit-deletion);
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -80,7 +80,7 @@
 .follow-button-unblock-pending:not(.disable-hover):hover,
 .follow-button-unmute-pending:not(.disable-hover):hover {
   border-color: transparent;
-  background: var(--ethereum-identity-deletion);
+  background: var(--ethereum-identity-kit-restriction-hover);
 }
 
 .follow-button-blocked,
@@ -88,12 +88,12 @@
 .follow-button-muted,
 .follow-button-mute-pending {
   background: var(--ethereum-identity-kit-background);
-  border-color: var(--ethereum-identity-deletion) !important;
-  color: var(--ethereum-identity-deletion);
+  border-color: var(--ethereum-identity-kit-restriction) !important;
+  color: var(--ethereum-identity-kit-restriction);
 }
 
 .pending::after {
-  background: var(--ethereum-identity-success);
+  background: var(--ethereum-identity-kit-success);
   height: 12px;
   width: 12px;
   border-radius: 100%;

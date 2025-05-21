@@ -240,8 +240,8 @@
 }
 
 .user-profile-edit-profile-button {
-  background-color: var(--ethereum-identity-kit-primary);
-  color: var(--ethereum-identity-kit-text-primary);
+  background-color: #0080bc;
+  color: white;
   border-radius: 4px;
   padding: 8px 6px;
   display: flex;

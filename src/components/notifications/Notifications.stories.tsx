@@ -59,11 +59,11 @@ const getStoryPosition = (position?: string, align?: string): CSSProperties => {
           break
         case 'left':
           baseStyle.top = '50%'
-          baseStyle.right = '30px'
+          baseStyle.right = '0px'
           break
         case 'right':
           baseStyle.top = '50%'
-          baseStyle.left = '30px'
+          baseStyle.left = '0px'
           break
       }
       break
@@ -118,9 +118,7 @@ NotificationsByAddress.args = {
   addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   position: 'right',
   align: 'bottom',
-  onClose: () => {
-    console.log('Notifications closed')
-  },
+  darkMode: false,
 }
 
 export const NotificationsByENSName = Template.bind({})
@@ -128,7 +126,5 @@ NotificationsByENSName.args = {
   addressOrName: 'brantly.eth',
   position: 'right',
   align: 'bottom',
-  onClose: () => {
-    console.log('Notifications closed')
-  },
+  darkMode: false,
 }

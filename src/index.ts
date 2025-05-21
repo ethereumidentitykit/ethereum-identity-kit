@@ -1,3 +1,6 @@
+// Global styles
+import './styles/colors.css'
+
 // Hooks
 export {
   useFollowingState,
@@ -160,6 +163,7 @@ export {
   Mute,
   Key,
   Calendar,
+  Notifications,
 } from './components'
 
 // Component Types

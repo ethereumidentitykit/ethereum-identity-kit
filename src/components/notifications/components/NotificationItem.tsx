@@ -62,10 +62,10 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
   const displayedNames = groupedNotifications.slice(0, 2)
 
   return (
-    <div className={clsx('notification-item', action, isNew && 'new')}>
+    <div className={clsx('notification-item', `notifications-${action}`, isNew && 'new')}>
       <div className="notification-item-content">
         <div
-          className={clsx('notification-item-icon', action)}
+          className="notification-item-icon"
           style={{
             paddingLeft: action === 'follow' || action === 'unfollow' ? '3px' : '0px',
           }}
