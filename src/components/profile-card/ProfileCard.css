@@ -8,19 +8,19 @@
   flex-direction: column;
   align-items: start;
   gap: 8px;
-  color: #000;
-  background-color: #fff;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: var(--ethereum-identity-kit-background);
   box-sizing: border-box;
 }
 
 .dark-profile-card {
-  color: #fff;
-  background-color: #333;
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .dark .profile-card {
-  color: #fff;
-  background-color: #333;
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .profile-avatar-container {
@@ -76,19 +76,18 @@
 .profile-status {
   font-size: 14px;
   font-weight: 500;
-  background-color: #eee;
-  color: #fff;
+  background-color: var(--ethereum-identity-kit-neutral-light);
+  color: var(--ethereum-identity-kit-text-primary);
   font-style: italic;
   padding: 4px 8px;
   border-radius: 4px;
-  color: #000;
   margin: 2px 0;
   text-align: left;
 }
 
 .dark .profile-status {
-  color: white;
-  background-color: #555;
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .profile-bio {
@@ -114,5 +113,33 @@
 }
 
 .dark .common-followers-text-container {
-  color: #aaa;
+  color: var(--ethereum-identity-kit-text-neutral-dark);
+}
+
+.user-profile-edit-profile-button-container {
+  text-decoration: none;
+}
+
+.user-profile-edit-profile-button {
+  background-color: #0080bc;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  transition: all 0.2s;
+}
+
+.user-profile-edit-profile-button p {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+}
+
+.user-profile-edit-profile-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: #07a9f5;
 }

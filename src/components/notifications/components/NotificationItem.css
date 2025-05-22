@@ -1,0 +1,141 @@
+.notification-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 4px;
+  width: 100%;
+  background-color: var(--ethereum-identity-kit-neutral);
+  position: relative;
+}
+
+.notification-item.new::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--ethereum-identity-kit-primary);
+  border-radius: 16px;
+}
+
+.notifications-follow,
+.notifications-unblock,
+.notifications-unmute {
+  background-color: #ffe06644;
+}
+
+.notifications-unfollow,
+.notifications-block,
+.notifications-mute {
+  background-color: #ff7c7c44;
+}
+
+.notifications-tag,
+.notifications-untag {
+  background-color: #d0d0d044;
+}
+
+.notification-item-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.notifications-follow .notification-item-icon,
+.notifications-unblock .notification-item-icon,
+.notifications-unmute .notification-item-icon {
+  background-color: #ffe066;
+}
+
+.notifications-unfollow .notification-item-icon,
+.notifications-block .notification-item-icon,
+.notifications-mute .notification-item-icon {
+  background-color: #ff7c7c;
+}
+
+.notifications-tag .notification-item-icon,
+.notifications-untag .notification-item-icon {
+  background-color: #d0d0d0;
+}
+
+.notification {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  width: calc(100% - 40px);
+}
+
+.notification-item-avatars {
+  display: flex;
+  width: fit-content;
+}
+
+.notification-item-content {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.notification-item-description {
+  font-size: 14px;
+  color: var(--ethereum-identity-kit-text-neutral);
+  max-width: calc(100% - 100px);
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.dark .notification-item-description {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.notification-item-time {
+  font-size: 0.75rem;
+  color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.dark .notification-item-time {
+  color: var(--ethereum-identity-kit-text-neutral-dark);
+}
+
+.notification-item-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.notification-item-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: var(--ethereum-identity-kit-primary);
+  color: var(--ethereum-identity-kit-text-light);
+}
+
+.notification-item-button:hover {
+  background-color: var(--ethereum-identity-kit-primary-hover);
+}
+
+.notification-item-button.secondary {
+  background-color: var(--ethereum-identity-kit-neutral-hover);
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.dark .notification-item-button.secondary {
+  background-color: var(--ethereum-identity-kit-neutral-hover-dark);
+}

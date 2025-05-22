@@ -1,0 +1,25 @@
+.notification-item-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.125rem;
+  background-color: var(--ethereum-identity-kit-neutral-light);
+}
+
+.dark .notification-item-loading {
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+}
+
+.notification-item-loading-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-item-loading-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

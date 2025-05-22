@@ -5,7 +5,7 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--ethereum-identity-kit-background-overlay);
   width: 100%;
   height: 100%;
   z-index: 1000;
@@ -16,8 +16,8 @@
 }
 
 .transaction-modal-container {
-  background: #fff;
-  color: #000;
+  background: var(--ethereum-identity-kit-background);
+  color: var(--ethereum-identity-kit-text-primary);
   border-radius: 8px;
   width: 440px;
   height: auto;
@@ -37,8 +37,8 @@
 }
 
 .dark .transaction-modal-container {
-  background: #333333;
-  color: #fff;
+  background: var(--ethereum-identity-kit-background-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .transaction-modal-container p {
@@ -74,11 +74,11 @@
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .dark .transaction-modal-close-button {
-  background-color: #333333;
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .transaction-modal-close-button:hover {
@@ -99,17 +99,17 @@
 }
 
 .transaction-modal-cancel-button {
-  background-color: #e5e5e5;
+  background-color: var(--ethereum-identity-kit-neutral-hover);
 }
 
 .dark .transaction-modal-cancel-button {
-  background-color: #555555;
-  color: #fff;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .transaction-modal-confirm-button {
-  background-color: #ffe066;
-  color: #000;
+  background-color: var(--ethereum-identity-kit-primary);
+  color: var(--ethereum-identity-kit-text-primary);
   width: 100%;
   height: 46px;
   font-size: 18px;
@@ -123,8 +123,8 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(farthest-side, #ffe066 94%, #0000) top/8px 8px no-repeat,
-    conic-gradient(#0000 30%, #ffe066);
+    radial-gradient(farthest-side, var(--ethereum-identity-kit-primary) 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, var(--ethereum-identity-kit-primary));
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: loading-spinner-animation 1s infinite linear;

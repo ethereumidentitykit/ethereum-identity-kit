@@ -1,0 +1,265 @@
+.notifications-container {
+  position: relative;
+  z-index: 10;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.notifications-container * {
+  box-sizing: border-box;
+}
+
+.notifications-bell {
+  position: relative;
+  width: 36px;
+}
+
+.notifications-bell-icon {
+  height: auto;
+  width: 36px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.dark .notifications-bell-icon {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.notifications-bell-icon:hover {
+  transform: scale(1.1);
+}
+
+.notifications-bell-selected {
+  color: var(--ethereum-identity-kit-primary-hover);
+}
+
+.dark .notifications-bell-selected {
+  color: var(--ethereum-identity-kit-primary);
+}
+
+.notifications-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: var(--ethereum-identity-kit-primary);
+  color: var(--ethereum-identity-kit-text-primary);
+  height: 20px;
+  min-width: 20px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.notifications-tooltip {
+  position: absolute;
+  display: none;
+  animation: ethereum-identity-kit-fade-in 0.2s ease-in-out;
+}
+
+.notifications-bell:hover .notifications-tooltip {
+  display: block;
+}
+
+/* Position variants for tooltip */
+.notifications-tooltip[data-position='top'] {
+  bottom: 60%;
+  margin-bottom: 8px;
+}
+
+.notifications-tooltip[data-position='bottom'] {
+  top: 32px;
+}
+
+.notifications-tooltip[data-position='left'] {
+  right: 40px;
+  bottom: -12px;
+  margin-right: 8px;
+}
+
+.notifications-tooltip[data-position='right'] {
+  left: 100%;
+  bottom: -12px;
+  margin-left: 8px;
+}
+
+/* Alignment variants for tooltip */
+.notifications-tooltip[data-align='left'] {
+  right: 0;
+  transform: none;
+}
+
+.notifications-tooltip[data-align='right'] {
+  left: 0;
+  transform: none;
+}
+
+.notifications-tooltip[data-align='center'] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notifications-tooltip[data-align='top'] {
+  top: -20px;
+  transform: none;
+}
+
+.notifications-tooltip[data-align='bottom'] {
+  bottom: 0;
+  transform: none;
+}
+
+.notifications-tooltip.visible {
+  opacity: 1;
+}
+
+.notifications-tooltip-text {
+  background-color: var(--ethereum-identity-kit-background);
+  box-shadow: var(--ethereum-identity-kit-shadow-small);
+  color: var(--ethereum-identity-kit-text-primary);
+  border-radius: 2px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.dark .notifications-tooltip-text {
+  background-color: var(--ethereum-identity-kit-background-dark);
+  box-shadow: var(--ethereum-identity-kit-shadow-small-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.notifications-dropdown {
+  position: absolute;
+  display: none;
+  transition: opacity 0.2s;
+  z-index: 100;
+  width: 500px;
+  max-height: 70vh;
+  animation: ethereum-identity-kit-fade-in 0.2s ease-in-out;
+}
+
+/* Position variants for dropdown */
+.notifications-dropdown[data-position='top'] {
+  bottom: 100%;
+  margin-bottom: 8px;
+}
+
+.notifications-dropdown[data-position='bottom'] {
+  top: 100%;
+  margin-top: 8px;
+}
+
+.notifications-dropdown[data-position='left'] {
+  right: 100%;
+  margin-right: 8px;
+}
+
+.notifications-dropdown[data-position='right'] {
+  left: 100%;
+  margin-left: 8px;
+}
+
+/* Alignment variants for dropdown */
+.notifications-dropdown[data-align='left'] {
+  right: 0;
+}
+
+.notifications-dropdown[data-align='right'] {
+  left: 0;
+}
+
+.notifications-dropdown[data-align='center'] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.notifications-dropdown[data-align='center-vertical'] {
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.notifications-dropdown[data-align='top'] {
+  bottom: -4px;
+}
+
+.notifications-dropdown[data-align='bottom'] {
+  top: -4px;
+}
+
+.notifications-dropdown.visible {
+  display: block;
+}
+
+.notifications-dropdown-content {
+  background-color: var(--ethereum-identity-kit-background);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: scroll;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.notifications-dropdown-content::-webkit-scrollbar {
+  display: none;
+}
+
+.dark .notifications-dropdown-content {
+  background-color: var(--ethereum-identity-kit-background-dark);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium-dark);
+}
+
+.notifications-empty {
+  height: 176px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notifications-empty-text {
+  color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.dark .notifications-empty-text {
+  color: var(--ethereum-identity-kit-text-neutral-dark);
+}
+
+@media (max-width: 640px) {
+  .notifications-bell:hover {
+    scale: 1;
+  }
+
+  .notifications-bell:hover .notifications-tooltip {
+    display: none;
+  }
+
+  .notifications-dropdown {
+    width: calc(100vw - 24px);
+  }
+
+  .notifications-dropdown[data-position='left'],
+  .notifications-dropdown[data-position='right'] {
+    width: calc(100vw - 70px);
+  }
+}
+
+@keyframes ethereum-identity-kit-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

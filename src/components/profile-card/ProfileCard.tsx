@@ -5,6 +5,7 @@ import { useProfileStats } from '../../hooks/profile/useProfileStats'
 import { useProfileDetails } from '../../hooks/profile/useProfileDetails'
 import { truncateAddress } from '../../utils'
 import { defaultOnStatClick } from '../../utils/profile'
+import { ENS } from '../icons'
 import Bio from './components/bio'
 import Avatar from '../avatar/Avatar'
 import HeaderImage from './components/HeaderImage'
@@ -138,7 +139,21 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               onClick={() => onProfileClick?.(addressOrName)}
             />
           )}
-          {followButton}
+          {address?.toLowerCase() === connectedAddress?.toLowerCase() ? (
+            <a
+              href={`https://app.ens.domains/${ens?.name}`}
+              target="_blank"
+              rel="noreferrer"
+              className="user-profile-edit-profile-button-container"
+            >
+              <button className="user-profile-edit-profile-button">
+                <ENS height={20} width={20} />
+                <p>Edit Profile</p>
+              </button>
+            </a>
+          ) : (
+            followButton
+          )}
         </div>
         {isDetailsLoading ? (
           <LoadingCell height="26px" width="160px" />

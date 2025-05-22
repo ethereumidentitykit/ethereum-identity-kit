@@ -188,3 +188,28 @@ export interface ProfileEFPPoapColletionType {
   tokenId: string
   owner: string
 }
+
+export type NotificationItemType = {
+  address: Address
+  name: string | null
+  avatar: string | null
+  token_id: number
+  action: string
+  opcode: number
+  op: Address
+  tag: string
+  updated_at: string
+}
+
+export type NotificationsResponse = {
+  summary: {
+    interval: string
+    opcode: string
+    total: number
+    total_follows: number
+    total_unfollows: number
+    total_tags: number
+    total_untags: number
+  }
+  notifications: NotificationItemType[]
+}

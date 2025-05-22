@@ -7,20 +7,20 @@
   height: 20px;
   padding: 0px 6px !important;
   border-radius: 4px;
-  background-color: #d4d4d8;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   width: fit-content;
 }
 
 .follower-tag-blocks {
-  color: rgb(239 68 68);
+  color: var(--ethereum-identity-kit-deletion);
 }
 
 .follower-tag-mutes {
-  color: rgb(239 68 68);
+  color: var(--ethereum-identity-kit-deletion);
 }
 
 .follower-tag-follows {
-  color: black;
+  color: var(--ethereum-identity-kit-text-primary);
 }
 
 .follower-tag-none {

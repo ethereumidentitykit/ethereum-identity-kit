@@ -9,7 +9,7 @@
   border-radius: 6px;
   font-size: 14px;
   font-weight: 700;
-  color: #27272a;
+  color: var(--ethereum-identity-kit-text-primary);
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
@@ -28,7 +28,7 @@
 }
 
 .follow-button-follow {
-  background-color: #ffe066;
+  background-color: var(--ethereum-identity-kit-primary);
   text-align: center;
   background-size: 300% auto;
   transition: all 0.3s;
@@ -37,20 +37,20 @@
 
 /* Add :not(.disable-hover) before :hover */
 .follow-button-follow:not(.disable-hover):hover {
-  background-color: #fde583;
+  background-color: var(--ethereum-identity-kit-primary-hover);
   transition: all 0.3s;
 }
 
 .follow-button-pending,
 .follow-button-following {
-  background-color: #ffffff;
-  border-color: #ffe066 !important;
+  background-color: var(--ethereum-identity-kit-background);
+  border-color: var(--ethereum-identity-kit-primary) !important;
 }
 
 /* Add :not(.disable-hover) before :hover */
 .follow-button-pending:not(.disable-hover):hover {
   border-color: transparent !important;
-  background: #d0d0d0;
+  background: var(--ethereum-identity-kit-neutral-hover);
 }
 
 .follow-button-following:not(.disable-hover):hover,
@@ -60,7 +60,7 @@
 .follow-button-unblock,
 .follow-button-unmute {
   border-color: transparent !important;
-  background: #ff7c7c;
+  background: var(--ethereum-identity-kit-deletion);
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -70,7 +70,7 @@
 .follow-button-muted:not(.disable-hover):hover,
 .follow-button-unmute:not(.disable-hover):hover {
   border-color: transparent;
-  background: #cf4c4c;
+  background: var(--ethereum-identity-kit-deletion);
 }
 
 /* Add :not(.disable-hover) before :hover */
@@ -80,20 +80,20 @@
 .follow-button-unblock-pending:not(.disable-hover):hover,
 .follow-button-unmute-pending:not(.disable-hover):hover {
   border-color: transparent;
-  background: #ffc6c6;
+  background: var(--ethereum-identity-kit-restriction-hover);
 }
 
 .follow-button-blocked,
 .follow-button-block-pending,
 .follow-button-muted,
 .follow-button-mute-pending {
-  background: white;
-  border-color: #ef4444 !important;
-  color: #ef4444;
+  background: var(--ethereum-identity-kit-background);
+  border-color: var(--ethereum-identity-kit-restriction) !important;
+  color: var(--ethereum-identity-kit-restriction);
 }
 
 .pending::after {
-  background: #4ade80;
+  background: var(--ethereum-identity-kit-success);
   height: 12px;
   width: 12px;
   border-radius: 100%;

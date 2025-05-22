@@ -34,12 +34,12 @@
 }
 
 .transaction-progress-container {
-  background-color: #f5f5f5;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   position: relative;
 }
 
 .dark .transaction-progress-container {
-  background-color: #555555;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .transaction-progress-bar {
@@ -50,9 +50,9 @@
   width: 32px;
   height: 32px;
   border-radius: 20px;
-  color: #000000;
+  color: var(--ethereum-identity-kit-text-primary);
   z-index: 10;
-  background-color: #ffe066;
+  background-color: var(--ethereum-identity-kit-primary);
   transition: width 0.25s ease-out;
 }
 
@@ -63,12 +63,12 @@
 
 .transaction-progress-bar-re-initiate {
   width: 100%;
-  background-color: #ff6b6b;
+  background-color: var(--ethereum-identity-kit-error);
 }
 
 .transaction-progress-bar-done {
   width: 100%;
-  background-color: #49de80;
+  background-color: var(--ethereum-identity-kit-success);
 }
 
 .transaction-progress-indexing-bar {
@@ -78,7 +78,7 @@
   left: -4px;
   top: -4px;
   border-radius: 20px;
-  background-color: #24ad57;
+  background-color: var(--ethereum-identity-kit-indexing-bar);
   z-index: -10;
   animation: indexing-bar-animation 6s linear;
 }
@@ -120,34 +120,34 @@
   padding: 12px;
   width: 100%;
   border-radius: 4px;
-  background-color: #f5f5f5;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .transaction-item-details-description {
-  background-color: #555555;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .transaction-item-details-description-title {
   font-size: 16px;
   font-weight: 600;
-  color: #000;
+  color: var(--ethereum-identity-kit-text-primary);
 }
 
 .dark .transaction-item-details-description-title {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .transaction-item-details-description-description {
   font-size: 12px;
   font-weight: 400;
-  color: #888888;
+  color: var(--ethereum-identity-kit-text-neutral);
   max-width: 66%;
   text-align: right;
   overflow-wrap: break-word;
 }
 
 .dark .transaction-item-details-description-description {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details {
@@ -160,11 +160,11 @@
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 12px;
-  background-color: #f5f5f5;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .transaction-details {
-  background-color: #444444;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .transaction-details-item {
@@ -205,17 +205,21 @@
 .transaction-details-gas-fee-container-usd span {
   font-size: 12px;
   font-weight: 600;
-  color: #888888;
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .transaction-details-gas-fee-container-usd span {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details-gas-fee-container-eth {
   font-size: 13px;
   font-weight: 600;
-  color: #888888;
+  color: var(--ethereum-identity-kit-text-neutral);
+}
+
+.dark .transaction-details-gas-fee-container-eth {
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details-block-explorer-container {
@@ -251,12 +255,12 @@
   height: 46px;
   font-size: 18px;
   font-weight: 700;
-  color: #000;
-  background-color: #ffe066;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: var(--ethereum-identity-kit-primary);
 }
 
 .transaction-modal-initiate-button-done {
-  background-color: #49de80;
+  background-color: var(--ethereum-identity-kit-success);
 }
 
 .transaction-modal-initiate-button:disabled {
@@ -276,11 +280,11 @@
   padding: 30px 20px 20px 20px;
   top: 0;
   left: 0;
-  background-color: #ffffff;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .dark .transaction-item-poap {
-  background-color: #333333;
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 .transaction-item-poap-title {
@@ -292,12 +296,12 @@
 .transaction-item-poap-description {
   font-size: 16px;
   font-weight: 400;
-  color: #888888;
+  color: var(--ethereum-identity-kit-text-neutral);
   text-align: center;
 }
 
 .dark .transaction-item-poap-description {
-  color: #bbbbbb;
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-item-poap-icon {
@@ -327,11 +331,11 @@
 }
 
 .transaction-item-refuse-poap-button {
-  background-color: #aaaaaa;
+  background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .transaction-item-claim-poap-button {
-  background-color: #ffe066;
+  background-color: var(--ethereum-identity-kit-primary);
 }
 
 @media screen and (max-width: 600px) {

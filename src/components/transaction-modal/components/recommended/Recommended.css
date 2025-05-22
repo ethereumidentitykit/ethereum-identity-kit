@@ -2,12 +2,12 @@
   width: 100%;
   padding: 3px 0 12px 0;
   border-radius: 6px;
-  background-color: #f4f4f4;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   margin-bottom: 10px;
 }
 
 .dark .recommended-container {
-  background-color: #444444;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 .recommended-load-more {
@@ -30,11 +30,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #666666;
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .recommended-empty {
-  color: #aaaaaa;
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 @media screen and (min-width: 1024px) {

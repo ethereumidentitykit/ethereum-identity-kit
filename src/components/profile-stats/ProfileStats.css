@@ -27,15 +27,15 @@
 .profile-stats-item-label {
   font-size: 18px;
   font-weight: 600;
-  color: #666;
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .profile-stats-item-label {
-  color: #ddd;
+  color: var(--ethereum-identity-kit-neutral-light);
 }
 
 .dark .profile-stats-item-value {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .profile-stats-item-xs .profile-stats-item-label {

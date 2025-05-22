@@ -10,7 +10,7 @@
 }
 
 .dark .user-profile-container {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .full-width-profile-container {
@@ -56,7 +56,7 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: #fff;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .user-profile-header-container-ultra-wide {
@@ -67,12 +67,12 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: #fff;
+  background-color: var(--ethereum-identity-kit-background);
 }
 
 .dark .user-profile-header-container,
 .dark .user-profile-header-container-ultra-wide {
-  background-color: #333;
+  background-color: var(--ethereum-identity-kit-background-dark);
 }
 
 @media (max-width: 1750px) {
@@ -98,7 +98,7 @@
 }
 
 .dark .user-profile-role {
-  color: #eee;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .user-profile-status-container {
@@ -112,10 +112,10 @@
 }
 
 .user-profile-status-desktop {
-  background-color: #eee;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   padding: 4px 8px;
   border-radius: 4px;
-  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ethereum-identity-kit-shadow-small);
   max-width: 374px;
   text-align: center;
   font-size: 14px;
@@ -129,10 +129,10 @@
 .user-profile-status-mobile {
   display: none;
   width: fit-content;
-  background-color: #eee;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   padding: 4px 8px;
   border-radius: 4px;
-  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ethereum-identity-kit-shadow-small);
   max-width: 90%;
   text-align: center;
   font-size: 14px;
@@ -144,8 +144,8 @@
 
 .dark .user-profile-status-mobile,
 .dark .user-profile-status-desktop {
-  background-color: #666;
-  color: #fff;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .user-profile-content {
@@ -222,7 +222,7 @@
   overflow: hidden;
   white-space: nowrap;
   line-height: 1.1;
-  color: #333;
+  color: var(--ethereum-identity-kit-text-primary);
   font-weight: 700;
   text-decoration: none;
   transition: all 0.2s;
@@ -231,7 +231,7 @@
 }
 
 .dark .user-profile-name {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .user-profile-name:hover {
@@ -241,7 +241,7 @@
 
 .user-profile-edit-profile-button {
   background-color: #0080bc;
-  color: #ffffff;
+  color: white;
   border-radius: 4px;
   padding: 8px 6px;
   display: flex;
@@ -254,6 +254,7 @@
 .user-profile-edit-profile-button p {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   font-weight: 600;
 }
 

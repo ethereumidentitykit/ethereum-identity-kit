@@ -10,15 +10,15 @@
   padding: 16px 10px;
   overflow-y: auto;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--ethereum-identity-kit-background-overlay);
 }
 
 .common-followers-modal-container {
   width: 100%;
   max-width: 660px;
   box-sizing: border-box;
-  background-color: #fff;
-  color: #000;
+  background-color: var(--ethereum-identity-kit-background);
+  color: var(--ethereum-identity-kit-text-primary);
   border-radius: 4px;
   padding: 24px 16px 16px 16px;
   height: fit-content;
@@ -28,8 +28,8 @@
 }
 
 .dark .common-followers-modal-container {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--ethereum-identity-kit-background-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .common-followers-modal-header {
@@ -54,7 +54,7 @@
 }
 
 .dark .common-followers-modal-close-button {
-  color: #fff;
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .common-followers-modal-close-button:hover {
@@ -66,12 +66,12 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: #f0f0f0;
+  background-color: var(--ethereum-identity-kit-neutral-light);
   border-radius: 4px;
 }
 
 .dark .common-followers-modal-list-container {
-  background-color: #444444;
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
 }
 
 @media screen and (max-width: 640px) {
