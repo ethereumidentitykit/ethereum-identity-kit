@@ -22,11 +22,11 @@
 .transaction-modal-actions-container-title span {
   font-size: 16px;
   font-weight: 500;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .transaction-modal-actions-container-title span {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-modal-actions-item {
@@ -47,12 +47,12 @@
 .transaction-modal-actions-item-header p {
   font-size: 16px;
   text-transform: capitalize;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   font-weight: 500;
 }
 
 .dark .transaction-modal-actions-item-header p {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-modal-actions-item-header div {

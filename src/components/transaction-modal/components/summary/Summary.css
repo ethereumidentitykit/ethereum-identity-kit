@@ -34,12 +34,12 @@
   gap: 3px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   padding-left: 12px;
 }
 
 .dark .summary-item-chain-container {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .summary-item-chain-container p {
@@ -58,14 +58,14 @@
 .summary-item-change-chain {
   font-size: 12px;
   font-weight: 500;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   cursor: pointer;
   position: absolute;
   right: 26px;
 }
 
 .dark .summary-item-change-chain {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .summary-item-change-chain:hover {
@@ -96,13 +96,13 @@
 .summary-item-transaction-description {
   font-size: 12px;
   font-weight: 400;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   max-width: 66%;
   text-align: right;
 }
 
 .dark .summary-item-transaction-description {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-modal-confirm-button {

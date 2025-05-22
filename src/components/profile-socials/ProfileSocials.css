@@ -34,7 +34,7 @@
 }
 
 .dark .profile-link {
-  background-color: var(--ethereum-identity-kit-text-secondary);
+  background-color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .profile-link p {

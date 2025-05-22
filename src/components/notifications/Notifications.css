@@ -56,11 +56,6 @@
   font-weight: bold;
 }
 
-.dark .notifications-badge {
-  background-color: var(--ethereum-identity-kit-primary-dark);
-  color: var(--ethereum-identity-kit-text-primary-dark);
-}
-
 .notifications-tooltip {
   position: absolute;
   display: none;
@@ -242,6 +237,14 @@
 }
 
 @media (max-width: 640px) {
+  .notifications-bell:hover {
+    scale: 1;
+  }
+
+  .notifications-bell:hover .notifications-tooltip {
+    display: none;
+  }
+
   .notifications-dropdown {
     width: calc(100vw - 24px);
   }

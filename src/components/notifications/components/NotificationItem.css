@@ -10,8 +10,15 @@
   position: relative;
 }
 
-.notification-item.new {
-  background-color: var(--ethereum-identity-kit-neutral-hover);
+.notification-item.new::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--ethereum-identity-kit-primary);
+  border-radius: 16px;
 }
 
 .notifications-follow,
@@ -99,7 +106,7 @@
 }
 
 .dark .notification-item-time {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .notification-item-actions {

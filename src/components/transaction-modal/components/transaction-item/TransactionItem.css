@@ -140,14 +140,14 @@
 .transaction-item-details-description-description {
   font-size: 12px;
   font-weight: 400;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   max-width: 66%;
   text-align: right;
   overflow-wrap: break-word;
 }
 
 .dark .transaction-item-details-description-description {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details {
@@ -205,21 +205,21 @@
 .transaction-details-gas-fee-container-usd span {
   font-size: 12px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .transaction-details-gas-fee-container-usd span {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details-gas-fee-container-eth {
   font-size: 13px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .transaction-details-gas-fee-container-eth {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-details-block-explorer-container {
@@ -296,12 +296,12 @@
 .transaction-item-poap-description {
   font-size: 16px;
   font-weight: 400;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   text-align: center;
 }
 
 .dark .transaction-item-poap-description {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-item-poap-icon {

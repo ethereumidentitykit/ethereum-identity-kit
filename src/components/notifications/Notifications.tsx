@@ -17,6 +17,7 @@ const Notifications: React.FC<NotificationsProps> = ({
   position = 'top',
   align = 'right',
   darkMode = false,
+  onProfileClick,
 }) => {
   const { address: userAddress } = useAccount()
   const { notifications, isLoading, isOpen, setIsOpen, newNotifications } = useNotifications(addressOrName)
@@ -44,8 +45,8 @@ const Notifications: React.FC<NotificationsProps> = ({
       <div className="notifications-bell" onClick={() => setIsOpen(!isOpen)}>
         <div className={clsx('notifications-bell-icon', isOpen && 'notifications-bell-selected')}>
           <Bell width={36} height={36} />
+          {newNotifications > 0 && <span className="notifications-badge">{newNotifications}</span>}
         </div>
-        {newNotifications > 0 && <span className="notifications-badge">{newNotifications}</span>}
         <div className="notifications-tooltip" data-position={position} data-align={alignTooltip}>
           <p className="notifications-tooltip-text">Notifications</p>
         </div>
@@ -77,6 +78,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                     isNew={item.isNew}
                     notifications={notification}
                     action={key as NotificationItemAction}
+                    onProfileClick={onProfileClick}
                     onClose={() => {
                       setIsOpen(false)
                     }}
@@ -90,6 +92,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                   isNew={item.isNew}
                   notifications={value}
                   action={key as NotificationItemAction}
+                  onProfileClick={onProfileClick}
                   onClose={() => {
                     setIsOpen(false)
                   }}

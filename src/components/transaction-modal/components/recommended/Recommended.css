@@ -30,11 +30,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .recommended-empty {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 @media screen and (min-width: 1024px) {

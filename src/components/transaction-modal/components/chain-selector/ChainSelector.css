@@ -29,12 +29,12 @@
   font-size: 14px;
   font-weight: 600;
   margin: 0;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   text-align: center;
 }
 
 .dark .chain-selector-subtitle {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .chain-selector-options-container {

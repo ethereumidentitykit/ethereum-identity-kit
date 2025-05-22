@@ -27,7 +27,7 @@
 }
 
 .manual-add-input::placeholder {
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .manual-add-input {
@@ -36,7 +36,7 @@
 }
 
 .dark .manual-add-input::placeholder {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .manual-add-button {
@@ -65,8 +65,8 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(farthest-side, var(--ethereum-identity-kit-text-secondary) 94%, #0000) top/4px 4px no-repeat,
-    conic-gradient(#0000 30%, var(--ethereum-identity-kit-text-secondary));
+    radial-gradient(farthest-side, var(--ethereum-identity-kit-text-neutral) 94%, #0000) top/4px 4px no-repeat,
+    conic-gradient(#0000 30%, var(--ethereum-identity-kit-text-neutral));
   mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   animation: manual-add-spin 1s infinite linear;

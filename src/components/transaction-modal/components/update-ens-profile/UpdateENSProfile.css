@@ -21,11 +21,11 @@
 .transaction-modal-actions-container-title span {
   font-size: 16px;
   font-weight: 500;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .transaction-modal-actions-container-title span {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .transaction-modal-actions-item {

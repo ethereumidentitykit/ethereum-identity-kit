@@ -2,12 +2,10 @@
   /* Text Colors */
   --ethereum-identity-kit-text-primary: #000000;
   --ethereum-identity-kit-text-primary-dark: #ffffff;
-  --ethereum-identity-kit-text-secondary: #555555;
-  --ethereum-identity-kit-text-secondary-dark: #aaaaaa;
-  --ethereum-identity-kit-text-light: #ffffff;
-  --ethereum-identity-kit-text-light-dark: #ffffff;
   --ethereum-identity-kit-text-neutral: #555555;
   --ethereum-identity-kit-text-neutral-dark: #aaaaaa;
+  --ethereum-identity-kit-text-light: #ffffff;
+  --ethereum-identity-kit-text-light-dark: #ffffff;
 
   /* Primary Colors */
   --ethereum-identity-kit-primary: #ffe066;

@@ -27,7 +27,7 @@
 .profile-stats-item-label {
   font-size: 18px;
   font-weight: 600;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .profile-stats-item-label {

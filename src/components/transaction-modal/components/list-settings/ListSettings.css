@@ -57,11 +57,11 @@
 .list-setting-description {
   font-size: 14px;
   font-weight: 400;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .list-setting-description {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .list-account-container {

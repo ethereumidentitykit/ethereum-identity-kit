@@ -73,11 +73,11 @@
 .cart-changes-list-title span {
   font-size: 16px;
   font-weight: 500;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .cart-changes-list-title span {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .cart-changes-list-header-button {
@@ -102,7 +102,7 @@
   font-size: 16px;
   font-weight: 500;
   font-style: italic;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
   text-align: center;
   display: flex;
   align-items: center;
@@ -111,7 +111,7 @@
 }
 
 .dark .cart-changes-list-empty {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .cart-recommended-container {
@@ -164,11 +164,11 @@
 
 .cart-modal-buttons-container-top-info p:nth-child(2) {
   font-size: 13px;
-  color: var(--ethereum-identity-kit-text-secondary);
+  color: var(--ethereum-identity-kit-text-neutral);
 }
 
 .dark .cart-modal-buttons-container-top-info p:nth-child(2) {
-  color: var(--ethereum-identity-kit-text-secondary-dark);
+  color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
 .dark .cart-modal-buttons-container {

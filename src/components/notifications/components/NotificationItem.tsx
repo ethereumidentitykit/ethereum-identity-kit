@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { formatTimeDiff, truncateAddress } from '../../../utils'
 import { Cross, FollowIcon, Mute, Tag } from '../../icons'
-import { NotificationItemType } from '../../../types'
+import { Address, NotificationItemType } from '../../../types'
 import Avatar from '../../avatar/Avatar'
 import './NotificationItem.css'
 
@@ -13,9 +13,16 @@ interface NotificationItemProps {
   notifications: NotificationItemType[]
   isNew: boolean
   onClose: () => void
+  onProfileClick?: (address: Address) => void
 }
 
-const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, action, isNew, onClose }) => {
+const NotificationItem: React.FC<NotificationItemProps> = ({
+  notifications,
+  action,
+  isNew,
+  onClose,
+  onProfileClick,
+}) => {
   if (!notifications[0]) return null
 
   const timeDiff = (new Date().getTime() - new Date(notifications[0].updated_at).getTime()) / 1000
@@ -85,7 +92,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
                   transform: `translateX(-${index * 16}px)`,
                 }}
                 onClick={() => {
-                  window.open(`/${profile.address}?ssr=false`, '_blank')
+                  onProfileClick?.(profile.address)
                   onClose()
                 }}
               />
@@ -102,7 +109,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notifications, acti
               <span key={`name-${profile.address}-${index}`}>
                 <span
                   onClick={() => {
-                    window.open(`/${profile.address}?ssr=false`, '_blank')
+                    onProfileClick?.(profile.address)
                     onClose()
                   }}
                   className="cursor-pointer transition-all hover:underline hover:opacity-80"

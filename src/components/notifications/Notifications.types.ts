@@ -5,4 +5,5 @@ export interface NotificationsProps {
   position?: 'top' | 'bottom' | 'left' | 'right'
   align?: 'left' | 'center' | 'right' | 'top' | 'bottom'
   darkMode?: boolean
+  onProfileClick?: (address: Address) => void
 }
