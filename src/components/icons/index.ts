@@ -23,6 +23,7 @@ import Person from './ui/Person'
 import Mute from './ui/Mute'
 import Key from './ui/Key'
 import Calendar from './ui/Calendar'
+import Bell from './ui/Bell'
 
 // Chain Icons
 import Base from './chains/base'
@@ -79,4 +80,5 @@ export {
   Key,
   Calendar,
   Email,
+  Bell,
 }
