@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ShortArrow from '../../../icons/ui/ShortArrow'
 import './Bio.css'
 
@@ -14,16 +14,17 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSiz
   const [viewMore, setViewMore] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const bioTextRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const bioTextEl = document.querySelector('.profile-bio-text')
-    if (description && bioTextEl && bioTextEl.clientHeight > maxLines * Math.floor(fontSize * 1.2)) {
+    if (description && bioTextRef.current && (bioTextRef.current.clientHeight > (maxLines * (fontSize * 1.15)))) {
       setViewMore(true)
     }
-  }, [description])
+  }, [description, maxLines, fontSize, bioTextRef])
 
   return (
     <div className={clsx('profile-bio-text-container', className)}>
       <p
+        ref={bioTextRef}
         className={clsx('profile-bio-text', { 'profile-bio-text-expanded': isExpanded })}
         style={{ lineClamp: maxLines, WebkitLineClamp: maxLines, fontSize: `${fontSize}px` }}
       >
