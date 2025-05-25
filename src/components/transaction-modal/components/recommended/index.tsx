@@ -30,7 +30,7 @@ const Recommended = ({
           selectedList={selectedList}
           initialFollowState={'Follow'}
           onProfileClick={onProfileClick}
-          listHeight="calc(80vh - 190px)"
+          listHeight="calc(80vh - 200px)"
         />
       )}
       {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}

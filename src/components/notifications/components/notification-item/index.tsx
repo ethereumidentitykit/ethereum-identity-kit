@@ -1,10 +1,10 @@
 import React from 'react'
 import clsx from 'clsx'
-import { formatTimeDiff, truncateAddress } from '../../../utils'
-import { Cross, FollowIcon, Mute, Tag } from '../../icons'
-import { Address, NotificationItemType } from '../../../types'
-import Avatar from '../../avatar/Avatar'
-import './NotificationItem.css'
+import { formatTimeDiff, truncateAddress } from '../../../../utils'
+import { Cross, FollowIcon, Mute, Tag } from '../../../icons'
+import { Address, NotificationItemType } from '../../../../types'
+import Avatar from '../../../avatar/Avatar'
+import './index.css'
 
 export type NotificationItemAction = 'follow' | 'unfollow' | 'tag' | 'untag' | 'block' | 'unblock' | 'mute' | 'unmute'
 
@@ -91,10 +91,14 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
                   height: '32px',
                   transform: `translateX(-${index * 16}px)`,
                 }}
-                onClick={() => {
-                  onProfileClick?.(profile.address)
-                  onClose()
-                }}
+                onClick={
+                  onProfileClick
+                    ? () => {
+                        onProfileClick?.(profile.address)
+                        onClose()
+                      }
+                    : undefined
+                }
               />
             ))}
           </div>

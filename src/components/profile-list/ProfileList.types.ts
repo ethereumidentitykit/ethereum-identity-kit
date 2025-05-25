@@ -17,6 +17,7 @@ export type ProfileListProps = {
   visibleCount?: number
   overscanCount?: number
   listHeight?: string
+  showFollowsYouBadges?: boolean
 }
 
 export type ProfileItemType = {

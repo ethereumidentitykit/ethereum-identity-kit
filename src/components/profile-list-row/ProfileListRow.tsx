@@ -2,13 +2,14 @@ import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ens_beautify } from '@adraffy/ens-normalize'
-import { ProfileListRowProps } from './ProfileListRow.types'
+import { truncateAddress } from '../../utils'
+import { fetchProfileAccount } from '../../utils/api/fetch-profile-account'
 import Avatar from '../avatar/Avatar'
+import FollowerTag from '../follower-tag/FollowerTag'
 import FollowButton from '../follow-button/FollowButton'
 import LoadingCell from '../loading-cell/LoadingCell'
-import { fetchProfileAccount } from '../../utils/api/fetch-profile-account'
 import Tags from '../transaction-modal/components/cart/tags'
-import { truncateAddress } from '../../utils'
+import { ProfileListRowProps } from './ProfileListRow.types'
 import './ProfileListRow.css'
 
 /**
@@ -40,6 +41,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   initialFollowState,
   onProfileClick,
   showHeaderImage = false,
+  showFollowsYouBadges = false,
 }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
@@ -74,6 +76,9 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             >
               {account?.ens?.name ? ens_beautify(account?.ens?.name) : truncateAddress(profile.address)}
             </p>
+            {showFollowsYouBadges && connectedAddress && (
+              <FollowerTag addressOrName={profile.address} connectedAddress={connectedAddress} list={selectedList} />
+            )}
             {showTags && <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />}
           </div>
         )}

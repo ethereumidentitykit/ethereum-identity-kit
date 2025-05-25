@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-export const useIntersectionObserver = (callback: IntersectionObserverCallback, options: IntersectionObserverInit) => {
+export const useIntersectionObserver = (callback: IntersectionObserverCallback, options?: IntersectionObserverInit) => {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {

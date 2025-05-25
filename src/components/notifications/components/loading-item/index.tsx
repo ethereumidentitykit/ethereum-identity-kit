@@ -1,6 +1,6 @@
 import React from 'react'
-import './NotificationItemLoading.css'
-import LoadingCell from '../../loading-cell/LoadingCell'
+import LoadingCell from '../../../loading-cell/LoadingCell'
+import './index.css'
 
 const NotificationItemLoading: React.FC = () => {
   return (

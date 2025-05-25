@@ -1,21 +1,23 @@
+import { useUser } from './useUser'
 import { useChain } from './useChain'
-import { useCoolMode } from './common/useCoolMode'
 import { useEFPPoaps } from './useEFPPoaps'
 import { useIsClient } from './common/useIsClient'
 import { useRecommended } from './useRecommended'
+import { useCoolMode } from './common/useCoolMode'
 import { useFollowButton } from './useFollowButton'
+import { useNotifications } from './useNotifications'
+import { useFollowerState } from './useFollowerState'
 import { useWindowSize } from './common/useWindowSize'
+import { useFollowingState } from './useFollowingState'
+import { useTransactionItem } from './useTransactionItem'
 import { useProfileStats } from './profile/useProfileStats'
 import { useOutsideClick } from './common/useOutsideClick'
-import { useFollowerState } from './useFollowerState'
-import { useFollowingState } from './useFollowingState'
 import { useProfileDetails } from './profile/useProfileDetails'
-import { useTransactionItem } from './useTransactionItem'
-import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 import { useFollowersYouKnowModal } from './followers-you-know/useModal'
-import { useNotifications } from './useNotifications'
+import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 
 export {
+  useUser,
   useFollowingState,
   useProfileDetails,
   useProfileStats,
