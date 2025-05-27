@@ -20,6 +20,9 @@ export const noFollowersYouKnow = {
 
 export const FETCH_LIMIT = 20
 
+export const SORT_OPTIONS = ['latest first', 'earliest first', 'follower count'] as const
+export const QUERY_BLOCK_TAGS = ['block', 'mute']
+
 export * from './socials'
 export * from './chains'
 export * from './contracts'

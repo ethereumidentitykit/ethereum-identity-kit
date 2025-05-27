@@ -17,7 +17,7 @@ export default {
       return (
         <QueryClientProvider client={queryClient}>
           <WagmiProvider config={wagmiConfig}>
-            <TransactionProvider>
+            <TransactionProvider batchTransactions={true}>
               {Story()}
               <TransactionModal />
             </TransactionProvider>
@@ -34,26 +34,15 @@ export const FollowersAndFollowingByAddress = Template.bind({})
 FollowersAndFollowingByAddress.args = {
   user: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   defaultTab: 'followers',
-  isLoading: false,
-  isEndOfResults: false,
-  isFetchingMore: false,
-  results: [],
-  fetchMore: () => {},
   canEditTags: false,
-  tagsLoading: false,
-  selectedTags: [],
+  showHeaderImage: true,
 }
 
 export const FollowersAndFollowingByENSName = Template.bind({})
 FollowersAndFollowingByENSName.args = {
   user: 'brantly.eth',
   defaultTab: 'followers',
-  isLoading: false,
-  isEndOfResults: false,
-  isFetchingMore: false,
-  results: [],
-  fetchMore: () => {},
   canEditTags: false,
-  tagsLoading: false,
-  selectedTags: [],
+  showHeaderImage: true,
+  connectedAddress: '0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516',
 }

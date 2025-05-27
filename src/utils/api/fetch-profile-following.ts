@@ -1,5 +1,6 @@
 import { formatQueryParams } from '../formatters'
 import type { FollowingResponse, InfiniteProfileQueryProps } from '../../types'
+import { EFP_API_URL } from '../../constants'
 
 export const fetchProfileFollowing = async ({
   addressOrName,
@@ -34,7 +35,7 @@ export const fetchProfileFollowing = async ({
         ? 'searchFollowing'
         : 'following'
 
-    const url = `${process.env.NEXT_PUBLIC_EFP_API_URL}/${list === undefined ? 'users' : 'lists'}/${
+    const url = `${EFP_API_URL}/${list === undefined ? 'users' : 'lists'}/${
       list ?? addressOrName
     }/${followingEndpoint}?${queryParams}`
 

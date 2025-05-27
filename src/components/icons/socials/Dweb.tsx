@@ -1,6 +1,6 @@
-const Dweb: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, style }) => {
+const Dweb: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   return (
-    <svg width={width} height={height} style={style} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_3219_7861)">
         <path d="M20 0H0V20H20V0Z" fill="#333333" />
         <path

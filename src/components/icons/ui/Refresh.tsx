@@ -1,6 +1,7 @@
-const Refresh: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
+const Refresh: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   return (
     <svg
+      {...props}
       stroke="currentColor"
       fill="currentColor"
       strokeWidth="0"

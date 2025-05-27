@@ -18,7 +18,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
   opacity: 0.2;
   object-fit: cover;
 }
@@ -36,6 +35,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  z-index: 1;
 }
 
 .clickable {

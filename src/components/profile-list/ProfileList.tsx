@@ -30,6 +30,18 @@ import './ProfileList.css'
  * @param initialFollowState - the initial follow state for FollowButton
  *
  * @param onProfileClick - the function to call when the name/address or avatar is clicked
+ *
+ * @param showHeaderImage - whether to show the header image
+ *
+ * @param rowHeight - the height of each row
+ *
+ * @param visibleCount - the number of visible rows
+ *
+ * @param overscanCount - the number of rows to overscan
+ *
+ * @param listHeight - the height of the list
+ *
+ * @param showFollowsYouBadges - whether to show the follows you badges
  */
 const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
   (
@@ -40,7 +52,6 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
       selectedList,
       isLoading,
       loadingRows,
-      tags,
       showTags,
       canEditTags,
       initialFollowState,
@@ -51,10 +62,13 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
       overscanCount = 10,
       listHeight,
       showFollowsYouBadges = false,
+      loadMoreElement,
     },
     ref
   ) => {
-    const items: (ProfileItemType | null)[] = isLoading ? [...profiles, ...Array(loadingRows).fill(null)] : profiles
+    const items: (ProfileItemType | null)[] = isLoading
+      ? [...profiles, ...Array(loadingRows).fill(null)]
+      : [...profiles, null]
 
     return (
       <VirtualList<ProfileItemType | null>
@@ -73,7 +87,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               profile={profile}
               connectedAddress={connectedAddress}
               selectedList={selectedList}
-              tags={tags}
+              tags={profile.tags}
               showTags={showTags}
               showHeaderImage={showHeaderImage}
               canEditTags={canEditTags}
@@ -81,30 +95,13 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               onProfileClick={onProfileClick}
               showFollowsYouBadges={showFollowsYouBadges}
             />
-          ) : (
+          ) : isLoading ? (
             <ProfileListLoadingRow />
+          ) : (
+            loadMoreElement
           )
         }
       />
-      // <div className={clsx('profile-list-container', darkMode && 'dark')}>
-      //   {profiles.map((profile) => (
-      // <ProfileListRow
-      //   key={profile.address}
-      //   profile={profile}
-      //   connectedAddress={connectedAddress}
-      //   selectedList={selectedList}
-      //   tags={tags}
-      //   showTags={showTags}
-      //   canEditTags={canEditTags}
-      //   initialFollowState={initialFollowState}
-      //   onProfileClick={onProfileClick}
-      // />
-      //   ))}
-      // {isLoading &&
-      //   Array(loadingRows)
-      //     .fill(null)
-      //     .map((_, index) => <ProfileListLoadingRow key={index} />)}
-      // </div>
     )
   }
 )

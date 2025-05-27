@@ -1,4 +1,4 @@
-import { useUser } from './useUser'
+import { useUserInfo } from './useUserInfo'
 import { useChain } from './useChain'
 import { useEFPPoaps } from './useEFPPoaps'
 import { useIsClient } from './common/useIsClient'
@@ -13,11 +13,12 @@ import { useTransactionItem } from './useTransactionItem'
 import { useProfileStats } from './profile/useProfileStats'
 import { useOutsideClick } from './common/useOutsideClick'
 import { useProfileDetails } from './profile/useProfileDetails'
+import { useFollowersAndFollowing } from './useFollowersAndFollowing'
 import { useFollowersYouKnowModal } from './followers-you-know/useModal'
 import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 
 export {
-  useUser,
+  useUserInfo,
   useFollowingState,
   useProfileDetails,
   useProfileStats,
@@ -34,4 +35,5 @@ export {
   useFollowersYouKnowModal,
   useWindowSize,
   useNotifications,
+  useFollowersAndFollowing,
 }

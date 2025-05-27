@@ -1,6 +1,6 @@
-const X: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
+const X: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   return (
-    <svg width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} {...props} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_3128_6927)">
         <mask id="mask0_3128_6927" maskUnits="userSpaceOnUse" x="0" y="-1" width="512" height="513">
           <path d="M512 -0.000976562H0V511.999H512V-0.000976562Z" fill="white" />

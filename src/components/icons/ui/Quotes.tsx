@@ -1,8 +1,14 @@
-const Quotes: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 27, color = 'currentColor' }) => {
+const Quotes: React.FC<React.SVGProps<SVGSVGElement>> = ({
+  height = 32,
+  width = 27,
+  color = 'currentColor',
+  ...props
+}) => {
   return (
     <svg
       width={width}
       height={height}
+      {...props}
       stroke={color}
       fill={color}
       strokeWidth="0"

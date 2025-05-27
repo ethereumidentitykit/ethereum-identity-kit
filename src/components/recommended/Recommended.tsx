@@ -1,25 +1,22 @@
-import { Address } from '../../../../types'
-import ProfileList from '../../../profile-list/ProfileList'
-import { useRecommended } from '../../../../hooks/useRecommended'
+import ProfileList from '../profile-list/ProfileList'
+import { useRecommended } from '../../hooks/useRecommended'
+import { useWindowSize } from '../../hooks/common/useWindowSize'
+import { RecommendedProps } from './Recommended.types'
 import './Recommended.css'
-import { useWindowSize } from '../../../../hooks/common/useWindowSize'
 
-const Recommended = ({
+const Recommended: React.FC<RecommendedProps> = ({
   connectedAddress,
   selectedList,
   limit = 20,
   onProfileClick,
-}: {
-  connectedAddress: Address
-  selectedList?: string
-  limit?: number
-  onProfileClick?: (address: Address) => void
+  listHeight = '100vh',
+  style,
 }) => {
   const { width } = useWindowSize()
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(connectedAddress, limit, selectedList)
 
   return (
-    <div className="recommended-container" style={{ paddingBottom: width && width < 640 ? '90px' : '0px' }}>
+    <div className="recommended-container" style={{ paddingBottom: width && width < 640 ? '90px' : '0px', ...style }}>
       <div className="recommended-title">Recommended</div>
       {((recommended && recommended.length > 0) || isLoading) && (
         <ProfileList
@@ -30,15 +27,17 @@ const Recommended = ({
           selectedList={selectedList}
           initialFollowState={'Follow'}
           onProfileClick={onProfileClick}
-          listHeight="calc(80vh - 200px)"
+          listHeight={listHeight}
+          loadMoreElement={
+            <div
+              className="recommended-load-more"
+              ref={fetchMoreRef}
+              style={{ display: !hasNextPage ? 'none' : 'block' }}
+            />
+          }
         />
       )}
       {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}
-      <div
-        className="recommended-load-more"
-        ref={fetchMoreRef}
-        style={{ display: isLoading || !hasNextPage ? 'none' : 'block' }}
-      />
     </div>
   )
 }

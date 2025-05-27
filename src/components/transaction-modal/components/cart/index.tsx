@@ -1,18 +1,18 @@
-import { useEffect, useState, useMemo } from 'react'
+import clsx from 'clsx'
 import { useAccount } from 'wagmi'
+import { useEffect, useState, useMemo } from 'react'
 import { useTransactions } from '../../../../context'
+import { useWindowSize } from '../../../../hooks/common/useWindowSize'
 import { getPendingTxAddressesAndTags } from '../../../../utils/transactions'
 import ManualAdd from '../manual-add'
 import { Cross } from '../../../icons'
-import Recommended from '../recommended'
 import Trash from '../../../icons/ui/Trash'
 import ShortArrow from '../../../icons/ui/ShortArrow'
+import Recommended from '../../../recommended/Recommended'
 import ProfileList from '../../../profile-list/ProfileList'
 import { Address } from '../../../../types'
 import { ProfileItemType } from '../../../profile-list/ProfileList.types'
 import './Cart.css'
-import clsx from 'clsx'
-import { useWindowSize } from '../../../../hooks/common/useWindowSize'
 
 interface CartProps {
   setClearCartModalOpen: (open: boolean) => void
@@ -31,11 +31,11 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
 
     const pendingChangesProfiles = new Map<Address, ProfileItemType>()
 
-    pendingChanges.forEach(({ address, tag }) => {
+    pendingChanges.forEach(({ address }) => {
       if (pendingChangesProfiles.has(address)) {
-        pendingChangesProfiles.get(address)?.tags.push(tag)
+        pendingChangesProfiles.get(address)
       } else {
-        pendingChangesProfiles.set(address, { address, tags: [tag] })
+        pendingChangesProfiles.set(address, { address, tags: [] })
       }
     })
 
@@ -110,6 +110,8 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                   selectedList={selectedList}
                   connectedAddress={connectedAddress}
                   onProfileClick={onProfileClick}
+                  listHeight="calc(80vh - 200px)"
+                  style={{ backgroundColor: 'var(--ethereum-identity-kit-neutral-light)' }}
                 />
               )}
             </div>

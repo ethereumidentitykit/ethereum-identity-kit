@@ -15,7 +15,7 @@ export const formatQueryParams = (inputs: Record<string, string | number | strin
   Object.entries(inputs)
     .filter(([, value]) => !!value)
     .map(([param, value]) => {
-      if (Array.isArray(value)) {
+      if (Array.isArray(value) && value.length > 0) {
         return `${param}=${value.join(',')}`
       }
 

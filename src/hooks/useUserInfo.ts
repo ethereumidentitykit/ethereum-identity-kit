@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { isAddress } from 'viem'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-
+import { fetchFollowingTags, nullFollowingTags } from '../utils/api/fetch-following-tags'
 import { nullFollowerTags } from '../utils/api/fetch-follower-tags'
 import { fetchFollowerTags } from '../utils/api/fetch-follower-tags'
 import { fetchProfileFollowing } from '../utils/api/fetch-profile-following'
 import { fetchProfileFollowers } from '../utils/api/fetch-profile-followers'
-import { fetchFollowingTags, nullFollowingTags } from '../utils/api/fetch-following-tags'
 import { FETCH_LIMIT } from '../constants'
 import { FollowerResponse, FollowingResponse, FollowSortType, ProfileTableTitleType } from '../types'
 
-export const useUser = (user: string) => {
+export const useUserInfo = (user: string) => {
   const [followingSearch, setFollowingSearch] = useState<string>('')
   const [followersSearch, setFollowersSearch] = useState<string>('')
   const [followingTagsFilter, setFollowingTagsFilter] = useState<string[]>([])
@@ -20,7 +19,6 @@ export const useUser = (user: string) => {
 
   const userIsList = !(isAddress(user) || user.includes('.') || Number.isNaN(Number(user)))
   const listNum = userIsList ? Number(user) : undefined
-
   const isValidUser =
     isAddress(user) || (userIsList && listNum && listNum > 0 && listNum < 1000000000) || user.includes('.')
 
@@ -66,6 +64,7 @@ export const useUser = (user: string) => {
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextPageParam,
     refetchOnWindowFocus: false,
+    enabled: isValidUser,
   })
 
   const [isEndOfFollowers, setIsEndOfFollowers] = useState(false)
@@ -110,6 +109,7 @@ export const useUser = (user: string) => {
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextPageParam,
     refetchOnWindowFocus: false,
+    enabled: isValidUser,
   })
 
   const followers = fetchedFollowers

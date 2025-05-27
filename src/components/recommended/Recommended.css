@@ -1,8 +1,8 @@
 .recommended-container {
   width: 100%;
   padding: 3px 0 12px 0;
-  border-radius: 6px;
-  background-color: var(--ethereum-identity-kit-neutral-light);
+  border-radius: 4px;
+  background-color: var(--ethereum-identity-kit-neutral);
   margin-bottom: 10px;
 }
 

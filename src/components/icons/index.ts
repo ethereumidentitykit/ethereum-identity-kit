@@ -24,6 +24,7 @@ import Mute from './ui/Mute'
 import Key from './ui/Key'
 import Calendar from './ui/Calendar'
 import Bell from './ui/Bell'
+import MagnifyingGlass from './ui/MagnifyingGlass'
 
 // Chain Icons
 import Base from './chains/base'
@@ -81,4 +82,5 @@ export {
   Calendar,
   Email,
   Bell,
+  MagnifyingGlass,
 }

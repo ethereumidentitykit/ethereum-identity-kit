@@ -221,7 +221,6 @@ export type FollowSortType = 'latest first' | 'earliest first' | 'follower count
 
 export interface FollowerResponse {
   address: Address
-  ens: ENSProfile
   tags: string[]
   is_muted: boolean
   is_blocked: boolean

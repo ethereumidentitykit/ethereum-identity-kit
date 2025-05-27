@@ -72,19 +72,12 @@ export const useFollowersYouKnowModal = ({ connectedAddress, lookupAddressOrName
   const followersYouKnowLoading =
     followersYouKnowIsLoading || isRefetchingFollowersYouKnow || isFetchingMoreFollowersYouKnow
 
-  const loadMoreRef = useIntersectionObserver(
-    (entries) => {
-      const [entry] = entries
-      if (entry.isIntersecting) {
-        fetchMoreFollowersYouKnow()
-      }
-    },
-    {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
+  const loadMoreRef = useIntersectionObserver((entries) => {
+    const [entry] = entries
+    if (entry.isIntersecting) {
+      fetchMoreFollowersYouKnow()
     }
-  )
+  })
 
   return {
     isEndOfFollowing,

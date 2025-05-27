@@ -1,8 +1,8 @@
 import { Address } from 'viem'
-import { useRef, useEffect } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { fetchRecommended } from '../utils/api/fetch-recommended'
 import { RecommendedItemType } from '../types'
+import { useIntersectionObserver } from './common/useIntersectionObserver'
 
 export const useRecommended = (connectedAddress: Address, limit: number, list?: string) => {
   const { data, isLoading, isRefetching, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
@@ -45,23 +45,12 @@ export const useRecommended = (connectedAddress: Address, limit: number, list?: 
     (data?.pages[data?.pages.length - 1]?.results.length || 0) === limit
   const recommendedLoading = isLoading || isFetchingNextPage
 
-  const fetchMoreRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (fetchMoreRef.current) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage()
-        }
-      })
-
-      observer.observe(fetchMoreRef.current)
-
-      return () => {
-        if (fetchMoreRef.current) observer.unobserve(fetchMoreRef.current)
-      }
+  const fetchMoreRef = useIntersectionObserver((entries) => {
+    const [entry] = entries
+    if (entry.isIntersecting) {
+      fetchNextPage()
     }
-  }, [fetchMoreRef])
+  })
 
   return {
     recommended: recommendedProfiles,

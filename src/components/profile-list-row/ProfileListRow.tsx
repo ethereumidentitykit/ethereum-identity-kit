@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { ens_beautify } from '@adraffy/ens-normalize'
 import { truncateAddress } from '../../utils'
 import { fetchProfileAccount } from '../../utils/api/fetch-profile-account'
+import Tags from './components/tags'
 import Avatar from '../avatar/Avatar'
+import LoadingCell from '../loading-cell/LoadingCell'
 import FollowerTag from '../follower-tag/FollowerTag'
 import FollowButton from '../follow-button/FollowButton'
-import LoadingCell from '../loading-cell/LoadingCell'
-import Tags from '../transaction-modal/components/cart/tags'
 import { ProfileListRowProps } from './ProfileListRow.types'
 import './ProfileListRow.css'
 
@@ -48,13 +48,11 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
     queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
   })
 
-  const headerImage = account?.ens?.header
+  const headerImage = account?.ens?.records?.header
 
   return (
     <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')}>
-      {showHeaderImage && headerImage && (
-        <img src={headerImage} alt="header" className="profile-list-row-header-image" />
-      )}
+      {showHeaderImage && headerImage && <img src={headerImage} alt="" className="profile-list-row-header-image" />}
       <div className="profile-list-row-details">
         {isAccountLoading ? (
           <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
@@ -76,10 +74,11 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             >
               {account?.ens?.name ? ens_beautify(account?.ens?.name) : truncateAddress(profile.address)}
             </p>
-            {showFollowsYouBadges && connectedAddress && (
+            {showTags ? (
+              <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
+            ) : showFollowsYouBadges && connectedAddress ? (
               <FollowerTag addressOrName={profile.address} connectedAddress={connectedAddress} list={selectedList} />
-            )}
-            {showTags && <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />}
+            ) : null}
           </div>
         )}
       </div>

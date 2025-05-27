@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Blockscout: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
+const Blockscout: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   // Reduce the size of the icon to fit the design
   const heightNum = Number(height) / 1.33
   const widthNum = Number(width) / 1.33
@@ -15,8 +15,16 @@ const Blockscout: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, widt
         alignItems: 'center',
         justifyContent: 'center',
       }}
+      className={props.className}
     >
-      <svg width={widthNum} height={heightNum} viewBox="0 0 276 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width={widthNum}
+        height={heightNum}
+        {...props}
+        viewBox="0 0 276 270"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"

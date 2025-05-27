@@ -18,6 +18,7 @@ export type ProfileListProps = {
   overscanCount?: number
   listHeight?: string
   showFollowsYouBadges?: boolean
+  loadMoreElement?: React.ReactNode
 }
 
 export type ProfileItemType = {
