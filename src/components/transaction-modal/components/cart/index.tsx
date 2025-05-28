@@ -96,7 +96,8 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 showTags={true}
                 canEditTags={true}
                 onProfileClick={onProfileClick}
-                listHeight={width && width < 1024 ? '80vh' : 'calc(80vh - 230px)'}
+                listHeight={width && width < 1024 ? '80vh' : 'calc(80vh - 240px)'}
+                useVirtualList={true}
               />
             ) : (
               <div className="cart-changes-list-empty">No items in cart</div>
@@ -107,11 +108,13 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
               <ManualAdd />
               {connectedAddress && (
                 <Recommended
+                  title="Recommended"
                   selectedList={selectedList}
                   connectedAddress={connectedAddress}
                   onProfileClick={onProfileClick}
+                  useVirtualList={Boolean(width && width > 1024)}
                   listHeight="calc(80vh - 200px)"
-                  style={{ backgroundColor: 'var(--ethereum-identity-kit-neutral-light)' }}
+                  className="cart-recommended-list"
                 />
               )}
             </div>

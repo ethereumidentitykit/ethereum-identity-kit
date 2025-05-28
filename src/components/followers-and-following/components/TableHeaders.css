@@ -5,10 +5,11 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
   box-sizing: border-box;
   border-radius: 4px;
-  padding: 4px 12px 4px 8px;
+  padding: 8px 16px 8px 8px;
 }
 
 .dark .table-header {
@@ -46,7 +47,7 @@
   width: 100%;
   align-items: center;
   border-radius: 4px;
-  height: 40px;
+  height: 44px;
 }
 
 @media (min-width: 640px) {
@@ -71,7 +72,7 @@
 
 @media (min-width: 640px) {
   .tab-indicator {
-    width: 8rem;
+    width: 128px;
   }
 }
 
@@ -85,7 +86,7 @@
 
 @media (min-width: 640px) {
   .tab-indicator.followers {
-    left: 8rem;
+    left: 128px;
   }
 }
 
@@ -93,12 +94,13 @@
   z-index: 10;
   width: 50%;
   cursor: pointer;
-  padding: 8px 0;
+  padding: 10px 0;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
   text-transform: capitalize;
   transition: transform 0.2s;
+  margin: 0;
 }
 
 .tab-button:hover {
@@ -135,6 +137,7 @@
   z-index: 50;
   display: flex;
   gap: 4px;
+  padding-right: 10px;
 }
 
 @media (min-width: 640px) {
@@ -184,7 +187,7 @@
 .search-input {
   background-color: var(--ethereum-identity-kit-neutral-light-hover);
   position: absolute;
-  top: -1px;
+  top: -2px;
   left: 32px;
   z-index: 50;
   display: block;
@@ -205,9 +208,8 @@
 
 @media (max-width: 640px) {
   .search-input {
-    top: -8px;
+    top: -2px;
     right: -8px;
-    padding: 8px 12px;
   }
 }
 
@@ -279,6 +281,7 @@
 .sort-text {
   font-weight: 600;
   text-transform: capitalize;
+  margin: 0;
 }
 
 .sort-dropdown {

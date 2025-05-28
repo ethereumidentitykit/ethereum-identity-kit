@@ -230,4 +230,13 @@ export type {
   GetListOpsTransactionProps,
   NotificationItemType,
   NotificationsResponse,
+  FollowerResponse,
+  FollowingResponse,
+  TagCountType,
+  InfiniteProfileQueryProps,
+  FollowingTagsResponse,
+  ProfileTabType,
+  BlockedMutedTabType,
+  ProfileTableTitleType,
+  FollowSortType,
 } from './types'

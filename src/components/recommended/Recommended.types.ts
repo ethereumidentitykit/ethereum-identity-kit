@@ -7,4 +7,7 @@ export interface RecommendedProps {
   onProfileClick?: (address: Address) => void
   listHeight?: string
   style?: React.CSSProperties
+  className?: string
+  title?: string
+  useVirtualList?: boolean
 }

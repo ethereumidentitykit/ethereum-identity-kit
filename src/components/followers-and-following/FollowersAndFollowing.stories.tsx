@@ -36,6 +36,9 @@ FollowersAndFollowingByAddress.args = {
   defaultTab: 'followers',
   canEditTags: false,
   showHeaderImage: true,
+  onProfileClick: (address) => {
+    window.alert(address)
+  },
 }
 
 export const FollowersAndFollowingByENSName = Template.bind({})

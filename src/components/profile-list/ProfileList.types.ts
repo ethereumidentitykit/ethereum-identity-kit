@@ -19,6 +19,7 @@ export type ProfileListProps = {
   listHeight?: string
   showFollowsYouBadges?: boolean
   loadMoreElement?: React.ReactNode
+  useVirtualList?: boolean
 }
 
 export type ProfileItemType = {

@@ -1,8 +1,8 @@
 import ProfileList from '../profile-list/ProfileList'
 import { useRecommended } from '../../hooks/useRecommended'
-import { useWindowSize } from '../../hooks/common/useWindowSize'
 import { RecommendedProps } from './Recommended.types'
 import './Recommended.css'
+import clsx from 'clsx'
 
 const Recommended: React.FC<RecommendedProps> = ({
   connectedAddress,
@@ -10,14 +10,15 @@ const Recommended: React.FC<RecommendedProps> = ({
   limit = 20,
   onProfileClick,
   listHeight = '100vh',
-  style,
+  className,
+  title,
+  useVirtualList = false,
 }) => {
-  const { width } = useWindowSize()
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(connectedAddress, limit, selectedList)
 
   return (
-    <div className="recommended-container" style={{ paddingBottom: width && width < 640 ? '90px' : '0px', ...style }}>
-      <div className="recommended-title">Recommended</div>
+    <div className={clsx('recommended-container', className)}>
+      {title && <div className="recommended-title">{title}</div>}
       {((recommended && recommended.length > 0) || isLoading) && (
         <ProfileList
           profiles={recommended || []}
@@ -28,6 +29,7 @@ const Recommended: React.FC<RecommendedProps> = ({
           initialFollowState={'Follow'}
           onProfileClick={onProfileClick}
           listHeight={listHeight}
+          useVirtualList={useVirtualList}
           loadMoreElement={
             <div
               className="recommended-load-more"

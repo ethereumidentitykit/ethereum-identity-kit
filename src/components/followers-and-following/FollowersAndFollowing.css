@@ -11,34 +11,17 @@
   box-sizing: border-box;
 }
 
-.followers-following-container:not(.loading) {
-  padding-bottom: 0;
-}
-
-@media (min-width: 640px) {
-  .followers-following-container:not(.loading) {
-    padding-bottom: 0;
-  }
-}
-
 .table-header-container {
   position: sticky;
   z-index: 20;
-  transition: all 300ms;
-}
-
-.table-header-container.top-eight {
   top: -2px;
+  transition: all 300ms;
 }
 
 @media (min-width: 1280px) {
   .table-header-container.top-eight {
     position: sticky;
   }
-}
-
-.table-header-container:not(.top-eight) {
-  top: -2px;
 }
 
 .table-header-container.mobile {
@@ -104,4 +87,16 @@
 .load-more-trigger {
   height: 2px;
   width: 100%;
+}
+
+.no-followings-recommendations-container {
+  border-radius: 4px;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: var(--ethereum-identity-kit-neutral);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium);
+}
+
+.dark .no-followings-recommendations-container {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-neutral-dark);
 }

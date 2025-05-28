@@ -44,11 +44,12 @@
   border: none;
   cursor: pointer;
   padding: 0 8px !important;
+  border: none !important;
   margin: 0;
   position: relative;
   height: 24px;
   display: flex;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   align-items: center;
   justify-content: center;

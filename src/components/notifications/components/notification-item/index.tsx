@@ -133,7 +133,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         </div>
       </div>
       <p className="notification-item-time">{formatTimeDiff(timeDiff)}</p>
-      {isNew && <span className="bg-primary absolute -top-1 -right-1 flex h-4 w-4 rounded-full" />}
+      {/* {isNew && <span className="bg-primary absolute -top-1 -right-1 flex h-4 w-4 rounded-full" />} */}
     </div>
   )
 }

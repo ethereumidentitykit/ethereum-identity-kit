@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import ProfileListRow from '../profile-list-row/ProfileListRow'
 import ProfileListLoadingRow from '../profile-list-row/ProfileListLoadingRow'
 import { ProfileItemType, ProfileListProps } from './ProfileList.types'
@@ -63,14 +63,17 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
       listHeight,
       showFollowsYouBadges = false,
       loadMoreElement,
+      useVirtualList = false,
     },
     ref
   ) => {
     const items: (ProfileItemType | null)[] = isLoading
       ? [...profiles, ...Array(loadingRows).fill(null)]
-      : [...profiles, null]
+      : loadMoreElement
+        ? [...profiles, null]
+        : [...profiles]
 
-    return (
+    return useVirtualList ? (
       <VirtualList<ProfileItemType | null>
         ref={ref}
         containerClassName={clsx('profile-list-container', showHeaderImage && 'has-header-image', darkMode && 'dark')}
@@ -102,6 +105,35 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
           )
         }
       />
+    ) : (
+      <div
+        ref={ref}
+        className={clsx('profile-list-container', showHeaderImage && 'has-header-image', darkMode && 'dark')}
+      >
+        {items.map((profile) =>
+          profile ? (
+            <ProfileListRow
+              key={profile.address}
+              profile={profile}
+              connectedAddress={connectedAddress}
+              selectedList={selectedList}
+              tags={profile.tags}
+              showTags={showTags}
+              showHeaderImage={showHeaderImage}
+              canEditTags={canEditTags}
+              initialFollowState={initialFollowState}
+              onProfileClick={onProfileClick}
+              showFollowsYouBadges={showFollowsYouBadges}
+            />
+          ) : isLoading ? (
+            Array({ length: loadingRows }).map((_, index) => (
+              <ProfileListLoadingRow key={index} showHeaderImage={showHeaderImage} />
+            ))
+          ) : (
+            loadMoreElement
+          )
+        )}
+      </div>
     )
   }
 )

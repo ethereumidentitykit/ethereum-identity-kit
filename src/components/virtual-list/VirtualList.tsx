@@ -63,7 +63,6 @@ function VirtualListComponent<T>(props: VirtualListProps<T>, ref: React.Forwarde
             alignItems: 'center',
             justifyContent: 'center',
             gap,
-            paddingBottom: '32px',
           }}
         >
           {visibleItems.map((item, i) => {

@@ -12,6 +12,15 @@ import clsx from 'clsx'
 
 const centerVertical = ['left', 'right']
 
+/**
+ * Notifications component
+ *
+ * @param addressOrName - the address or name of the user to display notifications for
+ * @param position - the position of the notifications bell
+ * @param align - the alignment of the notifications bell
+ * @param darkMode - whether the dark mode is enabled
+ * @param onProfileClick - the function to call when a profile is clicked
+ */
 const Notifications: React.FC<NotificationsProps> = ({
   addressOrName,
   position = 'top',

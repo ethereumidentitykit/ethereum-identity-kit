@@ -9,6 +9,27 @@ import { useFollowersAndFollowing } from '../../hooks/useFollowersAndFollowing'
 import { FollowersAndFollowingProps } from './FollowersAndFollowing.types'
 import './FollowersAndFollowing.css'
 
+/**
+ * Followers and Following component
+ *
+ * @param user - the user to display followers and following for
+ * @param defaultTab - the default tab to display
+ * @param canEditTags - whether the user can edit tags
+ * @param showTagsByDefault - whether to show tags by default
+ * @param excludeBlocked - whether to exclude blocked users
+ * @param isTopEight - whether the user is in the top 8
+ * @param showRecommendations - whether to show recommendations on the following tab of a connected user with no lists
+ * @param isConnectedUserProfile - whether the user is the connected user
+ * @param darkMode - whether the dark mode is enabled
+ * @param connectedAddress - the address of the connected user
+ * @param onProfileClick - the function to call when a profile is clicked
+ * @param showHeaderImage - whether to show the header image
+ * @param rowHeight - the height of each row
+ * @param useVirtualList - whether to use virtual list
+ * @param ref - the ref to the container
+ *
+ * @returns FollowersAndFollowing component
+ */
 const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingProps>(
   (
     {
@@ -25,6 +46,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
       onProfileClick,
       showHeaderImage,
       rowHeight = 80,
+      useVirtualList = false,
     },
     ref
   ) => {
@@ -100,27 +122,31 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
           />
         </div>
         <div className="content-container">
-          {profilesEmpty && <div className="empty-state-container">{noResults}</div>}
-          <ProfileList
-            ref={ref}
-            isLoading={params.isLoading}
-            loadingRows={FETCH_LIMIT}
-            profiles={profiles}
-            showTags={isConnectedUserProfile && activeTab === 'following' && showTags}
-            showFollowsYouBadges={showFollowsYouBadges}
-            canEditTags={canEditTags}
-            initialFollowState={activeTab === 'following' && isConnectedUserProfile ? 'Following' : undefined}
-            darkMode={darkMode}
-            connectedAddress={connectedAddress}
-            selectedList={selectedList}
-            onProfileClick={onProfileClick}
-            showHeaderImage={showHeaderImage}
-            rowHeight={rowHeight}
-            visibleCount={20}
-            overscanCount={10}
-            listHeight="calc(100vh - 50px)"
-            loadMoreElement={<div ref={loadMoreRef} className="load-more-trigger" />}
-          />
+          {profilesEmpty ? (
+            <div className="empty-state-container">{noResults}</div>
+          ) : (
+            <ProfileList
+              ref={ref}
+              isLoading={params.isLoading}
+              loadingRows={FETCH_LIMIT}
+              profiles={profiles}
+              showTags={isConnectedUserProfile && activeTab === 'following' && showTags}
+              showFollowsYouBadges={showFollowsYouBadges}
+              canEditTags={canEditTags}
+              initialFollowState={activeTab === 'following' && isConnectedUserProfile ? 'Following' : undefined}
+              darkMode={darkMode}
+              connectedAddress={connectedAddress}
+              selectedList={selectedList}
+              onProfileClick={onProfileClick}
+              showHeaderImage={showHeaderImage}
+              rowHeight={rowHeight}
+              visibleCount={20}
+              overscanCount={10}
+              listHeight="100vh"
+              loadMoreElement={<div ref={loadMoreRef} className="load-more-trigger" />}
+              useVirtualList={useVirtualList}
+            />
+          )}
         </div>
         {showRecommendations &&
           isConnectedUserProfile &&
@@ -128,12 +154,13 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
           connectedAddress &&
           (lists?.lists?.length || 0) === 0 && (
             <Recommended
+              title="Some recommendations for you"
               limit={40}
               connectedAddress={connectedAddress}
               selectedList={selectedList}
               onProfileClick={onProfileClick}
               listHeight="calc(100vh - 150px)"
-              style={{ boxShadow: 'var(--ethereum-identity-kit-shadow-medium)' }}
+              className="no-followings-recommendations-container"
             />
           )}
       </div>
