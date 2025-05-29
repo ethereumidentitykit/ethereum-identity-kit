@@ -1,5 +1,6 @@
-import { useUserInfo } from './useUserInfo'
+import { useSiwe } from './useSiwe'
 import { useChain } from './useChain'
+import { useUserInfo } from './useUserInfo'
 import { useEFPPoaps } from './useEFPPoaps'
 import { useIsClient } from './common/useIsClient'
 import { useRecommended } from './useRecommended'
@@ -18,6 +19,7 @@ import { useFollowersYouKnowModal } from './followers-you-know/useModal'
 import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 
 export {
+  useSiwe,
   useUserInfo,
   useFollowingState,
   useProfileDetails,

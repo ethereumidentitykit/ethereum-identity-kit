@@ -1,0 +1,55 @@
+.sign-in-with-ethereum-button {
+  cursor: pointer;
+  padding: 0px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #333;
+  box-shadow: 2px 2px 1px 2px #333;
+  transition: all 0.2s ease;
+}
+
+.dark .sign-in-with-ethereum-button {
+  border: 1px solid #fff;
+  box-shadow: 2px 2px 1px 2px #fff;
+}
+
+.sign-in-with-ethereum-button:hover {
+  background-color: #333;
+  color: #fff;
+  box-shadow: 2px 2px 1px 2px #333c;
+}
+
+.dark .sign-in-with-ethereum-button:hover {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 2px 2px 1px 2px #fffc;
+}
+
+.sign-in-with-ethereum-button:active {
+  transform: translateY(2px) translateX(2px);
+  box-shadow: none;
+}
+
+.sign-in-with-ethereum-button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  border: 1px solid #3338;
+  box-shadow: 2px 2px 1px 2px #3338;
+}
+
+.dark .sign-in-with-ethereum-button:disabled {
+  border: 1px solid #fff8;
+  box-shadow: 2px 2px 1px 2px #fff8;
+}
+
+.sign-in-with-ethereum-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.sign-in-with-ethereum-text {
+  font-size: 14px;
+  font-weight: 600;
+}

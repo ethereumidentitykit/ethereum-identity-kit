@@ -167,6 +167,7 @@ export {
   Key,
   Calendar,
   Notifications,
+  SignInWithEthereum,
 } from './components'
 
 // Component Types
@@ -187,6 +188,7 @@ export type {
   EFPPoapsProps,
   NotificationsProps,
   FollowersAndFollowingProps,
+  SignInWithEthereumProps,
 } from './components'
 
 // Types

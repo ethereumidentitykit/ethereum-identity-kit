@@ -1,22 +1,23 @@
-import Avatar from './avatar/Avatar'
-import EFPPoaps from './efp-poaps/EFPPoaps'
-import Bio from './profile-card/components/bio'
-import Tags from './profile-list-row/components/tags'
-import FollowerTag from './follower-tag/FollowerTag'
-import ProfileCard from './profile-card/ProfileCard'
-import LoadingCell from './loading-cell/LoadingCell'
-import ProfileList from './profile-list/ProfileList'
-import FollowButton from './follow-button/FollowButton'
-import ProfileStats from './profile-stats/ProfileStats'
-import Notifications from './notifications/Notifications'
-import ProfileSocials from './profile-socials/ProfileSocials'
-import ProfileListRow from './profile-list-row/ProfileListRow'
-import HeaderImage from './profile-card/components/HeaderImage'
-import TransactionModal from './transaction-modal/TransactionModal'
-import FollowersYouKnow from './followers-you-know/FollowersYouKnow'
-import FullWidthProfile from './full-width-profile/FullWidthProfile'
-import ImageWithFallback from './image-with-fallback/ImageWithFallback'
-import FollowersAndFollowing from './followers-and-following/FollowersAndFollowing'
+import LoadingCell from './atoms/loading-cell/LoadingCell'
+import ImageWithFallback from './atoms/image-with-fallback/ImageWithFallback'
+import Avatar from './molecules/avatar/Avatar'
+import EFPPoaps from './molecules/efp-poaps/EFPPoaps'
+import Tags from './molecules/profile-list-row/components/tags'
+import FollowerTag from './molecules/follower-tag/FollowerTag'
+import ProfileList from './molecules/profile-list/ProfileList'
+import ProfileStats from './molecules/profile-stats/ProfileStats'
+import ProfileSocials from './molecules/profile-socials/ProfileSocials'
+import ProfileListRow from './molecules/profile-list-row/ProfileListRow'
+import TransactionModal from './organisms/transaction-modal/TransactionModal'
+import FollowersYouKnow from './molecules/followers-you-know/FollowersYouKnow'
+import SignInWithEthereum from './molecules/sign-in-with-ethereum/SignInWithEthereum'
+import Bio from './organisms/profile-card/components/bio'
+import ProfileCard from './organisms/profile-card/ProfileCard'
+import FollowButton from './organisms/follow-button/FollowButton'
+import Notifications from './organisms/notifications/Notifications'
+import HeaderImage from './organisms/profile-card/components/HeaderImage'
+import FullWidthProfile from './organisms/full-width-profile/FullWidthProfile'
+import FollowersAndFollowing from './organisms/followers-and-following/FollowersAndFollowing'
 
 export {
   ProfileCard,
@@ -38,24 +39,26 @@ export {
   EFPPoaps,
   Notifications,
   FollowersAndFollowing,
+  SignInWithEthereum,
 }
 
-import { AvatarProps } from './avatar/Avatar.types'
-import { ProfileCardProps } from './profile-card/ProfileCard.types'
-import { FollowerTagProps } from './follower-tag/FollowerTag.types'
-import { LoadingCellProps } from './loading-cell/LoadingCell.types'
-import { ProfileStatsProps } from './profile-stats/ProfileStats.types'
-import { ProfileSocialsProps } from './profile-socials/ProfileSocials.types'
-import { FollowersYouKnowProps } from './followers-you-know/FollowersYouKnow.types'
-import { ImageWithFallbackProps } from './image-with-fallback/ImageWithFallback.types'
-import { FollowButtonProps } from './follow-button/FollowButton.types'
-import { TransactionModalProps } from './transaction-modal/TransactionModal.types'
-import { ProfileListProps } from './profile-list/ProfileList.types'
-import { ProfileListRowProps } from './profile-list-row/ProfileListRow.types'
-import { FullWidthProfileProps } from './full-width-profile/FullWidthProfile.types'
-import { EFPPoapsProps } from './efp-poaps/EFPPoaps.types'
-import { NotificationsProps } from './notifications/Notifications.types'
-import { FollowersAndFollowingProps } from './followers-and-following/FollowersAndFollowing.types'
+import { LoadingCellProps } from './atoms/loading-cell/LoadingCell.types'
+import { ImageWithFallbackProps } from './atoms/image-with-fallback/ImageWithFallback.types'
+import { AvatarProps } from './molecules/avatar/Avatar.types'
+import { ProfileListProps } from './molecules/profile-list/ProfileList.types'
+import { FollowerTagProps } from './molecules/follower-tag/FollowerTag.types'
+import { ProfileStatsProps } from './molecules/profile-stats/ProfileStats.types'
+import { ProfileSocialsProps } from './molecules/profile-socials/ProfileSocials.types'
+import { ProfileListRowProps } from './molecules/profile-list-row/ProfileListRow.types'
+import { FollowersYouKnowProps } from './molecules/followers-you-know/FollowersYouKnow.types'
+import { SignInWithEthereumProps } from './molecules/sign-in-with-ethereum/SignInWithEthereum.types'
+import { EFPPoapsProps } from './molecules/efp-poaps/EFPPoaps.types'
+import { ProfileCardProps } from './organisms/profile-card/ProfileCard.types'
+import { FollowButtonProps } from './organisms/follow-button/FollowButton.types'
+import { NotificationsProps } from './organisms/notifications/Notifications.types'
+import { TransactionModalProps } from './organisms/transaction-modal/TransactionModal.types'
+import { FullWidthProfileProps } from './organisms/full-width-profile/FullWidthProfile.types'
+import { FollowersAndFollowingProps } from './organisms/followers-and-following/FollowersAndFollowing.types'
 
 export type {
   ProfileCardProps,
@@ -74,6 +77,7 @@ export type {
   EFPPoapsProps,
   NotificationsProps,
   FollowersAndFollowingProps,
+  SignInWithEthereumProps,
 }
 
 export * from './icons'

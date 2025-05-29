@@ -9,7 +9,12 @@ import { fetchProfileFollowers } from '../utils/api/fetch-profile-followers'
 import { FETCH_LIMIT } from '../constants'
 import { FollowerResponse, FollowingResponse, FollowSortType, ProfileTableTitleType } from '../types'
 
-export const useUserInfo = (user: string) => {
+type UseUserInfoProps = {
+  user: string
+  includeBlocked?: boolean
+}
+
+export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps) => {
   const [followingSearch, setFollowingSearch] = useState<string>('')
   const [followersSearch, setFollowersSearch] = useState<string>('')
   const [followingTagsFilter, setFollowingTagsFilter] = useState<string[]>([])
@@ -54,6 +59,7 @@ export const useUserInfo = (user: string) => {
         tags: followingTagsFilter,
         sort: followingSort,
         search: followingSearch,
+        allResults: includeBlocked,
       })
 
       if (fetchedFollowing.following.length === 0) setIsEndOfFollowing(true)
@@ -99,6 +105,7 @@ export const useUserInfo = (user: string) => {
         tags: followersTagsFilter,
         sort: followersSort,
         search: followersSearch,
+        allResults: includeBlocked,
       })
 
       if (fetchedFollowers.followers.length === 0) setIsEndOfFollowers(true)
