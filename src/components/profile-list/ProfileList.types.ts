@@ -17,6 +17,9 @@ export type ProfileListProps = {
   visibleCount?: number
   overscanCount?: number
   listHeight?: string
+  showFollowsYouBadges?: boolean
+  loadMoreElement?: React.ReactNode
+  useVirtualList?: boolean
 }
 
 export type ProfileItemType = {

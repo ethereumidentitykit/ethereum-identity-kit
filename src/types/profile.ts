@@ -213,3 +213,51 @@ export type NotificationsResponse = {
   }
   notifications: NotificationItemType[]
 }
+
+export type ProfileTabType = 'following' | 'followers'
+export type BlockedMutedTabType = 'Blocked/Muted' | 'Blocked/Muted By'
+export type ProfileTableTitleType = ProfileTabType | BlockedMutedTabType
+export type FollowSortType = 'latest first' | 'earliest first' | 'follower count'
+
+export interface FollowerResponse {
+  address: Address
+  tags: string[]
+  is_muted: boolean
+  is_blocked: boolean
+  is_following: boolean
+}
+
+export interface FollowingResponse {
+  version: 1
+  record_type: 'address' & string
+  address: Address
+  tags: string[]
+  ens?: ENSProfile
+}
+
+export type TagCountType = {
+  tag: string
+  count: number
+}
+
+export interface InfiniteProfileQueryProps {
+  addressOrName: string
+  list?: number | string
+  limit: number
+  tags?: string[]
+  sort?: FollowSortType
+  pageParam: number
+  allResults?: boolean
+  search?: string
+  fresh?: boolean
+}
+
+export interface FollowingTagsResponse {
+  token_id: string | number
+  tags: string[]
+  tagCounts: TagCountType[]
+  taggedAddresses: {
+    address: Address
+    tag: string
+  }[]
+}

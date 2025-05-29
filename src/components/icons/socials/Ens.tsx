@@ -1,6 +1,6 @@
-const Ens: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
+const Ens: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   return (
-    <svg width={width} height={height} viewBox="0 0 202 231" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} {...props} viewBox="0 0 202 231" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M98.3592 2.80337L34.8353 107.327C34.3371 108.147 33.1797 108.238 32.5617 107.505C26.9693 100.864 6.13478 72.615 31.9154 46.8673C55.4403 23.3726 85.4045 6.62129 96.5096 0.831705C97.7695 0.174847 99.0966 1.59007 98.3592 2.80337Z"
         fill="#F6F6F6"

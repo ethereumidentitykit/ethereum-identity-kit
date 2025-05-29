@@ -18,6 +18,8 @@ export {
   useIsClient,
   useFollowersYouKnowModal,
   useWindowSize,
+  useUserInfo,
+  useFollowersAndFollowing,
 } from './hooks'
 
 // Utils
@@ -125,6 +127,7 @@ export {
   ProfileListRow,
   Tags,
   FullWidthProfile,
+  FollowersAndFollowing,
   EFPPoaps,
   // Icons
   Check,
@@ -183,6 +186,7 @@ export type {
   FullWidthProfileProps,
   EFPPoapsProps,
   NotificationsProps,
+  FollowersAndFollowingProps,
 } from './components'
 
 // Types
@@ -226,4 +230,13 @@ export type {
   GetListOpsTransactionProps,
   NotificationItemType,
   NotificationsResponse,
+  FollowerResponse,
+  FollowingResponse,
+  TagCountType,
+  InfiniteProfileQueryProps,
+  FollowingTagsResponse,
+  ProfileTabType,
+  BlockedMutedTabType,
+  ProfileTableTitleType,
+  FollowSortType,
 } from './types'

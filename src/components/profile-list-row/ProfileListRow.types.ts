@@ -11,4 +11,5 @@ export type ProfileListRowProps = {
   initialFollowState?: InitialFollowingState
   onProfileClick?: (address: Address) => void
   showHeaderImage?: boolean
+  showFollowsYouBadges?: boolean
 }

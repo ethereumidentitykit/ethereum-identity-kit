@@ -1,6 +1,11 @@
-const Wallet: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 24, width = 22, color = 'currentColor' }) => {
+const Wallet: React.FC<React.SVGProps<SVGSVGElement>> = ({
+  height = 24,
+  width = 22,
+  color = 'currentColor',
+  ...props
+}) => {
   return (
-    <svg width={width} height={height} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} {...props} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M14.6003 9.50272H11.8082C10.783 9.5021 9.95204 8.6778 9.95142 7.66005C9.95142 6.64231 10.783 5.81801 11.8082 5.81738H14.6003"
         stroke={color}

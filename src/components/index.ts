@@ -1,6 +1,7 @@
 import Avatar from './avatar/Avatar'
 import EFPPoaps from './efp-poaps/EFPPoaps'
 import Bio from './profile-card/components/bio'
+import Tags from './profile-list-row/components/tags'
 import FollowerTag from './follower-tag/FollowerTag'
 import ProfileCard from './profile-card/ProfileCard'
 import LoadingCell from './loading-cell/LoadingCell'
@@ -8,7 +9,6 @@ import ProfileList from './profile-list/ProfileList'
 import FollowButton from './follow-button/FollowButton'
 import ProfileStats from './profile-stats/ProfileStats'
 import Notifications from './notifications/Notifications'
-import Tags from './transaction-modal/components/cart/tags'
 import ProfileSocials from './profile-socials/ProfileSocials'
 import ProfileListRow from './profile-list-row/ProfileListRow'
 import HeaderImage from './profile-card/components/HeaderImage'
@@ -16,6 +16,7 @@ import TransactionModal from './transaction-modal/TransactionModal'
 import FollowersYouKnow from './followers-you-know/FollowersYouKnow'
 import FullWidthProfile from './full-width-profile/FullWidthProfile'
 import ImageWithFallback from './image-with-fallback/ImageWithFallback'
+import FollowersAndFollowing from './followers-and-following/FollowersAndFollowing'
 
 export {
   ProfileCard,
@@ -36,6 +37,7 @@ export {
   FullWidthProfile,
   EFPPoaps,
   Notifications,
+  FollowersAndFollowing,
 }
 
 import { AvatarProps } from './avatar/Avatar.types'
@@ -53,6 +55,7 @@ import { ProfileListRowProps } from './profile-list-row/ProfileListRow.types'
 import { FullWidthProfileProps } from './full-width-profile/FullWidthProfile.types'
 import { EFPPoapsProps } from './efp-poaps/EFPPoaps.types'
 import { NotificationsProps } from './notifications/Notifications.types'
+import { FollowersAndFollowingProps } from './followers-and-following/FollowersAndFollowing.types'
 
 export type {
   ProfileCardProps,
@@ -70,6 +73,7 @@ export type {
   FullWidthProfileProps,
   EFPPoapsProps,
   NotificationsProps,
+  FollowersAndFollowingProps,
 }
 
 export * from './icons'

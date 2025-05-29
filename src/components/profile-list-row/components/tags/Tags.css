@@ -8,6 +8,10 @@
   overflow: visible;
 }
 
+.cart-tags-container * {
+  box-sizing: border-box;
+}
+
 .cart-tags-button {
   border: none;
   cursor: pointer;
@@ -39,12 +43,13 @@
 .cart-tags-tag {
   border: none;
   cursor: pointer;
-  padding: 0 3px !important;
+  padding: 0 8px !important;
+  border: none !important;
   margin: 0;
   position: relative;
   height: 24px;
   display: flex;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   align-items: center;
   justify-content: center;
@@ -58,7 +63,7 @@
   background-color: #666666;
 }
 
-.cart-tags-tag::after {
+.cart-tags-tag-in-cart::after {
   background: #4ade80;
   height: 11px;
   width: 11px;
@@ -66,8 +71,8 @@
   position: absolute;
   content: '';
   display: block;
-  top: -8px;
-  right: -8px;
+  top: -4px;
+  right: -4px;
 }
 
 .cart-tags-tag-being-removed {

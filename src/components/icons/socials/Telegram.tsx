@@ -1,8 +1,9 @@
-const Telegram: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32 }) => {
+const Telegram: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 32, ...props }) => {
   return (
     <svg
       height={height}
       width={width}
+      {...props}
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"

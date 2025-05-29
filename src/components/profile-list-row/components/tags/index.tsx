@@ -1,18 +1,18 @@
 import clsx from 'clsx'
 import { useAccount } from 'wagmi'
 import { useEffect, useState } from 'react'
-import { useTransactions } from '../../../../../context'
-import { useFollowButton } from '../../../../../hooks'
-import { useOutsideClick } from '../../../../../hooks/common/useOutsideClick'
-import { listOpAddTag, listOpRemoveTag } from '../../../../../utils/list-ops'
+import { useTransactions } from '../../../../context'
+import { useFollowButton } from '../../../../hooks'
+import { useOutsideClick } from '../../../../hooks/common/useOutsideClick'
+import { listOpAddTag, listOpRemoveTag } from '../../../../utils/list-ops'
 import {
   extractAddressAndTag,
   getListOpsFromTransaction,
   getPendingTxAddressesAndTags,
-} from '../../../../../utils/transactions'
-import Plus from '../../../../icons/ui/Plus'
-import { DEFAULT_RECENT_TAGS, EFPActionIds } from '../../../../../constants'
-import { Address } from '../../../../../types'
+} from '../../../../utils/transactions'
+import Plus from '../../../icons/ui/Plus'
+import { DEFAULT_RECENT_TAGS, EFPActionIds } from '../../../../constants'
+import { Address } from '../../../../types'
 import './Tags.css'
 
 interface TagsProps {
@@ -27,7 +27,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
   const { address: connectedAddress } = useAccount()
   const { buttonState } = useFollowButton({ lookupAddress: address, connectedAddress, selectedList })
 
-  const [tags, setTags] = useState<string[]>(existingTags ? [...existingTags] : [])
+  const [tags, setTags] = useState<string[]>(existingTags || [])
   const [tagDropdownInput, setTagDropdownInput] = useState('')
   const [tagDropdownOpen, setTagDropdownOpen] = useState(false)
   const [recentTags, setRecentTags] = useState<string[]>(DEFAULT_RECENT_TAGS)
@@ -43,8 +43,11 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
         .map((tag) => tag.tag),
       ...recentTags.slice(tagsFromCart.filter((tag) => !DEFAULT_RECENT_TAGS.includes(tag.tag)).length),
     ])
-    const filteredTagsFromCart = tagsFromCart.filter((tag) => tag.address === address)
-    setTags(filteredTagsFromCart.map((tag) => tag.tag))
+
+    const filteredTagsFromCart = tagsFromCart
+      .filter((tag) => tag.address === address && !tags.includes(tag.tag))
+      .map((tag) => tag.tag)
+    setTags([...tags, ...filteredTagsFromCart])
   }, [pendingTxs, address])
 
   const handleAddTag = (tag: string) => {
@@ -58,10 +61,12 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
     if (!tags.includes(tag) || !connectedAddress || !canEditTags) return
 
     const listOp = listOpRemoveTag(address, tag)
-    if (existingTags?.includes(tag)) {
-      addListOpsTransaction([listOp])
-    } else {
+    const isInCart = getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
+    if (isInCart) {
       removeListOpsTransaction([listOp.data])
+      if (!existingTags?.includes(tag)) setTags(tags.filter((t) => t !== tag))
+    } else if (existingTags?.includes(tag)) {
+      addListOpsTransaction([listOp])
     }
   }
 
@@ -71,10 +76,11 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
     <div className="cart-tags-container" ref={outsideClickRef as React.RefObject<HTMLDivElement>}>
       {canEditTags && (
         <button className="cart-tags-button" onClick={() => setTagDropdownOpen(!tagDropdownOpen)}>
-          <Plus height={13} width={13} />
+          <Plus height={14} width={14} />
         </button>
       )}
       {tags.map((tag) => {
+        const isInCart = getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
         const isBeingRemoved = pendingTxs
           .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
           .flatMap((tx) => getListOpsFromTransaction(tx))
@@ -85,7 +91,11 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
 
         return (
           <button
-            className={clsx('cart-tags-tag', isBeingRemoved && 'cart-tags-tag-being-removed')}
+            className={clsx(
+              'cart-tags-tag',
+              isInCart && 'cart-tags-tag-in-cart',
+              isBeingRemoved && 'cart-tags-tag-being-removed'
+            )}
             key={tag}
             onClick={() => {
               handleRemoveTag(tag)

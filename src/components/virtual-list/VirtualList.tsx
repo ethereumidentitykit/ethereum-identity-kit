@@ -1,19 +1,20 @@
-import React, { useState, useRef, useCallback } from 'react'
+import clsx from 'clsx'
+import React, { useState, useCallback, forwardRef } from 'react'
 import { VirtualListProps } from './VirtualList.types'
 import './Virtuallist.css'
-import clsx from 'clsx'
 
-const VirtualList = <T,>({
-  items,
-  visibleCount,
-  overscanCount = 3,
-  rowHeight,
-  renderItem,
-  gap = 16,
-  listHeight = '100%',
-  containerClassName,
-}: VirtualListProps<T>): JSX.Element => {
-  const containerRef = useRef<HTMLDivElement>(null)
+function VirtualListComponent<T>(props: VirtualListProps<T>, ref: React.ForwardedRef<HTMLDivElement>): JSX.Element {
+  const {
+    items,
+    visibleCount,
+    overscanCount = 3,
+    rowHeight,
+    renderItem,
+    gap = 16,
+    listHeight = '100%',
+    containerClassName,
+  } = props
+
   const [scrollTop, setScrollTop] = useState(0)
 
   const containerHeight = visibleCount * (rowHeight + gap)!
@@ -40,7 +41,7 @@ const VirtualList = <T,>({
 
   return (
     <div
-      ref={containerRef}
+      ref={ref}
       onScroll={onScroll}
       style={{
         maxHeight: listHeight,
@@ -62,7 +63,6 @@ const VirtualList = <T,>({
             alignItems: 'center',
             justifyContent: 'center',
             gap,
-            paddingBottom: '32px',
           }}
         >
           {visibleItems.map((item, i) => {
@@ -88,5 +88,13 @@ const VirtualList = <T,>({
     </div>
   )
 }
+
+const VirtualList = forwardRef(VirtualListComponent) as unknown as (<T>(
+  props: VirtualListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> }
+) => JSX.Element) & {
+  displayName?: string
+}
+
+VirtualList.displayName = 'VirtualList'
 
 export default VirtualList

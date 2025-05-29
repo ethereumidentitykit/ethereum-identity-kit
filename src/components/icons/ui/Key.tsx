@@ -1,10 +1,9 @@
-const Key: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 27, color = 'currentColor' }) => {
+const Key: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 32, width = 27, ...props }) => {
   return (
     <svg
       width={width}
       height={height}
-      stroke={color}
-      fill={color}
+      {...props}
       strokeWidth="0"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

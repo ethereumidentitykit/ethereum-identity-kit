@@ -1,9 +1,10 @@
+import clsx from 'clsx'
 import LoadingCell from '../loading-cell/LoadingCell'
 import './ProfileListRow.css'
 
-const ProfileListLoadingRow = () => {
+const ProfileListLoadingRow = ({ showHeaderImage }: { showHeaderImage?: boolean }) => {
   return (
-    <div className="profile-list-row">
+    <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')}>
       <div className="profile-list-row-details">
         <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
         <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />

@@ -1,8 +1,14 @@
-const ShortArrow: React.FC<React.SVGProps<SVGSVGElement>> = ({ height = 24, width = 24, color = 'currentColor' }) => {
+const ShortArrow: React.FC<React.SVGProps<SVGSVGElement>> = ({
+  height = 24,
+  width = 24,
+  color = 'currentColor',
+  ...props
+}) => {
   return (
     <svg
       width={width}
       height={height}
+      {...props}
       stroke={color}
       fill={color}
       strokeWidth="0"

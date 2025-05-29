@@ -1,0 +1,102 @@
+.followers-following-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-radius: 4px;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.followers-following-container * {
+  box-sizing: border-box;
+}
+
+.table-header-container {
+  position: sticky;
+  z-index: 20;
+  top: -2px;
+  transition: all 300ms;
+}
+
+@media (min-width: 1280px) {
+  .table-header-container.top-eight {
+    position: sticky;
+  }
+}
+
+.table-header-container.mobile {
+  top: 74px;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: var(--ethereum-identity-kit-neutral);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium);
+}
+
+.dark .content-container {
+  background-color: var(--ethereum-identity-kit-neutral-dark);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.empty-state-container {
+  border-radius: 4px;
+  padding: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.empty-state-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.empty-state-text {
+  font-size: 20px;
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+}
+
+.empty-state-subtext {
+  width: 75%;
+  max-width: 384px;
+  font-size: 16px;
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+}
+
+.empty-state-message {
+  display: flex;
+  height: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.load-more-trigger {
+  height: 2px;
+  width: 100%;
+}
+
+.no-followings-recommendations-container {
+  border-radius: 4px;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: var(--ethereum-identity-kit-neutral);
+  box-shadow: var(--ethereum-identity-kit-shadow-medium);
+}
+
+.dark .no-followings-recommendations-container {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-neutral-dark);
+}
