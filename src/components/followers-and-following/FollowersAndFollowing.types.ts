@@ -6,7 +6,6 @@ export interface FollowersAndFollowingProps {
   canEditTags?: boolean
   showTagsByDefault?: boolean
   excludeBlocked?: boolean
-  isTopEight?: boolean
   showRecommendations?: boolean
   isConnectedUserProfile?: boolean
   darkMode?: boolean

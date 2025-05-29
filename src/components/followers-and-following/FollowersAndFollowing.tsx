@@ -17,7 +17,6 @@ import './FollowersAndFollowing.css'
  * @param canEditTags - whether the user can edit tags
  * @param showTagsByDefault - whether to show tags by default
  * @param excludeBlocked - whether to exclude blocked users
- * @param isTopEight - whether the user is in the top 8
  * @param showRecommendations - whether to show recommendations on the following tab of a connected user with no lists
  * @param isConnectedUserProfile - whether the user is the connected user
  * @param darkMode - whether the dark mode is enabled
@@ -38,7 +37,6 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
       canEditTags,
       showTagsByDefault,
       excludeBlocked,
-      isTopEight,
       showRecommendations,
       isConnectedUserProfile,
       darkMode,
@@ -101,8 +99,8 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
     return (
       <div className={clsx('followers-following-container', !params.isLoading && 'loading', darkMode && 'dark')}>
         <div
-          className={clsx('table-header-container', isTopEight && 'top-eight', isMobile && displayHeaders && 'mobile')}
-          style={{ top: isTopEight || !isMobile ? '-2px' : displayHeaders ? '74px' : '-2px' }}
+          className={clsx('table-header-container', isMobile && displayHeaders && 'mobile')}
+          style={{ top: !isMobile ? '-2px' : displayHeaders ? '74px' : '-2px' }}
         >
           <TableHeader
             setActiveTab={setActiveTab}
@@ -116,7 +114,6 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
             selectedTags={params.selectedTags}
             sort={params.sort}
             setSort={params.setSort}
-            isTopEight={isTopEight}
             toggleSelectedTags={toggleTag}
             excludeBlocked={excludeBlocked}
           />
