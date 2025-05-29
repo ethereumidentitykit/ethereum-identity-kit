@@ -13,6 +13,10 @@
   background-color: var(--ethereum-identity-kit-background-overlay);
 }
 
+.common-followers-modal-backdrop * {
+  box-sizing: border-box;
+}
+
 .common-followers-modal-container {
   width: 100%;
   max-width: 660px;

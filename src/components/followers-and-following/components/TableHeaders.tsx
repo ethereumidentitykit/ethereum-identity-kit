@@ -144,16 +144,16 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             {tagsLoading
               ? new Array(4).fill(1).map((_, i) => <LoadingCell key={i} className="h-7 w-20 rounded-sm md:h-9" />)
               : displayedTags?.map((tag, i) => (
-                <button
-                  key={tag.tag + i}
-                  className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
-                  name={tag.tag.toLowerCase()}
-                  onClick={() => toggleSelectedTags(title, tag.tag)}
-                >
-                  <p className="tag-name">{tag.tag}</p>
-                  <p className="tag-count">{formatNumber(tag.count)}</p>
-                </button>
-              ))}
+                  <button
+                    key={tag.tag + i}
+                    className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
+                    name={tag.tag.toLowerCase()}
+                    onClick={() => toggleSelectedTags(title, tag.tag)}
+                  >
+                    <p className="tag-name">{tag.tag}</p>
+                    <p className="tag-count">{formatNumber(tag.count)}</p>
+                  </button>
+                ))}
           </div>
         </>
       )}
