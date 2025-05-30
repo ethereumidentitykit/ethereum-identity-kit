@@ -5,7 +5,7 @@ import { fetchAllFollowersYouKnow } from '../../utils/api/fetch-all-followers-yo
 import { isAddress } from '../../utils'
 import { FollowerYouKnow } from '../../types'
 import { useDebounce } from '../common/useDebounce'
-import { ProfileItemType } from '../../components/profile-list/ProfileList.types'
+import { ProfileItemType } from '../../components/molecules/profile-list/ProfileList.types'
 import { useIntersectionObserver } from '../common/useIntersectionObserver'
 import { FETCH_LIMIT } from '../../constants'
 

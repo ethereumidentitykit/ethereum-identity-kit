@@ -4,12 +4,17 @@ import { fetchRecommended } from '../utils/api/fetch-recommended'
 import { RecommendedItemType } from '../types'
 import { useIntersectionObserver } from './common/useIntersectionObserver'
 
-export const useRecommended = (connectedAddress: Address, limit: number, list?: string) => {
+export const useRecommended = (
+  connectedAddress: Address,
+  endpoint: 'recommended' | 'discover',
+  limit: number,
+  list?: string
+) => {
   const { data, isLoading, isRefetching, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['recommended', connectedAddress, limit, list],
     queryFn: async ({ pageParam = 0 }) => {
       const discoverAccounts = await fetchRecommended(
-        'recommended',
+        endpoint,
         connectedAddress,
         list === 'new list' ? undefined : list,
         limit,

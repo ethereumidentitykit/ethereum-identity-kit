@@ -20,8 +20,14 @@ export const noFollowersYouKnow = {
 
 export const FETCH_LIMIT = 20
 
+// Followers and following
 export const SORT_OPTIONS = ['latest first', 'earliest first', 'follower count'] as const
 export const QUERY_BLOCK_TAGS = ['block', 'mute']
+
+// Notifications
+export const NOTIFICATION_POSITIONS = ['top', 'bottom', 'left', 'right'] as const
+export const NOTIFICATION_ALIGNS = ['left', 'center', 'right', 'top', 'bottom'] as const
+export const NOTIFICATION_CENTER_VERTICAL = ['left', 'right']
 
 export * from './socials'
 export * from './chains'

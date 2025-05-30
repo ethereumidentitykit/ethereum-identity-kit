@@ -14,11 +14,13 @@ export const useFollowersAndFollowing = ({
   defaultTab,
   showTagsByDefault,
   isConnectedUserProfile,
+  includeBlocked,
 }: {
   user: string
   defaultTab: ProfileTabType
   showTagsByDefault?: boolean
   isConnectedUserProfile?: boolean
+  includeBlocked?: boolean
 }) => {
   const [activeTab, setActiveTab] = useState<ProfileTabType>(defaultTab)
   useEffect(() => {
@@ -53,7 +55,7 @@ export const useFollowersAndFollowing = ({
     setFollowersSort,
     setFollowersTagsFilter,
     setFollowingTagsFilter,
-  } = useUserInfo(user)
+  } = useUserInfo({ user, includeBlocked })
 
   const params = {
     following: {
