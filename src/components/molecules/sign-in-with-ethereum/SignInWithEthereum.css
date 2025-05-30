@@ -45,6 +45,7 @@
   box-shadow: 2px 2px 1px 2px #3338;
 }
 
+.dark .sign-in-with-ethereum-button:disabled,
 .sign-in-with-ethereum-button.dark:disabled {
   border: 1px solid #fff8;
   box-shadow: 2px 2px 1px 2px #fff8;

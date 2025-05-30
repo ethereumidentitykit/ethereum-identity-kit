@@ -17,6 +17,8 @@ import './SignInWithEthereum.css'
  *
  * @param onSignInError - The function to call when the user signs in fails (optional)
  *
+ * @param onDisconnectedClick - The function to call when the user is not connected (optional)
+ *
  * @param darkMode - Whether the profile is in dark mode (optional)
  *
  * @param expirationTime - The expiration time of the nonce (optional) default is 5 minutes
@@ -29,10 +31,11 @@ const SignInWithEthereum = ({
   onSignInError,
   message,
   getNonce,
+  onDisconnectedClick,
   darkMode,
   expirationTime,
 }: SignInWithEthereumProps) => {
-  const { handleSignIn, isSigningMessage } = useSiwe({
+  const { handleSignIn, isSigningMessage, connectedAddress } = useSiwe({
     verifySignature,
     onSignInSuccess,
     onSignInError,
@@ -44,7 +47,7 @@ const SignInWithEthereum = ({
   return (
     <button
       className={clsx('sign-in-with-ethereum-button', darkMode && 'dark')}
-      onClick={handleSignIn}
+      onClick={connectedAddress ? handleSignIn : () => onDisconnectedClick?.()}
       disabled={isSigningMessage}
       style={{ marginRight: '10px' }}
     >

@@ -118,6 +118,7 @@ const SignInWithEthereumWrapper = (
         message={args.message}
         darkMode={args.darkMode}
         expirationTime={args.expirationTime}
+        onDisconnectedClick={args.onDisconnectedClick}
       />
     </div>
   )
@@ -138,13 +139,14 @@ export default {
 
 const Template: StoryFn<typeof SignInWithEthereumWrapper> = (args) => <SignInWithEthereumWrapper {...args} />
 
-export const SingleTransaction = Template.bind({})
-SingleTransaction.args = {
+export const Button = Template.bind({})
+Button.args = {
   verifySignature: async () => {},
   getNonce: async () => generateClientSideNonce(),
   onSignInSuccess: () => {},
   onSignInError: () => {},
   message: 'Hello from Ethereum Identity Kit',
   darkMode: false,
+  onDisconnectedClick: () => window.alert('Connect your wallet to sign in'),
   expirationTime: 3 * MINUTE,
 }

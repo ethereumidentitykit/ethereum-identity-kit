@@ -75,5 +75,6 @@ export const useSiwe = ({
   return {
     handleSignIn,
     isSigningMessage,
+    connectedAddress,
   }
 }
