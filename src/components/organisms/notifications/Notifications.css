@@ -142,8 +142,10 @@
   transition: opacity 0.2s;
   z-index: 100;
   width: 500px;
-  max-height: 70vh;
+  max-height: 80vh;
+  overflow-y: auto;
   animation: ethereum-identity-kit-fade-in 0.2s ease-in-out;
+  box-shadow: var(--ethereum-identity-kit-shadow-medium);
 }
 
 /* Position variants for dropdown */

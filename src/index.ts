@@ -60,6 +60,7 @@ export {
   transformTxsForLocalStorage,
   getListStorageLocation,
   getListOpsFromTransaction,
+  createSiweMessageString,
 } from './utils'
 
 // Context

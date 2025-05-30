@@ -4,10 +4,10 @@ import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
-import { transports } from '../../../constants/transports'
 import SignInWithEthereum from './SignInWithEthereum'
-import { SignInWithEthereumProps } from './SignInWithEthereum.types'
 import { MINUTE } from '../../../constants'
+import { transports } from '../../../constants/transports'
+import { SignInWithEthereumProps } from './SignInWithEthereum.types'
 
 function generateClientSideNonce(length = 16) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -115,7 +115,9 @@ const SignInWithEthereumWrapper = (
         getNonce={args.getNonce}
         onSignInSuccess={args.onSignInSuccess}
         onSignInError={args.onSignInError}
-        statement={args.statement}
+        message={args.message}
+        darkMode={args.darkMode}
+        expirationTime={args.expirationTime}
       />
     </div>
   )
@@ -138,11 +140,11 @@ const Template: StoryFn<typeof SignInWithEthereumWrapper> = (args) => <SignInWit
 
 export const SingleTransaction = Template.bind({})
 SingleTransaction.args = {
-  verifySignature: () => Promise.resolve(),
-  getNonce: generateClientSideNonce,
+  verifySignature: async () => {},
+  getNonce: async () => generateClientSideNonce(),
   onSignInSuccess: () => {},
   onSignInError: () => {},
-  statement: 'Hello from Ethereum Identity Kit',
+  message: 'Hello from Ethereum Identity Kit',
   darkMode: false,
   expirationTime: 3 * MINUTE,
 }

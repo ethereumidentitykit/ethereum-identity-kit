@@ -1,16 +1,15 @@
 import { useAccount, useSignMessage } from 'wagmi'
 import { useChain } from './useChain'
 import { createSiweMessageString } from '../utils'
-import { MINUTE } from '../constants'
 import { SignInWithEthereumProps } from '../components/molecules/sign-in-with-ethereum/SignInWithEthereum.types'
 
 export const useSiwe = ({
   verifySignature,
   onSignInSuccess,
   onSignInError,
-  statement,
+  message,
   getNonce,
-  expirationTime = 5 * MINUTE,
+  expirationTime,
 }: SignInWithEthereumProps) => {
   const { address: connectedAddress } = useAccount()
   const { currentChainId } = useChain()
@@ -20,25 +19,27 @@ export const useSiwe = ({
     if (!connectedAddress || !currentChainId) throw new Error('No connected address or current chain id')
 
     try {
+      const nonce = await getNonce()
       const messageParams = {
         domain: window.location.host,
         address: connectedAddress,
-        statement: statement,
+        statement: message,
         uri: window.location.origin,
         version: '1',
         chainId: currentChainId,
-        nonce: getNonce(),
-        issuedAt: new Date().toISOString(),
-        expirationTime: new Date(Date.now() + expirationTime).toISOString(),
+        nonce,
+        issuedAt: new Date().toISOString().slice(0, 19) + 'Z',
+        expirationTime: expirationTime
+          ? new Date(Date.now() + expirationTime).toISOString().slice(0, 19) + 'Z'
+          : undefined,
       }
 
       const messageToSign = createSiweMessageString(messageParams)
-      console.log('Message to sign:\n', messageToSign)
       const signature = await signMessageAsync({ message: messageToSign })
 
       if (verifySignature) {
         // verifyFunction should handle its own try/catch for the backend call
-        await verifySignature(messageToSign, signature)
+        await verifySignature(messageToSign, nonce, signature)
       } else {
         console.warn('No verifyFunction provided to SignInWithEthereumButton. Signature obtained but not verified.')
       }

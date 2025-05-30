@@ -7,7 +7,7 @@ import './SignInWithEthereum.css'
 /**
  * Component to  allow signing in with Ethereum (SIWE) - https://login.xyz/
  *
- * @param statement - The statement to display to the user (optional)
+ * @param message - The message to display to the user (optional)
  *
  * @param verifySignature - The function to verify the signature on your backend (required)
  *
@@ -27,7 +27,7 @@ const SignInWithEthereum = ({
   verifySignature,
   onSignInSuccess,
   onSignInError,
-  statement,
+  message,
   getNonce,
   darkMode,
   expirationTime,
@@ -36,20 +36,20 @@ const SignInWithEthereum = ({
     verifySignature,
     onSignInSuccess,
     onSignInError,
-    statement,
+    message,
     getNonce,
     expirationTime,
   })
 
   return (
     <button
-      className={clsx(darkMode && 'dark', 'sign-in-with-ethereum-button')}
+      className={clsx('sign-in-with-ethereum-button', darkMode && 'dark')}
       onClick={handleSignIn}
       disabled={isSigningMessage}
       style={{ marginRight: '10px' }}
     >
       <EthereumIcon className="sign-in-with-ethereum-icon" />
-      <p className="sign-in-with-ethereum-text">{isSigningMessage ? 'Signing Message...' : 'Sign-In with Ethereum'}</p>
+      <p className="sign-in-with-ethereum-text">{isSigningMessage ? 'Signing Message...' : 'Sign in with Ethereum'}</p>
     </button>
   )
 }

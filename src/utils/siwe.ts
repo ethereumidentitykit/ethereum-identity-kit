@@ -30,6 +30,7 @@ export const createSiweMessageString = (params: SiweMessageParams) => {
   // Statement (optional)
   if (statement) {
     message += `${statement}\n`
+    message += `\n` // Blank line for separation as per EIP-4361
   }
 
   // Core Fields

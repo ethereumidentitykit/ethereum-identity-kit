@@ -1,6 +1,7 @@
 .sign-in-with-ethereum-button {
+  background-color: #fff;
   cursor: pointer;
-  padding: 0px 20px;
+  padding: 12px 20px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -8,11 +9,15 @@
   border: 1px solid #333;
   box-shadow: 2px 2px 1px 2px #333;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-.dark .sign-in-with-ethereum-button {
+.dark .sign-in-with-ethereum-button,
+.sign-in-with-ethereum-button.dark {
   border: 1px solid #fff;
   box-shadow: 2px 2px 1px 2px #fff;
+  background-color: #333;
+  color: #fff;
 }
 
 .sign-in-with-ethereum-button:hover {
@@ -21,7 +26,8 @@
   box-shadow: 2px 2px 1px 2px #333c;
 }
 
-.dark .sign-in-with-ethereum-button:hover {
+.dark .sign-in-with-ethereum-button:hover,
+.sign-in-with-ethereum-button.dark:hover {
   background-color: #fff;
   color: #333;
   box-shadow: 2px 2px 1px 2px #fffc;
@@ -29,7 +35,7 @@
 
 .sign-in-with-ethereum-button:active {
   transform: translateY(2px) translateX(2px);
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .sign-in-with-ethereum-button:disabled {
@@ -39,7 +45,7 @@
   box-shadow: 2px 2px 1px 2px #3338;
 }
 
-.dark .sign-in-with-ethereum-button:disabled {
+.sign-in-with-ethereum-button.dark:disabled {
   border: 1px solid #fff8;
   box-shadow: 2px 2px 1px 2px #fff8;
 }
@@ -52,4 +58,6 @@
 .sign-in-with-ethereum-text {
   font-size: 14px;
   font-weight: 600;
+  padding: 0;
+  margin: 0;
 }
