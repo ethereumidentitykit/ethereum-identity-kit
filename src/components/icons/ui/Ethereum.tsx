@@ -1,4 +1,4 @@
-const Clock: React.FC<React.SVGProps<SVGSVGElement>> = ({
+const Ethereum: React.FC<React.SVGProps<SVGSVGElement>> = ({
   height = 24,
   width = 24,
   color = 'currentColor',
@@ -12,4 +12,4 @@ const Clock: React.FC<React.SVGProps<SVGSVGElement>> = ({
   )
 }
 
-export default Clock
+export default Ethereum
