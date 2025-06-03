@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useSiwe } from '../../../hooks'
+import { useTranslation } from '../../../context/TranslationContext'
 import { EthereumIcon } from '../../icons'
 import { SignInWithEthereumProps } from './SignInWithEthereum.types'
 import './SignInWithEthereum.css'
@@ -35,6 +36,7 @@ const SignInWithEthereum = ({
   darkMode,
   expirationTime,
 }: SignInWithEthereumProps) => {
+  const { t } = useTranslation()
   const { handleSignIn, isSigningMessage, connectedAddress } = useSiwe({
     verifySignature,
     onSignInSuccess,
@@ -52,7 +54,7 @@ const SignInWithEthereum = ({
       style={{ marginRight: '10px' }}
     >
       <EthereumIcon className="sign-in-with-ethereum-icon" />
-      <p className="sign-in-with-ethereum-text">{isSigningMessage ? 'Signing Message...' : 'Sign in with Ethereum'}</p>
+      <p className="sign-in-with-ethereum-text">{isSigningMessage ? t('signingMessage') : t('signInWithEthereum')}</p>
     </button>
   )
 }

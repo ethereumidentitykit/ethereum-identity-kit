@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { useFollowersYouKnow } from '../../../hooks/followers-you-know/useFollowersYouKnow'
 import { formatFollowersYouKnowText } from '../../../utils/formatters'
+import { useTranslation } from '../../../context/TranslationContext'
 import Avatar from '../avatar/Avatar'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { FollowersYouKnowProps } from './FollowersYouKnow.types'
@@ -37,6 +38,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
   darkMode = false,
   selectedList,
 }) => {
+  const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { displayedAvatars, displayedNames, displayedAddresses, resultLength, isLoading } = useFollowersYouKnow(
@@ -91,7 +93,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
             onClick={() => hasModal && setIsModalOpen(true)}
             style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
           >
-            {resultLength === 0 && 'No common followers'}
+            {resultLength === 0 && t('followersYouKnow.noCommon')}
             {displayedNames?.[0] && displayedAddresses?.[0] && (
               <span
                 className="common-followers-name"
@@ -115,8 +117,8 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                 {displayedNames[1]}
               </span>
             )}
-            {resultLength >= 3 && ' and '}
-            {formatFollowersYouKnowText(resultLength)}
+            {resultLength >= 3 && t('followersYouKnow.and')}
+            {formatFollowersYouKnowText(resultLength, t)}
           </p>
         )}
       </div>

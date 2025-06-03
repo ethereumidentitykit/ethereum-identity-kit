@@ -6,6 +6,8 @@ import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'
 import './FollowButton.css'
+import { useTranslation } from '../../../context'
+import { TranslationKey } from '../../../types/translations'
 
 /**
  * Follow Button - displays current state of the relation between lookupAddress and connectedAddress
@@ -44,6 +46,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   customLoader,
   ...props
 }) => {
+  const { t } = useTranslation()
   const { buttonText, buttonState, handleAction, isLoading, pendingState, disableHover, setDisableHover } =
     useFollowButton({
       lookupAddress,
@@ -90,7 +93,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     >
       <audio src={playSound} ref={soundRef} />
       <FollowIcon height={20} width={14} color={'currentColor'} />
-      <p>{buttonText}</p>
+      <p>{t(buttonText.toLowerCase() as TranslationKey)}</p>
     </button>
   )
 }

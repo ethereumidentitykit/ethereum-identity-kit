@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React, { LegacyRef } from 'react'
 import { useOutsideClick, useNotifications } from '../../../hooks'
+import { useTranslation } from '../../../context/TranslationContext'
 import Bell from '../../icons/ui/Bell'
 import NotificationItemLoading from './components/loading-item'
 import NotificationItem, { NotificationItemAction } from './components/notification-item'
@@ -30,6 +31,7 @@ const Notifications: React.FC<NotificationsProps> = ({
   darkMode = false,
   onProfileClick,
 }) => {
+  const { t } = useTranslation()
   const { notifications, isLoading, isOpen, setIsOpen, newNotifications } = useNotifications(addressOrName)
   const clickAwayRef = useOutsideClick(() => {
     setIsOpen(false)
@@ -58,7 +60,7 @@ const Notifications: React.FC<NotificationsProps> = ({
           {newNotifications > 0 && <span className="notifications-badge">{newNotifications}</span>}
         </div>
         <div className="notifications-tooltip" data-position={position} data-align={alignTooltip}>
-          <p className="notifications-tooltip-text">Notifications</p>
+          <p className="notifications-tooltip-text">{t('notifications.title')}</p>
         </div>
       </div>
       <div
@@ -113,7 +115,7 @@ const Notifications: React.FC<NotificationsProps> = ({
           {isLoading && new Array(5).fill(null).map((_, index) => <NotificationItemLoading key={index} />)}
           {!isLoading && notifications?.flatMap((item) => Object.values(item.notifications).flat()).length === 0 && (
             <div className="notifications-empty">
-              <p className="notifications-empty-text">No notifications</p>
+              <p className="notifications-empty-text">{t('notifications.noNotifications')}</p>
             </div>
           )}
         </div>

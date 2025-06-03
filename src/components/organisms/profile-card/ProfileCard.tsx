@@ -2,6 +2,7 @@ import React from 'react'
 import { clsx } from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileDetails, useProfileStats } from '../../../hooks/'
+import { useTranslation } from '../../../context/TranslationContext'
 import { truncateAddress } from '../../../utils'
 import { defaultOnStatClick } from '../../../utils/profile'
 import { ENS } from '../../icons'
@@ -64,6 +65,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   hasCommonFollowersModal = true,
   ...props
 }) => {
+  const { t } = useTranslation()
+
   const {
     profileData,
     statsData,
@@ -147,7 +150,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             >
               <button className="user-profile-edit-profile-button">
                 <ENS height={20} width={20} />
-                <p>Edit Profile</p>
+                <p>{t('profile.editProfile')}</p>
               </button>
             </a>
           ) : (

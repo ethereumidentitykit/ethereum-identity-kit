@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchFollowState } from '../utils'
+import { useTranslation } from '../context/TranslationContext'
 import { Address, FollowState, ProfileListType } from '..'
 
 interface UseFollowerStateProps {
@@ -10,6 +11,8 @@ interface UseFollowerStateProps {
 }
 
 export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseFollowerStateProps) => {
+  const { t } = useTranslation()
+
   const {
     data: followerStatus,
     isLoading: isFollowerStatusLoading,
@@ -45,15 +48,15 @@ export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseF
   const isFollowerStateLoading = isFollowerStatusLoading || isFollowerStateRefetching
   const followerTag = {
     blocks: {
-      text: 'Blocks you',
+      text: t('followerState.blocksYou'),
       className: 'follower-tag-blocks',
     },
     mutes: {
-      text: 'Mutes you',
+      text: t('followerState.mutesYou'),
       className: 'follower-tag-mutes',
     },
     follows: {
-      text: 'Follows you',
+      text: t('followerState.followsYou'),
       className: 'follower-tag-follows',
     },
     none: {

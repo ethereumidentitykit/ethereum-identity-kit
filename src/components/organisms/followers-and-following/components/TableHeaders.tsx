@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { Dispatch, LegacyRef, SetStateAction, useState } from 'react'
 import { useOutsideClick } from '../../../../hooks'
+import { useTranslation } from '../../../../context/TranslationContext'
 import { formatNumber } from '../../../../utils'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
 import { Check, Cross, MagnifyingGlass, ShortArrow, Tag } from '../../../icons'
@@ -39,6 +40,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   includeBlocked,
   setActiveTab,
 }) => {
+  const { t } = useTranslation()
   const [showSort, setShowSort] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
 
@@ -62,13 +64,13 @@ const TableHeader: React.FC<TableHeaderProps> = ({
               className={clsx('tab-button', title === 'following' ? '' : 'inactive')}
               onClick={() => setActiveTab?.('following')}
             >
-              following
+              {t('following')}
             </p>
             <p
               className={clsx('tab-button', title === 'followers' ? '' : 'inactive')}
               onClick={() => setActiveTab?.('followers')}
             >
-              followers
+              {t('followers')}
             </p>
           </div>
           <div className="actions-container">
@@ -93,7 +95,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                   spellCheck={false}
                   autoFocus={true}
                   autoComplete="off"
-                  placeholder="Search ENS or address"
+                  placeholder={t('search placeholder')}
                   onChange={(e) => {
                     setSearch(e.target.value.toLowerCase().trim())
                   }}
@@ -127,7 +129,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                     {SORT_OPTIONS.map((option) => (
                       <div className="sort-option" key={option} onClick={() => setSort(option)}>
                         {sort === option && <Check className="check-icon" />}
-                        <p>{option}</p>
+                        <p>{t(option)}</p>
                       </div>
                     ))}
                   </div>
@@ -139,7 +141,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
       </div>
       {showTags && (
         <>
-          {tagsEmpty && <p className="no-tags">no tags</p>}
+          {tagsEmpty && <p className="no-tags">{t('no tags')}</p>}
           <div className="tags-container">
             {tagsLoading
               ? new Array(4).fill(1).map((_, i) => <LoadingCell key={i} className="h-7 w-20 rounded-sm md:h-9" />)

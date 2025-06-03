@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { formatTimeDiff, truncateAddress } from '../../../../../utils'
 import { Cross, FollowIcon, Mute, Tag } from '../../../../icons'
 import { Address, NotificationItemType } from '../../../../../types'
+import { useTranslation } from '../../../../../context/TranslationContext'
 import Avatar from '../../../../molecules/avatar/Avatar'
 import './index.css'
 
@@ -23,6 +24,8 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   onClose,
   onProfileClick,
 }) => {
+  const { t } = useTranslation()
+
   if (!notifications[0]) return null
 
   const timeDiff = (new Date().getTime() - new Date(notifications[0].updated_at).getTime()) / 1000
@@ -39,14 +42,14 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   }[action]
 
   const actionText = {
-    follow: 'followed you',
-    unfollow: 'unfollowed you',
-    tag: 'tagged you with',
-    untag: 'untagged you with',
-    block: 'blocked you',
-    unblock: 'unblocked you',
-    mute: 'muted you',
-    unmute: 'unmuted you',
+    follow: t('notifications.follow'),
+    unfollow: t('notifications.unfollow'),
+    tag: t('notifications.tag'),
+    untag: t('notifications.untag'),
+    block: t('notifications.block'),
+    unblock: t('notifications.unblock'),
+    mute: t('notifications.mute'),
+    unmute: t('notifications.unmute'),
   }[action]
 
   // groups the notifications by address
@@ -124,7 +127,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
               </span>
             ))}
             {groupedNotifications.length > 2 &&
-              `and ${groupedNotifications.length - 2} ${groupedNotifications.length - 2 > 1 ? 'others' : 'other'} `}
+              `${t('and')} ${groupedNotifications.length - 2} ${groupedNotifications.length - 2 > 1 ? t('others') : t('other')} `}
             {actionText}
             {(action === 'tag' || action === 'untag') && (
               <span className="text-text-neutral">{` ${groupedNotifications[0]?.tag}`}</span>

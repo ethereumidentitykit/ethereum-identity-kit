@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useTransactions } from '../../../../../context'
+import { useTransactions, useTranslation } from '../../../../../context'
 import { useTransactionItem } from '../../../../../hooks'
 import TransactionItemDetails from './details'
 import { Check, Cross, Clock, Wallet, Arrow } from '../../../../icons'
@@ -25,6 +25,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction, show
     usesPaymaster,
   } = useTransactionItem(id, transaction)
   const { pendingTxs } = useTransactions()
+  const { t } = useTranslation()
 
   const ProgressIcon = {
     'Switch Chain': Wallet,
@@ -107,7 +108,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ id, transaction, show
               }}
               className="transaction-item-claim-poap-button"
             >
-              Claim
+              {t('claimPOAP')}
             </button>
           </div>
         </div>

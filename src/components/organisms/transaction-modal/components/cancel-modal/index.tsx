@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from '../../../../../context/TranslationContext'
 import { Arrow } from '../../../../icons'
 import './CancelModal.css'
 
@@ -11,6 +12,8 @@ export interface CancelModalProps {
 }
 
 const CancelModal: React.FC<CancelModalProps> = ({ onCancel, title, description, confirmButtonText, onConfirm }) => {
+  const { t } = useTranslation()
+
   return (
     <div
       className="cancel-modal-backdrop"
@@ -25,7 +28,7 @@ const CancelModal: React.FC<CancelModalProps> = ({ onCancel, title, description,
         <div className="cancel-modal-footer">
           <button className="cancel-modal-cancel-button" onClick={onCancel}>
             <Arrow height={14} width={14} />
-            <p>Go Back</p>
+            <p>{t('goBack')}</p>
           </button>
           <button className="cancel-modal-confirm-button" onClick={onConfirm}>
             {confirmButtonText}
