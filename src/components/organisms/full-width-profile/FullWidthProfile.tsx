@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
+import { useTranslation } from '../../../context'
 import { useIsClient } from '../../../hooks/common/useIsClient'
 import { useProfileDetails } from '../../../hooks/profile/useProfileDetails'
 import { truncateAddress, isLinkValid } from '../../../utils'
@@ -80,6 +81,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
     openListSettings,
     followButton,
   } = options || {}
+  const { t } = useTranslation()
   const isClient = useIsClient()
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
@@ -182,7 +184,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       <a href={`https://app.ens.domains/${ens?.name}`} target="_blank" rel="noreferrer">
                         <button className="user-profile-edit-profile-button">
                           <ENS height={20} width={20} />
-                          <p>Edit Profile</p>
+                          <p>{t('profile.editProfile')}</p>
                         </button>
                       </a>
                     ) : (
@@ -210,6 +212,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                             lookupAddressOrName={address}
                             onProfileClick={onProfileClick}
                             hasModal={true}
+                            displayEmpty={false}
                             selectedList={selectedList}
                           />
                         </div>
@@ -237,6 +240,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                           connectedAddress={connectedAddress}
                           onProfileClick={onProfileClick}
                           hasModal={true}
+                          displayEmpty={false}
                           selectedList={selectedList}
                         />
                       </div>
@@ -264,7 +268,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           </div>
         ) : (
           <div className={clsx('user-profile-error-container', darkMode && 'dark')}>
-            <p className="user-profile-error-text">User doesn&apos;t exist</p>
+            <p className="user-profile-error-text">{t('profile.noUser')}</p>
           </div>
         )}
       </div>

@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import { useRef } from 'react'
+import { useTranslation } from '../../../context'
 import { useCoolMode, useFollowButton } from '../../../hooks'
 import { FollowIcon } from '../../icons'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'
+import { TranslationKey } from '../../../types'
 import './FollowButton.css'
-import { useTranslation } from '../../../context'
-import { TranslationKey } from '../../../types/translations'
 
 /**
  * Follow Button - displays current state of the relation between lookupAddress and connectedAddress

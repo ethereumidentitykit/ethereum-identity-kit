@@ -5,6 +5,7 @@ import LoadingCell from '../../../../atoms/loading-cell/LoadingCell'
 import { formatNumber } from '../../../../../utils'
 import Refresh from '../../../../icons/ui/Refresh'
 import './CardHeader.css'
+import { useTranslation } from '../../../../../context'
 
 interface CardHeaderProps {
   refetchData: () => void
@@ -26,6 +27,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({
 }) => {
   const [notConfirmedTooltipOpen, setNotConfirmedTooltipOpen] = useState(false)
   const isPrimaryListProfile = useMemo(() => list === undefined || `${primaryList}` === `${list}`, [list, primaryList])
+  const { t } = useTranslation()
 
   useEffect(() => {
     const closeTooltip = (event: MouseEvent) => {
@@ -58,15 +60,14 @@ const CardHeader: React.FC<CardHeaderProps> = ({
           </div>
           {!(detailsLoading || isPrimaryListProfile) && (
             <div className="header-not-confirmed" onClick={() => setNotConfirmedTooltipOpen(!notConfirmedTooltipOpen)}>
-              <div className="header-not-confirmed-title">Not confirmed by user</div>
+              <div className="header-not-confirmed-title">{t('profile.notConfirmedByUser')}</div>
               <div
                 className={clsx(
                   'header-not-confirmed-description',
                   notConfirmedTooltipOpen && 'header-not-confirmed-decription-open'
                 )}
               >
-                This list is not confirmed to be owned by the displayed user. A user must set a list as their Primary
-                List to confirm it as their list.
+                {t('profile.notConfirmedByUserDescription')}
               </div>
             </div>
           )}

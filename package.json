@@ -26,7 +26,8 @@
     "build-storybook": "storybook build",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "checks": "npm run format && npm run typecheck && npm run lint && npm run rollup"
   },
   "files": [
     "dist"

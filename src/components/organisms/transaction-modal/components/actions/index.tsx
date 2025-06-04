@@ -1,9 +1,10 @@
 import React from 'react'
 import ActionAccount from './ActionAccount'
-import { Address, ListOpType, TransactionType } from '../../../../../types'
+import { Address, ListOpType, TransactionType, TranslationKey } from '../../../../../types'
 import { extractAddressAndTag, getPendingTxListOps } from '../../../../../utils/transactions'
 import { ACTION_ITEM_ICON } from '../../../../../constants/transactions'
 import './Actions.css'
+import { useTranslation } from '../../../../../context'
 
 interface ActionsProps {
   transactions: TransactionType[]
@@ -16,6 +17,8 @@ type ActionsItem = {
 }
 
 const Actions: React.FC<ActionsProps> = ({ transactions }) => {
+  const { t } = useTranslation()
+
   const transactionListOps = getPendingTxListOps(transactions)
   const transactionAddressesAndTags = transactionListOps.map((listOp) => {
     const { address, tag } = extractAddressAndTag(listOp.data)
@@ -75,7 +78,7 @@ const Actions: React.FC<ActionsProps> = ({ transactions }) => {
   return (
     <div className="transaction-modal-actions-container">
       <p className="transaction-modal-actions-container-title">
-        Actions <span>{transactionListOps.length}</span>
+        {t('cart.actions')} <span>{transactionListOps.length}</span>
       </p>
       {Object.entries(allActions).map(([key, value]) => {
         if (value.length === 0) return null
@@ -89,7 +92,7 @@ const Actions: React.FC<ActionsProps> = ({ transactions }) => {
               <div style={{ backgroundColor: actionColor }}>
                 <ActionIcon height={20} width={20} color="#333333" />
               </div>
-              <p>{key}</p>
+              <p>{t(key as TranslationKey)}</p>
             </div>
             <div className="transaction-modal-actions-item-accounts">
               {value.length === 1 ? (

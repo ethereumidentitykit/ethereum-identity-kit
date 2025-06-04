@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { base } from 'viem/chains'
 import { encodePacked } from 'viem'
 import { useState, useEffect, useCallback } from 'react'
-import { useTransactions } from '../../../../../context'
+import { useTransactions, useTranslation } from '../../../../../context'
 import { Arrow, Check } from '../../../../icons'
 import { ListRecordContracts } from '../../../../../constants/contracts'
 import { EFPActionIds } from '../../../../../constants/transactions'
@@ -23,6 +23,7 @@ const ChainSelector = () => {
     resetTransactions,
     setChangesOpen,
   } = useTransactions()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (pendingTxs.some((tx) => tx.id === EFPActionIds.UpdateEFPList)) {
@@ -70,9 +71,9 @@ const ChainSelector = () => {
       </div>
       <div className="chain-selector-content-container">
         <div className="chain-selector-title-container">
-          <p className="chain-selector-title">Select Chain</p>
-          <p className="chain-selector-subtitle">Select the chain you want to perform the action on.</p>
-          <p className="chain-selector-subtitle">You can always change this later</p>
+          <p className="chain-selector-title">{t('transaction.selectChain')}</p>
+          <p className="chain-selector-subtitle">{t('transaction.selectChainDescription')}</p>
+          <p className="chain-selector-subtitle">{t('transaction.selectChainLater')}</p>
         </div>
         <div className="chain-selector-options-container">
           {chains.map((chain) => {
@@ -101,7 +102,7 @@ const ChainSelector = () => {
         </div>
       </div>
       <button className="transaction-modal-confirm-button" onClick={onConfirm}>
-        Confirm
+        {t('confirm')}
       </button>
     </div>
   )

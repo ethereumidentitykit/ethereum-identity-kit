@@ -25,11 +25,21 @@ const defaultTranslateFn: TranslationFunction = (key: TranslationKey, fallback?:
   return defaultTranslations[key] || fallback || key
 }
 
+/**
+ * TranslationProvider component
+ *
+ * @param children - The child components to render
+ * @param translateFn - Custom translarion function if you want to use your own (optional)
+ * @param translations - The translations to use - in object format
+ * @param activeLanguage - The active language to use
+ * @param fallbackLanguage - The fallback language to use
+ *
+ * @returns The TranslationProvider component
+ */
 export const TranslationProvider: React.FC<TranslationProviderProps> = ({
   children,
   translateFn,
   translations,
-  translationsFromJSON,
   activeLanguage = 'en',
   fallbackLanguage = 'en',
 }) => {
@@ -49,22 +59,13 @@ export const TranslationProvider: React.FC<TranslationProviderProps> = ({
       })
     }
 
-    // Merge JSON translations
-    if (translationsFromJSON) {
-      Object.keys(translationsFromJSON).forEach((lang) => {
-        merged[lang] = { ...merged[lang], ...translationsFromJSON[lang] }
-      })
-    }
-
     return merged
-  }, [translations, translationsFromJSON])
+  }, [translations])
 
-  // Get available languages
   const availableLanguages = useMemo(() => {
     return Object.keys(allTranslations)
   }, [allTranslations])
 
-  // Create translation function
   const t = useMemo<TranslationFunction>(() => {
     // If custom translateFn is provided, use it (backward compatibility)
     if (translateFn) {
@@ -72,13 +73,11 @@ export const TranslationProvider: React.FC<TranslationProviderProps> = ({
     }
 
     return (key: TranslationKey, fallback?: string) => {
-      // Try current language first
       const currentLangTranslation = allTranslations[currentLanguage]?.[key]
       if (currentLangTranslation) {
         return currentLangTranslation
       }
 
-      // Try fallback language
       if (currentLanguage !== fallbackLanguage) {
         const fallbackTranslation = allTranslations[fallbackLanguage]?.[key]
         if (fallbackTranslation) {
@@ -99,7 +98,6 @@ export const TranslationProvider: React.FC<TranslationProviderProps> = ({
     }
   }
 
-  // Update current language when activeLanguage prop changes
   React.useEffect(() => {
     setCurrentLanguage(activeLanguage)
   }, [activeLanguage])
@@ -122,7 +120,7 @@ export const useTranslation = (): TranslationContextType => {
   const context = useContext(TranslationContext)
 
   if (!context) {
-    // Provide default translation function if no provider exists
+    // Provide default (english) translation function if there is no provider
     return {
       t: defaultTranslateFn,
       activeLanguage: 'en',

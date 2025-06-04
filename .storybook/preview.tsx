@@ -3,9 +3,9 @@ import type { Preview } from '@storybook/react'
 import { TranslationProvider } from '../src/context/TranslationContext'
 import '../src/styles/colors.css'
 
-import enTranslations from '../public/translations/en.json'
-import esTranslations from '../public/translations/es.json'
-import frTranslations from '../public/translations/fr.json'
+import enTranslations from '../src/translations/en.json'
+import esTranslations from '../src/translations/es.json'
+import frTranslations from '../src/translations/fr.json'
 
 const translations = {
   en: enTranslations,

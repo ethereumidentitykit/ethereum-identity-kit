@@ -50,11 +50,29 @@ export type TranslationKey =
   | 'latest first'
   | 'earliest first'
   | 'follower count'
-  // Transactions
+  // Transactions/Checkout
+  | 'transaction.switchChain'
+  | 'transaction.initiate'
   | 'transaction.pending'
-  | 'transaction.success'
-  | 'transaction.error'
-  | 'transaction.rejected'
+  | 'transaction.reInitiate'
+  | 'transaction.indexing'
+  | 'transaction.finish'
+  | 'transaction.next'
+  | 'transaction.selectChain'
+  | 'transaction.selectChainDescription'
+  | 'transaction.selectChainLater'
+  | 'transaction.updateListSettings'
+  | 'transaction.listSettings.owner'
+  | 'transaction.listSettings.manager'
+  | 'transaction.listSettings.user'
+  | 'transaction.listSettings.listStorageLocation'
+  | 'transaction.listSettings.setPrimaryList'
+  | 'transaction.listSettings.resetList'
+  | 'transaction.onchainUpdate'
+  | 'transaction.claimPOAPTitle'
+  | 'transaction.claimPOAPDescription'
+  | 'transaction.claimPOAP'
+  | 'transaction.noThanks'
   // Follower State
   | 'followerState.blocksYou'
   | 'followerState.mutesYou'
@@ -70,6 +88,12 @@ export type TranslationKey =
   | 'notifications.title'
   | 'notifications.noNotifications'
   | 'profile.editProfile'
+  | 'profile.noUser'
+  | 'profile.noBio'
+  | 'profile.showMore'
+  | 'profile.showLess'
+  | 'profile.notConfirmedByUser'
+  | 'profile.notConfirmedByUserDescription'
   // Recommended
   | 'recommended.empty'
   | 'recommended.title'
@@ -176,11 +200,29 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'latest first': 'Latest first',
   'earliest first': 'Earliest first',
   'follower count': 'Follower count',
-  // Transactions
-  'transaction.pending': 'Transaction pending...',
-  'transaction.success': 'Transaction successful',
-  'transaction.error': 'Transaction failed',
-  'transaction.rejected': 'Transaction rejected',
+  // Transactions/Checkout
+  'transaction.switchChain': 'Switch Chain',
+  'transaction.initiate': 'Initiate',
+  'transaction.pending': 'Pending...',
+  'transaction.reInitiate': 'Re-Initiate',
+  'transaction.indexing': 'Indexing...',
+  'transaction.finish': 'Finish',
+  'transaction.next': 'Next',
+  'transaction.selectChain': 'Select Chain',
+  'transaction.selectChainDescription': 'Select the chain you want to perform the action on.',
+  'transaction.selectChainLater': 'You can always change this later',
+  'transaction.updateListSettings': 'Update List Settings',
+  'transaction.listSettings.owner': 'Owner',
+  'transaction.listSettings.manager': 'Manager',
+  'transaction.listSettings.user': 'User',
+  'transaction.listSettings.listStorageLocation': 'List Storage Location',
+  'transaction.listSettings.setPrimaryList': 'Set Primary List',
+  'transaction.listSettings.resetList': 'Reset List',
+  'transaction.onchainUpdate': 'Onchain Update',
+  'transaction.claimPOAPTitle': 'Claim your POAP',
+  'transaction.claimPOAPDescription': "Congratulations! You've earned a POAP for being an early user of EFP.",
+  'transaction.claimPOAP': 'Claim POAP',
+  'transaction.noThanks': 'No thanks',
   // Follower State
   'followerState.blocksYou': 'Blocks you',
   'followerState.mutesYou': 'Mutes you',
@@ -196,6 +238,13 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'notifications.title': 'Notifications',
   'notifications.noNotifications': 'No notifications',
   'profile.editProfile': 'Edit Profile',
+  'profile.noUser': "User doesn't exist",
+  'profile.noBio': 'No bio set',
+  'profile.showMore': 'Show more',
+  'profile.showLess': 'Show less',
+  'profile.notConfirmedByUser': 'Not confirmed by user',
+  'profile.notConfirmedByUserDescription':
+    'This list is not confirmed to be owned by the displayed user. A user must set a list as their Primary List to confirm it as their list.',
   // Recommended
   'recommended.empty': 'No recommended profiles',
   'recommended.title': 'Recommended',

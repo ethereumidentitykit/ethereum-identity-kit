@@ -15,14 +15,7 @@ export type TransactionType = {
   hash?: Hex
 }
 
-export type SubmitButtonText =
-  | 'Switch Chain'
-  | 'Initiate'
-  | 'Pending...'
-  | 'Re-Initiate'
-  | 'Indexing...'
-  | 'Finish'
-  | 'Next'
+export type SubmitButtonText = 'switchChain' | 'initiate' | 'pending' | 'reInitiate' | 'indexing' | 'finish' | 'next'
 
 export type OpCodeType = 1 | 2 | 3 | 4
 

@@ -105,7 +105,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                 {displayedNames[0]}
               </span>
             )}
-            {resultLength === 2 ? ' and ' : resultLength > 2 ? ', ' : ' '}
+            {resultLength === 2 ? t('followersYouKnow.and') : resultLength > 2 ? ', ' : ' '}
             {displayedNames?.[1] && displayedAddresses?.[1] && (
               <span
                 className="common-followers-name"

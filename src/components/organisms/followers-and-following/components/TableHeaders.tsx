@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { Dispatch, LegacyRef, SetStateAction, useState } from 'react'
 import { useOutsideClick } from '../../../../hooks'
-import { useTranslation } from '../../../../context/TranslationContext'
+import { useTranslation } from '../../../../context'
 import { formatNumber } from '../../../../utils'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
 import { Check, Cross, MagnifyingGlass, ShortArrow, Tag } from '../../../icons'
@@ -121,7 +121,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                 className="sort-container"
               >
                 <div className="sort-trigger">
-                  <p className="sort-text">{sort}</p>
+                  <p className="sort-text">{t(sort)}</p>
                   <ShortArrow className={clsx('arrow-icon', showSort ? 'rotated' : '')} />
                 </div>
                 {showSort && (

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from '../../../../../context'
 import { TransactionType } from '../../../../../types/transactions'
 import MapPin from '../../../../icons/ui/MapPin'
 import Person from '../../../../icons/ui/Person'
@@ -8,16 +9,19 @@ import List from '../../../../icons/ui/List'
 import Reset from '../../../../icons/ui/Reset'
 import { isAddress } from '../../../../../utils'
 import ListAccount from './ListAccount'
-import { Address } from '../../../../../types'
+import { Address, TranslationKey } from '../../../../../types'
 import './ListSettings.css'
+
 export interface ListSettingsProps {
   txs: TransactionType[]
 }
 
 const ListSettings: React.FC<ListSettingsProps> = ({ txs }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="list-settings-container">
-      <p className="list-settings-title">Update List Settings</p>
+      <p className="list-settings-title">{t('transaction.updateListSettings')}</p>
       <div className="list-settings-items-container">
         {txs.map((tx, index) => (
           <ListSetting key={index} title={tx.title} description={tx.description} />
@@ -33,6 +37,8 @@ export interface ListSettingProps {
 }
 
 export const ListSetting: React.FC<ListSettingProps> = ({ title, description }) => {
+  const { t } = useTranslation()
+
   const ListSettingIcon = {
     owner: Key,
     manager: Pencil,
@@ -51,7 +57,7 @@ export const ListSetting: React.FC<ListSettingProps> = ({ title, description }) 
             <ListSettingIcon height={18} width={18} />
           </div>
         )}
-        <p className="list-setting-title">{title}</p>
+        <p className="list-setting-title">{t(title as TranslationKey)}</p>
       </div>
       {description && isAddress(description) ? (
         <ListAccount address={description as Address} />

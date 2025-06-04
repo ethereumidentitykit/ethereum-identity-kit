@@ -3,6 +3,7 @@ import { useOutsideClick } from '../../../../hooks'
 import { formatNumber } from '../../../../utils'
 import { Refresh } from '../../../icons'
 import { ProfileListType } from '../../../../types'
+import { useTranslation } from '../../../../context'
 
 interface MoreOptionsProps {
   profileList?: ProfileListType
@@ -23,13 +24,14 @@ const MoreOptions: React.FC<MoreOptionsProps> = ({
   const clickAwayCardTooltip = useOutsideClick(() => {
     setCardTooltipOpen(false)
   })
+  const { t } = useTranslation()
 
   return (
     <div className="more-options">
       {!!profileList && profileList !== Number(primaryList) && (
         <div ref={clickAwayCardTooltip as LegacyRef<HTMLDivElement>} className="more-options-not-confirmed-container">
           <p onClick={() => setCardTooltipOpen(!cardTooltipOpen)} className="more-options-not-confirmed-text">
-            Not confirmed by user
+            {t('profile.notConfirmedByUser')}
           </p>
           <div
             className="more-options-not-confirmed-tooltip"
@@ -37,8 +39,7 @@ const MoreOptions: React.FC<MoreOptionsProps> = ({
               display: cardTooltipOpen ? 'block' : 'none',
             }}
           >
-            This list is not confirmed to be owned by the displayed user. A user must set a list as their Primary List
-            to confirm it as their list.
+            {t('profile.notConfirmedByUserDescription')}
           </div>
         </div>
       )}
