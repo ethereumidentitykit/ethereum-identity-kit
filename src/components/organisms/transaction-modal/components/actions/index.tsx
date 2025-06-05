@@ -1,10 +1,10 @@
 import React from 'react'
 import ActionAccount from './ActionAccount'
-import { Address, ListOpType, TransactionType, TranslationKey } from '../../../../../types'
+import { useTranslation } from '../../../../../context'
 import { extractAddressAndTag, getPendingTxListOps } from '../../../../../utils/transactions'
 import { ACTION_ITEM_ICON } from '../../../../../constants/transactions'
+import { Address, ListOpType, TransactionType, TranslationKey } from '../../../../../types'
 import './Actions.css'
-import { useTranslation } from '../../../../../context'
 
 interface ActionsProps {
   transactions: TransactionType[]
