@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 import ShortArrow from '../../../../icons/ui/ShortArrow'
 import './Bio.css'
+import { useTranslation } from '../../../../../context'
 
 interface BioProps {
   description?: string
@@ -14,6 +15,7 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSiz
   const [viewMore, setViewMore] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const { t } = useTranslation()
   const bioTextRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (description && bioTextRef.current && bioTextRef.current.clientHeight > maxLines * (fontSize * 1.15)) {
@@ -39,12 +41,12 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSiz
             )
           )
         ) : (
-          <i>No bio set</i>
+          <i>{t('profile.noBio')}</i>
         )}
       </p>
       {viewMore && (
         <button className="profile-bio-expand-button" onClick={() => setIsExpanded(!isExpanded)}>
-          <p>{isExpanded ? 'Show less' : 'Show more'}</p>{' '}
+          <p>{isExpanded ? t('profile.showLess') : t('profile.showMore')}</p>{' '}
           <div style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}>
             <ShortArrow height="16px" width="16px" />
           </div>

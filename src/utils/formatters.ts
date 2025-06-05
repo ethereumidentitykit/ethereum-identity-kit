@@ -1,13 +1,15 @@
+import { TranslationFunction } from '../types/translations'
+
 export const formatNumber = (number: number) => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
 
 // formats the text shown in the common followers component next to the avatars
-export const formatFollowersYouKnowText = (resultLength: number) => {
-  if (resultLength === 0) return 'No common followers'
-  if (resultLength === 2) return ` follow them`
+export const formatFollowersYouKnowText = (resultLength: number, t: TranslationFunction) => {
+  if (resultLength === 0) return t('followersYouKnow.noCommon')
+  if (resultLength === 2) return t('followersYouKnow.followsThem')
 
-  if (resultLength === 1) return ' follows them'
-  if (resultLength === 3) return '1 other you know follows them'
-  return `${resultLength - 2} others you know follow them`
+  if (resultLength === 1) return t('followersYouKnow.oneOtherFollows')
+  if (resultLength === 3) return t('followersYouKnow.othersFollow')
+  return `${resultLength - 2} ${t('followersYouKnow.othersFollow')}`
 }
 
 // formats the query parameters for api calls

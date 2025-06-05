@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { useProfileStats } from '../../../hooks'
+import { useTranslation } from '../../../context/TranslationContext'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { formatNumber } from '../../../utils'
 import { ProfileStatType } from '../../../types/profile'
@@ -42,6 +43,7 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   isPrefetchedStatsLoading = false,
   onStatClick = defaultOnStatClick,
 }) => {
+  const { t } = useTranslation()
   const { followers, following, statsLoading } = useProfileStats({
     addressOrName,
     list,
@@ -52,11 +54,11 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   const stats = {
     following: {
       value: following,
-      label: 'Following',
+      label: t('following'),
     },
     followers: {
       value: followers,
-      label: 'Followers',
+      label: t('followers'),
     },
   }
 

@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import { useAccount } from 'wagmi'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { useTransactions } from '../../../../../context'
+import { useTranslation } from '../../../../../context/TranslationContext'
 import { useWindowSize } from '../../../../../hooks/common/useWindowSize'
 import { getPendingTxAddressesAndTags } from '../../../../../utils/transactions'
 import ManualAdd from '../manual-add'
@@ -21,6 +22,7 @@ interface CartProps {
 }
 
 const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = true }: CartProps) => {
+  const { t } = useTranslation()
   const { width } = useWindowSize()
   const { address: connectedAddress } = useAccount()
   const { pendingTxs, setTxModalOpen, changesOpen, setChangesOpen, selectedList } = useTransactions()
@@ -42,6 +44,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     return Array.from(pendingChangesProfiles.values())
   }, [pendingChanges, connectedAddress])
 
+  const cartChangesListRef = useRef<HTMLDivElement>(null)
   const [showBackToTopButton, setShowBackToTopButton] = useState(false)
   useEffect(() => {
     const handleScroll = (e: Event) => {
@@ -52,7 +55,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     }
 
     const abortController = new AbortController()
-    const changesList = document.querySelector('.cart-changes-list')
+    const changesList = cartChangesListRef.current
     const cartContainer = document.querySelector('.cart-container-inner')
 
     if (changesList) {
@@ -63,7 +66,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     }
 
     return () => abortController.abort()
-  }, [])
+  }, [cartChangesListRef])
 
   return (
     <div
@@ -74,22 +77,23 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
         <div className="transaction-modal-close-button" onClick={() => setTxModalOpen(false)}>
           <Cross height={16} width={16} />
         </div>
-        <h3 className="cart-title">Cart</h3>
+        <h3 className="cart-title">{t('cart.title')}</h3>
         <div className="cart-content">
           <div className="cart-changes-list">
             <div className="cart-changes-list-header">
               <div className="cart-changes-list-title">
-                Changes <span className="cart-changes-list-title-count">{pendingChanges.length}</span>
+                {t('cart.changes')} <span className="cart-changes-list-title-count">{pendingChanges.length}</span>
               </div>
               {pendingTxs.length > 0 && (
                 <button className="cart-changes-list-header-button" onClick={() => setClearCartModalOpen(true)}>
-                  <p>Clear Cart</p>
+                  <p>{t('cart.clearCart')}</p>
                   <Trash height={16} width={14} />
                 </button>
               )}
             </div>
             {profiles.length > 0 ? (
               <ProfileList
+                ref={cartChangesListRef}
                 profiles={profiles}
                 connectedAddress={connectedAddress}
                 selectedList={selectedList}
@@ -100,7 +104,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 useVirtualList={true}
               />
             ) : (
-              <div className="cart-changes-list-empty">No items in cart</div>
+              <div className="cart-changes-list-empty">{t('cart.noItems')}</div>
             )}
           </div>
           {showRecommendations && (
@@ -108,7 +112,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
               <ManualAdd />
               {connectedAddress && (
                 <Recommended
-                  title="Recommended"
+                  title={t('recommended.title', 'Recommended')}
                   selectedList={selectedList}
                   connectedAddress={connectedAddress}
                   onProfileClick={onProfileClick}
@@ -124,10 +128,10 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
           <div className="cart-modal-buttons-container-top">
             <div className="cart-modal-buttons-container-top-info">
               <p>
-                {pendingChanges.length} {profiles.length === 1 ? 'Action' : 'Actions'}
+                {pendingChanges.length} {profiles.length === 1 ? t('cart.action') : t('cart.actions')}
               </p>
               <p>
-                {pendingTxs.length} {pendingTxs.length === 1 ? 'Transaction' : 'Transactions'}
+                {pendingTxs.length} {pendingTxs.length === 1 ? t('cart.transaction') : t('cart.transactions')}
               </p>
             </div>
             <button
@@ -137,7 +141,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 pointerEvents: showBackToTopButton ? 'auto' : 'none',
               }}
               onClick={() => {
-                const changesList = document.querySelector('.cart-changes-list')
+                const changesList = cartChangesListRef.current
                 const cartContainer = document.querySelector('.cart-container-inner')
                 if (changesList) {
                   changesList.scrollTo({ top: 0, behavior: 'smooth' })
@@ -147,7 +151,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 }
               }}
             >
-              <p>Back to top</p>
+              <p>{t('backToTop')}</p>
               <ShortArrow height={16} width={16} className="cart-modal-top-button-arrow" />
             </button>
           </div>
@@ -159,7 +163,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
               setChangesOpen(false)
             }}
           >
-            Confirm
+            {t('confirm')}
           </button>
         </div>
       </div>

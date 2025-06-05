@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useTransactions } from '../../../../../context'
+import { useTranslation } from '../../../../../context/TranslationContext'
 import { fetchAccount } from '../../../../../utils/api/fetch-account'
 import { fetchFollowState, getPendingTxAddresses, isAddress, listOpAddListRecord } from '../../../../../utils'
 import { DEFAULT_CHAIN, LIST_OP_LIMITS } from '../../../../../constants'
@@ -8,6 +9,7 @@ import { Address } from '../../../../../types'
 import './ManualAdd.css'
 
 const ManualAdd = () => {
+  const { t } = useTranslation()
   const [search, setSearch] = useState('')
   const [isAdding, setIsAdding] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -28,7 +30,7 @@ const ManualAdd = () => {
         const address = name as Address
 
         if (pendingListOpAddresses.includes(address)) {
-          setError('Already in cart')
+          setError(t('manualAdd.alreadyInCart'))
           continue
         }
 
@@ -45,7 +47,7 @@ const ManualAdd = () => {
         // })
 
         if (followState?.state.follow) {
-          setError('Already following')
+          setError(t('manualAdd.alreadyFollowing'))
           continue
         }
 
@@ -55,7 +57,7 @@ const ManualAdd = () => {
 
         if (account?.address) {
           if (pendingListOpAddresses.includes(account.address)) {
-            setError('Already in cart')
+            setError(t('manualAdd.alreadyInCart'))
             continue
           }
 
@@ -67,13 +69,13 @@ const ManualAdd = () => {
           })
 
           if (followState?.state.follow) {
-            setError('Already following')
+            setError(t('manualAdd.alreadyFollowing'))
             continue
           }
 
           listOps.push(listOpAddListRecord(account.address))
         } else {
-          setError('Account not found')
+          setError(t('manualAdd.accountNotFound'))
         }
       }
     }
@@ -101,7 +103,7 @@ const ManualAdd = () => {
       <div className="manual-add-container">
         <input
           type="text"
-          placeholder="ENS name or Address"
+          placeholder={t('search placeholder')}
           className="manual-add-input"
           value={search}
           onChange={(e) => {
@@ -115,7 +117,7 @@ const ManualAdd = () => {
           }}
         />
         <button className="manual-add-button" onClick={handleAdd}>
-          {isAdding ? <div className="manual-add-loader" /> : 'Add'}
+          {isAdding ? <div className="manual-add-loader" /> : t('manualAdd.add')}
         </button>
       </div>
     </div>

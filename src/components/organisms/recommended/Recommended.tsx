@@ -1,5 +1,6 @@
 import ProfileList from '../../molecules/profile-list/ProfileList'
 import { useRecommended } from '../../../hooks/useRecommended'
+import { useTranslation } from '../../../context/TranslationContext'
 import { RecommendedProps } from './Recommended.types'
 import './Recommended.css'
 import clsx from 'clsx'
@@ -15,6 +16,7 @@ const Recommended: React.FC<RecommendedProps> = ({
   title,
   useVirtualList = false,
 }) => {
+  const { t } = useTranslation()
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(
     connectedAddress,
     endpoint,
@@ -45,7 +47,7 @@ const Recommended: React.FC<RecommendedProps> = ({
           }
         />
       )}
-      {recommended?.length === 0 && !isLoading && <div className="recommended-empty">No recommended profiles</div>}
+      {recommended?.length === 0 && !isLoading && <div className="recommended-empty">{t('recommended.empty')}</div>}
     </div>
   )
 }

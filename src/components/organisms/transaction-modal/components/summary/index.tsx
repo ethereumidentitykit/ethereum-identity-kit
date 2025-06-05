@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { base, mainnet, optimism } from 'viem/chains'
 import { useBalance, useGasPrice, useWalletClient } from 'wagmi'
 import { useTransactions } from '../../../../../context'
+import { useTranslation } from '../../../../../context/TranslationContext'
 import { Arrow } from '../../../../icons'
 import Actions from '../actions'
 import ListSettings from '../list-settings'
@@ -16,6 +17,7 @@ import { EFPActionType, TransactionType } from '../../../../../types/transaction
 import './Summary.css'
 
 export default function Summary() {
+  const { t } = useTranslation()
   const {
     pendingTxs,
     selectedChainId,
@@ -193,7 +195,7 @@ export default function Summary() {
       <div className="transaction-modal-arrow-back" onClick={onSummaryClose}>
         <Arrow height={18} width={18} />
       </div>
-      <p className="summary-title">Summary</p>
+      <p className="summary-title">{t('summary.title')}</p>
       <div className="summary-items-container" style={{ display: isSummaryVisible ? 'flex' : 'none' }}>
         {Object.entries(groupedTransactions).map(([id, txs]) => {
           if (!txs) return null
@@ -206,7 +208,7 @@ export default function Summary() {
             <div key={id} className="summary-item-container">
               <div className="summary-item-chain-container">
                 <p>
-                  {txs?.length} {txs?.length === 1 ? 'txn' : 'txns'} on
+                  {txs?.length} {txs?.length === 1 ? t('summary.txn') : t('summary.txns')} {t('summary.on')}
                 </p>
                 <ChainIcon height={18} width={18} />
                 <p className="summary-item-chain-name">{chainName}</p>
@@ -214,7 +216,7 @@ export default function Summary() {
                   defaultChainId &&
                   pendingTxs.some((tx) => tx.id === EFPActionIds.CreateEFPList) && (
                     <p className="summary-item-change-chain" onClick={() => setSelectedChainId(undefined)}>
-                      Change Chain
+                      {t('summary.changeChain')}
                     </p>
                   )}
               </div>
@@ -226,7 +228,7 @@ export default function Summary() {
           <LoadingCell height={'40px'} width={'100%'} />
         ) : Object.values(insufficientGas).includes(true) ? (
           <button className="transaction-modal-confirm-button" disabled={true} onClick={() => setCurrentTxIndex(0)}>
-            Insufficient ETH on{' '}
+            {t('summary.insufficientEth')}{' '}
             {Object.entries(insufficientGas)
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               .filter(([_, value]) => value)
@@ -235,7 +237,7 @@ export default function Summary() {
           </button>
         ) : (
           <button className="transaction-modal-confirm-button" onClick={() => setCurrentTxIndex(0)}>
-            Confirm
+            {t('confirm')}
           </button>
         )}
       </div>

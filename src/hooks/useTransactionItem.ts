@@ -253,17 +253,17 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
   const submitButtonText: SubmitButtonText = transaction.hash
     ? isPending
-      ? 'Pending...'
+      ? 'pending'
       : isError
-        ? 'Re-Initiate'
+        ? 'reInitiate'
         : isLastTransaction
           ? lastTransactionSuccessful
-            ? 'Finish'
-            : 'Indexing...'
-          : 'Next'
+            ? 'finish'
+            : 'indexing'
+          : 'next'
     : isCorrectChain
-      ? 'Initiate'
-      : 'Switch Chain'
+      ? 'initiate'
+      : 'switchChain'
 
   // Users can claim a POAP after minting a new list
   const [claimPOAP, setClaimPOAP] = useState(false)

@@ -16,12 +16,13 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  gap: 16px;
   background-color: var(--ethereum-identity-kit-background);
   color: var(--ethereum-identity-kit-text-primary);
   border-radius: 10px;
   padding: 20px;
   width: 380px;
-  height: 200px;
+  height: fit-content;
   font-family: 'Inter', sans-serif;
 }
 
@@ -44,6 +45,8 @@
   font-size: 16px;
   font-weight: 400;
   margin: 0;
+  margin-bottom: 6px;
+  text-align: center;
 }
 
 .cancel-modal-footer {

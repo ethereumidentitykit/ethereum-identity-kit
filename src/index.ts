@@ -64,7 +64,7 @@ export {
 } from './utils'
 
 // Context
-export { TransactionProvider, useTransactions } from './context'
+export { TransactionProvider, useTransactions, TranslationProvider, useTranslation } from './context'
 
 // Constants
 export {
@@ -242,4 +242,12 @@ export type {
   BlockedMutedTabType,
   ProfileTableTitleType,
   FollowSortType,
+  TranslationKey,
+  TranslationFunction,
+  TranslationConfig,
+  TranslationsMap,
+  TranslationObject,
+  LanguageCode,
+  defaultTranslations,
+  loadTranslationsFromJSON,
 } from './types'

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 import { useTransactions } from '../../../context'
+import { useTranslation } from '../../../context/TranslationContext'
 import { Cross } from '../../icons'
 import Cart from './components/cart'
 import Steps from './components/steps'
@@ -32,6 +33,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   showPoapClaim = true,
   ...props
 }) => {
+  const { t } = useTranslation()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [clearCartModalOpen, setClearCartModalOpen] = useState(false)
 
@@ -72,9 +74,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
     >
       {cancelModalOpen && (
         <CancelModal
-          title="Cancel Remaining Transactions?"
-          description="You may have to start over."
-          confirmButtonText="Yes, Cancel"
+          title={t('modal.cancelTransactions.title')}
+          description={t('modal.cancelTransactions.description')}
+          confirmButtonText={t('modal.cancelTransactions.confirm')}
           onCancel={() => setCancelModalOpen(false)}
           onConfirm={() => {
             resetTransactions()
@@ -84,9 +86,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       )}
       {clearCartModalOpen && (
         <CancelModal
-          title="Clear Cart?"
-          description="Are you sure you want to clear your cart?"
-          confirmButtonText="Clear Cart"
+          title={t('cart.clearCart')}
+          description={t('cart.clearCart.description')}
+          confirmButtonText={t('cart.clearCart')}
           onCancel={() => setClearCartModalOpen(false)}
           onConfirm={() => {
             resetTransactions(true)
