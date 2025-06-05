@@ -27,11 +27,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  width: calc(100% - 120px);
+  max-width: calc(100% - 70px);
 }
 
 .profile-list-row-name {
-  width: fit-content;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

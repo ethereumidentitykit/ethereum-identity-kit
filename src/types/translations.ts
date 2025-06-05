@@ -62,12 +62,12 @@ export type TranslationKey =
   | 'transaction.selectChainDescription'
   | 'transaction.selectChainLater'
   | 'transaction.updateListSettings'
-  | 'transaction.listSettings.owner'
-  | 'transaction.listSettings.manager'
-  | 'transaction.listSettings.user'
-  | 'transaction.listSettings.listStorageLocation'
-  | 'transaction.listSettings.setPrimaryList'
-  | 'transaction.listSettings.resetList'
+  | 'listSettings.owner'
+  | 'listSettings.manager'
+  | 'listSettings.user'
+  | 'listSettings.listStorageLocation'
+  | 'listSettings.setPrimaryList'
+  | 'listSettings.resetList'
   | 'transaction.onchainUpdate'
   | 'transaction.claimPOAPTitle'
   | 'transaction.claimPOAPDescription'
@@ -81,12 +81,11 @@ export type TranslationKey =
   | 'modal.cancelTransactions.title'
   | 'modal.cancelTransactions.description'
   | 'modal.cancelTransactions.confirm'
-  | 'modal.clearCart.title'
-  | 'modal.clearCart.description'
-  | 'modal.clearCart.confirm'
+  | 'cart.clearCart'
+  | 'cart.clearCart.description'
+  | 'cart.clearCart'
   | 'goBack'
   | 'notifications.title'
-  | 'notifications.noNotifications'
   | 'profile.editProfile'
   | 'profile.noUser'
   | 'profile.noBio'
@@ -106,7 +105,7 @@ export type TranslationKey =
   | 'cart.actions'
   | 'cart.transaction'
   | 'cart.transactions'
-  | 'cart.backToTop'
+  | 'backToTop'
   // Transaction Modal Summary
   | 'summary.title'
   | 'summary.txn'
@@ -115,12 +114,10 @@ export type TranslationKey =
   | 'summary.changeChain'
   | 'summary.insufficientEth'
   // Transaction Modal Manual Add
-  | 'manualAdd.placeholder'
   | 'manualAdd.add'
   | 'manualAdd.alreadyInCart'
   | 'manualAdd.alreadyFollowing'
   | 'manualAdd.accountNotFound'
-  | 'claimPOAP'
 
 export type TranslationFunction = (key: TranslationKey, fallback?: string) => string
 
@@ -212,12 +209,12 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'transaction.selectChainDescription': 'Select the chain you want to perform the action on.',
   'transaction.selectChainLater': 'You can always change this later',
   'transaction.updateListSettings': 'Update List Settings',
-  'transaction.listSettings.owner': 'Owner',
-  'transaction.listSettings.manager': 'Manager',
-  'transaction.listSettings.user': 'User',
-  'transaction.listSettings.listStorageLocation': 'List Storage Location',
-  'transaction.listSettings.setPrimaryList': 'Set Primary List',
-  'transaction.listSettings.resetList': 'Reset List',
+  'listSettings.owner': 'Owner',
+  'listSettings.manager': 'Manager',
+  'listSettings.user': 'User',
+  'listSettings.listStorageLocation': 'List Storage Location',
+  'listSettings.setPrimaryList': 'Set Primary List',
+  'listSettings.resetList': 'Reset List',
   'transaction.onchainUpdate': 'Onchain Update',
   'transaction.claimPOAPTitle': 'Claim your POAP',
   'transaction.claimPOAPDescription': "Congratulations! You've earned a POAP for being an early user of EFP.",
@@ -231,12 +228,8 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'modal.cancelTransactions.title': 'Cancel All Transactions',
   'modal.cancelTransactions.description': 'Are you sure you want to cancel all pending transactions?',
   'modal.cancelTransactions.confirm': 'Cancel All',
-  'modal.clearCart.title': 'Clear Cart',
-  'modal.clearCart.description': 'Are you sure you want to clear all items from your cart?',
-  'modal.clearCart.confirm': 'Clear Cart',
   goBack: 'Go Back',
   'notifications.title': 'Notifications',
-  'notifications.noNotifications': 'No notifications',
   'profile.editProfile': 'Edit Profile',
   'profile.noUser': "User doesn't exist",
   'profile.noBio': 'No bio set',
@@ -252,12 +245,13 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'cart.title': 'Cart',
   'cart.changes': 'Changes',
   'cart.clearCart': 'Clear Cart',
+  'cart.clearCart.description': 'Are you sure you want to clear all items from your cart?',
   'cart.noItems': 'No items in cart',
   'cart.action': 'Action',
   'cart.actions': 'Actions',
   'cart.transaction': 'Transaction',
   'cart.transactions': 'Transactions',
-  'cart.backToTop': 'Back to top',
+  backToTop: 'Back to top',
   // Transaction Modal Summary
   'summary.title': 'Summary',
   'summary.txn': 'txn',
@@ -266,12 +260,10 @@ export const defaultTranslations: Record<TranslationKey, string> = {
   'summary.changeChain': 'Change Chain',
   'summary.insufficientEth': 'Insufficient ETH on',
   // Transaction Modal Manual Add
-  'manualAdd.placeholder': 'ENS name or Address',
   'manualAdd.add': 'Add',
   'manualAdd.alreadyInCart': 'Already in cart',
   'manualAdd.alreadyFollowing': 'Already following',
   'manualAdd.accountNotFound': 'Account not found',
-  claimPOAP: 'Claim POAP',
 }
 
 // Helper function to load translations from JSON files

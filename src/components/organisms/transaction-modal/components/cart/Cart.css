@@ -102,6 +102,7 @@
   font-size: 16px;
   font-weight: 500;
   font-style: italic;
+  padding: 24px;
   color: var(--ethereum-identity-kit-text-neutral);
   text-align: center;
   display: flex;
@@ -168,6 +169,7 @@
 .cart-modal-buttons-container-top-info p {
   font-size: 15px;
   font-weight: 600;
+  text-wrap: nowrap;
 }
 
 .cart-modal-buttons-container-top-info p:nth-child(2) {

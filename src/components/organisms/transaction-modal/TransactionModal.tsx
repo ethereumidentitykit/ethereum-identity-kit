@@ -86,9 +86,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       )}
       {clearCartModalOpen && (
         <CancelModal
-          title={t('modal.clearCart.title')}
-          description={t('modal.clearCart.description')}
-          confirmButtonText={t('modal.clearCart.confirm')}
+          title={t('cart.clearCart')}
+          description={t('cart.clearCart.description')}
+          confirmButtonText={t('cart.clearCart')}
           onCancel={() => setClearCartModalOpen(false)}
           onConfirm={() => {
             resetTransactions(true)

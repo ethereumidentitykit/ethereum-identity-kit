@@ -49,6 +49,11 @@ export const ListSetting: React.FC<ListSettingProps> = ({ title, description }) 
     default: null,
   }[title || 'default']
 
+  const titleTranslationKey = title
+    ?.split(' ')
+    .map((word, index) => (index > 0 ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(' ')
+
   return (
     <div className="list-setting-container">
       <div className="list-setting-title-container">
@@ -57,7 +62,7 @@ export const ListSetting: React.FC<ListSettingProps> = ({ title, description }) 
             <ListSettingIcon height={18} width={18} />
           </div>
         )}
-        <p className="list-setting-title">{t(title as TranslationKey)}</p>
+        <p className="list-setting-title">{t(`listSettings.${titleTranslationKey}` as TranslationKey)}</p>
       </div>
       {description && isAddress(description) ? (
         <ListAccount address={description as Address} />

@@ -115,7 +115,7 @@ const Notifications: React.FC<NotificationsProps> = ({
           {isLoading && new Array(5).fill(null).map((_, index) => <NotificationItemLoading key={index} />)}
           {!isLoading && notifications?.flatMap((item) => Object.values(item.notifications).flat()).length === 0 && (
             <div className="notifications-empty">
-              <p className="notifications-empty-text">{t('notifications.noNotifications')}</p>
+              <p className="notifications-empty-text">{t('notifications.empty')}</p>
             </div>
           )}
         </div>

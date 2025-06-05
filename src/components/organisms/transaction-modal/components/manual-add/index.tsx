@@ -103,7 +103,7 @@ const ManualAdd = () => {
       <div className="manual-add-container">
         <input
           type="text"
-          placeholder={t('manualAdd.placeholder')}
+          placeholder={t('search placeholder')}
           className="manual-add-input"
           value={search}
           onChange={(e) => {

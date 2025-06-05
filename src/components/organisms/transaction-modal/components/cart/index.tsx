@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useAccount } from 'wagmi'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { useTransactions } from '../../../../../context'
 import { useTranslation } from '../../../../../context/TranslationContext'
 import { useWindowSize } from '../../../../../hooks/common/useWindowSize'
@@ -44,6 +44,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     return Array.from(pendingChangesProfiles.values())
   }, [pendingChanges, connectedAddress])
 
+  const cartChangesListRef = useRef<HTMLDivElement>(null)
   const [showBackToTopButton, setShowBackToTopButton] = useState(false)
   useEffect(() => {
     const handleScroll = (e: Event) => {
@@ -54,7 +55,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     }
 
     const abortController = new AbortController()
-    const changesList = document.querySelector('.cart-changes-list')
+    const changesList = cartChangesListRef.current
     const cartContainer = document.querySelector('.cart-container-inner')
 
     if (changesList) {
@@ -65,7 +66,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
     }
 
     return () => abortController.abort()
-  }, [])
+  }, [cartChangesListRef])
 
   return (
     <div
@@ -92,6 +93,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
             </div>
             {profiles.length > 0 ? (
               <ProfileList
+                ref={cartChangesListRef}
                 profiles={profiles}
                 connectedAddress={connectedAddress}
                 selectedList={selectedList}
@@ -139,7 +141,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 pointerEvents: showBackToTopButton ? 'auto' : 'none',
               }}
               onClick={() => {
-                const changesList = document.querySelector('.cart-changes-list')
+                const changesList = cartChangesListRef.current
                 const cartContainer = document.querySelector('.cart-container-inner')
                 if (changesList) {
                   changesList.scrollTo({ top: 0, behavior: 'smooth' })
@@ -149,7 +151,7 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 }
               }}
             >
-              <p>{t('cart.backToTop')}</p>
+              <p>{t('backToTop')}</p>
               <ShortArrow height={16} width={16} className="cart-modal-top-button-arrow" />
             </button>
           </div>
