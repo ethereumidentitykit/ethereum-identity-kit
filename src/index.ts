@@ -61,6 +61,7 @@ export {
   getListStorageLocation,
   getListOpsFromTransaction,
   createSiweMessageString,
+  loadTranslationsFromJSON,
 } from './utils'
 
 // Context
@@ -105,6 +106,7 @@ export {
   DAY,
   WEEK,
   MONTH,
+  defaultTranslations,
 } from './constants'
 
 // Constant Types
@@ -248,6 +250,4 @@ export type {
   TranslationsMap,
   TranslationObject,
   LanguageCode,
-  defaultTranslations,
-  loadTranslationsFromJSON,
 } from './types'

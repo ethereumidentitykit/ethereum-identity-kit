@@ -29,11 +29,12 @@ export const NOTIFICATION_POSITIONS = ['top', 'bottom', 'left', 'right'] as cons
 export const NOTIFICATION_ALIGNS = ['left', 'center', 'right', 'top', 'bottom'] as const
 export const NOTIFICATION_CENTER_VERTICAL = ['left', 'right']
 
-export * from './socials'
-export * from './chains'
-export * from './contracts'
-export * from './transactions'
 export * from './abi'
-export * from './follow-button'
-export * from './transports'
 export * from './time'
+export * from './chains'
+export * from './socials'
+export * from './contracts'
+export * from './transports'
+export * from './transactions'
+export * from './translations'
+export * from './follow-button'

@@ -5,8 +5,8 @@ import {
   TranslationConfig,
   TranslationsMap,
   LanguageCode,
-  defaultTranslations,
 } from '../types/translations'
+import { defaultTranslations } from '../constants'
 
 interface TranslationContextType {
   t: TranslationFunction
