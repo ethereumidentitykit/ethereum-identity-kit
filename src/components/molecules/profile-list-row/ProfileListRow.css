@@ -6,6 +6,15 @@
   position: relative;
   padding: 0px 20px;
   justify-content: space-between;
+  transition: all 0.2s;
+}
+
+.profile-list-row:hover {
+  background-color: #f4f4f4;
+}
+
+.dark .profile-list-row:hover {
+  background-color: #222222;
 }
 
 .profile-list-row.has-header-image {
