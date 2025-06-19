@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent } from '../../../../__tests__/utils/test-utils'
 import Avatar from '../Avatar'
-import { DEFAULT_FALLBACK_AVATAR } from '../../../../constants'
 
 // Mock the validity utility
 jest.mock('../../../../utils', () => ({

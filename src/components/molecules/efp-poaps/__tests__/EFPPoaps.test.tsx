@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '../../../../__tests__/utils/simple-wagmi-provider'
+import { render, screen } from '../../../../__tests__/utils/simple-wagmi-provider'
 import EFPPoaps from '../EFPPoaps'
 import { mockTestData } from '../../../../__tests__/utils/simple-wagmi-provider'
 

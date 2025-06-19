@@ -29,8 +29,7 @@ jest.mock('@adraffy/ens-normalize', () => ({
 }))
 
 const { useProfileDetails, useProfileStats, useEFPPoaps } = require('../../../../hooks')
-const { truncateAddress, formatNumber } = require('../../../../utils')
-const { defaultOnStatClick } = require('../../../../utils/profile')
+const { truncateAddress } = require('../../../../utils')
 
 describe('ProfileCard', () => {
   const mockAddress = '0x1234567890123456789012345678901234567890'

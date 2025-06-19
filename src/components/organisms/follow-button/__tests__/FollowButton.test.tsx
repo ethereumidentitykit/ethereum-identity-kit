@@ -26,7 +26,6 @@ jest.mock('../../../../context', () => ({
 }))
 
 const { useFollowButton, useCoolMode } = require('../../../../hooks')
-const { useTranslation } = require('../../../../context')
 
 describe('FollowButton', () => {
   const mockLookupAddress = '0x1234567890123456789012345678901234567890'

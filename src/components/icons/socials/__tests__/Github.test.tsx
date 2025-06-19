@@ -61,11 +61,6 @@ describe('Github Social Icon', () => {
     const coloredElement = document.querySelector('path, circle')
     if (coloredElement) {
       // Check if it has any color attribute or uses currentColor
-      const hasColor =
-        coloredElement.hasAttribute('fill') ||
-        coloredElement.hasAttribute('stroke') ||
-        coloredElement.getAttribute('fill') === 'currentColor' ||
-        coloredElement.getAttribute('stroke') === 'currentColor'
       // If no explicit color found, icon might use CSS for coloring, which is valid
       expect(coloredElement).toBeInTheDocument()
     } else {
@@ -81,8 +76,6 @@ describe('Github Social Icon', () => {
     const coloredElement = document.querySelector('path, circle')
     if (coloredElement) {
       // Check if custom color is applied (either directly or icon accepts the prop)
-      const hasCustomColor =
-        coloredElement.getAttribute('fill') === '#ff0000' || coloredElement.getAttribute('stroke') === '#ff0000'
       // If color not directly applied, just verify element exists (icon might handle color differently)
       expect(coloredElement).toBeInTheDocument()
     } else {

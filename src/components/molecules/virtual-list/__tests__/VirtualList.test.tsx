@@ -11,7 +11,7 @@ describe('VirtualList', () => {
     { id: '5', name: 'Item 5', value: 'value5' },
   ]
 
-  const mockRenderItem = jest.fn((item: any, index: number) => (
+  const mockRenderItem = jest.fn((item: typeof mockData[0], index: number) => (
     <div data-testid={`item-${index}`}>
       {item.name} - {item.value}
     </div>

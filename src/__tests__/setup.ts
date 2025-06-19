@@ -7,7 +7,7 @@ global.TextDecoder = TextDecoder
 // Mock Web Crypto API for viem
 Object.defineProperty(global, 'crypto', {
   value: {
-    getRandomValues: (arr: any) => require('crypto').randomBytes(arr.length),
+    getRandomValues: (arr: Uint8Array) => require('crypto').randomBytes(arr.length),
     subtle: {},
   },
 })
@@ -60,7 +60,7 @@ global.fetch = jest.fn(() =>
 // Mock console methods to reduce noise in tests
 const originalError = console.error
 beforeAll(() => {
-  console.error = (...args: any[]) => {
+  console.error = (...args: unknown[]) => {
     if (typeof args[0] === 'string' && args[0].includes('Warning: ReactDOM.render is deprecated')) {
       return
     }
@@ -73,11 +73,10 @@ afterAll(() => {
 })
 
 // Global test utilities
-declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeInTheDocument(): R
-    }
+// Extend Jest matchers
+declare module '@testing-library/jest-dom' {
+  interface Matchers<R> {
+    toBeInTheDocument(): R
   }
 }
 

@@ -11,7 +11,7 @@ const LoadingCell: React.FC<{
   width?: string | number
   radius?: string | number
   style?: React.CSSProperties
-  [key: string]: any
+  [key: string]: unknown
 }> = ({ gradient = DEFAULT_LOADING_GRADIENT, height = '100%', width = '100%', radius = '4px', style, ...props }) => {
   return (
     <div

@@ -26,7 +26,6 @@ jest.mock('../../../../utils/profile', () => ({
 }))
 
 const { useProfileStats } = require('../../../../hooks')
-const { useTranslation } = require('../../../../context/TranslationContext')
 const { formatNumber } = require('../../../../utils')
 const { defaultOnStatClick } = require('../../../../utils/profile')
 
