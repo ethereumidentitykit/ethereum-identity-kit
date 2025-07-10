@@ -13,6 +13,7 @@ export type ProfileCardProps = {
   darkMode?: boolean
   showFollowerState?: boolean
   showPoaps?: boolean
+  showFollowButton?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions

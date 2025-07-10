@@ -19,6 +19,7 @@ import ImageWithFallback from '../../atoms/image-with-fallback/ImageWithFallback
 import { DEFAULT_FALLBACK_HEADER } from '../../../constants'
 import { FullWidthProfileProps } from './FullWidthProfile.types'
 import './FullWidthProfile.css'
+import FollowButton from '../follow-button/FollowButton'
 
 /**
  * Full Width Profile for any Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -64,6 +65,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   className,
   options,
   showFollowerState,
+  showFollowButton,
   onStatClick,
   selectedList,
   onProfileClick,
@@ -175,7 +177,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       className={clsx(
                         'user-profile-name',
                         address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                          (!!followButton && 'user-profile-name-connected')
+                        (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
@@ -188,7 +190,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                         </button>
                       </a>
                     ) : (
-                      followButton
+                      showFollowButton ? (followButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />) : null
                     )}
                     {showFollowerTag && (
                       <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />

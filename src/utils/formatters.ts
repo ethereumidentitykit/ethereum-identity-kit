@@ -5,9 +5,9 @@ export const formatNumber = (number: number) => new Intl.NumberFormat(navigator.
 // formats the text shown in the common followers component next to the avatars
 export const formatFollowersYouKnowText = (resultLength: number, t: TranslationFunction) => {
   if (resultLength === 0) return t('followersYouKnow.noCommon')
-  if (resultLength === 2) return t('followersYouKnow.followsThem')
+  if (resultLength === 1) return t('followersYouKnow.followsThem')
 
-  if (resultLength === 1) return t('followersYouKnow.oneOtherFollows')
+  if (resultLength === 2) return t('followersYouKnow.oneOtherFollows')
   if (resultLength === 3) return t('followersYouKnow.othersFollow')
   return `${resultLength - 2} ${t('followersYouKnow.othersFollow')}`
 }

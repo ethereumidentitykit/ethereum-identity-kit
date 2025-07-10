@@ -19,6 +19,7 @@ import { ProfileCardProps } from './ProfileCard.types'
 import EFPPoaps from '../../molecules/efp-poaps/EFPPoaps'
 import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import './ProfileCard.css'
+import FollowButton from '../follow-button/FollowButton'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -56,6 +57,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   darkMode,
   showFollowerState,
   showPoaps,
+  showFollowButton,
   onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
@@ -154,7 +156,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               </button>
             </a>
           ) : (
-            followButton
+            showFollowButton ? (followButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)) : null
           )}
         </div>
         {isDetailsLoading ? (

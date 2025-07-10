@@ -22,6 +22,7 @@ export interface FullWidthProfileProps {
   darkMode?: boolean
   showPoaps?: boolean
   showFollowerState?: boolean
+  showFollowButton?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: FullWidthProfileOptions

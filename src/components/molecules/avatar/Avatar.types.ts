@@ -3,6 +3,6 @@ export type AvatarProps = {
   src?: string | null
   name?: string | null
   fallback?: string
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
   style?: React.CSSProperties
 } & React.HTMLAttributes<HTMLDivElement>

@@ -51,6 +51,7 @@ ByAddress.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
   showPoaps: true,
+  showFollowButton: false,
   options: {},
 }
 
