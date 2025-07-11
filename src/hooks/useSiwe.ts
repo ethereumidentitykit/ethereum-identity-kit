@@ -21,10 +21,10 @@ export const useSiwe = ({
     try {
       const nonce = await getNonce()
       const messageParams = {
-        domain: window.location.host,
+        domain: typeof window !== 'undefined' ? window.location.host : 'localhost',
         address: connectedAddress,
         statement: message,
-        uri: window.location.origin,
+        uri: typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
         version: '1',
         chainId: currentChainId,
         nonce,

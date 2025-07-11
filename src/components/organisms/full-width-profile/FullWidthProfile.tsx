@@ -177,7 +177,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       className={clsx(
                         'user-profile-name',
                         address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                        (!!followButton && 'user-profile-name-connected')
+                          (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
@@ -189,9 +189,9 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                           <p>{t('profile.editProfile')}</p>
                         </button>
                       </a>
-                    ) : (
-                      showFollowButton ? (followButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />) : null
-                    )}
+                    ) : showFollowButton ? (
+                      followButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                    ) : null}
                     {showFollowerTag && (
                       <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />
                     )}

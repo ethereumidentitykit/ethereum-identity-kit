@@ -23,6 +23,8 @@ export const useCoolMode = (imageUrl?: string, isLoading?: boolean, disabled?: b
 }
 
 const getContainer = () => {
+  if (typeof document === 'undefined') return null
+
   const id = 'efp_coolMode'
   const existingContainer = document.getElementById(id)
 
@@ -55,6 +57,9 @@ const getContainer = () => {
 let instanceCounter = 0
 
 function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boolean): () => void {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return () => {}
+  }
   instanceCounter++
 
   const sizes = [25, 25, 35, 35, 45]
@@ -90,7 +95,7 @@ function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boole
       ].join(';')
     )
 
-    container.appendChild(particle)
+    container?.appendChild(particle)
 
     particles.push({
       direction,
@@ -112,7 +117,14 @@ function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boole
       p.speedUp = Math.min(p.size, p.speedUp - 1)
       p.spinVal = p.spinVal + p.spinSpeed
 
-      if (p.top >= Math.max(window.innerHeight, document.body.clientHeight) + p.size) {
+      if (
+        p.top >=
+        Math.max(
+          typeof window !== 'undefined' ? window.innerHeight : 0,
+          typeof document !== 'undefined' ? document.body.clientHeight : 0
+        ) +
+          p.size
+      ) {
         particles = particles.filter((o) => o !== p)
         p.element.remove()
       }
@@ -136,12 +148,14 @@ function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boole
     if (autoAddParticle && particles.length < limit) createParticle()
 
     updateParticles()
-    animationFrame = requestAnimationFrame(loop)
+    animationFrame = typeof window !== 'undefined' ? requestAnimationFrame(loop) : undefined
   }
 
   loop()
 
-  const isTouchInteraction = 'ontouchstart' in window || navigator.maxTouchPoints
+  const isTouchInteraction =
+    typeof window !== 'undefined' &&
+    ('ontouchstart' in window || (typeof navigator !== 'undefined' && navigator.maxTouchPoints))
 
   const tap = isTouchInteraction ? 'touchstart' : 'mousedown'
   const tapEnd = isTouchInteraction ? 'touchend' : 'mouseup'
@@ -189,7 +203,7 @@ function makeElementCool(element: HTMLElement, imageUrl: string, disabled: boole
 
         // Clean up container if this is the last instance
         if (--instanceCounter === 0) {
-          container.remove()
+          container?.remove()
         }
       }
     }, 500)

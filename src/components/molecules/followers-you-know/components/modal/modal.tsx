@@ -17,10 +17,11 @@ const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
   selectedList,
 }) => {
   const { t } = useTranslation()
-  const { followersYouKnowProfiles, followersYouKnowIsLoading, loadMoreRef, isEndOfFollowing } = useFollowersYouKnowModal({
-    connectedAddress,
-    lookupAddressOrName,
-  })
+  const { followersYouKnowProfiles, followersYouKnowIsLoading, loadMoreRef, isEndOfFollowing } =
+    useFollowersYouKnowModal({
+      connectedAddress,
+      lookupAddressOrName,
+    })
 
   if (!isOpen) return null
 

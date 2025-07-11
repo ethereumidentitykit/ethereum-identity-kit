@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { MINUTE, HOUR, DAY } from '../constants'
-import { fetchNotifications } from '../utils'
+import { fetchNotifications, safeLocalStorage } from '../utils'
 import { Address, NotificationsResponse } from '../types'
 
 // Sorting the notifications via certain time frames, so it will perform logical grouping of events (avoids displaying every notification individually)
@@ -81,7 +81,7 @@ export const useNotifications = (addressOrName: Address | string) => {
         )
 
         const storedNotificationsTimestamp = Number(
-          localStorage.getItem(`notifications-open-timestamp-${addressOrName}`) || 0
+          safeLocalStorage.getItem(`notifications-open-timestamp-${addressOrName}`) || 0
         )
 
         return {
@@ -138,7 +138,7 @@ export const useNotifications = (addressOrName: Address | string) => {
         })
         setNewNotifications(0)
       } else {
-        localStorage.setItem(`notifications-open-timestamp-${addressOrName}`, new Date().getTime().toString())
+        safeLocalStorage.setItem(`notifications-open-timestamp-${addressOrName}`, new Date().getTime().toString())
         return setNewNotifications(0)
       }
     }

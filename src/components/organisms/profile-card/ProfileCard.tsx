@@ -155,9 +155,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 <p>{t('profile.editProfile')}</p>
               </button>
             </a>
-          ) : (
-            showFollowButton ? (followButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)) : null
-          )}
+          ) : showFollowButton ? (
+            followButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
+          ) : null}
         </div>
         {isDetailsLoading ? (
           <LoadingCell height="26px" width="160px" />

@@ -18,6 +18,7 @@ import {
   prepareMintTransaction,
   formatListOpsTransaction,
 } from '../utils/transactions'
+import { safeLocalStorage } from '../utils/storage'
 import { generateSlot } from '../utils/generate-slot'
 import { fetchProfileLists } from '../utils/api/fetch-profile-lists'
 import { getListStorageLocation } from '../utils/list-storage-location'
@@ -154,8 +155,9 @@ export const TransactionProvider = ({
     setListDetailsLoading(true)
 
     const storedPendingTxs = JSON.parse(
-      localStorage.getItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`) ||
-        '[]'
+      safeLocalStorage.getItem(
+        `eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`
+      ) || '[]'
     ) as TransactionType[]
 
     if (storedPendingTxs && storedPendingTxs.length > 0) {
@@ -195,12 +197,14 @@ export const TransactionProvider = ({
     if (!connectedAddress) return
 
     if (pendingTxs.length === 0) {
-      localStorage.removeItem(`eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`)
+      safeLocalStorage.removeItem(
+        `eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`
+      )
       return
     }
 
     // const transformPendingTxs = transformTxsForLocalStorage(pendingTxs)
-    localStorage.setItem(
+    safeLocalStorage.setItem(
       `eik-pending-txs-${connectedAddress}-${selectedList || lists?.primary_list || 'null'}`,
       JSON.stringify(pendingTxs, (_, v) => (typeof v === 'bigint' ? v.toString() : v))
     )

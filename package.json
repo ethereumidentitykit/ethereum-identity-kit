@@ -1,6 +1,6 @@
 {
-  "name": "ethereum-identity-kit",
-  "version": "0.2.48",
+  "name": "@encrypteddegen/identity-kit",
+  "version": "0.2.62",
   "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
   "keywords": [
     "ethereum identity kit",
@@ -35,12 +35,14 @@
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
-      "default": "./dist/esm/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     },
     "./css": "./dist/esm/index.css",
     "./utils": {
       "types": "./dist/types.d.ts",
-      "default": "./dist/esm/utils/index.js"
+      "import": "./dist/esm/utils/index.js",
+      "require": "./dist/cjs/utils/index.js"
     }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
@@ -73,7 +75,7 @@
     "@storybook/react-vite": "^8.4.6",
     "@storybook/test": "^8.4.6",
     "@storybook/theming": "^8.4.7",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/react": "^16.1.0",
     "@types/jest": "^29.0.0",
     "@types/react": "^18.0.0",
     "babel-jest": "^29.0.0",
@@ -101,5 +103,13 @@
     "react-dom": "^18.0.0 || ^19.0.0",
     "viem": "^2.0.0",
     "wagmi": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
   }
 }
