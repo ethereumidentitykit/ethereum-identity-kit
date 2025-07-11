@@ -1,4 +1,5 @@
 import { useReadContract } from 'wagmi'
+import { UseETHPriceReturn } from '../types/hooks'
 
 // Chainlink ETH/USD price feed contract
 const ETH_USD_FEED = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
@@ -19,7 +20,7 @@ const PRICE_FEED_ABI = [
   },
 ] as const
 
-export function useETHPrice() {
+export function useETHPrice(): UseETHPriceReturn {
   const { data, isError, isLoading } = useReadContract({
     address: ETH_USD_FEED,
     abi: PRICE_FEED_ABI,

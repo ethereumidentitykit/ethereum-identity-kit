@@ -14,6 +14,7 @@ export type ProfileCardProps = {
   showFollowerState?: boolean
   showPoaps?: boolean
   showFollowButton?: boolean
+  showEmptySocials?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   options?: ProfileCardOptions

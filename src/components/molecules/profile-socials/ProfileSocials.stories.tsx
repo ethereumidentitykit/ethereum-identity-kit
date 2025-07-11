@@ -20,4 +20,5 @@ Socials.args = {
   },
   includeUrls: true,
   iconSize: 36,
+  showEmptySocials: true,
 }

@@ -48,15 +48,15 @@ export const useSiwe = ({
         onSignInSuccess({ address: connectedAddress, message: messageToSign, signature })
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error signing in:', err)
       let specificError = 'Sign-in process failed.'
 
-      if (err.message) {
+      if (err instanceof Error && err.message) {
         if (
           err.message.includes('User rejected the request') ||
-          (err.cause && err.cause.message && err.cause.message.includes('User rejected the request'))
+          (err.cause && typeof err.cause === 'object' && err.cause && 'message' in err.cause && 
+           typeof err.cause.message === 'string' && err.cause.message.includes('User rejected the request'))
         ) {
           specificError = 'Message signature request was denied.'
         } else {

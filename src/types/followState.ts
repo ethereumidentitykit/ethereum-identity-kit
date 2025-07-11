@@ -1,8 +1,14 @@
 import { Address } from './address'
 import { ProfileListType } from './profile'
 
+/**
+ * Follow state indicating the relationship between two addresses
+ */
 export type FollowState = 'follows' | 'blocks' | 'mutes' | 'none'
 
+/**
+ * Type of follow state being queried
+ */
 export type FollowStatePropType = 'following' | 'follower'
 
 export interface FollowStateProps {
@@ -23,6 +29,10 @@ export interface FollowStatusResponse {
   }
 }
 
+/**
+ * Following state for UI display and interaction
+ * Includes both current states and pending/loading states
+ */
 export type FollowingState =
   | 'Block'
   | 'Blocked'
@@ -37,4 +47,7 @@ export type FollowingState =
   | 'Unblock'
   | 'Unmute'
 
+/**
+ * Initial following state when component mounts
+ */
 export type InitialFollowingState = 'Follow' | 'Blocked' | 'Muted' | 'Following'

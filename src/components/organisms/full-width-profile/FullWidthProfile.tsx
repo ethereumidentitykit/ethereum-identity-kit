@@ -66,6 +66,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   options,
   showFollowerState,
   showFollowButton,
+  showEmptySocials,
   onStatClick,
   selectedList,
   onProfileClick,
@@ -177,7 +178,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       className={clsx(
                         'user-profile-name',
                         address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                          (!!followButton && 'user-profile-name-connected')
+                        (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
@@ -233,6 +234,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     name={ens?.name}
                     includeUrls={true}
                     style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: '16px' }}
+                    showEmptySocials={showEmptySocials}
                   />
                   <div className="user-profile-mobile-common-followers-container">
                     {connectedAddress && !isConnectedUserCard && (

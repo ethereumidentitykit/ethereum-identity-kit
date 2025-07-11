@@ -1,9 +1,21 @@
 import { TranslationFunction } from '../types/translations'
 
-export const formatNumber = (number: number) => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
+/**
+ * Formats a number using the user's locale
+ * @param number - The number to format
+ * @returns Formatted number string
+ * @example
+ * formatNumber(1234567) // Returns: "1,234,567" (en-US locale)
+ */
+export const formatNumber = (number: number): string => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
 
-// formats the text shown in the common followers component next to the avatars
-export const formatFollowersYouKnowText = (resultLength: number, t: TranslationFunction) => {
+/**
+ * Formats the text shown in the common followers component next to the avatars
+ * @param resultLength - Number of common followers
+ * @param t - Translation function
+ * @returns Formatted text string
+ */
+export const formatFollowersYouKnowText = (resultLength: number, t: TranslationFunction): string => {
   if (resultLength === 0) return t('followersYouKnow.noCommon')
   if (resultLength === 1) return t('followersYouKnow.followsThem')
 
@@ -12,8 +24,17 @@ export const formatFollowersYouKnowText = (resultLength: number, t: TranslationF
   return `${resultLength - 2} ${t('followersYouKnow.othersFollow')}`
 }
 
-// formats the query parameters for api calls
-export const formatQueryParams = (inputs: Record<string, string | number | string[] | null | undefined>) =>
+/**
+ * Formats an object into a URL query string
+ * @param inputs - Object with string keys and various value types
+ * @returns Formatted query string (without leading '?')
+ * @example
+ * formatQueryParams({ name: 'john', age: 30, tags: ['dev', 'web3'] })
+ * // Returns: "name=john&age=30&tags=dev,web3"
+ */
+export const formatQueryParams = (
+  inputs: Record<string, string | number | string[] | null | undefined>
+): string =>
   Object.entries(inputs)
     .filter(([, value]) => !!value)
     .map(([param, value]) => {
@@ -25,8 +46,15 @@ export const formatQueryParams = (inputs: Record<string, string | number | strin
     })
     .join('&')
 
-// formats the time difference for a certain number of milliseconds
-export const formatTimeDiff = (timeDiff: number) => {
+/**
+ * Formats a time difference in seconds into a human-readable string
+ * @param timeDiff - Time difference in seconds
+ * @returns Formatted time string (e.g., "5m", "2h", "3d")
+ * @example
+ * formatTimeDiff(3600) // Returns: "1h"
+ * formatTimeDiff(86400) // Returns: "1d"
+ */
+export const formatTimeDiff = (timeDiff: number): string => {
   if (timeDiff < 60) {
     return `${Math.floor(timeDiff)}s`
   } else if (timeDiff < 3600) {

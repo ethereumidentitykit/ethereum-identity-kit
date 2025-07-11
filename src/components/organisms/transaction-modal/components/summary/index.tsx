@@ -120,11 +120,11 @@ export default function Summary() {
           })
 
           totalGas[tx.chainId] += Number(formatEther(gas))
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error'
           if (
-            error.message.includes('insufficient funds for transfer') ||
-            error.message.includes('gas required exceeds allowance')
+            errorMessage.includes('insufficient funds for transfer') ||
+            errorMessage.includes('gas required exceeds allowance')
           ) {
             gasErrors[tx.chainId] = true
           }

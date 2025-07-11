@@ -52,6 +52,7 @@ ByAddress.args = {
   alignProfileContent: 'center',
   showPoaps: true,
   showFollowButton: false,
+  showEmptySocials: true,
   options: {},
 }
 
@@ -66,6 +67,8 @@ ByENSName.args = {
   },
   role: 'Frontend developer',
   showPoaps: true,
+  showEmptySocials: true,
+  showFollowButton: false,
 }
 
 export const ByList = Template.bind({})
@@ -76,6 +79,8 @@ ByList.args = {
   darkMode: false,
   onProfileClick,
   showPoaps: false,
+  showEmptySocials: true,
+  showFollowButton: false,
 }
 
 export const PrefetchedData = Template.bind({})
@@ -115,4 +120,6 @@ PrefetchedData.args = {
   },
   onProfileClick,
   showPoaps: true,
+  showEmptySocials: true,
+  showFollowButton: false,
 }

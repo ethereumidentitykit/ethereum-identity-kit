@@ -34,7 +34,10 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   iconSize = 32,
   isLoading = false,
   style,
+  showEmptySocials = true,
 }) => {
+  const showSocials = PROFILE_CARD_SOCIALS.filter((social) => records?.[social.name]).length > 1 || showEmptySocials // Etherscan is always included
+
   return (
     <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>
       {includeUrls &&
@@ -79,34 +82,38 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
             )}
           </div>
         ) : null)}
-      <div className="socials-container">
-        {isLoading
-          ? Array.from({ length: 5 }).map((_, index) => (
+      {showSocials && (
+        <div className="socials-container">
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, index) => (
               <LoadingCell key={index} height={iconSize} width={iconSize} radius="18px" />
             ))
-          : PROFILE_CARD_SOCIALS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
-                target={social.name === 'email' ? '_self' : '_blank'}
-                rel="noreferrer"
-                aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
-                className="social-link"
-                onClick={() => {
-                  if (social.name === 'email') {
-                    navigator.clipboard.writeText(records?.[social.name] || '')
-                  }
-                }}
-              >
-                <div className="social-icon-dark">
-                  <social.icon.dark height={iconSize} width={iconSize} />
-                </div>
-                <div className="social-icon">
-                  <social.icon.light height={iconSize} width={iconSize} />
-                </div>
-              </a>
-            ))}
-      </div>
+            : PROFILE_CARD_SOCIALS.map((social) =>
+              records?.[social.name] || showEmptySocials ? (
+                <a
+                  key={social.name}
+                  href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
+                  target={social.name === 'email' ? '_self' : '_blank'}
+                  rel="noreferrer"
+                  aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
+                  className="social-link"
+                  onClick={() => {
+                    if (social.name === 'email') {
+                      navigator.clipboard.writeText(records?.[social.name] || '')
+                    }
+                  }}
+                >
+                  <div className="social-icon-dark">
+                    <social.icon.dark height={iconSize} width={iconSize} />
+                  </div>
+                  <div className="social-icon">
+                    <social.icon.light height={iconSize} width={iconSize} />
+                  </div>
+                </a>
+              ) : null
+            )}
+        </div>
+      )}
     </div>
   )
 }

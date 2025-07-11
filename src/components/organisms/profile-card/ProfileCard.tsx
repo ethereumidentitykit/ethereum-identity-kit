@@ -58,6 +58,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   showFollowerState,
   showPoaps,
   showFollowButton,
+  showEmptySocials,
   onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
@@ -206,6 +207,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             isLoading={isDetailsLoading}
             includeUrls={true}
             darkMode={darkMode}
+            showEmptySocials={showEmptySocials}
           />
         </div>
       </div>

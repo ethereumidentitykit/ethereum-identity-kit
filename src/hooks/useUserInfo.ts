@@ -8,13 +8,14 @@ import { fetchProfileFollowing } from '../utils/api/fetch-profile-following'
 import { fetchProfileFollowers } from '../utils/api/fetch-profile-followers'
 import { FETCH_LIMIT } from '../constants'
 import { FollowerResponse, FollowingResponse, FollowSortType, ProfileTableTitleType } from '../types'
+import { UseUserInfoReturn } from '../types/hooks'
 
 type UseUserInfoProps = {
   user: string
   includeBlocked?: boolean
 }
 
-export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps) => {
+export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps): UseUserInfoReturn => {
   const [followingSearch, setFollowingSearch] = useState<string>('')
   const [followersSearch, setFollowersSearch] = useState<string>('')
   const [followingTagsFilter, setFollowingTagsFilter] = useState<string[]>([])

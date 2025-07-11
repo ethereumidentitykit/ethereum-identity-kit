@@ -6,6 +6,7 @@ export interface ProfileSocialsProps {
   userAddress?: Address
   records: ProfileDetailsResponse['ens']['records']
   includeUrls?: boolean
+  showEmptySocials?: boolean
   iconSize?: number
   isLoading?: boolean
   darkMode?: boolean
