@@ -1,5 +1,16 @@
+import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from '@tanstack/react-query'
 import { FollowState, FollowingState } from './followState'
-import { ProfileTableTitleType, FollowSortType, FollowerResponse, FollowingResponse, FollowingTagsResponse } from './profile'
+import {
+  ProfileTableTitleType,
+  FollowSortType,
+  FollowerResponse,
+  FollowingResponse,
+  FollowingTagsResponse,
+  ProfileListType,
+  ProfileRanks,
+  ENSProfile,
+} from './profile'
+import { Address } from './address'
 
 /**
  * Return type for useFollowingState hook
@@ -36,9 +47,17 @@ export interface UseUserInfoReturn {
   /** Whether following tags are loading */
   followingTagsLoading: boolean
   /** Function to fetch more followers */
-  fetchMoreFollowers: () => void
+  fetchMoreFollowers: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<
+    InfiniteQueryObserverResult<InfiniteData<{ followers: FollowerResponse[]; nextPageParam: number }, unknown>, Error>
+  >
   /** Function to fetch more following */
-  fetchMoreFollowing: () => void
+  fetchMoreFollowing: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<
+    InfiniteQueryObserverResult<InfiniteData<{ following: FollowingResponse[]; nextPageParam: number }, unknown>, Error>
+  >
   /** Whether we've reached the end of following */
   isEndOfFollowing: boolean
   /** Whether we've reached the end of followers */
@@ -79,16 +98,28 @@ export interface UseUserInfoReturn {
  * Return type for useFollowButton hook
  */
 export interface UseFollowButtonReturn {
-  /** Current following state */
-  followingState: FollowingState
+  /** Current follow button text */
+  buttonText: string
+  /** Whether the follow button is disabled */
+  disableHover: boolean
+  /** Function to set disable hover */
+  setDisableHover: (disableHover: boolean) => void
+  /** Current follow button state */
+  buttonState: FollowingState
+  /** Pending state of the follow action */
+  pendingState:
+    | false
+    | 'Pending Following'
+    | 'Unfollow'
+    | 'Pending Block'
+    | 'Pending Mute'
+    | 'Unblock'
+    | 'Unmute'
+    | undefined
   /** Whether the follow action is loading */
   isLoading: boolean
   /** Function to handle follow/unfollow */
-  handleFollow: () => void
-  /** Function to handle tag addition */
-  handleAddTag: (tag: string) => void
-  /** Function to handle tag removal */
-  handleRemoveTag: (tag: string) => void
+  handleAction: () => void
 }
 
 /**
@@ -96,14 +127,12 @@ export interface UseFollowButtonReturn {
  */
 export interface UseProfileDetailsReturn {
   /** Profile details data */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  profileDetails: any // TODO: Replace with proper profile details type
-  /** Whether profile details are loading */
-  isLoading: boolean
-  /** Whether there was an error loading profile details */
-  isError: boolean
-  /** Function to refetch profile details */
-  refetch: () => void
+  ens: ENSProfile | undefined
+  ranks: ProfileRanks | undefined
+  address: Address | undefined
+  primaryList: ProfileListType | undefined
+  detailsLoading: boolean
+  refreshProfileDetails: () => void
 }
 
 /**

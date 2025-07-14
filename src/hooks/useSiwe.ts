@@ -47,7 +47,6 @@ export const useSiwe = ({
       if (onSignInSuccess) {
         onSignInSuccess({ address: connectedAddress, message: messageToSign, signature })
       }
-
     } catch (err: unknown) {
       console.error('Error signing in:', err)
       let specificError = 'Sign-in process failed.'
@@ -55,8 +54,12 @@ export const useSiwe = ({
       if (err instanceof Error && err.message) {
         if (
           err.message.includes('User rejected the request') ||
-          (err.cause && typeof err.cause === 'object' && err.cause && 'message' in err.cause && 
-           typeof err.cause.message === 'string' && err.cause.message.includes('User rejected the request'))
+          (err.cause &&
+            typeof err.cause === 'object' &&
+            err.cause &&
+            'message' in err.cause &&
+            typeof err.cause.message === 'string' &&
+            err.cause.message.includes('User rejected the request'))
         ) {
           specificError = 'Message signature request was denied.'
         } else {

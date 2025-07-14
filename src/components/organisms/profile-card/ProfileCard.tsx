@@ -57,8 +57,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   darkMode,
   showFollowerState,
   showPoaps,
-  showFollowButton,
   showEmptySocials,
+  showFollowButton,
   onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
@@ -103,7 +103,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   })
   const isStatsLoading = prefetchedStatsLoading ?? fetchedStatsLoading
 
-  const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
+  const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
@@ -144,7 +144,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               onClick={() => onProfileClick?.(addressOrName)}
             />
           )}
-          {address?.toLowerCase() === connectedAddress?.toLowerCase() ? (
+          {isConnectedUserCard ? (
             <a
               href={`https://app.ens.domains/${ens?.name}`}
               target="_blank"

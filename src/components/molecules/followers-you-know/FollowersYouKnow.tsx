@@ -85,7 +85,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                   onClick={(e) => {
                     if (onProfileClick) {
                       e.stopPropagation()
-                      onProfileClick(displayedAddresses[0])
+                      onProfileClick(address)
                     }
                   }}
                   style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}

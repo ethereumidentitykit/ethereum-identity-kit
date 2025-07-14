@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchProfileDetails } from '../../utils/api/fetch-profile-details'
-import { Address } from '../../types'
+import { Address, UseProfileDetailsReturn } from '../../types'
 import { ProfileListType } from '../../types/profile'
 import { ProfileDetailsResponse } from '../../types/profile'
 
@@ -17,7 +17,7 @@ export const useProfileDetails = ({
   list,
   prefetchedData,
   refetchPrefetchedData,
-}: UseProfileDetailsProps) => {
+}: UseProfileDetailsProps): UseProfileDetailsReturn => {
   const [fetchFreshProfileDetails, setFetchFreshProfileDetails] = useState(false)
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['profile', addressOrName, list, fetchFreshProfileDetails, prefetchedData],

@@ -95,7 +95,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   })
   const isDetailsLoading = prefetchedProfileLoading || detailsLoading
 
-  const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
+  const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
@@ -106,6 +106,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           list={list}
           connectedAddress={connectedAddress}
           darkMode={darkMode}
+          showFollowButton={showFollowButton}
           showFollowerState={showFollowerState}
           onProfileClick={onProfileClick}
           onStatClick={onStatClick}
@@ -177,13 +178,12 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     <p
                       className={clsx(
                         'user-profile-name',
-                        address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                        (!!followButton && 'user-profile-name-connected')
+                        isConnectedUserCard || (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
                     </p>
-                    {address.toLowerCase() === connectedAddress?.toLowerCase() ? (
+                    {isConnectedUserCard ? (
                       <a href={`https://app.ens.domains/${ens?.name}`} target="_blank" rel="noreferrer">
                         <button className="user-profile-edit-profile-button">
                           <ENS height={20} width={20} />

@@ -27,6 +27,6 @@ export interface VirtualListProps<T = unknown> {
  * Virtual list component type with generic constraint
  */
 export type VirtualListComponentType = <T = unknown>(
-  props: VirtualListProps<T>, 
+  props: VirtualListProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ) => JSX.Element

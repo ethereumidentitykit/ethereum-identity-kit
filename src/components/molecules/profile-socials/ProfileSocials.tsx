@@ -36,8 +36,6 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   style,
   showEmptySocials = true,
 }) => {
-  const showSocials = PROFILE_CARD_SOCIALS.filter((social) => records?.[social.name]).length > 1 || showEmptySocials // Etherscan is always included
-
   return (
     <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>
       {includeUrls &&
@@ -82,14 +80,13 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
             )}
           </div>
         ) : null)}
-      {showSocials && (
-        <div className="socials-container">
-          {isLoading
-            ? Array.from({ length: 5 }).map((_, index) => (
+      <div className="socials-container">
+        {isLoading
+          ? Array.from({ length: 5 }).map((_, index) => (
               <LoadingCell key={index} height={iconSize} width={iconSize} radius="18px" />
             ))
-            : PROFILE_CARD_SOCIALS.map((social) =>
-              records?.[social.name] || showEmptySocials ? (
+          : PROFILE_CARD_SOCIALS.map((social) =>
+              records?.[social.name] || social.name === 'etherscan' || showEmptySocials ? (
                 <a
                   key={social.name}
                   href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
@@ -112,8 +109,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                 </a>
               ) : null
             )}
-        </div>
-      )}
+      </div>
     </div>
   )
 }

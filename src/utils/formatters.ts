@@ -7,7 +7,10 @@ import { TranslationFunction } from '../types/translations'
  * @example
  * formatNumber(1234567) // Returns: "1,234,567" (en-US locale)
  */
-export const formatNumber = (number: number): string => new Intl.NumberFormat(navigator.language ?? 'en-US').format(number)
+export const formatNumber = (number: number): string => {
+  const locale = typeof navigator !== 'undefined' ? navigator.language : 'en-US'
+  return new Intl.NumberFormat(locale).format(number)
+}
 
 /**
  * Formats the text shown in the common followers component next to the avatars
@@ -32,9 +35,7 @@ export const formatFollowersYouKnowText = (resultLength: number, t: TranslationF
  * formatQueryParams({ name: 'john', age: 30, tags: ['dev', 'web3'] })
  * // Returns: "name=john&age=30&tags=dev,web3"
  */
-export const formatQueryParams = (
-  inputs: Record<string, string | number | string[] | null | undefined>
-): string =>
+export const formatQueryParams = (inputs: Record<string, string | number | string[] | null | undefined>): string =>
   Object.entries(inputs)
     .filter(([, value]) => !!value)
     .map(([param, value]) => {
