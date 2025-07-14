@@ -2,16 +2,16 @@ import { mainnet } from 'viem/chains'
 import { publicActionsL2 } from 'viem/op-stack'
 import { useEffect, useMemo, useState } from 'react'
 import { createPublicClient, formatEther, http } from 'viem'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useWriteContracts, useCapabilities } from 'wagmi/experimental'
 import { useWalletClient, useWaitForTransactionReceipt, useGasPrice, useAccount } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
-import { fetchEthPrice } from '../utils/api/fetch-eth-price'
 import { EFP_API_URL } from '../constants'
 import { EFPActionIds } from '../constants/transactions'
 import { ChainIcons, chains } from '../constants/chains'
 import { SubmitButtonText, TransactionType } from '../types'
+import { useETHPrice } from './useETHPrice'
 
 export const useTransactionItem = (id: number, transaction: TransactionType) => {
   const {
@@ -138,10 +138,7 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     estimateGas()
   }, [transaction.chainId, walletClient, gasPrice])
 
-  const ethPrice = useQuery({
-    queryKey: ['ethPrice'],
-    queryFn: fetchEthPrice,
-  })
+  const { price: ethPrice } = useETHPrice()
 
   const { mutate: initiateTransaction } = useMutation({
     mutationFn: async () => {
@@ -240,9 +237,9 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
       },
       gasEth: usesPaymaster ? 'Sponsored' : `${estimatedGas || '0.00'} ETH`,
       gasUsd: estimatedGas
-        ? Number(estimatedGas) * (ethPrice.data || 0) < 0.01
+        ? Number(estimatedGas) * (ethPrice || 0) < 0.01
           ? '< $0.01'
-          : `$${(Number(estimatedGas) * (ethPrice.data || 0)).toLocaleString(undefined, {
+          : `$${(Number(estimatedGas) * (ethPrice || 0)).toLocaleString(undefined, {
               currency: 'USD',
               maximumFractionDigits: 2,
               minimumFractionDigits: 2,

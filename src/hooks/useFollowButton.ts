@@ -4,7 +4,7 @@ import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { getPendingTxListOps, extractAddressAndTag } from '../utils/transactions'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
-import { FollowingState, InitialFollowingState, ProfileListType } from '../types'
+import { FollowingState, InitialFollowingState, ProfileListType, UseFollowButtonReturn } from '../types'
 
 export const useFollowButton = ({
   lookupAddress,
@@ -16,7 +16,7 @@ export const useFollowButton = ({
   connectedAddress?: Address
   selectedList?: ProfileListType
   initialState?: InitialFollowingState
-}) => {
+}): UseFollowButtonReturn => {
   const [disableHover, setDisableHover] = useState(false)
 
   const { lists, pendingTxs, listsLoading, addListOpsTransaction, removeListOpsTransaction, batchTransactions } =

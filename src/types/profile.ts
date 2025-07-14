@@ -1,17 +1,34 @@
 import { Address } from '..'
 
+/**
+ * Profile list identifier type
+ * Can be a number (list ID), string (ENS name), or null/undefined for no list
+ */
 export type ProfileListType = number | string | null | undefined
 
+/**
+ * ENS profile data structure containing all profile information
+ */
 export type ENSProfile = {
+  /** ENS name (e.g., "vitalik.eth") */
   name?: string
+  /** Avatar image URL or NFT reference */
   avatar?: string
+  /** Display name for the profile */
   display?: string
+  /** Header/banner image URL */
   header?: string
+  /** IPFS content hash for decentralized content */
   contenthash?: string
+  /** Key-value pairs of ENS text records */
   records?: Record<string, string>
+  /** Cross-chain address mappings */
   chains?: Record<string, string>
+  /** Timestamp of last data refresh */
   fresh?: number
+  /** ENS resolver contract address */
   resolver?: string
+  /** Any errors encountered during profile resolution */
   errors?: Record<string, string>
 }
 

@@ -51,6 +51,8 @@ ByAddress.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   alignProfileContent: 'center',
   showPoaps: true,
+  showFollowButton: false,
+  showEmptySocials: true,
   options: {},
 }
 
@@ -65,6 +67,8 @@ ByENSName.args = {
   },
   role: 'Frontend developer',
   showPoaps: true,
+  showEmptySocials: true,
+  showFollowButton: false,
 }
 
 export const ByList = Template.bind({})
@@ -75,6 +79,8 @@ ByList.args = {
   darkMode: false,
   onProfileClick,
   showPoaps: false,
+  showEmptySocials: true,
+  showFollowButton: false,
 }
 
 export const PrefetchedData = Template.bind({})
@@ -114,4 +120,6 @@ PrefetchedData.args = {
   },
   onProfileClick,
   showPoaps: true,
+  showEmptySocials: true,
+  showFollowButton: false,
 }

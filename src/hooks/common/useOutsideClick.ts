@@ -10,11 +10,13 @@ export const useOutsideClick = (callbackFn: () => void) => {
       }
     }
 
-    const abortController = new AbortController()
-    document.addEventListener('mousedown', handleClickOutside, { signal: abortController.signal })
-    document.addEventListener('touchstart', handleClickOutside, { signal: abortController.signal })
+    if (typeof document !== 'undefined') {
+      const abortController = new AbortController()
+      document.addEventListener('mousedown', handleClickOutside, { signal: abortController.signal })
+      document.addEventListener('touchstart', handleClickOutside, { signal: abortController.signal })
 
-    return () => abortController.abort()
+      return () => abortController.abort()
+    }
   }, [callbackFn])
 
   return containerRef

@@ -31,11 +31,13 @@ export const useFollowersYouKnowModal = ({ connectedAddress, lookupAddressOrName
     queryFn: async ({ pageParam = 0 }) => {
       setIsEndOfFollowing(false)
 
-      if (!isAddress(connectedAddress))
+      if (!isAddress(connectedAddress)) {
+        setIsEndOfFollowing(true)
         return {
           followersYouKnow: [],
           nextPageParam: pageParam,
         }
+      }
 
       const fetchedFollowersYouKnow = await fetchAllFollowersYouKnow({
         connectedAddress,
@@ -46,7 +48,6 @@ export const useFollowersYouKnowModal = ({ connectedAddress, lookupAddressOrName
       })
 
       if (fetchedFollowersYouKnow.followersYouKnow.length < FETCH_LIMIT) setIsEndOfFollowing(true)
-
       return fetchedFollowersYouKnow
     },
     staleTime: 30000,

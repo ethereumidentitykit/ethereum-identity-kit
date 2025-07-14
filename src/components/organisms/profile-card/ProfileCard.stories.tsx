@@ -42,6 +42,8 @@ ByAddress.args = {
   },
   darkMode: false,
   onProfileClick,
+  showEmptySocials: true,
+  showFollowButton: false,
   hasCommonFollowersModal: true,
 }
 
@@ -55,6 +57,8 @@ ByENS.args = {
   },
   darkMode: false,
   onProfileClick,
+  showEmptySocials: true,
+  showFollowButton: false,
   hasCommonFollowersModal: true,
 }
 
@@ -66,6 +70,8 @@ ByList.args = {
   showFollowerState: true,
   darkMode: false,
   onProfileClick,
+  showEmptySocials: true,
+  showFollowButton: false,
   hasCommonFollowersModal: true,
 }
 
@@ -102,5 +108,7 @@ PrefetchedData.args = {
     },
   },
   onProfileClick,
+  showEmptySocials: true,
+  showFollowButton: false,
   hasCommonFollowersModal: true,
 }

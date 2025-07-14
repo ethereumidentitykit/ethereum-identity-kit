@@ -17,6 +17,7 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
+        interop: 'auto',
       },
       {
         file: packageJson.module,
@@ -25,9 +26,15 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
       peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
       typescript({ tsconfig: './tsconfig.json' }),
       terser(),
       postcss({
@@ -36,7 +43,15 @@ export default [
       }),
       image(),
     ],
-    external: ['react', 'react-dom'],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime',
+      '@tanstack/react-query',
+      'wagmi',
+      'viem',
+    ],
   },
   {
     input: 'src/index.ts',
@@ -60,10 +75,20 @@ export default [
   // },
   {
     input: 'src/utils/index.ts',
-    output: [{ file: 'dist/esm/utils/index.js', format: 'esm' }],
+    output: [
+      { file: 'dist/esm/utils/index.js', format: 'esm' },
+      { file: 'dist/cjs/utils/index.js', format: 'cjs', interop: 'auto' },
+    ],
     plugins: [
-      resolve(),
       peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
       typescript({ tsconfig: './tsconfig.json' }),
       terser(),
       postcss({
@@ -71,6 +96,15 @@ export default [
         minimize: true,
       }),
       image(),
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime',
+      '@tanstack/react-query',
+      'wagmi',
+      'viem',
     ],
   },
   // {

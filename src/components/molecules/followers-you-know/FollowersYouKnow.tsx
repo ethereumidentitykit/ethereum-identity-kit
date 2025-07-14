@@ -61,7 +61,10 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
           selectedList={selectedList}
         />
       )}
-      <div className={clsx('common-followers-container', darkMode && 'dark')}>
+      <div
+        className={clsx('common-followers-container', darkMode && 'dark')}
+        onClick={() => hasModal && setIsModalOpen(true)}
+      >
         <div className="common-followers-avatars-container">
           {isLoading
             ? new Array(3)
@@ -79,7 +82,12 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                   key={address}
                   src={avatar}
                   address={address}
-                  onClick={() => onProfileClick?.(address)}
+                  onClick={(e) => {
+                    if (onProfileClick) {
+                      e.stopPropagation()
+                      onProfileClick(address)
+                    }
+                  }}
                   style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
                 />
               ))}
@@ -90,16 +98,18 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
           <p
             className="common-followers-text-container"
             enable-hover={hasModal ? 'true' : 'false'}
-            onClick={() => hasModal && setIsModalOpen(true)}
             style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
           >
             {resultLength === 0 && t('followersYouKnow.noCommon')}
             {displayedNames?.[0] && displayedAddresses?.[0] && (
               <span
                 className="common-followers-name"
+                style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
                 onClick={(e) => {
-                  e.stopPropagation()
-                  onProfileClick?.(displayedAddresses[0])
+                  if (onProfileClick) {
+                    e.stopPropagation()
+                    onProfileClick(displayedAddresses[0])
+                  }
                 }}
               >
                 {displayedNames[0]}
@@ -109,9 +119,12 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
             {displayedNames?.[1] && displayedAddresses?.[1] && (
               <span
                 className="common-followers-name"
+                style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
                 onClick={(e) => {
-                  e.stopPropagation()
-                  onProfileClick?.(displayedAddresses[1])
+                  if (onProfileClick) {
+                    e.stopPropagation()
+                    onProfileClick(displayedAddresses[1])
+                  }
                 }}
               >
                 {displayedNames[1]}

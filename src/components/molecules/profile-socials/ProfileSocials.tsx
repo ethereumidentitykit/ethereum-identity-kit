@@ -34,6 +34,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   iconSize = 32,
   isLoading = false,
   style,
+  showEmptySocials = true,
 }) => {
   return (
     <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>
@@ -84,28 +85,30 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
           ? Array.from({ length: 5 }).map((_, index) => (
               <LoadingCell key={index} height={iconSize} width={iconSize} radius="18px" />
             ))
-          : PROFILE_CARD_SOCIALS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
-                target={social.name === 'email' ? '_self' : '_blank'}
-                rel="noreferrer"
-                aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
-                className="social-link"
-                onClick={() => {
-                  if (social.name === 'email') {
-                    navigator.clipboard.writeText(records?.[social.name] || '')
-                  }
-                }}
-              >
-                <div className="social-icon-dark">
-                  <social.icon.dark height={iconSize} width={iconSize} />
-                </div>
-                <div className="social-icon">
-                  <social.icon.light height={iconSize} width={iconSize} />
-                </div>
-              </a>
-            ))}
+          : PROFILE_CARD_SOCIALS.map((social) =>
+              records?.[social.name] || social.name === 'etherscan' || showEmptySocials ? (
+                <a
+                  key={social.name}
+                  href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
+                  target={social.name === 'email' ? '_self' : '_blank'}
+                  rel="noreferrer"
+                  aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
+                  className="social-link"
+                  onClick={() => {
+                    if (social.name === 'email') {
+                      navigator.clipboard.writeText(records?.[social.name] || '')
+                    }
+                  }}
+                >
+                  <div className="social-icon-dark">
+                    <social.icon.dark height={iconSize} width={iconSize} />
+                  </div>
+                  <div className="social-icon">
+                    <social.icon.light height={iconSize} width={iconSize} />
+                  </div>
+                </a>
+              ) : null
+            )}
       </div>
     </div>
   )

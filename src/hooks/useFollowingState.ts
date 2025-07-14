@@ -5,6 +5,7 @@ import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
 import { ProfileListType } from '../types/profile'
 import { FollowState, InitialFollowingState } from '../types/followState'
+import { UseFollowingStateReturn } from '../types/hooks'
 
 interface UseFollowingStateProps {
   lookupAddressOrName: Address | string
@@ -18,7 +19,7 @@ export const useFollowingState = ({
   connectedAddress,
   list,
   initialState,
-}: UseFollowingStateProps) => {
+}: UseFollowingStateProps): UseFollowingStateReturn => {
   const { followingAddressesToFetchFresh } = useTransactions()
   const [fetchFresh, setFetchFresh] = useState(followingAddressesToFetchFresh.includes(lookupAddressOrName))
 

@@ -17,10 +17,11 @@ const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
   selectedList,
 }) => {
   const { t } = useTranslation()
-  const { followersYouKnowProfiles, followersYouKnowIsLoading, loadMoreRef } = useFollowersYouKnowModal({
-    connectedAddress,
-    lookupAddressOrName,
-  })
+  const { followersYouKnowProfiles, followersYouKnowIsLoading, loadMoreRef, isEndOfFollowing } =
+    useFollowersYouKnowModal({
+      connectedAddress,
+      lookupAddressOrName,
+    })
 
   if (!isOpen) return null
 
@@ -44,7 +45,7 @@ const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
             rowHeight={80}
             showHeaderImage={true}
             listHeight="calc(100vh - 128px)"
-            loadMoreElement={<div id="load-more-container" ref={loadMoreRef} />}
+            loadMoreElement={isEndOfFollowing ? null : <div id="load-more-container" ref={loadMoreRef} />}
           />
         </div>
       </div>

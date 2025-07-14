@@ -19,6 +19,7 @@ import { ProfileCardProps } from './ProfileCard.types'
 import EFPPoaps from '../../molecules/efp-poaps/EFPPoaps'
 import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import './ProfileCard.css'
+import FollowButton from '../follow-button/FollowButton'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -56,6 +57,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   darkMode,
   showFollowerState,
   showPoaps,
+  showEmptySocials,
+  showFollowButton,
   onProfileClick,
   onStatClick = defaultOnStatClick,
   options,
@@ -100,7 +103,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   })
   const isStatsLoading = prefetchedStatsLoading ?? fetchedStatsLoading
 
-  const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
+  const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
@@ -141,7 +144,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               onClick={() => onProfileClick?.(addressOrName)}
             />
           )}
-          {address?.toLowerCase() === connectedAddress?.toLowerCase() ? (
+          {isConnectedUserCard ? (
             <a
               href={`https://app.ens.domains/${ens?.name}`}
               target="_blank"
@@ -153,9 +156,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 <p>{t('profile.editProfile')}</p>
               </button>
             </a>
-          ) : (
-            followButton
-          )}
+          ) : showFollowButton ? (
+            followButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
+          ) : null}
         </div>
         {isDetailsLoading ? (
           <LoadingCell height="26px" width="160px" />
@@ -204,6 +207,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             isLoading={isDetailsLoading}
             includeUrls={true}
             darkMode={darkMode}
+            showEmptySocials={showEmptySocials}
           />
         </div>
       </div>

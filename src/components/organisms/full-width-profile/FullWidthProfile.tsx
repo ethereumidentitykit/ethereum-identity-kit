@@ -19,6 +19,7 @@ import ImageWithFallback from '../../atoms/image-with-fallback/ImageWithFallback
 import { DEFAULT_FALLBACK_HEADER } from '../../../constants'
 import { FullWidthProfileProps } from './FullWidthProfile.types'
 import './FullWidthProfile.css'
+import FollowButton from '../follow-button/FollowButton'
 
 /**
  * Full Width Profile for any Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -64,6 +65,8 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   className,
   options,
   showFollowerState,
+  showFollowButton,
+  showEmptySocials,
   onStatClick,
   selectedList,
   onProfileClick,
@@ -92,7 +95,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   })
   const isDetailsLoading = prefetchedProfileLoading || detailsLoading
 
-  const isConnectedUserCard = connectedAddress?.toLowerCase() === address?.toLowerCase()
+  const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
@@ -103,9 +106,11 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           list={list}
           connectedAddress={connectedAddress}
           darkMode={darkMode}
+          showFollowButton={showFollowButton}
           showFollowerState={showFollowerState}
           onProfileClick={onProfileClick}
           onStatClick={onStatClick}
+          showEmptySocials={showEmptySocials}
           options={options}
           showPoaps={showPoaps}
           style={{
@@ -174,22 +179,21 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     <p
                       className={clsx(
                         'user-profile-name',
-                        address.toLowerCase() === connectedAddress?.toLowerCase() ||
-                          (!!followButton && 'user-profile-name-connected')
+                        isConnectedUserCard || (!!followButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
                     </p>
-                    {address.toLowerCase() === connectedAddress?.toLowerCase() ? (
+                    {isConnectedUserCard ? (
                       <a href={`https://app.ens.domains/${ens?.name}`} target="_blank" rel="noreferrer">
                         <button className="user-profile-edit-profile-button">
                           <ENS height={20} width={20} />
                           <p>{t('profile.editProfile')}</p>
                         </button>
                       </a>
-                    ) : (
-                      followButton
-                    )}
+                    ) : showFollowButton ? (
+                      followButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                    ) : null}
                     {showFollowerTag && (
                       <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />
                     )}
@@ -231,6 +235,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     name={ens?.name}
                     includeUrls={true}
                     style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: '16px' }}
+                    showEmptySocials={showEmptySocials}
                   />
                   <div className="user-profile-mobile-common-followers-container">
                     {connectedAddress && !isConnectedUserCard && (

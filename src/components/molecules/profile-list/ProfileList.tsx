@@ -83,7 +83,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
         overscanCount={overscanCount}
         listHeight={listHeight}
         gap={showHeaderImage ? 0 : 16}
-        renderItem={(profile) =>
+        renderItem={(profile, index) =>
           profile ? (
             <ProfileListRow
               key={profile.address}
@@ -99,9 +99,9 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               showFollowsYouBadges={showFollowsYouBadges}
             />
           ) : isLoading ? (
-            <ProfileListLoadingRow />
+            <ProfileListLoadingRow key={`loading-${index}`} />
           ) : (
-            loadMoreElement
+            <div key={`load-more-${index}`}>{loadMoreElement}</div>
           )
         }
       />
@@ -110,7 +110,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
         ref={ref}
         className={clsx('profile-list-container', showHeaderImage && 'has-header-image', darkMode && 'dark')}
       >
-        {items.map((profile) =>
+        {items.map((profile, index) =>
           profile ? (
             <ProfileListRow
               key={profile.address}
@@ -126,11 +126,9 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               showFollowsYouBadges={showFollowsYouBadges}
             />
           ) : isLoading ? (
-            Array({ length: loadingRows }).map((_, index) => (
-              <ProfileListLoadingRow key={index} showHeaderImage={showHeaderImage} />
-            ))
+            <ProfileListLoadingRow key={`loading-${index}`} showHeaderImage={showHeaderImage} />
           ) : (
-            loadMoreElement
+            <div key={`load-more-${index}`}>{loadMoreElement}</div>
           )
         )}
       </div>

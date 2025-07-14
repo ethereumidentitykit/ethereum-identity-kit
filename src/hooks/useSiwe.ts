@@ -21,10 +21,10 @@ export const useSiwe = ({
     try {
       const nonce = await getNonce()
       const messageParams = {
-        domain: window.location.host,
+        domain: typeof window !== 'undefined' ? window.location.host : 'localhost',
         address: connectedAddress,
         statement: message,
-        uri: window.location.origin,
+        uri: typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
         version: '1',
         chainId: currentChainId,
         nonce,
@@ -47,16 +47,19 @@ export const useSiwe = ({
       if (onSignInSuccess) {
         onSignInSuccess({ address: connectedAddress, message: messageToSign, signature })
       }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error signing in:', err)
       let specificError = 'Sign-in process failed.'
 
-      if (err.message) {
+      if (err instanceof Error && err.message) {
         if (
           err.message.includes('User rejected the request') ||
-          (err.cause && err.cause.message && err.cause.message.includes('User rejected the request'))
+          (err.cause &&
+            typeof err.cause === 'object' &&
+            err.cause &&
+            'message' in err.cause &&
+            typeof err.cause.message === 'string' &&
+            err.cause.message.includes('User rejected the request'))
         ) {
           specificError = 'Message signature request was denied.'
         } else {
