@@ -110,6 +110,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           showFollowerState={showFollowerState}
           onProfileClick={onProfileClick}
           onStatClick={onStatClick}
+          showEmptySocials={showEmptySocials}
           options={options}
           showPoaps={showPoaps}
           style={{
