@@ -17,7 +17,9 @@ import './FollowersYouKnow.css'
  *
  * @param lookupAddressOrName - the address or ENS name to compare followers with
  *
- * @param displayEmpty (optional) - whether to display the component when there are no common followers
+ * @param showEmpty (optional) - whether to display the component when there are no common followers (no common followers text)
+ *
+ * @param showLoading (optional) - whether to show the loading skeleton
  *
  * @param onProfileClick (optional) - the function to call when a profile is clicked
  *
@@ -32,7 +34,8 @@ import './FollowersYouKnow.css'
 const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
   connectedAddress,
   lookupAddressOrName,
-  displayEmpty = true,
+  showEmpty = true,
+  showLoading = true,
   onProfileClick,
   hasModal = false,
   darkMode = false,
@@ -46,7 +49,32 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
     lookupAddressOrName
   )
 
-  if (!displayEmpty && resultLength === 0) return null
+  if (isLoading) {
+    if (!showLoading) return null
+
+    return (
+      <div
+        className={clsx('common-followers-container', darkMode && 'dark')}
+        onClick={() => hasModal && setIsModalOpen(true)}
+      >
+        <div className="common-followers-avatars-container">
+          {new Array(3)
+            .fill(null)
+            .map((_, index) => (
+              <LoadingCell
+                key={index}
+                height="32px"
+                width="32px"
+                style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
+              />
+            ))}
+        </div>
+        <LoadingCell height="32px" width="240px" style={{ transform: 'translateX(-32px)' }} />
+      </div>
+    )
+  }
+
+  if (!showEmpty && resultLength === 0) return null
 
   return (
     <>
@@ -65,75 +93,74 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
         className={clsx('common-followers-container', darkMode && 'dark')}
         onClick={() => hasModal && setIsModalOpen(true)}
       >
+        {/* Avatars of first three common followers */}
         <div className="common-followers-avatars-container">
-          {isLoading
-            ? new Array(3)
-                .fill(null)
-                .map((_, index) => (
-                  <LoadingCell
-                    key={index}
-                    height="32px"
-                    width="32px"
-                    style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
-                  />
-                ))
-            : displayedAvatars?.map(({ avatar, address }, index) => (
-                <Avatar
-                  key={address}
-                  src={avatar}
-                  address={address}
-                  onClick={(e) => {
-                    if (onProfileClick) {
-                      e.stopPropagation()
-                      onProfileClick(address)
-                    }
-                  }}
-                  style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
-                />
-              ))}
+          {displayedAvatars?.map(({ avatar, address }, index) => (
+            <Avatar
+              key={address}
+              src={avatar}
+              address={address}
+              onClick={(e) => {
+                if (onProfileClick) {
+                  e.stopPropagation()
+                  onProfileClick(address)
+                }
+              }}
+              style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+            />
+          ))}
         </div>
-        {isLoading ? (
-          <LoadingCell height="32px" width="240px" style={{ transform: 'translateX(-32px)' }} />
-        ) : (
-          <p
-            className="common-followers-text-container"
-            enable-hover={hasModal ? 'true' : 'false'}
-            style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
-          >
-            {resultLength === 0 && t('followersYouKnow.noCommon')}
-            {displayedNames?.[0] && displayedAddresses?.[0] && (
-              <span
-                className="common-followers-name"
-                style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
-                onClick={(e) => {
-                  if (onProfileClick) {
-                    e.stopPropagation()
-                    onProfileClick(displayedAddresses[0])
-                  }
-                }}
-              >
-                {displayedNames[0]}
-              </span>
-            )}
-            {resultLength === 2 ? t('followersYouKnow.and') : resultLength > 2 ? ', ' : ' '}
-            {displayedNames?.[1] && displayedAddresses?.[1] && (
-              <span
-                className="common-followers-name"
-                style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
-                onClick={(e) => {
-                  if (onProfileClick) {
-                    e.stopPropagation()
-                    onProfileClick(displayedAddresses[1])
-                  }
-                }}
-              >
-                {displayedNames[1]}
-              </span>
-            )}
-            {resultLength >= 3 && t('followersYouKnow.and')}
-            {formatFollowersYouKnowText(resultLength, t)}
-          </p>
-        )}
+
+        {/* Text container */}
+        <p
+          className="common-followers-text-container"
+          enable-hover={hasModal ? 'true' : 'false'}
+          style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
+        >
+          {/* No common followers */}
+          {resultLength === 0 && t('followersYouKnow.noCommon')}
+
+          {/* Name of first common follower */}
+          {displayedNames?.[0] && displayedAddresses?.[0] && (
+            <span
+              className="common-followers-name"
+              style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
+              onClick={(e) => {
+                if (onProfileClick) {
+                  e.stopPropagation()
+                  onProfileClick(displayedAddresses[0])
+                }
+              }}
+            >
+              {displayedNames[0]}
+            </span>
+          )}
+
+          {/* Separator between first and second common follower */}
+          {resultLength === 2 ? t('followersYouKnow.and') : resultLength > 2 ? ', ' : ' '}
+
+          {/* Name of second common follower */}
+          {displayedNames?.[1] && displayedAddresses?.[1] && (
+            <span
+              className="common-followers-name"
+              style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
+              onClick={(e) => {
+                if (onProfileClick) {
+                  e.stopPropagation()
+                  onProfileClick(displayedAddresses[1])
+                }
+              }}
+            >
+              {displayedNames[1]}
+            </span>
+          )}
+
+          {/* Separator between second common followers and number of more common followers */}
+          {resultLength >= 3 && t('followersYouKnow.and')}
+
+          {/* Number of more common followers */}
+          {formatFollowersYouKnowText(resultLength, t)}
+        </p>
       </div>
     </>
   )

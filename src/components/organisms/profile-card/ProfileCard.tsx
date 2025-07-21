@@ -61,7 +61,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   showFollowButton,
   onProfileClick,
   onStatClick = defaultOnStatClick,
-  options,
+  extraOptions,
   className,
   style,
   selectedList,
@@ -71,24 +71,24 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   const { t } = useTranslation()
 
   const {
-    profileData,
-    statsData,
-    prefetchedStatsLoading,
-    refetchProfileData,
-    refetchStatsData,
-    prefetchedProfileLoading,
-    followButton,
+    prefetched,
+    customFollowButton,
     nameMenu,
     openListSettings,
-  } = options || {}
+  } = extraOptions || {}
+
+  const {
+    profile,
+    stats
+  } = prefetched || {}
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
     list,
-    prefetchedData: profileData,
-    refetchPrefetchedData: refetchProfileData,
+    prefetchedData: profile?.data,
+    refetchPrefetchedData: profile?.refetch,
   })
-  const isDetailsLoading = prefetchedProfileLoading ?? detailsLoading
+  const isDetailsLoading = profile?.isLoading ?? detailsLoading
 
   const {
     followers,
@@ -98,10 +98,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   } = useProfileStats({
     addressOrName,
     list,
-    prefetchedData: statsData,
-    refetchPrefetchedData: refetchStatsData,
+    prefetchedData: stats?.data,
+    refetchPrefetchedData: stats?.refetch,
   })
-  const isStatsLoading = prefetchedStatsLoading ?? fetchedStatsLoading
+  const isStatsLoading = stats?.isLoading ?? fetchedStatsLoading
 
   const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
@@ -157,7 +157,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               </button>
             </a>
           ) : showFollowButton ? (
-            followButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
+            customFollowButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
           ) : null}
         </div>
         {isDetailsLoading ? (
@@ -180,11 +180,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           addressOrName={addressOrName}
           list={list}
           onStatClick={onStatClick}
-          prefetchedStats={{
-            followers_count: followers || 0,
-            following_count: following || 0,
+          prefetched={{
+            stats: {
+              followers_count: followers || 0,
+              following_count: following || 0,
+            },
+            isLoading: isStatsLoading,
           }}
-          isPrefetchedStatsLoading={isStatsLoading}
           fontSize="md"
           gap="20px"
           statsDirection="row"
@@ -215,7 +217,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <FollowersYouKnow
           connectedAddress={connectedAddress}
           lookupAddressOrName={list ? address || addressOrName : addressOrName}
-          displayEmpty={false}
+          showEmpty={false}
           onProfileClick={onProfileClick}
           hasModal={hasCommonFollowersModal}
           selectedList={selectedList}

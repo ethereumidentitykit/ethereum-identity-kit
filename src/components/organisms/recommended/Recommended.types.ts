@@ -1,8 +1,8 @@
 import { Address } from '../../../types'
 
 export interface RecommendedProps {
-  connectedAddress: Address
   endpoint?: 'recommended' | 'discover'
+  connectedAddress: Address
   selectedList?: string
   limit?: number
   onProfileClick?: (address: Address) => void
@@ -11,4 +11,5 @@ export interface RecommendedProps {
   className?: string
   title?: string
   useVirtualList?: boolean
+  showHeaderImage?: boolean
 }

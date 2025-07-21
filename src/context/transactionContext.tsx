@@ -336,19 +336,16 @@ export const TransactionProvider = ({
 
     if (newTxIndex === pendingTxs.length) {
       resetTransactions()
+      setIsCheckoutFinished(true)
+      // Refetch lists if user has minted a new one
+      if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
     } else {
       setCurrentTxIndex(newTxIndex)
     }
   }
 
   const queryClient = useQueryClient()
-
   const refetchAssociatedQueries = () => {
-    setIsCheckoutFinished(true)
-
-    // Refetch lists if user has minted a new one
-    if (pendingTxs.find((tx) => tx.id === EFPActionIds.CreateEFPList)) refetchLists()
-
     // Fetch the fresh following state for the addresses that have been updated
     const addresses = getPendingTxAddresses(pendingTxs)
     setFollowingAddressesToFetchFresh((prev) => [...prev, ...addresses])

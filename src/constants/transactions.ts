@@ -11,6 +11,15 @@ export const EFPActionIds: Record<EFPActionType, string> = {
   UpdateENSProfile: 'UpdateENSProfile',
 }
 
+export const LIST_SETTINGS_TITLES = {
+  listStorageLocation: 'listStorageLocation',
+  setPrimaryList: 'setPrimaryList',
+  resetList: 'resetList',
+  owner: 'owner',
+  manager: 'manager',
+  user: 'user',
+}
+
 export const TRANSACTION_TITLES = {
   [EFPActionIds.CreateEFPList]: 'Create EFP List',
   [EFPActionIds.UpdateEFPList]: 'Update EFP List',

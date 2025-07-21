@@ -34,10 +34,14 @@ ByAddress.args = {
   lookupAddressOrName: '0x983110309620d911731ac0932219af06091b6744',
   hasModal: true,
   darkMode: false,
+  showEmpty: true,
+  showLoading: true,
 }
 
 export const ByENSName = Template.bind({})
 ByENSName.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   lookupAddressOrName: 'brantly.eth',
+  showEmpty: true,
+  showLoading: true,
 }

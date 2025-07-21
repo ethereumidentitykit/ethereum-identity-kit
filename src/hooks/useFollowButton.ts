@@ -101,8 +101,6 @@ export const useFollowButton = ({
   const handleAction = () => {
     if (!connectedAddress) return
 
-    setDisableHover(true)
-
     if (pendingListOps.length) {
       removeListOpsTransaction(pendingListOps.map((op) => op.data))
       return

@@ -13,7 +13,7 @@ export interface FollowersAndFollowingProps {
   selectedList?: string
   onProfileClick?: (address: Address) => void
   showHeaderImage?: boolean
+  useVirtualList?: boolean
   rowHeight?: number
   preventDefaultScroll?: boolean
-  useVirtualList?: boolean
 }

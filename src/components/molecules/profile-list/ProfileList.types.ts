@@ -2,12 +2,12 @@ import { Address, ENSProfile, InitialFollowingState, ProfileListType } from '../
 
 export type ProfileListProps = {
   profiles: ProfileItemType[]
-  darkMode?: boolean
   connectedAddress?: Address
   selectedList?: ProfileListType
   isLoading?: boolean
   loadingRows?: number
   tags?: string[]
+  darkMode?: boolean
   showTags?: boolean
   canEditTags?: boolean
   initialFollowState?: InitialFollowingState

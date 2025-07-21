@@ -52,7 +52,7 @@ export const ListSetting: React.FC<ListSettingProps> = ({ title, description }) 
   const titleTranslationKey = title
     ?.split(' ')
     .map((word, index) => (index > 0 ? word[0].toUpperCase() + word.slice(1) : word))
-    .join(' ')
+    .join('')
 
   return (
     <div className="list-setting-container">

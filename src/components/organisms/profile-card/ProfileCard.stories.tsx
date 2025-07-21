@@ -80,31 +80,45 @@ PrefetchedData.args = {
   addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
   showFollowerState: true,
-  options: {
-    profileData: {
-      address: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
-      ens: {
-        name: 'encrypteddegen.eth',
-        avatar: 'https://euc.li/encrypteddegen.eth',
-        records: {
-          avatar: 'https://euc.li/encrypteddegen.eth',
-          'com.discord': 'encrypteddegen.eth',
-          'com.github': 'encryptedDegen',
-          'com.twitter': 'ZunecJan',
-          description: 'UI/UX Designer & Developer | Building the web3 social graph @efp.eth',
-          header: 'https://i.imgur.com/pWYMFBn.jpeg',
-          'org.telegram': 'encrypteddegen',
-          url: 'https://encrypteddegensomethingsomething.eth',
+  extraOptions: {
+    prefetched: {
+      profile: {
+        data: {
+          address: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
+          ens: {
+            name: 'encrypteddegen.eth',
+            avatar: 'https://euc.li/encrypteddegen.eth',
+            records: {
+              avatar: 'https://euc.li/encrypteddegen.eth',
+              'com.discord': 'encrypteddegen.eth',
+              'com.github': 'encryptedDegen',
+              'com.twitter': 'ZunecJan',
+              description: 'UI/UX Designer & Developer | Building the web3 social graph @efp.eth',
+              header: 'https://i.imgur.com/pWYMFBn.jpeg',
+              'org.telegram': 'encrypteddegen',
+              url: 'https://encrypteddegensomethingsomething.eth',
+            },
+          },
+          ranks: {
+            mutuals_rank: 270,
+            followers_rank: 119,
+            following_rank: 694,
+            top8_rank: 133,
+            blocks_rank: 0,
+          },
+          primary_list: '1',
         },
+        isLoading: false,
+        refetch: () => { },
       },
-      ranks: {
-        mutuals_rank: 270,
-        followers_rank: 119,
-        following_rank: 694,
-        top8_rank: 133,
-        blocks_rank: 0,
+      stats: {
+        data: {
+          followers_count: 100,
+          following_count: 100,
+        },
+        isLoading: false,
+        refetch: () => { },
       },
-      primary_list: '1',
     },
   },
   onProfileClick,

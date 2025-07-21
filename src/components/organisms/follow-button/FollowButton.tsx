@@ -38,6 +38,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   connectedAddress,
   selectedList,
   disabled,
+  customOnClick,
   onDisconnectedClick,
   sounds,
   initialState,
@@ -62,7 +63,13 @@ const FollowButton: React.FC<FollowButtonProps> = ({
 
   const onClick = () => {
     if (connectedAddress) {
-      handleAction()
+      setDisableHover(true)
+
+      if (customOnClick) {
+        customOnClick(buttonState)
+      } else {
+        handleAction()
+      }
 
       if (playSound && soundRef.current) {
         soundRef.current.volume = 0.3

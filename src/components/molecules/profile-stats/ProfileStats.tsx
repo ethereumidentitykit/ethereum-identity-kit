@@ -37,19 +37,18 @@ const ProfileStats: React.FC<ProfileStatsProps> = ({
   addressOrName,
   fontSize = 'md',
   gap = '32px',
-  prefetchedStats,
+  prefetched,
   statsDirection = 'column',
   containerDirection = 'row',
-  isPrefetchedStatsLoading = false,
   onStatClick = defaultOnStatClick,
 }) => {
   const { t } = useTranslation()
   const { followers, following, statsLoading } = useProfileStats({
     addressOrName,
     list,
-    prefetchedData: prefetchedStats,
+    prefetchedData: prefetched?.stats,
   })
-  const isLoading = isPrefetchedStatsLoading || statsLoading
+  const isLoading = prefetched?.isLoading || statsLoading
 
   const stats = {
     following: {

@@ -3,6 +3,7 @@ import { Address, InitialFollowingState, FollowingState, ProfileListType } from 
 export type FollowButtonProps = {
   lookupAddress: Address
   connectedAddress?: Address
+  customOnClick?: (state: FollowingState) => void
   onDisconnectedClick?: () => void
   disabled?: boolean
   sounds?: Record<FollowingState, string | undefined>

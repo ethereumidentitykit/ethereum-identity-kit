@@ -127,6 +127,7 @@ const FollowButtonWrapper = (
         connectedAddress={connectedAddress || args.connectedAddress}
         disabled={!connectedAddress}
         initialState={args.initialState}
+        customOnClick={args.customOnClick}
       />
     </div>
   )
@@ -202,6 +203,9 @@ InitialState.args = {
   showRecommendations: true,
   defaultChainId: undefined,
   paymasterService: undefined,
+  customOnClick: (state) => {
+    window.alert(state)
+  },
 }
 
 // export const FollowButtonCustomClassNames = Template.bind({})

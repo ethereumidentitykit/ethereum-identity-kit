@@ -15,6 +15,7 @@ const Recommended: React.FC<RecommendedProps> = ({
   className,
   title,
   useVirtualList = false,
+  showHeaderImage = true,
 }) => {
   const { t } = useTranslation()
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(
@@ -37,6 +38,7 @@ const Recommended: React.FC<RecommendedProps> = ({
           initialFollowState={'Follow'}
           onProfileClick={onProfileClick}
           listHeight={listHeight}
+          showHeaderImage={showHeaderImage}
           useVirtualList={useVirtualList}
           loadMoreElement={
             <div

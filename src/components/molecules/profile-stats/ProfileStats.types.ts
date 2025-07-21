@@ -7,8 +7,10 @@ export interface ProfileStatsProps {
   list?: ProfileListType
   fontSize?: SizeType
   gap?: string
-  prefetchedStats?: StatsResponse
-  isPrefetchedStatsLoading?: boolean
+  prefetched?: {
+    stats: StatsResponse
+    isLoading: boolean
+  }
   containerDirection?: 'row' | 'column'
   statsDirection?: 'row' | 'column'
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void

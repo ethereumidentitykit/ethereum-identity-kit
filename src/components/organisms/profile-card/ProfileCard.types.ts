@@ -1,10 +1,6 @@
 import { Address } from '../../../types/address'
 import { ProfileListType, ProfileStatsClickProps } from '../../../types/profile'
-import { FullWidthProfileOptions } from '../full-width-profile/FullWidthProfile.types'
-
-type ProfileCardOptions = FullWidthProfileOptions & {
-  followButton?: React.ReactNode
-}
+import { ProfileExtraOptions } from '../full-width-profile/FullWidthProfile.types'
 
 export type ProfileCardProps = {
   addressOrName: Address | string
@@ -17,7 +13,7 @@ export type ProfileCardProps = {
   showEmptySocials?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
-  options?: ProfileCardOptions
+  extraOptions?: ProfileExtraOptions
   selectedList?: ProfileListType
   hasCommonFollowersModal?: boolean
 } & React.HTMLAttributes<HTMLDivElement>

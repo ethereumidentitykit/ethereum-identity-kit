@@ -46,7 +46,7 @@ import FollowButton from '../follow-button/FollowButton'
  *
  * @param alignProfileContent - can be used to align the profile content when max-width is surpassed (center, start, end) (optional)
  *
- * @param options - see ProfileCardOption type for all options (optional)
+ * @param extraOptions - see ProfileCardOption type for all options (optional)
  *
  * @param className - string (optional)
  *
@@ -61,9 +61,8 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   connectedAddress,
   list,
   darkMode,
-  role,
   className,
-  options,
+  extraOptions,
   showFollowerState,
   showFollowButton,
   showEmptySocials,
@@ -75,25 +74,28 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   alignProfileContent = 'center',
 }) => {
   const {
-    profileData,
-    statsData,
-    refetchProfileData,
-    refetchStatsData,
-    prefetchedProfileLoading,
+    role,
     nameMenu,
+    prefetched,
     openListSettings,
-    followButton,
-  } = options || {}
+    customFollowButton,
+  } = extraOptions || {}
+
+  const {
+    profile,
+    stats,
+  } = prefetched || {}
+
   const { t } = useTranslation()
   const isClient = useIsClient()
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
     list,
-    prefetchedData: profileData,
-    refetchPrefetchedData: refetchProfileData,
+    prefetchedData: profile?.data,
+    refetchPrefetchedData: profile?.refetch,
   })
-  const isDetailsLoading = prefetchedProfileLoading || detailsLoading
+  const isDetailsLoading = profile?.isLoading || detailsLoading
 
   const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
@@ -111,7 +113,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           onProfileClick={onProfileClick}
           onStatClick={onStatClick}
           showEmptySocials={showEmptySocials}
-          options={options}
+          extraOptions={extraOptions}
           showPoaps={showPoaps}
           style={{
             width: '100%',
@@ -156,7 +158,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                 openListSettingsModal={openListSettings}
                 refetchData={() => {
                   refreshProfileDetails()
-                  refetchStatsData?.()
+                  stats?.refetch?.()
                 }}
               />
               <div
@@ -179,7 +181,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     <p
                       className={clsx(
                         'user-profile-name',
-                        isConnectedUserCard || (!!followButton && 'user-profile-name-connected')
+                        isConnectedUserCard || (!!customFollowButton && 'user-profile-name-connected')
                       )}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
@@ -192,7 +194,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                         </button>
                       </a>
                     ) : showFollowButton ? (
-                      followButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                      customFollowButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
                     ) : null}
                     {showFollowerTag && (
                       <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />
@@ -202,7 +204,13 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     <ProfileStats
                       addressOrName={address}
                       list={list === Number(primaryList) ? undefined : list}
-                      prefetchedStats={statsData}
+                      prefetched={{
+                        stats: stats?.data || {
+                          followers_count: 0,
+                          following_count: 0,
+                        },
+                        isLoading: stats?.isLoading || false,
+                      }}
                       containerDirection="row"
                       statsDirection="row"
                       fontSize="lg"
@@ -216,7 +224,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                             lookupAddressOrName={address}
                             onProfileClick={onProfileClick}
                             hasModal={true}
-                            displayEmpty={false}
+                            showEmpty={false}
                             selectedList={selectedList}
                           />
                         </div>
@@ -245,7 +253,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                           connectedAddress={connectedAddress}
                           onProfileClick={onProfileClick}
                           hasModal={true}
-                          displayEmpty={false}
+                          showEmpty={false}
                           selectedList={selectedList}
                         />
                       </div>
