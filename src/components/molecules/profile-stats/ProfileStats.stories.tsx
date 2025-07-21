@@ -32,8 +32,11 @@ ByList.args = {
 export const PrefetchedData = Template.bind({})
 PrefetchedData.args = {
   addressOrName: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
-  prefetchedStats: {
-    followers_count: 100,
-    following_count: 100,
+  prefetched: {
+    stats: {
+      followers_count: 100,
+      following_count: 100,
+    },
+    isLoading: false,
   },
 }

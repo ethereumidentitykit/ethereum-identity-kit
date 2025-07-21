@@ -12,4 +12,5 @@ export interface RecommendedProps {
   title?: string
   useVirtualList?: boolean
   showHeaderImage?: boolean
+  rowHeight?: number
 }

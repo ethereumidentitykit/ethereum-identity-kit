@@ -16,6 +16,7 @@ const Recommended: React.FC<RecommendedProps> = ({
   title,
   useVirtualList = false,
   showHeaderImage = true,
+  rowHeight,
 }) => {
   const { t } = useTranslation()
   const { recommended, isLoading, fetchMoreRef, hasNextPage } = useRecommended(
@@ -34,6 +35,7 @@ const Recommended: React.FC<RecommendedProps> = ({
           connectedAddress={connectedAddress}
           isLoading={isLoading}
           loadingRows={limit}
+          rowHeight={rowHeight}
           selectedList={selectedList}
           initialFollowState={'Follow'}
           onProfileClick={onProfileClick}

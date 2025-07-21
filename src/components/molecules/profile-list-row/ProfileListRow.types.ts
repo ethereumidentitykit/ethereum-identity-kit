@@ -12,4 +12,5 @@ export type ProfileListRowProps = {
   onProfileClick?: (address: Address) => void
   showHeaderImage?: boolean
   showFollowsYouBadges?: boolean
+  rowHeight?: number
 }

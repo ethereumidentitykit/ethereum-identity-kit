@@ -120,6 +120,16 @@ export interface UseFollowButtonReturn {
   isLoading: boolean
   /** Function to handle follow/unfollow */
   handleAction: () => void
+  /** Whether the button should be disabled */
+  isDisabled: boolean
+  /** Current error state */
+  error: Error | null
+  /** Function to clear error state */
+  clearError: () => void
+  /** Accessibility label for screen readers */
+  ariaLabel: string
+  /** Whether the button is in pressed state (for following) */
+  ariaPressed: boolean
 }
 
 /**

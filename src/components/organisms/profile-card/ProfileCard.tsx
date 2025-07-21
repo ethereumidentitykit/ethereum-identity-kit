@@ -172,7 +172,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               {ens?.name ? ens_beautify(ens.name) : address ? truncateAddress(address) : addressOrName}
             </p>
             {showFollowerTag && (
-              <FollowerTag addressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
+              <FollowerTag lookupAddressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
             )}
           </div>
         )}

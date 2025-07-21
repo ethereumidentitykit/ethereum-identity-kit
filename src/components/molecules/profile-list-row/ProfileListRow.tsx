@@ -42,17 +42,18 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   onProfileClick,
   showHeaderImage = false,
   showFollowsYouBadges = false,
+  rowHeight = 80,
 }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
     queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
   })
 
-  const headerImage = account?.ens?.records?.header
+  const headerImage = account?.ens?.header || account?.ens?.records?.header
 
   return (
-    <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')}>
-      {showHeaderImage && headerImage && <img src={headerImage} alt="" className="profile-list-row-header-image" />}
+    <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
+      {showHeaderImage && headerImage && <img src={headerImage} alt="" className="profile-list-row-header-image" style={{ height: rowHeight, backgroundColor: 'red' }} />}
       <div className="profile-list-row-details">
         {isAccountLoading ? (
           <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
@@ -77,7 +78,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             {showTags ? (
               <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
             ) : showFollowsYouBadges && connectedAddress ? (
-              <FollowerTag addressOrName={profile.address} connectedAddress={connectedAddress} list={selectedList} />
+              <FollowerTag lookupAddressOrName={profile.address} connectedAddress={connectedAddress} list={selectedList} />
             ) : null}
           </div>
         )}

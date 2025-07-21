@@ -1,23 +1,66 @@
-import { Address } from 'viem'
-import { useMemo, useState } from 'react'
+import { Address, isAddress } from 'viem'
+import { useMemo, useState, useCallback } from 'react'
 import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { getPendingTxListOps, extractAddressAndTag } from '../utils/transactions'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
 import { FollowingState, InitialFollowingState, ProfileListType, UseFollowButtonReturn } from '../types'
 
+// Action configuration for cleaner logic
+const ACTION_CONFIG = {
+  block: {
+    addOps: (address: Address, followState: string) => {
+      const ops = []
+      if (followState !== 'follows') ops.push(listOpAddListRecord(address))
+      ops.push(listOpAddTag(address, 'block'))
+      return ops
+    },
+    removeOps: (address: Address) => [
+      listOpRemoveListRecord(address),
+      listOpRemoveTag(address, 'block')
+    ]
+  },
+  mute: {
+    addOps: (address: Address, followState: string) => {
+      const ops = []
+      if (followState !== 'follows') ops.push(listOpAddListRecord(address))
+      ops.push(listOpAddTag(address, 'mute'))
+      return ops
+    },
+    removeOps: (address: Address) => [
+      listOpRemoveListRecord(address),
+      listOpRemoveTag(address, 'mute')
+    ]
+  },
+  follow: {
+    addOps: (address: Address) => [listOpAddListRecord(address)],
+    removeOps: (address: Address) => [listOpRemoveListRecord(address)]
+  }
+} as const
+
+export interface UseFollowButtonParams {
+  lookupAddress: Address
+  connectedAddress?: Address
+  selectedList?: ProfileListType
+  initialState?: InitialFollowingState
+}
+
 export const useFollowButton = ({
   lookupAddress,
   connectedAddress,
   selectedList,
   initialState,
-}: {
-  lookupAddress: Address
-  connectedAddress?: Address
-  selectedList?: ProfileListType
-  initialState?: InitialFollowingState
-}): UseFollowButtonReturn => {
+}: UseFollowButtonParams): UseFollowButtonReturn => {
+  // Input validation
+  if (!isAddress(lookupAddress)) {
+    throw new Error(`Invalid lookup address: ${lookupAddress}`)
+  }
+  
+  if (connectedAddress && !isAddress(connectedAddress)) {
+    throw new Error(`Invalid connected address: ${connectedAddress}`)
+  }
   const [disableHover, setDisableHover] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   const { lists, pendingTxs, listsLoading, addListOpsTransaction, removeListOpsTransaction, batchTransactions } =
     useTransactions()
@@ -98,39 +141,62 @@ export const useFollowButton = ({
     }
   }, [followState, connectedAddress, pendingState])
 
-  const handleAction = () => {
+  const handleAction = useCallback(async () => {
     if (!connectedAddress) return
 
-    if (pendingListOps.length) {
-      removeListOpsTransaction(pendingListOps.map((op) => op.data))
-      return
-    }
+    try {
+      setError(null)
 
-    const listOps = []
+      // Handle pending transaction cancellation
+      if (pendingListOps.length) {
+        await removeListOpsTransaction(pendingListOps.map((op) => op.data))
+        return
+      }
 
-    if (buttonState === 'Block') {
-      if (followState !== 'follows') listOps.push(listOpAddListRecord(lookupAddress))
-      listOps.push(listOpAddTag(lookupAddress, 'block'))
-    }
-    if (buttonState === 'Blocked') {
-      listOps.push(listOpRemoveListRecord(lookupAddress))
-      listOps.push(listOpRemoveTag(lookupAddress, 'block'))
-    }
+      const listOps = []
 
-    if (buttonState === 'Mute') {
-      if (followState !== 'follows') listOps.push(listOpAddListRecord(lookupAddress))
-      listOps.push(listOpAddTag(lookupAddress, 'mute'))
-    }
-    if (buttonState === 'Muted') {
-      listOps.push(listOpRemoveListRecord(lookupAddress))
-      listOps.push(listOpRemoveTag(lookupAddress, 'mute'))
-    }
+      // Use ACTION_CONFIG for cleaner logic
+      if (buttonState === 'Block') {
+        listOps.push(...ACTION_CONFIG.block.addOps(lookupAddress, followState))
+      } else if (buttonState === 'Blocked') {
+        listOps.push(...ACTION_CONFIG.block.removeOps(lookupAddress))
+      } else if (buttonState === 'Mute') {
+        listOps.push(...ACTION_CONFIG.mute.addOps(lookupAddress, followState))
+      } else if (buttonState === 'Muted') {
+        listOps.push(...ACTION_CONFIG.mute.removeOps(lookupAddress))
+      } else if (buttonText === 'Follow') {
+        listOps.push(...ACTION_CONFIG.follow.addOps(lookupAddress))
+      } else if (buttonText === 'Following') {
+        listOps.push(...ACTION_CONFIG.follow.removeOps(lookupAddress))
+      }
 
-    if (buttonText === 'Follow') listOps.push(listOpAddListRecord(lookupAddress))
-    if (buttonText === 'Following') listOps.push(listOpRemoveListRecord(lookupAddress))
+      if (listOps.length > 0) {
+        await addListOpsTransaction(listOps)
+      }
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Unknown error occurred')
+      setError(error)
+      console.error('Follow action error:', error)
+    }
+  }, [
+    connectedAddress,
+    pendingListOps,
+    buttonState,
+    buttonText,
+    followState,
+    lookupAddress,
+    addListOpsTransaction,
+    removeListOpsTransaction
+  ])
 
-    addListOpsTransaction(listOps)
-  }
+  const clearError = useCallback(() => {
+    setError(null)
+  }, [])
+
+  // Computed values
+  const isDisabled = !connectedAddress || isLoading || listsLoading
+  const ariaLabel = `${buttonText} ${lookupAddress}`
+  const ariaPressed = buttonState === 'Following'
 
   return {
     buttonText,
@@ -140,5 +206,10 @@ export const useFollowButton = ({
     pendingState,
     disableHover,
     setDisableHover,
+    isDisabled,
+    error,
+    clearError,
+    ariaLabel,
+    ariaPressed,
   }
 }

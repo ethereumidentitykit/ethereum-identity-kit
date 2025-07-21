@@ -5,7 +5,7 @@ import { useEFPPoaps } from './useEFPPoaps'
 import { useIsClient } from './common/useIsClient'
 import { useRecommended } from './useRecommended'
 import { useCoolMode } from './common/useCoolMode'
-import { useFollowButton } from './useFollowButton'
+import { useFollowButton, UseFollowButtonParams } from './useFollowButton'
 import { useNotifications } from './useNotifications'
 import { useFollowerState } from './useFollowerState'
 import { useWindowSize } from './common/useWindowSize'
@@ -39,3 +39,5 @@ export {
   useNotifications,
   useFollowersAndFollowing,
 }
+
+export type { UseFollowButtonParams }

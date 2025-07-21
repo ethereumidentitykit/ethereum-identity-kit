@@ -102,6 +102,8 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                 onProfileClick={onProfileClick}
                 listHeight={width && width < 1024 ? '80vh' : 'calc(80vh - 240px)'}
                 useVirtualList={true}
+                showHeaderImage={true}
+                rowHeight={70}
               />
             ) : (
               <div className="cart-changes-list-empty">{t('cart.noItems')}</div>
@@ -119,6 +121,8 @@ const Cart = ({ setClearCartModalOpen, onProfileClick, showRecommendations = tru
                   useVirtualList={Boolean(width && width > 1024)}
                   listHeight="calc(80vh - 200px)"
                   className="cart-recommended-list"
+                  showHeaderImage={true}
+                  rowHeight={70}
                 />
               )}
             </div>

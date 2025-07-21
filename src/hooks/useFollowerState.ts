@@ -6,11 +6,11 @@ import { Address, FollowState, ProfileListType } from '..'
 
 interface UseFollowerStateProps {
   connectedAddress: Address
-  addressOrName: Address | string
+  lookupAddressOrName: Address | string
   list?: ProfileListType
 }
 
-export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseFollowerStateProps) => {
+export const useFollowerState = ({ connectedAddress, lookupAddressOrName, list }: UseFollowerStateProps) => {
   const { t } = useTranslation()
 
   const {
@@ -18,12 +18,12 @@ export const useFollowerState = ({ connectedAddress, addressOrName, list }: UseF
     isLoading: isFollowerStatusLoading,
     isRefetching: isFollowerStateRefetching,
   } = useQuery({
-    queryKey: ['follower state', addressOrName, list, connectedAddress],
+    queryKey: ['follower state', lookupAddressOrName, list, connectedAddress],
     queryFn: async () => {
-      if (!addressOrName) return null
+      if (!lookupAddressOrName) return null
 
       const fetchedStatus = await fetchFollowState({
-        lookupAddressOrName: addressOrName,
+        lookupAddressOrName,
         connectedAddress,
         list,
         type: 'follower',

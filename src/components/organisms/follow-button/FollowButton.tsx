@@ -48,13 +48,25 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   ...props
 }) => {
   const { t } = useTranslation()
-  const { buttonText, buttonState, handleAction, isLoading, pendingState, disableHover, setDisableHover } =
-    useFollowButton({
-      lookupAddress,
-      connectedAddress,
-      selectedList,
-      initialState,
-    })
+  const { 
+    buttonText, 
+    buttonState, 
+    handleAction, 
+    isLoading, 
+    pendingState, 
+    disableHover, 
+    setDisableHover,
+    isDisabled,
+    error,
+    clearError,
+    ariaLabel,
+    ariaPressed
+  } = useFollowButton({
+    lookupAddress,
+    connectedAddress,
+    selectedList,
+    initialState,
+  })
 
   const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)
 
@@ -62,6 +74,11 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   const playSound = sounds ? sounds[buttonState] : undefined
 
   const onClick = () => {
+    // Clear any existing errors when user tries again
+    if (error) {
+      clearError()
+    }
+    
     if (connectedAddress) {
       setDisableHover(true)
 
@@ -91,11 +108,15 @@ const FollowButton: React.FC<FollowButtonProps> = ({
         (customClassNames || FOLLOW_BUTTON_STYLES)[buttonState],
         pendingState && 'pending',
         disableHover && 'disable-hover',
+        error && 'error',
         className
       )}
       onClick={onClick}
       onMouseLeave={() => setDisableHover(false)}
-      disabled={disabled}
+      disabled={disabled || isDisabled}
+      aria-label={ariaLabel}
+      aria-pressed={ariaPressed}
+      title={error ? error.message : undefined}
       {...props}
     >
       <audio src={playSound} ref={soundRef} />

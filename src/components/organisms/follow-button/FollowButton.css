@@ -103,3 +103,14 @@
   top: -6px;
   right: -6px;
 }
+
+.follow-button.error {
+  border-color: var(--ethereum-identity-kit-deletion) !important;
+  animation: error-shake 0.5s ease-in-out;
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}

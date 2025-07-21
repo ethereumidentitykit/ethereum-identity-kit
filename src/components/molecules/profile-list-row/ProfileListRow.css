@@ -1,7 +1,6 @@
 .profile-list-row {
   display: flex;
   width: 100%;
-  min-height: 68px;
   align-items: center;
   position: relative;
   padding: 0px 20px;
@@ -15,10 +14,6 @@
 
 .dark .profile-list-row:hover {
   background-color: #222222;
-}
-
-.profile-list-row.has-header-image {
-  min-height: 80px;
 }
 
 .profile-list-row-header-image {

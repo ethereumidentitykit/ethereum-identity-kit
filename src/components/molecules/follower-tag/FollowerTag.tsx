@@ -22,7 +22,7 @@ import './FollowerTag.css'
  * @returns FollowerTag component
  */
 const FollowerTag: React.FC<FollowerTagProps> = ({
-  addressOrName,
+  lookupAddressOrName,
   connectedAddress,
   list,
   showLoading,
@@ -30,7 +30,7 @@ const FollowerTag: React.FC<FollowerTagProps> = ({
   ...props
 }) => {
   const { followerTag, isFollowerStateLoading } = useFollowerState({
-    addressOrName,
+    lookupAddressOrName,
     connectedAddress,
     list,
   })

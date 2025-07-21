@@ -92,6 +92,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               selectedList={selectedList}
               tags={profile.tags}
               showTags={showTags}
+              rowHeight={rowHeight}
               showHeaderImage={showHeaderImage}
               canEditTags={canEditTags}
               initialFollowState={initialFollowState}

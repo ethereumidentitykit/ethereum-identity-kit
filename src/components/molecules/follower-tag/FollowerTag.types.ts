@@ -1,7 +1,7 @@
 import { Address, ProfileListType } from '../../../types'
 
 export type FollowerTagProps = {
-  addressOrName: Address | string
+  lookupAddressOrName: Address | string
   connectedAddress: Address
   list?: ProfileListType
   showLoading?: boolean

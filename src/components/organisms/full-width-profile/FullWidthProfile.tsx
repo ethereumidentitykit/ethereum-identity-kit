@@ -197,7 +197,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       customFollowButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
                     ) : null}
                     {showFollowerTag && (
-                      <FollowerTag connectedAddress={connectedAddress} addressOrName={address} list={selectedList} />
+                      <FollowerTag connectedAddress={connectedAddress} lookupAddressOrName={address} list={selectedList} />
                     )}
                   </div>
                   <div className="user-profile-stats-container">
