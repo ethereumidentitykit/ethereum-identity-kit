@@ -1,6 +1,6 @@
 {
   "name": "ethereum-identity-kit",
-  "version": "0.2.49",
+  "version": "0.2.50",
   "description": "Ethereum Identity Kit - Complete your dapp with the Ethereum identity stack.",
   "keywords": [
     "ethereum identity kit",
@@ -13,7 +13,8 @@
     "kit",
     "EIK",
     "EFP",
-    "ENS"
+    "ENS",
+    "SIWE"
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
