@@ -15,10 +15,7 @@ const ACTION_CONFIG = {
       ops.push(listOpAddTag(address, 'block'))
       return ops
     },
-    removeOps: (address: Address) => [
-      listOpRemoveListRecord(address),
-      listOpRemoveTag(address, 'block')
-    ]
+    removeOps: (address: Address) => [listOpRemoveListRecord(address), listOpRemoveTag(address, 'block')],
   },
   mute: {
     addOps: (address: Address, followState: string) => {
@@ -27,15 +24,12 @@ const ACTION_CONFIG = {
       ops.push(listOpAddTag(address, 'mute'))
       return ops
     },
-    removeOps: (address: Address) => [
-      listOpRemoveListRecord(address),
-      listOpRemoveTag(address, 'mute')
-    ]
+    removeOps: (address: Address) => [listOpRemoveListRecord(address), listOpRemoveTag(address, 'mute')],
   },
   follow: {
     addOps: (address: Address) => [listOpAddListRecord(address)],
-    removeOps: (address: Address) => [listOpRemoveListRecord(address)]
-  }
+    removeOps: (address: Address) => [listOpRemoveListRecord(address)],
+  },
 } as const
 
 export interface UseFollowButtonParams {
@@ -55,7 +49,7 @@ export const useFollowButton = ({
   if (!isAddress(lookupAddress)) {
     throw new Error(`Invalid lookup address: ${lookupAddress}`)
   }
-  
+
   if (connectedAddress && !isAddress(connectedAddress)) {
     throw new Error(`Invalid connected address: ${connectedAddress}`)
   }
@@ -186,7 +180,7 @@ export const useFollowButton = ({
     followState,
     lookupAddress,
     addListOpsTransaction,
-    removeListOpsTransaction
+    removeListOpsTransaction,
   ])
 
   const clearError = useCallback(() => {

@@ -8,7 +8,7 @@ export interface ProfileStatsProps {
   fontSize?: SizeType
   gap?: string
   prefetched?: {
-    stats: StatsResponse
+    stats: StatsResponse | undefined
     isLoading: boolean
   }
   containerDirection?: 'row' | 'column'

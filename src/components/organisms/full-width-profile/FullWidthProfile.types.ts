@@ -8,12 +8,12 @@ export type ProfileExtraOptions = {
   openListSettings?: () => void
   prefetched?: {
     profile: {
-      data: ProfileDetailsResponse
+      data: ProfileDetailsResponse | undefined
       isLoading: boolean
       refetch: () => void
     }
     stats: {
-      data: StatsResponse
+      data: StatsResponse | undefined
       isLoading: boolean
       refetch: () => void
     }

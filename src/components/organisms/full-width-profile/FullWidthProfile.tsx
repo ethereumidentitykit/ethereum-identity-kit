@@ -18,8 +18,8 @@ import FollowersYouKnow from '../../molecules/followers-you-know/FollowersYouKno
 import ImageWithFallback from '../../atoms/image-with-fallback/ImageWithFallback'
 import { DEFAULT_FALLBACK_HEADER } from '../../../constants'
 import { FullWidthProfileProps } from './FullWidthProfile.types'
-import './FullWidthProfile.css'
 import FollowButton from '../follow-button/FollowButton'
+import './FullWidthProfile.css'
 
 /**
  * Full Width Profile for any Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -73,18 +73,9 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   style,
   alignProfileContent = 'center',
 }) => {
-  const {
-    role,
-    nameMenu,
-    prefetched,
-    openListSettings,
-    customFollowButton,
-  } = extraOptions || {}
+  const { role, nameMenu, prefetched, openListSettings, customFollowButton } = extraOptions || {}
 
-  const {
-    profile,
-    stats,
-  } = prefetched || {}
+  const { profile, stats } = prefetched || {}
 
   const { t } = useTranslation()
   const isClient = useIsClient()
@@ -197,7 +188,11 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       customFollowButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
                     ) : null}
                     {showFollowerTag && (
-                      <FollowerTag connectedAddress={connectedAddress} lookupAddressOrName={address} list={selectedList} />
+                      <FollowerTag
+                        connectedAddress={connectedAddress}
+                        lookupAddressOrName={address}
+                        list={selectedList}
+                      />
                     )}
                   </div>
                   <div className="user-profile-stats-container">
@@ -205,10 +200,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       addressOrName={address}
                       list={list === Number(primaryList) ? undefined : list}
                       prefetched={{
-                        stats: stats?.data || {
-                          followers_count: 0,
-                          following_count: 0,
-                        },
+                        stats: stats?.data,
                         isLoading: stats?.isLoading || false,
                       }}
                       containerDirection="row"

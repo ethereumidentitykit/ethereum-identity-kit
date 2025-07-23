@@ -48,19 +48,19 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   ...props
 }) => {
   const { t } = useTranslation()
-  const { 
-    buttonText, 
-    buttonState, 
-    handleAction, 
-    isLoading, 
-    pendingState, 
-    disableHover, 
+  const {
+    buttonText,
+    buttonState,
+    handleAction,
+    isLoading,
+    pendingState,
+    disableHover,
     setDisableHover,
     isDisabled,
     error,
     clearError,
     ariaLabel,
-    ariaPressed
+    ariaPressed,
   } = useFollowButton({
     lookupAddress,
     connectedAddress,
@@ -78,7 +78,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     if (error) {
       clearError()
     }
-    
+
     if (connectedAddress) {
       setDisableHover(true)
 

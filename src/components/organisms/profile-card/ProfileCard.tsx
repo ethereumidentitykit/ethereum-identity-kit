@@ -70,17 +70,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const {
-    prefetched,
-    customFollowButton,
-    nameMenu,
-    openListSettings,
-  } = extraOptions || {}
+  const { prefetched, customFollowButton, nameMenu, openListSettings } = extraOptions || {}
 
-  const {
-    profile,
-    stats
-  } = prefetched || {}
+  const { profile, stats } = prefetched || {}
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
@@ -157,7 +149,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               </button>
             </a>
           ) : showFollowButton ? (
-            customFollowButton || (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
+            customFollowButton ||
+            (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
           ) : null}
         </div>
         {isDetailsLoading ? (

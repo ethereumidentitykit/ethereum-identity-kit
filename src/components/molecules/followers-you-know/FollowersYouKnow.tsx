@@ -58,16 +58,14 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
         onClick={() => hasModal && setIsModalOpen(true)}
       >
         <div className="common-followers-avatars-container">
-          {new Array(3)
-            .fill(null)
-            .map((_, index) => (
-              <LoadingCell
-                key={index}
-                height="32px"
-                width="32px"
-                style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
-              />
-            ))}
+          {new Array(3).fill(null).map((_, index) => (
+            <LoadingCell
+              key={index}
+              height="32px"
+              width="32px"
+              style={{ borderRadius: '50%', transform: `translateX(-${index * 16}px)` }}
+            />
+          ))}
         </div>
         <LoadingCell height="32px" width="240px" style={{ transform: 'translateX(-32px)' }} />
       </div>

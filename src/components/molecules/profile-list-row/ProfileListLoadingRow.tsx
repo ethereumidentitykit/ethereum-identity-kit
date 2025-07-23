@@ -2,7 +2,13 @@ import clsx from 'clsx'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import './ProfileListRow.css'
 
-const ProfileListLoadingRow = ({ showHeaderImage, rowHeight = 80 }: { showHeaderImage?: boolean, rowHeight?: number }) => {
+const ProfileListLoadingRow = ({
+  showHeaderImage,
+  rowHeight = 80,
+}: {
+  showHeaderImage?: boolean
+  rowHeight?: number
+}) => {
   return (
     <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
       <div className="profile-list-row-details">

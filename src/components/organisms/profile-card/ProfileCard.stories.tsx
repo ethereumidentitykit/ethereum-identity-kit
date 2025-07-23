@@ -109,7 +109,7 @@ PrefetchedData.args = {
           primary_list: '1',
         },
         isLoading: false,
-        refetch: () => { },
+        refetch: () => {},
       },
       stats: {
         data: {
@@ -117,7 +117,7 @@ PrefetchedData.args = {
           following_count: 100,
         },
         isLoading: false,
-        refetch: () => { },
+        refetch: () => {},
       },
     },
   },

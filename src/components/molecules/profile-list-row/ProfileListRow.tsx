@@ -53,7 +53,14 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
 
   return (
     <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
-      {showHeaderImage && headerImage && <img src={headerImage} alt="" className="profile-list-row-header-image" style={{ height: rowHeight, backgroundColor: 'red' }} />}
+      {showHeaderImage && headerImage && (
+        <img
+          src={headerImage}
+          alt=""
+          className="profile-list-row-header-image"
+          style={{ height: rowHeight, backgroundColor: 'red' }}
+        />
+      )}
       <div className="profile-list-row-details">
         {isAccountLoading ? (
           <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
@@ -78,7 +85,11 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
             {showTags ? (
               <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
             ) : showFollowsYouBadges && connectedAddress ? (
-              <FollowerTag lookupAddressOrName={profile.address} connectedAddress={connectedAddress} list={selectedList} />
+              <FollowerTag
+                lookupAddressOrName={profile.address}
+                connectedAddress={connectedAddress}
+                list={selectedList}
+              />
             ) : null}
           </div>
         )}
