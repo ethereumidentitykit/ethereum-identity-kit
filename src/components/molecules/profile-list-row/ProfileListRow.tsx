@@ -54,12 +54,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   return (
     <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
       {showHeaderImage && headerImage && (
-        <img
-          src={headerImage}
-          alt=""
-          className="profile-list-row-header-image"
-          style={{ height: rowHeight, backgroundColor: 'red' }}
-        />
+        <img src={headerImage} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
       )}
       <div className="profile-list-row-details">
         {isAccountLoading ? (
