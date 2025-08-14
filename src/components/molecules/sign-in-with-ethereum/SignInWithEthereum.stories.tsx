@@ -117,6 +117,7 @@ const SignInWithEthereumWrapper = (
         onSignInError={args.onSignInError}
         message={args.message}
         darkMode={args.darkMode}
+        autoSignInAfterConnection={args.autoSignInAfterConnection}
         expirationTime={args.expirationTime}
         onDisconnectedClick={args.onDisconnectedClick}
       />
@@ -149,4 +150,5 @@ Button.args = {
   darkMode: false,
   onDisconnectedClick: () => window.alert('Connect your wallet to sign in'),
   expirationTime: 3 * MINUTE,
+  autoSignInAfterConnection: true,
 }

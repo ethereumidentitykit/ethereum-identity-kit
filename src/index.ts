@@ -3,6 +3,7 @@ import './styles/colors.css'
 
 // Hooks
 export {
+  useSiwe,
   useFollowingState,
   useProfileDetails,
   useProfileStats,
@@ -171,6 +172,10 @@ export {
   Calendar,
   Notifications,
   SignInWithEthereum,
+  Email,
+  Bell,
+  MagnifyingGlass,
+  EthereumIcon,
 } from './components'
 
 // Component Types

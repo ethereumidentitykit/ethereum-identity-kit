@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useEffect, useRef, useState } from 'react'
 import { useSiwe } from '../../../hooks'
 import { useTranslation } from '../../../context/TranslationContext'
 import { EthereumIcon } from '../../icons'
@@ -24,6 +25,8 @@ import './SignInWithEthereum.css'
  *
  * @param expirationTime - The expiration time of the nonce (optional) default is 5 minutes
  *
+ * @param autoSignInAfterConnection - Whether to automatically sign in after wallet connection (optional) default is false
+ *
  * @returns SignInWithEthereum Button component
  */
 const SignInWithEthereum = ({
@@ -35,7 +38,9 @@ const SignInWithEthereum = ({
   onDisconnectedClick,
   darkMode,
   expirationTime,
+  autoSignInAfterConnection = false,
 }: SignInWithEthereumProps) => {
+  const [hasClicked, setHasClicked] = useState(false)
   const { t } = useTranslation()
   const { handleSignIn, isSigningMessage, connectedAddress } = useSiwe({
     verifySignature,
@@ -46,10 +51,33 @@ const SignInWithEthereum = ({
     expirationTime,
   })
 
+  const wasDisconnectedRef = useRef(false)
+  const pendingSignInRef = useRef(false)
+
+  useEffect(() => {
+    if (!connectedAddress) {
+      wasDisconnectedRef.current = true
+    } else if (wasDisconnectedRef.current && pendingSignInRef.current && hasClicked) {
+      wasDisconnectedRef.current = false
+      pendingSignInRef.current = false
+      setTimeout(handleSignIn, 1000)
+    }
+  }, [connectedAddress, handleSignIn])
+
   return (
     <button
       className={clsx('sign-in-with-ethereum-button', darkMode && 'dark')}
-      onClick={connectedAddress ? handleSignIn : () => onDisconnectedClick?.()}
+      onClick={
+        connectedAddress
+          ? handleSignIn
+          : () => {
+              if (autoSignInAfterConnection) {
+                pendingSignInRef.current = true
+              }
+              setHasClicked(true)
+              onDisconnectedClick?.(handleSignIn)
+            }
+      }
       disabled={isSigningMessage}
       style={{ marginRight: '10px' }}
     >

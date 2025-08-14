@@ -174,6 +174,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                         'user-profile-name',
                         isConnectedUserCard || (!!customFollowButton && 'user-profile-name-connected')
                       )}
+                      onClick={() => onProfileClick?.(address)}
                     >
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
                     </p>

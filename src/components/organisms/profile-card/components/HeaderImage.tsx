@@ -5,18 +5,18 @@ import ImageWithFallback from '../../../atoms/image-with-fallback/ImageWithFallb
 
 interface HeaderImageProps {
   src?: string
-  isLoaded: boolean
+  isLoading: boolean
   style?: React.CSSProperties
 }
 
 /**
  * HeaderImage component - displays a header image of a profile
  * @param src - the source of the header image
- * @param isLoaded - whether the header image is loaded
+ * @param isLoading - whether the header image is loading
  * @param style - the style of the header image
  * @returns HeaderImage component
  */
-const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoaded, style }) => {
+const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style }) => {
   return (
     <div
       style={{
@@ -29,7 +29,7 @@ const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoaded, style }) => {
         ...style,
       }}
     >
-      {isLoaded ? (
+      {isLoading ? (
         <LoadingCell
           height="100%"
           width="100%"
