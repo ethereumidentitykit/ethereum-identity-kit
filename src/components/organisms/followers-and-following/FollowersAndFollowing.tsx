@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { forwardRef } from 'react'
-import { useTransactions } from '../../../context'
+import { useTransactions, useTranslation } from '../../../context'
 import TableHeader from './components/TableHeaders'
 import ProfileList from '../../molecules/profile-list/ProfileList'
 import { FETCH_LIMIT } from '../../../constants'
@@ -47,9 +47,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
     {
       user,
       defaultTab,
-      canEditTags,
       showTagsByDefault,
-      includeBlocked,
       showRecommendations,
       isConnectedUserProfile,
       darkMode,
@@ -58,10 +56,14 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
       showHeaderImage,
       rowHeight = 80,
       useVirtualList = false,
+      showBlocked,
+      showOnlyBlocked,
     },
     ref
   ) => {
+    const { t } = useTranslation()
     const { lists, selectedList } = useTransactions()
+
     const {
       activeTab,
       showTags,
@@ -82,6 +84,8 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
       defaultTab,
       showTagsByDefault,
       isConnectedUserProfile,
+      showBlocked,
+      showOnlyBlocked,
     })
 
     const noResults = {
@@ -91,7 +95,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
         ) : (
           <div className="empty-state-content">
             <p className="empty-state-text">
-              {isConnectedUserProfile ? "You don't follow anyone yet!" : 'No following'}
+              {isConnectedUserProfile ? showOnlyBlocked ? t('blocking.empty.connectedUser') : t('following.empty.connectedUser') : showOnlyBlocked ? t('blocking.empty') : t('following.empty')}
             </p>
             {isConnectedUserProfile && (
               <p className="empty-state-subtext">
@@ -105,7 +109,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
         search.length > 2 ? (
           <div className="empty-state-message">none</div>
         ) : (
-          <p className="empty-state-text">No followers</p>
+          <p className="empty-state-text">{showOnlyBlocked ? t('blocked.empty') : t('followers.empty')}</p>
         ),
     }[activeTab]
 
@@ -128,7 +132,8 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
             sort={params.sort}
             setSort={params.setSort}
             toggleSelectedTags={toggleTag}
-            includeBlocked={includeBlocked}
+            showBlocked={showBlocked}
+            showOnlyBlocked={showOnlyBlocked}
           />
         </div>
         <div className="content-container">
@@ -140,10 +145,10 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
               isLoading={params.isLoading}
               loadingRows={FETCH_LIMIT}
               profiles={profiles}
-              showTags={isConnectedUserProfile && activeTab === 'following' && showTags}
+              showTags={showTags}
               showFollowsYouBadges={showFollowsYouBadges}
-              canEditTags={canEditTags}
-              initialFollowState={activeTab === 'following' && isConnectedUserProfile ? 'Following' : undefined}
+              canEditTags={isConnectedUserProfile && activeTab === 'following'}
+              initialFollowState={activeTab === 'following' && isConnectedUserProfile && !showOnlyBlocked ? 'Following' : undefined}
               darkMode={darkMode}
               connectedAddress={connectedAddress}
               selectedList={selectedList}
@@ -155,6 +160,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
               listHeight="100vh"
               loadMoreElement={<div ref={loadMoreRef} className="load-more-trigger" />}
               useVirtualList={useVirtualList}
+              showBlockBack={showOnlyBlocked && isConnectedUserProfile && activeTab === 'followers'}
             />
           )}
         </div>
@@ -164,7 +170,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
           connectedAddress &&
           (lists?.lists?.length || 0) === 0 && (
             <Recommended
-              title="Some recommendations for you"
+              title={t("recommendations.connectedUser")}
               limit={40}
               connectedAddress={connectedAddress}
               selectedList={selectedList}

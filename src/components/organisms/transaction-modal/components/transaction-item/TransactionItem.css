@@ -334,6 +334,11 @@
   background-color: var(--ethereum-identity-kit-neutral-light);
 }
 
+.dark .transaction-item-refuse-poap-button {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+}
+
 .transaction-item-claim-poap-button {
   background-color: var(--ethereum-identity-kit-primary);
 }

@@ -37,6 +37,8 @@ export interface UseFollowButtonParams {
   connectedAddress?: Address
   selectedList?: ProfileListType
   initialState?: InitialFollowingState
+  showBlockBack?: boolean
+  showMuteBack?: boolean
 }
 
 export const useFollowButton = ({
@@ -44,6 +46,8 @@ export const useFollowButton = ({
   connectedAddress,
   selectedList,
   initialState,
+  showBlockBack,
+  showMuteBack,
 }: UseFollowButtonParams): UseFollowButtonReturn => {
   // Input validation
   if (!isAddress(lookupAddress)) {
@@ -101,6 +105,11 @@ export const useFollowButton = ({
 
     if (pendingState) return pendingState
 
+    if (followState !== 'blocks') {
+      if (showBlockBack) return 'Block'
+      if (showMuteBack && followState !== 'mutes') return 'Mute'
+    }
+
     switch (followState) {
       case 'follows':
         return 'Following'
@@ -111,7 +120,7 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress, pendingState])
+  }, [followState, connectedAddress, pendingState, showBlockBack, showMuteBack])
 
   const buttonText = useMemo<FollowingState>(() => {
     if (!connectedAddress) return 'Follow'
@@ -123,6 +132,11 @@ export const useFollowButton = ({
       return pendingState
     }
 
+    if (followState !== 'blocks') {
+      if (showBlockBack) return 'Block Back'
+      if (showMuteBack && followState !== 'mutes') return 'Mute Back'
+    }
+
     switch (followState) {
       case 'follows':
         return 'Following'
@@ -133,9 +147,9 @@ export const useFollowButton = ({
       default:
         return 'Follow'
     }
-  }, [followState, connectedAddress, pendingState])
+  }, [followState, connectedAddress, pendingState, showBlockBack, showMuteBack])
 
-  const handleAction = useCallback(async () => {
+  const handleAction = useCallback(() => {
     if (!connectedAddress) return
 
     try {
@@ -143,7 +157,7 @@ export const useFollowButton = ({
 
       // Handle pending transaction cancellation
       if (pendingListOps.length) {
-        await removeListOpsTransaction(pendingListOps.map((op) => op.data))
+        removeListOpsTransaction(pendingListOps.map((op) => op.data))
         return
       }
 
@@ -165,7 +179,7 @@ export const useFollowButton = ({
       }
 
       if (listOps.length > 0) {
-        await addListOpsTransaction(listOps)
+        addListOpsTransaction(listOps)
       }
     } catch (err) {
       const error = err instanceof Error ? err : new Error('Unknown error occurred')

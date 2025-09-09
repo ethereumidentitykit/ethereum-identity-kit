@@ -60,7 +60,7 @@ const SignInWithEthereum = ({
     } else if (wasDisconnectedRef.current && pendingSignInRef.current && hasClicked) {
       wasDisconnectedRef.current = false
       pendingSignInRef.current = false
-      setTimeout(handleSignIn, 1000)
+      setTimeout(handleSignIn, 750)
     }
   }, [connectedAddress, handleSignIn])
 
@@ -71,12 +71,12 @@ const SignInWithEthereum = ({
         connectedAddress
           ? handleSignIn
           : () => {
-              if (autoSignInAfterConnection) {
-                pendingSignInRef.current = true
-              }
-              setHasClicked(true)
-              onDisconnectedClick?.(handleSignIn)
+            if (autoSignInAfterConnection) {
+              pendingSignInRef.current = true
             }
+            setHasClicked(true)
+            onDisconnectedClick?.(handleSignIn)
+          }
       }
       disabled={isSigningMessage}
       style={{ marginRight: '10px' }}

@@ -35,7 +35,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
   const outsideClickRef = useOutsideClick(() => setTagDropdownOpen(false))
 
   useEffect(() => {
-    const tagsFromCart = getPendingTxAddressesAndTags(pendingTxs).filter((tag) => tag.tag !== '')
+    const tagsFromCart = canEditTags ? getPendingTxAddressesAndTags(pendingTxs).filter((tag) => tag.tag !== '') : []
     setRecentTags([
       ...tagsFromCart
         .filter((tag) => !DEFAULT_RECENT_TAGS.includes(tag.tag))
@@ -70,7 +70,7 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
     }
   }
 
-  if (buttonState === 'Pending Block' || buttonState === 'Pending Mute' || buttonState === 'Unfollow') return null
+  if ((buttonState === 'Pending Block' || buttonState === 'Pending Mute' || buttonState === 'Unfollow') && canEditTags) return null
 
   return (
     <div className="cart-tags-container" ref={outsideClickRef as React.RefObject<HTMLDivElement>}>
@@ -80,8 +80,8 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
         </button>
       )}
       {tags.map((tag) => {
-        const isInCart = getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
-        const isBeingRemoved = pendingTxs
+        const isInCart = canEditTags && getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
+        const isBeingRemoved = canEditTags && pendingTxs
           .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
           .flatMap((tx) => getListOpsFromTransaction(tx))
           .some((op) => {

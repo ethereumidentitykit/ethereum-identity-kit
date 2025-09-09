@@ -33,8 +33,7 @@ const Template: StoryFn<typeof FollowersAndFollowing> = (args) => <FollowersAndF
 export const ByAddress = Template.bind({})
 ByAddress.args = {
   user: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
-  defaultTab: 'followers',
-  canEditTags: false,
+  defaultTab: 'following',
   showHeaderImage: true,
   onProfileClick: (address) => {
     window.alert(address)
@@ -45,7 +44,6 @@ export const ByENSName = Template.bind({})
 ByENSName.args = {
   user: 'brantly.eth',
   defaultTab: 'followers',
-  canEditTags: false,
   showHeaderImage: true,
 }
 
@@ -53,7 +51,6 @@ export const ConnectedUser = Template.bind({})
 ConnectedUser.args = {
   user: 'brantly.eth',
   defaultTab: 'following',
-  canEditTags: true,
   showHeaderImage: true,
   isConnectedUserProfile: true,
   onProfileClick: (address) => {
@@ -66,7 +63,6 @@ export const ConnectedUserWithNoLists = Template.bind({})
 ConnectedUserWithNoLists.args = {
   user: '0xBA47418cd3bD9214250d251b6aF4DaFD14C5d0D6',
   defaultTab: 'following',
-  canEditTags: true,
   showHeaderImage: true,
   showRecommendations: true,
   isConnectedUserProfile: true,
@@ -77,8 +73,16 @@ export const IncludeBlocked = Template.bind({})
 IncludeBlocked.args = {
   user: 'garypalmerjr.eth',
   defaultTab: 'followers',
-  canEditTags: true,
   showHeaderImage: true,
-  includeBlocked: true,
+  showBlocked: true,
   showTagsByDefault: true,
+}
+
+export const IncludeBlockedAndOnlyBlocked = Template.bind({})
+IncludeBlockedAndOnlyBlocked.args = {
+  user: 'garypalmerjr.eth',
+  defaultTab: 'followers',
+  showHeaderImage: true,
+  showBlocked: true,
+  showOnlyBlocked: true,
 }

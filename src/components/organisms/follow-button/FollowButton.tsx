@@ -45,6 +45,8 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   className,
   customClassNames,
   customLoader,
+  showBlockBack,
+  showMuteBack,
   ...props
 }) => {
   const { t } = useTranslation()
@@ -66,6 +68,8 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     connectedAddress,
     selectedList,
     initialState,
+    showBlockBack,
+    showMuteBack,
   })
 
   const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)
@@ -109,6 +113,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
         pendingState && 'pending',
         disableHover && 'disable-hover',
         error && 'error',
+        (buttonText === 'Block Back' || buttonText === 'Mute Back') && 'block-back',
         className
       )}
       onClick={onClick}

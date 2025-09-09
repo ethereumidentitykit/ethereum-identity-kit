@@ -21,7 +21,8 @@ interface TableHeaderProps {
   sort: FollowSortType
   setSort: (option: FollowSortType) => void
   toggleSelectedTags: (title: ProfileTabType, tag: string) => void
-  includeBlocked?: boolean
+  showBlocked?: boolean
+  showOnlyBlocked?: boolean
   setActiveTab?: Dispatch<SetStateAction<ProfileTabType>>
 }
 
@@ -37,7 +38,8 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   toggleSelectedTags,
   sort,
   setSort,
-  includeBlocked,
+  showBlocked,
+  showOnlyBlocked,
   setActiveTab,
 }) => {
   const { t } = useTranslation()
@@ -51,7 +53,11 @@ const TableHeader: React.FC<TableHeaderProps> = ({
     setShowSearch(false)
   })
 
-  const displayedTags = includeBlocked ? allTags : allTags?.filter((tag) => !QUERY_BLOCK_TAGS.includes(tag.tag))
+  const displayedTags = showOnlyBlocked
+    ? QUERY_BLOCK_TAGS.map((tag) => ({ tag, count: allTags?.find((t) => t.tag === tag)?.count || 0 }))
+    : showBlocked
+      ? allTags
+      : allTags?.filter((tag) => !QUERY_BLOCK_TAGS.includes(tag.tag))
   const tagsEmpty = !tagsLoading && (!displayedTags || displayedTags.length === 0)
 
   return (
@@ -59,18 +65,18 @@ const TableHeader: React.FC<TableHeaderProps> = ({
       <div className="header-content">
         <div className="header-main">
           <div className="tab-switcher">
-            <div className={clsx('tab-indicator', title === 'following' ? 'following' : 'followers')} />
+            <div className={clsx('tab-indicator', title === 'following' ? 'following' : 'followers', showOnlyBlocked && 'tab-indicator-wide')} />
             <p
-              className={clsx('tab-button', title === 'following' ? '' : 'inactive')}
+              className={clsx('tab-button', title === 'following' ? '' : 'inactive', showOnlyBlocked && 'tab-button-wide')}
               onClick={() => setActiveTab?.('following')}
             >
-              {t('following')}
+              {t(showOnlyBlocked ? 'blocking.title' : 'following.title')}
             </p>
             <p
-              className={clsx('tab-button', title === 'followers' ? '' : 'inactive')}
+              className={clsx('tab-button', title === 'followers' ? '' : 'inactive', showOnlyBlocked && 'tab-button-wide')}
               onClick={() => setActiveTab?.('followers')}
             >
-              {t('followers')}
+              {t(showOnlyBlocked ? 'blocked.title' : 'followers.title')}
             </p>
           </div>
           <div className="actions-container">
@@ -146,16 +152,16 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             {tagsLoading
               ? new Array(4).fill(1).map((_, i) => <LoadingCell key={i} className="h-7 w-20 rounded-sm md:h-9" />)
               : displayedTags?.map((tag, i) => (
-                  <button
-                    key={tag.tag + i}
-                    className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
-                    name={tag.tag.toLowerCase()}
-                    onClick={() => toggleSelectedTags(title, tag.tag)}
-                  >
-                    <p className="tag-name">{tag.tag}</p>
-                    <p className="tag-count">{formatNumber(tag.count)}</p>
-                  </button>
-                ))}
+                <button
+                  key={tag.tag + i}
+                  className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
+                  name={tag.tag.toLowerCase()}
+                  onClick={() => toggleSelectedTags(title, tag.tag)}
+                >
+                  <p className="tag-name">{tag.tag}</p>
+                  <p className="tag-count">{formatNumber(tag.count)}</p>
+                </button>
+              ))}
           </div>
         </>
       )}

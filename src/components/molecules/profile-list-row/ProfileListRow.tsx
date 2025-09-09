@@ -43,6 +43,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   showHeaderImage = false,
   showFollowsYouBadges = false,
   rowHeight = 80,
+  showBlockBack = false,
 }) => {
   const { data: account, isLoading: isAccountLoading } = useQuery({
     queryKey: ['profile-account', profile.address],
@@ -94,6 +95,8 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         connectedAddress={connectedAddress}
         selectedList={selectedList}
         initialState={initialFollowState}
+        showBlockBack={showBlockBack && tags?.includes('block')}
+        showMuteBack={showBlockBack && tags?.includes('mute')}
       />
     </div>
   )

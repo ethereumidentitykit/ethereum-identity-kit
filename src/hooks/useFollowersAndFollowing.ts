@@ -14,13 +14,15 @@ export const useFollowersAndFollowing = ({
   defaultTab,
   showTagsByDefault,
   isConnectedUserProfile,
-  includeBlocked,
+  showBlocked,
+  showOnlyBlocked,
 }: {
   user: string
   defaultTab: ProfileTabType
   showTagsByDefault?: boolean
   isConnectedUserProfile?: boolean
-  includeBlocked?: boolean
+  showBlocked?: boolean
+  showOnlyBlocked?: boolean
 }) => {
   const [activeTab, setActiveTab] = useState<ProfileTabType>(defaultTab)
   useEffect(() => {
@@ -55,7 +57,7 @@ export const useFollowersAndFollowing = ({
     setFollowersSort,
     setFollowersTagsFilter,
     setFollowingTagsFilter,
-  } = useUserInfo({ user, includeBlocked })
+  } = useUserInfo({ user, showBlocked, showOnlyBlocked })
 
   const params = {
     following: {
@@ -95,7 +97,7 @@ export const useFollowersAndFollowing = ({
     },
   }[activeTab]
 
-  const [showTags, setShowTags] = useState(!!showTagsByDefault)
+  const [showTags, setShowTags] = useState(!!showTagsByDefault || !!showOnlyBlocked)
   const [search, setSearch] = useState<string>('')
   // Debounce search to prevent unnecessary re-fetches
   useEffect(() => {

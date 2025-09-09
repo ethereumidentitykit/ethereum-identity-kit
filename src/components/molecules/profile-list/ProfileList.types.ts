@@ -20,6 +20,7 @@ export type ProfileListProps = {
   showFollowsYouBadges?: boolean
   loadMoreElement?: React.ReactNode
   useVirtualList?: boolean
+  showBlockBack?: boolean
 }
 
 export type ProfileItemType = {

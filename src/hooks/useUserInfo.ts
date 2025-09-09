@@ -6,16 +6,21 @@ import { nullFollowerTags } from '../utils/api/fetch-follower-tags'
 import { fetchFollowerTags } from '../utils/api/fetch-follower-tags'
 import { fetchProfileFollowing } from '../utils/api/fetch-profile-following'
 import { fetchProfileFollowers } from '../utils/api/fetch-profile-followers'
-import { FETCH_LIMIT } from '../constants'
+import { FETCH_LIMIT, QUERY_BLOCK_TAGS } from '../constants'
 import { FollowerResponse, FollowingResponse, FollowSortType, ProfileTableTitleType } from '../types'
 import { UseUserInfoReturn } from '../types/hooks'
 
 type UseUserInfoProps = {
   user: string
-  includeBlocked?: boolean
+  showBlocked?: boolean
+  showOnlyBlocked?: boolean
 }
 
-export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps): UseUserInfoReturn => {
+export const useUserInfo = ({
+  user,
+  showBlocked = false,
+  showOnlyBlocked = false,
+}: UseUserInfoProps): UseUserInfoReturn => {
   const [followingSearch, setFollowingSearch] = useState<string>('')
   const [followersSearch, setFollowersSearch] = useState<string>('')
   const [followingTagsFilter, setFollowingTagsFilter] = useState<string[]>([])
@@ -57,10 +62,10 @@ export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps):
         list: listNum,
         limit: FETCH_LIMIT,
         pageParam,
-        tags: followingTagsFilter,
+        tags: showOnlyBlocked && followingTagsFilter.length === 0 ? QUERY_BLOCK_TAGS : followingTagsFilter,
         sort: followingSort,
         search: followingSearch,
-        allResults: includeBlocked,
+        allResults: showBlocked || showOnlyBlocked,
       })
 
       if (fetchedFollowing.following.length === 0) setIsEndOfFollowing(true)
@@ -103,10 +108,10 @@ export const useUserInfo = ({ user, includeBlocked = false }: UseUserInfoProps):
         list: listNum,
         limit: FETCH_LIMIT,
         pageParam,
-        tags: followersTagsFilter,
+        tags: showOnlyBlocked && followersTagsFilter.length === 0 ? QUERY_BLOCK_TAGS : followersTagsFilter,
         sort: followersSort,
         search: followersSearch,
-        allResults: includeBlocked,
+        allResults: showBlocked || showOnlyBlocked,
       })
 
       if (fetchedFollowers.followers.length === 0) setIsEndOfFollowers(true)

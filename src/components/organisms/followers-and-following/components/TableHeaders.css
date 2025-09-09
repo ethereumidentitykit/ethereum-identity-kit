@@ -74,6 +74,10 @@
   .tab-indicator {
     width: 128px;
   }
+
+  .tab-indicator.tab-indicator-wide {
+    width: 164px;
+  }
 }
 
 .tab-indicator.following {
@@ -87,6 +91,10 @@
 @media (min-width: 640px) {
   .tab-indicator.followers {
     left: 128px;
+  }
+
+  .tab-indicator.followers.tab-indicator-wide {
+    left: 164px;
   }
 }
 
@@ -110,6 +118,10 @@
 @media (min-width: 640px) {
   .tab-button {
     width: 128px;
+  }
+
+  .tab-button.tab-button-wide {
+    width: 164px;
   }
 }
 

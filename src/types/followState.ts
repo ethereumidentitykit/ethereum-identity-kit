@@ -46,6 +46,8 @@ export type FollowingState =
   | 'Pending Mute'
   | 'Unblock'
   | 'Unmute'
+  | 'Block Back'
+  | 'Mute Back'
 
 /**
  * Initial following state when component mounts
