@@ -65,15 +65,29 @@ const TableHeader: React.FC<TableHeaderProps> = ({
       <div className="header-content">
         <div className="header-main">
           <div className="tab-switcher">
-            <div className={clsx('tab-indicator', title === 'following' ? 'following' : 'followers', showOnlyBlocked && 'tab-indicator-wide')} />
+            <div
+              className={clsx(
+                'tab-indicator',
+                title === 'following' ? 'following' : 'followers',
+                showOnlyBlocked && 'tab-indicator-wide'
+              )}
+            />
             <p
-              className={clsx('tab-button', title === 'following' ? '' : 'inactive', showOnlyBlocked && 'tab-button-wide')}
+              className={clsx(
+                'tab-button',
+                title === 'following' ? '' : 'inactive',
+                showOnlyBlocked && 'tab-button-wide'
+              )}
               onClick={() => setActiveTab?.('following')}
             >
               {t(showOnlyBlocked ? 'blocking.title' : 'following.title')}
             </p>
             <p
-              className={clsx('tab-button', title === 'followers' ? '' : 'inactive', showOnlyBlocked && 'tab-button-wide')}
+              className={clsx(
+                'tab-button',
+                title === 'followers' ? '' : 'inactive',
+                showOnlyBlocked && 'tab-button-wide'
+              )}
               onClick={() => setActiveTab?.('followers')}
             >
               {t(showOnlyBlocked ? 'blocked.title' : 'followers.title')}
@@ -152,16 +166,16 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             {tagsLoading
               ? new Array(4).fill(1).map((_, i) => <LoadingCell key={i} className="h-7 w-20 rounded-sm md:h-9" />)
               : displayedTags?.map((tag, i) => (
-                <button
-                  key={tag.tag + i}
-                  className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
-                  name={tag.tag.toLowerCase()}
-                  onClick={() => toggleSelectedTags(title, tag.tag)}
-                >
-                  <p className="tag-name">{tag.tag}</p>
-                  <p className="tag-count">{formatNumber(tag.count)}</p>
-                </button>
-              ))}
+                  <button
+                    key={tag.tag + i}
+                    className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
+                    name={tag.tag.toLowerCase()}
+                    onClick={() => toggleSelectedTags(title, tag.tag)}
+                  >
+                    <p className="tag-name">{tag.tag}</p>
+                    <p className="tag-count">{formatNumber(tag.count)}</p>
+                  </button>
+                ))}
           </div>
         </>
       )}

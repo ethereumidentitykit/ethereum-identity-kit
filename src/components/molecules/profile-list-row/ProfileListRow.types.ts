@@ -14,4 +14,5 @@ export type ProfileListRowProps = {
   showFollowsYouBadges?: boolean
   rowHeight?: number
   showBlockBack?: boolean
+  showProfileTooltip?: boolean
 }

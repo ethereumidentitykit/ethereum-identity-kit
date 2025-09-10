@@ -9,9 +9,10 @@ interface BioProps {
   fontSize?: number
   maxLines?: number
   className?: string
+  showMore?: boolean
 }
 
-const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSize = 14 }) => {
+const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, className, fontSize = 14 }) => {
   const [viewMore, setViewMore] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -44,7 +45,7 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSiz
           <i>{t('profile.noBio')}</i>
         )}
       </p>
-      {viewMore && (
+      {viewMore && showMore && (
         <button className="profile-bio-expand-button" onClick={() => setIsExpanded(!isExpanded)}>
           <p>{isExpanded ? t('profile.showLess') : t('profile.showMore')}</p>{' '}
           <div style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}>

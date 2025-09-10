@@ -21,6 +21,7 @@ export type ProfileListProps = {
   loadMoreElement?: React.ReactNode
   useVirtualList?: boolean
   showBlockBack?: boolean
+  showProfileTooltip?: boolean
 }
 
 export type ProfileItemType = {

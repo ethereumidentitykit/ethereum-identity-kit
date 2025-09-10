@@ -16,4 +16,5 @@ export interface FollowersAndFollowingProps {
   useVirtualList?: boolean
   rowHeight?: number
   preventDefaultScroll?: boolean
+  showProfileTooltip?: boolean
 }
