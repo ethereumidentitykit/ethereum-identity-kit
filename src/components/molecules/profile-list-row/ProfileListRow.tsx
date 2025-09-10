@@ -63,6 +63,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         selectedList={selectedList}
         showFollowerState={showFollowsYouBadges}
         showFollowButton={false}
+        horizontalOffset={16}
       >
         <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
           {showHeaderImage && headerImage && (

@@ -1,5 +1,5 @@
-import { Address } from '../../../types/address'
-import { ProfileListType, ProfileStatsClickProps } from '../../../types/profile'
+import type { ReactElement, HTMLAttributes } from 'react'
+import { Address, ProfileListType, ProfileStatsClickProps } from '../../../types'
 import { ProfileExtraOptions } from '../full-width-profile/FullWidthProfile.types'
 import { Boundary, FlipBehavior, TooltipPlacement } from '../../../hooks/useTooltipPosition'
 
@@ -19,15 +19,16 @@ export type ProfileCardProps = {
   extraOptions?: ProfileTooltipExtraOptions
   selectedList?: ProfileListType
   hasCommonFollowersModal?: boolean
-} & React.HTMLAttributes<HTMLDivElement>
+} & HTMLAttributes<HTMLDivElement>
 
 export type ProfileTooltipProps = ProfileCardProps
 
 export interface ProfileTooltipWrapperProps extends ProfileTooltipProps {
-  children: React.ReactElement
+  children: ReactElement
   verticalPlacement?: TooltipPlacement
   horizontalPlacement?: 'left' | 'right'
-  offset?: number
+  verticalOffset?: number
+  horizontalOffset?: number
   showArrow?: boolean
   showDelay?: number
   hideDelay?: number

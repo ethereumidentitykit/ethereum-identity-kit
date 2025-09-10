@@ -26,7 +26,8 @@ const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
   children,
   verticalPlacement = 'auto',
   horizontalPlacement = 'left',
-  offset = 8,
+  verticalOffset = 8,
+  horizontalOffset = 0,
   showArrow = false,
   showDelay = 100,
   hideDelay = 100,
@@ -46,7 +47,8 @@ const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
   const { position, actualPlacement, arrowPosition, updatePosition } = useTooltipPosition(triggerRef, tooltipRef, {
     verticalPlacement,
     horizontalPlacement,
-    offset,
+    verticalOffset,
+    horizontalOffset,
     flipBehavior,
     boundary,
   })

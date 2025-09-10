@@ -23,7 +23,8 @@ interface Position {
 interface UseTooltipPositionOptions {
   verticalPlacement?: TooltipPlacement
   horizontalPlacement?: 'left' | 'right'
-  offset?: number
+  verticalOffset?: number
+  horizontalOffset?: number
   boundary?: Boundary
   flipBehavior?: FlipBehavior
   arrowPadding?: number
@@ -50,7 +51,8 @@ export const useTooltipPosition = (
   const {
     verticalPlacement = 'auto',
     horizontalPlacement = 'left',
-    offset = 8,
+    verticalOffset = 8,
+    horizontalOffset = 0,
     boundary = 'viewport',
     flipBehavior = 'flip',
     arrowPadding = 8,
@@ -109,29 +111,29 @@ export const useTooltipPosition = (
   }, [])
 
   const calculatePositionForPlacement = useCallback(
-    (placement: TooltipPlacement, triggerRect: DOMRect, tooltipRect: DOMRect, offset: number): Position => {
+    (placement: TooltipPlacement, verticalOffset: number, horizontalOffset: number): Position => {
       const position: Position = {}
 
       // Calculate main axis position
       switch (placement) {
         case 'top':
-          position.bottom = `calc(100% + ${offset}px)`
+          position.bottom = `calc(100% + ${verticalOffset}px)`
           break
         case 'bottom':
-          position.top = `calc(100% + ${offset}px)`
+          position.top = `calc(100% + ${verticalOffset}px)`
           break
       }
 
       // Always align to the left side of the trigger
       if (horizontalPlacement === 'left') {
-        position.left = 0
+        position.left = `${horizontalOffset}px`
       } else {
-        position.right = 0
+        position.right = `${horizontalOffset}px`
       }
 
       return position
     },
-    []
+    [horizontalPlacement, horizontalOffset, verticalOffset]
   )
 
   const calculateArrowPosition = useCallback(
@@ -165,16 +167,16 @@ export const useTooltipPosition = (
       const space = getAvailableSpace(triggerRect, boundaryRect)
 
       // Always prefer top if it fits, otherwise use bottom
-      if (space.top >= tooltipRect.height + offset) {
+      if (space.top >= tooltipRect.height + verticalOffset) {
         return 'top'
-      } else if (space.bottom >= tooltipRect.height + offset) {
+      } else if (space.bottom >= tooltipRect.height + verticalOffset) {
         return 'bottom'
       }
 
       // If neither top nor bottom fit well, choose the one with more space
       return space.top >= space.bottom ? 'top' : 'bottom'
     },
-    [getAvailableSpace, offset]
+    [getAvailableSpace, verticalOffset]
   )
 
   const updatePosition = useCallback(() => {
@@ -198,7 +200,7 @@ export const useTooltipPosition = (
         verticalPlacement === 'auto' ? findBestPlacement(triggerRect, tooltipRect, boundaryRect) : verticalPlacement
 
       // Calculate initial position
-      let calculatedPosition = calculatePositionForPlacement(finalPlacement, triggerRect, tooltipRect, offset)
+      let calculatedPosition = calculatePositionForPlacement(finalPlacement, verticalOffset, horizontalOffset)
 
       // Check for collisions
       const testRect = {
@@ -216,7 +218,7 @@ export const useTooltipPosition = (
       if (!collision.visible && flipBehavior === 'flip' && verticalPlacement !== 'auto') {
         const oppositePlacement = PLACEMENT_OPPOSITES[finalPlacement] as TooltipPlacement
         if (oppositePlacement) {
-          const oppositePosition = calculatePositionForPlacement(oppositePlacement, triggerRect, tooltipRect, offset)
+          const oppositePosition = calculatePositionForPlacement(oppositePlacement, verticalOffset, horizontalOffset)
 
           // Test if opposite placement is better
           const oppositeTestRect = {
@@ -258,7 +260,8 @@ export const useTooltipPosition = (
     triggerRef,
     tooltipRef,
     verticalPlacement,
-    offset,
+    verticalOffset,
+    horizontalOffset,
     flipBehavior,
     getBoundaryElement,
     findBestPlacement,

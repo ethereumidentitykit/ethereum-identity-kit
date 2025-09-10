@@ -71,6 +71,8 @@ AddressDefaultPosition.args = {
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
   darkMode: false,
+  verticalOffset: 8,
+  horizontalOffset: 0,
   onProfileClick,
   showFollowButton: false,
   keepTooltipOnHover: false,
@@ -83,6 +85,8 @@ ENSTopPosition.args = {
   showFollowerState: true,
   paddingTop: 240,
   darkMode: false,
+  verticalOffset: 8,
+  horizontalOffset: 0,
   onProfileClick,
   showFollowButton: false,
 }
@@ -95,6 +99,8 @@ LeftTopAlignedWithArrow.args = {
   paddingTop: 240,
   showFollowerState: true,
   showArrow: true,
+  verticalOffset: 8,
+  horizontalOffset: 0,
   onProfileClick,
   showFollowButton: true,
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { clsx } from 'clsx'
+import clsx from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileDetails, useProfileStats } from '../../../hooks'
 import { truncateAddress } from '../../../utils'
