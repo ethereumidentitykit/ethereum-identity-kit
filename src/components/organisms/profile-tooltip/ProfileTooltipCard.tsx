@@ -49,6 +49,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
   onProfileClick = (addressOrname) => {
     window.open(`https://efp.app/${addressOrname}`, '_blank', 'noopener,noreferrer')
   },
+  onStatClick,
   extraOptions,
   className,
   style,
@@ -82,7 +83,6 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
     <div
       className={clsx('tooltip-card', darkMode && 'dark dark-tooltip-card', className)}
       data-testid="tooltip-card"
-      onClick={() => onProfileClick?.(addressOrName)}
       style={{ fontFamily: 'Inter, sans-serif', ...style }}
       {...props}
     >
@@ -107,7 +107,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-              (address && <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />)
+              (address && (
+                <div className="tooltip-follow-button">
+                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                </div>
+              ))
             : null}
         </div>
         {isDetailsLoading ? (
@@ -136,6 +140,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
             },
             isLoading: isStatsLoading,
           }}
+          onStatClick={onStatClick}
           fontSize="md"
           gap="20px"
           statsDirection="row"

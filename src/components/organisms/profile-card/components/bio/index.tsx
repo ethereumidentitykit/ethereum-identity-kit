@@ -31,19 +31,17 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, c
         className={clsx('profile-bio-text', { 'profile-bio-text-expanded': isExpanded })}
         style={{ lineClamp: maxLines, WebkitLineClamp: maxLines, fontSize: `${fontSize}px` }}
       >
-        {description ? (
-          description.split(' ').map((word) =>
-            word.includes('@') && word.includes('.') ? (
-              <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
-                {word}{' '}
-              </a>
-            ) : (
-              `${word} `
+        {description
+          ? description.split(' ').map((word) =>
+              word.includes('@') && word.includes('.') ? (
+                <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
+                  {word}{' '}
+                </a>
+              ) : (
+                `${word} `
+              )
             )
-          )
-        ) : (
-          <i>{t('profile.noBio')}</i>
-        )}
+          : null}
       </p>
       {viewMore && showMore && (
         <button className="profile-bio-expand-button" onClick={() => setIsExpanded(!isExpanded)}>

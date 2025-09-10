@@ -21,6 +21,7 @@ export {
   useWindowSize,
   useUserInfo,
   useFollowersAndFollowing,
+  useTooltipPosition,
 } from './hooks'
 
 // Utils
@@ -133,6 +134,7 @@ export {
   FullWidthProfile,
   FollowersAndFollowing,
   EFPPoaps,
+  ProfileTooltip,
   // Icons
   Check,
   Cross,
@@ -197,6 +199,7 @@ export type {
   NotificationsProps,
   FollowersAndFollowingProps,
   SignInWithEthereumProps,
+  ProfileTooltipProps,
 } from './components'
 
 // Types

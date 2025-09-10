@@ -58,7 +58,7 @@ export const useTooltipPosition = (
 
   const [position, setPosition] = useState<Position>({})
   const [actualPlacement, setActualPlacement] = useState<TooltipPlacement>(
-    verticalPlacement === 'auto' ? 'top' : verticalPlacement
+    verticalPlacement === 'auto' ? 'bottom' : verticalPlacement
   )
   const [arrowPosition, setArrowPosition] = useState<Position>({})
   const [isColliding, setIsColliding] = useState(false)

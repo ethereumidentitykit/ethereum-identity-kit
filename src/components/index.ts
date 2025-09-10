@@ -18,6 +18,7 @@ import Notifications from './organisms/notifications/Notifications'
 import HeaderImage from './organisms/profile-card/components/HeaderImage'
 import FullWidthProfile from './organisms/full-width-profile/FullWidthProfile'
 import FollowersAndFollowing from './organisms/followers-and-following/FollowersAndFollowing'
+import ProfileTooltip from './organisms/profile-tooltip/ProfileTooltip'
 
 export {
   ProfileCard,
@@ -40,6 +41,7 @@ export {
   Notifications,
   FollowersAndFollowing,
   SignInWithEthereum,
+  ProfileTooltip,
 }
 
 import { LoadingCellProps } from './atoms/loading-cell/LoadingCell.types'
@@ -59,6 +61,7 @@ import { NotificationsProps } from './organisms/notifications/Notifications.type
 import { TransactionModalProps } from './organisms/transaction-modal/TransactionModal.types'
 import { FullWidthProfileProps } from './organisms/full-width-profile/FullWidthProfile.types'
 import { FollowersAndFollowingProps } from './organisms/followers-and-following/FollowersAndFollowing.types'
+import { ProfileTooltipProps } from './organisms/profile-tooltip/ProfileTooltip.types'
 
 export type {
   ProfileCardProps,
@@ -78,6 +81,7 @@ export type {
   NotificationsProps,
   FollowersAndFollowingProps,
   SignInWithEthereumProps,
+  ProfileTooltipProps,
 }
 
 export * from './icons'

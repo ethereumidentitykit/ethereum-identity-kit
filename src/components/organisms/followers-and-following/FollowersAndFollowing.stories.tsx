@@ -87,8 +87,8 @@ IncludeBlockedAndOnlyBlocked.args = {
   showOnlyBlocked: true,
 }
 
-export const ShowProfileTooltip = Template.bind({})
-ShowProfileTooltip.args = {
+export const ProfileTooltip = Template.bind({})
+ProfileTooltip.args = {
   user: 'brantly.eth',
   defaultTab: 'following',
   showHeaderImage: true,

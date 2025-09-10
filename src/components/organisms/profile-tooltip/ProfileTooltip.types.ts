@@ -1,5 +1,5 @@
 import { Address } from '../../../types/address'
-import { ProfileListType } from '../../../types/profile'
+import { ProfileListType, ProfileStatsClickProps } from '../../../types/profile'
 import { ProfileExtraOptions } from '../full-width-profile/FullWidthProfile.types'
 import { Boundary, FlipBehavior, TooltipPlacement } from '../../../hooks/useTooltipPosition'
 
@@ -15,7 +15,7 @@ export type ProfileCardProps = {
   showPoaps?: boolean
   showEmptySocials?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
-  onStatClick?: (stat: 'followers' | 'following', event?: React.MouseEvent) => void
+  onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   extraOptions?: ProfileTooltipExtraOptions
   selectedList?: ProfileListType
   hasCommonFollowersModal?: boolean
