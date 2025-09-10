@@ -70,7 +70,8 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
     }
   }
 
-  if ((buttonState === 'Pending Block' || buttonState === 'Pending Mute' || buttonState === 'Unfollow') && canEditTags) return null
+  if ((buttonState === 'Pending Block' || buttonState === 'Pending Mute' || buttonState === 'Unfollow') && canEditTags)
+    return null
 
   return (
     <div className="cart-tags-container" ref={outsideClickRef as React.RefObject<HTMLDivElement>}>
@@ -80,14 +81,17 @@ const Tags: React.FC<TagsProps> = ({ address, existingTags, canEditTags }) => {
         </button>
       )}
       {tags.map((tag) => {
-        const isInCart = canEditTags && getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
-        const isBeingRemoved = canEditTags && pendingTxs
-          .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
-          .flatMap((tx) => getListOpsFromTransaction(tx))
-          .some((op) => {
-            const { address: opAddress, tag: opTag } = extractAddressAndTag(op.data)
-            return opAddress === address && opTag === tag && op.opcode === 4
-          })
+        const isInCart =
+          canEditTags && getPendingTxAddressesAndTags(pendingTxs).some((t) => t.address === address && t.tag === tag)
+        const isBeingRemoved =
+          canEditTags &&
+          pendingTxs
+            .filter((tx) => tx.id === EFPActionIds.UpdateEFPList)
+            .flatMap((tx) => getListOpsFromTransaction(tx))
+            .some((op) => {
+              const { address: opAddress, tag: opTag } = extractAddressAndTag(op.data)
+              return opAddress === address && opTag === tag && op.opcode === 4
+            })
 
         return (
           <button

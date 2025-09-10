@@ -42,7 +42,7 @@ ByAddress.args = {
   },
   darkMode: false,
   onProfileClick,
-  showEmptySocials: true,
+  showEmptySocials: false,
   showFollowButton: false,
   hasCommonFollowersModal: true,
 }

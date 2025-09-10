@@ -38,6 +38,8 @@ import './FollowersAndFollowing.css'
  *
  * @param useVirtualList - whether to use virtual list
  *
+ * @param showProfileTooltip - whether to show profile tooltip
+ *
  * @param ref - the ref to the container
  *
  * @returns FollowersAndFollowing component
@@ -58,6 +60,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
       useVirtualList = false,
       showBlocked,
       showOnlyBlocked,
+      showProfileTooltip,
     },
     ref
   ) => {
@@ -95,7 +98,13 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
         ) : (
           <div className="empty-state-content">
             <p className="empty-state-text">
-              {isConnectedUserProfile ? showOnlyBlocked ? t('blocking.empty.connectedUser') : t('following.empty.connectedUser') : showOnlyBlocked ? t('blocking.empty') : t('following.empty')}
+              {isConnectedUserProfile
+                ? showOnlyBlocked
+                  ? t('blocking.empty.connectedUser')
+                  : t('following.empty.connectedUser')
+                : showOnlyBlocked
+                  ? t('blocking.empty')
+                  : t('following.empty')}
             </p>
             {isConnectedUserProfile && (
               <p className="empty-state-subtext">
@@ -148,7 +157,9 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
               showTags={showTags}
               showFollowsYouBadges={showFollowsYouBadges}
               canEditTags={isConnectedUserProfile && activeTab === 'following'}
-              initialFollowState={activeTab === 'following' && isConnectedUserProfile && !showOnlyBlocked ? 'Following' : undefined}
+              initialFollowState={
+                activeTab === 'following' && isConnectedUserProfile && !showOnlyBlocked ? 'Following' : undefined
+              }
               darkMode={darkMode}
               connectedAddress={connectedAddress}
               selectedList={selectedList}
@@ -161,6 +172,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
               loadMoreElement={<div ref={loadMoreRef} className="load-more-trigger" />}
               useVirtualList={useVirtualList}
               showBlockBack={showOnlyBlocked && isConnectedUserProfile && activeTab === 'followers'}
+              showProfileTooltip={showProfileTooltip}
             />
           )}
         </div>
@@ -170,7 +182,7 @@ const FollowersAndFollowing = forwardRef<HTMLDivElement, FollowersAndFollowingPr
           connectedAddress &&
           (lists?.lists?.length || 0) === 0 && (
             <Recommended
-              title={t("recommendations.connectedUser")}
+              title={t('recommendations.connectedUser')}
               limit={40}
               connectedAddress={connectedAddress}
               selectedList={selectedList}

@@ -44,6 +44,8 @@ import './ProfileList.css'
  * @param showFollowsYouBadges - whether to show the follows you badges
  *
  * @param showBlockBack - whether to show block back
+ *
+ * @param showProfileTooltip - whether to show profile tooltip
  */
 const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
   (
@@ -67,6 +69,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
       loadMoreElement,
       useVirtualList = false,
       showBlockBack = false,
+      showProfileTooltip = false,
     },
     ref
   ) => {
@@ -102,6 +105,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               onProfileClick={onProfileClick}
               showFollowsYouBadges={showFollowsYouBadges}
               showBlockBack={showBlockBack}
+              showProfileTooltip={showProfileTooltip}
             />
           ) : isLoading ? (
             <ProfileListLoadingRow key={`loading-${index}`} />
@@ -130,6 +134,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
               onProfileClick={onProfileClick}
               showFollowsYouBadges={showFollowsYouBadges}
               showBlockBack={showBlockBack}
+              showProfileTooltip={showProfileTooltip}
             />
           ) : isLoading ? (
             <ProfileListLoadingRow key={`loading-${index}`} showHeaderImage={showHeaderImage} />

@@ -34,7 +34,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   iconSize = 32,
   isLoading = false,
   style,
-  showEmptySocials = true,
+  showEmptySocials = false,
 }) => {
   return (
     <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>

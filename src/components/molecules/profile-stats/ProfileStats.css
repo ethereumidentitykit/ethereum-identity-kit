@@ -55,25 +55,25 @@
 }
 
 .profile-stats-item-md .profile-stats-item-label {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .profile-stats-item-md .profile-stats-item-value {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .profile-stats-item-lg .profile-stats-item-label {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .profile-stats-item-lg .profile-stats-item-value {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .profile-stats-item-xl .profile-stats-item-label {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .profile-stats-item-xl .profile-stats-item-value {
-  font-size: 26px;
+  font-size: 22px;
 }

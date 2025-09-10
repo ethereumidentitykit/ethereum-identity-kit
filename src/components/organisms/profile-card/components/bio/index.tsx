@@ -9,9 +9,10 @@ interface BioProps {
   fontSize?: number
   maxLines?: number
   className?: string
+  showMore?: boolean
 }
 
-const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSize = 14 }) => {
+const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, className, fontSize = 14 }) => {
   const [viewMore, setViewMore] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -30,21 +31,19 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, className, fontSiz
         className={clsx('profile-bio-text', { 'profile-bio-text-expanded': isExpanded })}
         style={{ lineClamp: maxLines, WebkitLineClamp: maxLines, fontSize: `${fontSize}px` }}
       >
-        {description ? (
-          description.split(' ').map((word) =>
-            word.includes('@') && word.includes('.') ? (
-              <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
-                {word}{' '}
-              </a>
-            ) : (
-              `${word} `
+        {description
+          ? description.split(' ').map((word) =>
+              word.includes('@') && word.includes('.') ? (
+                <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
+                  {word}{' '}
+                </a>
+              ) : (
+                `${word} `
+              )
             )
-          )
-        ) : (
-          <i>{t('profile.noBio')}</i>
-        )}
+          : null}
       </p>
-      {viewMore && (
+      {viewMore && showMore && (
         <button className="profile-bio-expand-button" onClick={() => setIsExpanded(!isExpanded)}>
           <p>{isExpanded ? t('profile.showLess') : t('profile.showMore')}</p>{' '}
           <div style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(180deg)' }}>

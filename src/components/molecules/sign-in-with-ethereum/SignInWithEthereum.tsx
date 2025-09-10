@@ -71,12 +71,12 @@ const SignInWithEthereum = ({
         connectedAddress
           ? handleSignIn
           : () => {
-            if (autoSignInAfterConnection) {
-              pendingSignInRef.current = true
+              if (autoSignInAfterConnection) {
+                pendingSignInRef.current = true
+              }
+              setHasClicked(true)
+              onDisconnectedClick?.(handleSignIn)
             }
-            setHasClicked(true)
-            onDisconnectedClick?.(handleSignIn)
-          }
       }
       disabled={isSigningMessage}
       style={{ marginRight: '10px' }}

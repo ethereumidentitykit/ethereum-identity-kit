@@ -17,6 +17,7 @@ import { useProfileDetails } from './profile/useProfileDetails'
 import { useFollowersAndFollowing } from './useFollowersAndFollowing'
 import { useFollowersYouKnowModal } from './followers-you-know/useModal'
 import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
+import { useTooltipPosition } from './useTooltipPosition'
 
 export {
   useSiwe,
@@ -38,6 +39,8 @@ export {
   useWindowSize,
   useNotifications,
   useFollowersAndFollowing,
+  useTooltipPosition,
 }
 
 export type { UseFollowButtonParams }
+export type { TooltipPlacement, FlipBehavior, Boundary } from './useTooltipPosition'

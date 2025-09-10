@@ -1,0 +1,195 @@
+/* Wrapper for relative positioning context */
+.tooltip-wrapper {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+}
+
+.tooltip-child {
+  width: 100%;
+  height: fit-content;
+}
+
+/* Main tooltip content */
+.profile-tooltip-content {
+  position: absolute;
+  z-index: 100;
+  transition:
+    opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+  contain: layout style;
+  will-change: transform, opacity;
+}
+
+/* Visibility state */
+.profile-tooltip-content:not(.profile-tooltip--visible) {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.profile-tooltip-content .tooltip-card {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--ethereum-identity-kit-background);
+}
+
+.dark .profile-tooltip-content .tooltip-card {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--ethereum-identity-kit-background-dark);
+}
+
+/* Arrow styles */
+.profile-tooltip-arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--ethereum-identity-kit-background);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.dark .profile-tooltip-arrow {
+  background: var(--ethereum-identity-kit-background-dark);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Arrow positioning for each placement */
+.profile-tooltip-arrow--top {
+  border-top: none;
+  border-left: none;
+}
+
+.profile-tooltip-arrow--bottom {
+  border-bottom: none;
+  border-right: none;
+}
+
+/* Animation origins for smooth transitions */
+.profile-tooltip--top {
+  transform-origin: left bottom;
+}
+
+.profile-tooltip--bottom {
+  transform-origin: left top;
+}
+
+/* Legacy styles - kept for backwards compatibility */
+.tooltip-container {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.tooltip-card {
+  width: 360px;
+  text-align: center;
+  border-radius: 4px;
+  padding: 20px 16px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: var(--ethereum-identity-kit-background);
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .tooltip-card {
+    width: 420px;
+  }
+}
+
+.dark-tooltip-card {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-background-dark);
+}
+
+.tooltip-avatar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  width: 100%;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tooltip-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip-name-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip-name {
+  margin-top: 2px;
+  font-size: 18px;
+  font-weight: 700;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip-name[enable-hover='true']:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.tooltip-status {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--ethereum-identity-kit-neutral-light);
+  color: var(--ethereum-identity-kit-text-primary);
+  font-style: italic;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 2px 0;
+  text-align: left;
+}
+
+.dark .tooltip-status {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-neutral-light-dark);
+}
+
+.tooltip-bio {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  max-width: 100%;
+}
+
+.tooltip-bio-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin: 0;
+}
