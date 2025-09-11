@@ -95,6 +95,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
                 }}
                 showDelay={500}
                 hideDelay={0}
+                showBio={true}
+                showSocials={true}
+                showStatus={true}
                 verticalPlacement="auto"
                 horizontalPlacement="left"
                 boundary="scrollParent"

@@ -112,11 +112,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-            (address && (
-              <div className="tooltip-follow-button">
-                <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
-              </div>
-            ))
+              (address && (
+                <div className="tooltip-follow-button">
+                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                </div>
+              ))
             : null}
         </div>
         {isDetailsLoading ? (

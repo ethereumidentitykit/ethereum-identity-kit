@@ -98,6 +98,9 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
             <ProfileTooltip
               key={address}
               addressOrName={address}
+              showBio={true}
+              showSocials={true}
+              showStatus={true}
               boundary="viewport"
               verticalPlacement="bottom"
               horizontalPlacement="left"
