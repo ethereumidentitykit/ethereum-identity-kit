@@ -7,8 +7,8 @@ import Avatar from '../avatar/Avatar'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { FollowersYouKnowProps } from './FollowersYouKnow.types'
 import FollowersYouKnowModal from './components/modal/modal'
-import './FollowersYouKnow.css'
 import ProfileTooltip from '../../organisms/profile-tooltip/ProfileTooltip'
+import './FollowersYouKnow.css'
 
 /**
  * FollowersYouKnow component - displays the common followers between two addresses
