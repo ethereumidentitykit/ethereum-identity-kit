@@ -12,8 +12,11 @@ export type ProfileCardProps = {
   darkMode?: boolean
   showFollowerState?: boolean
   showFollowButton?: boolean
-  showPoaps?: boolean
+  showSocials?: boolean
   showEmptySocials?: boolean
+  showBio?: boolean
+  showStatus?: boolean
+  showCommonFollowers?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   extraOptions?: ProfileTooltipExtraOptions

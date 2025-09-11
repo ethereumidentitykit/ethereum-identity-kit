@@ -6,6 +6,7 @@ import { Address, NotificationItemType } from '../../../../../types'
 import { useTranslation } from '../../../../../context/TranslationContext'
 import Avatar from '../../../../molecules/avatar/Avatar'
 import './index.css'
+import ProfileTooltip from '../../../profile-tooltip/ProfileTooltip'
 
 export type NotificationItemAction = 'follow' | 'unfollow' | 'tag' | 'untag' | 'block' | 'unblock' | 'mute' | 'unmute'
 
@@ -85,24 +86,42 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
         <div className="notification">
           <div className="notification-item-avatars">
             {displayedAvatars.map((profile, index) => (
-              <Avatar
+              <ProfileTooltip
                 key={`avatar-${profile.address}-${index}`}
-                src={profile.avatar}
-                name={profile.name || profile.address}
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  transform: `translateX(-${index * 16}px)`,
+                addressOrName={profile.address}
+                onProfileClick={() => {
+                  onProfileClick?.(profile.address)
+                  onClose()
                 }}
-                onClick={
-                  onProfileClick
-                    ? () => {
-                        onProfileClick?.(profile.address)
-                        onClose()
-                      }
-                    : undefined
-                }
-              />
+                showDelay={500}
+                hideDelay={0}
+                verticalPlacement="auto"
+                horizontalPlacement="left"
+                boundary="scrollParent"
+                verticalOffset={4}
+                horizontalOffset={-(index * 16 + 4)}
+                showArrow={true}
+                keepTooltipOnHover={false}
+              >
+                <Avatar
+                  key={`avatar-${profile.address}-${index}`}
+                  src={profile.avatar}
+                  name={profile.name || profile.address}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    transform: `translateX(-${index * 16}px)`,
+                  }}
+                  onClick={
+                    onProfileClick
+                      ? () => {
+                          onProfileClick?.(profile.address)
+                          onClose()
+                        }
+                      : undefined
+                  }
+                />
+              </ProfileTooltip>
             ))}
           </div>
           <div

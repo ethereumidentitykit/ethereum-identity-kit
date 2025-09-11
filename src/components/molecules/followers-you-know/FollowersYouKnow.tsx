@@ -8,6 +8,7 @@ import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { FollowersYouKnowProps } from './FollowersYouKnow.types'
 import FollowersYouKnowModal from './components/modal/modal'
 import './FollowersYouKnow.css'
+import ProfileTooltip from '../../organisms/profile-tooltip/ProfileTooltip'
 
 /**
  * FollowersYouKnow component - displays the common followers between two addresses
@@ -94,18 +95,30 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
         {/* Avatars of first three common followers */}
         <div className="common-followers-avatars-container">
           {displayedAvatars?.map(({ avatar, address }, index) => (
-            <Avatar
+            <ProfileTooltip
               key={address}
-              src={avatar}
-              address={address}
-              onClick={(e) => {
-                if (onProfileClick) {
-                  e.stopPropagation()
-                  onProfileClick(address)
-                }
-              }}
-              style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
-            />
+              addressOrName={address}
+              boundary="viewport"
+              verticalPlacement="bottom"
+              horizontalPlacement="left"
+              verticalOffset={4}
+              horizontalOffset={-(index * 16 + 4)}
+              showArrow={true}
+              keepTooltipOnHover={false}
+            >
+              <Avatar
+                key={address}
+                src={avatar}
+                address={address}
+                onClick={(e) => {
+                  if (onProfileClick) {
+                    e.stopPropagation()
+                    onProfileClick(address)
+                  }
+                }}
+                style={{ width: '32px', height: '32px', transform: `translateX(-${index * 16}px)` }}
+              />
+            </ProfileTooltip>
           ))}
         </div>
 

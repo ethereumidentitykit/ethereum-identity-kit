@@ -12,6 +12,8 @@ import { DEFAULT_FALLBACK_AVATAR } from '../../../constants'
 import { ProfileTooltipProps } from './ProfileTooltip.types'
 import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import FollowButton from '../follow-button/FollowButton'
+import ProfileSocials from '../../molecules/profile-socials/ProfileSocials'
+import FollowersYouKnow from '../../molecules/followers-you-know/FollowersYouKnow'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -46,6 +48,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
   darkMode,
   showFollowerState,
   showFollowButton,
+  showSocials,
+  showEmptySocials,
+  showBio = true,
+  showStatus,
+  showCommonFollowers,
   onProfileClick = (addressOrname) => {
     window.open(`https://efp.app/${addressOrname}`, '_blank', 'noopener,noreferrer')
   },
@@ -146,17 +153,36 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           statsDirection="row"
           containerDirection="row"
         />
-        {/* {ens?.records?.status && <p className="tooltip-status">&quot;{ens?.records?.status}&quot;</p>} */}
+        {showStatus && ens?.records?.status && <p className="tooltip-status">&quot;{ens?.records?.status}&quot;</p>}
         <div className="tooltip-bio">
-          {isDetailsLoading ? (
-            <div className="bio-loading">
-              <LoadingCell height="18px" width="210px" />
-              <LoadingCell height="18px" width="140px" />
-            </div>
-          ) : (
-            <Bio description={ens?.records?.description} maxLines={2} showMore={false} />
-          )}
+          {showBio &&
+            (isDetailsLoading ? (
+              <div className="bio-loading">
+                <LoadingCell height="18px" width="210px" />
+                <LoadingCell height="18px" width="140px" />
+              </div>
+            ) : (
+              <Bio description={ens?.records?.description} maxLines={2} showMore={false} />
+            ))}
         </div>
+        {showSocials && (
+          <ProfileSocials
+            records={ens?.records}
+            name={ens?.name}
+            userAddress={address}
+            isLoading={isDetailsLoading}
+            showEmptySocials={showEmptySocials}
+          />
+        )}
+        {showCommonFollowers && connectedAddress && (
+          <FollowersYouKnow
+            connectedAddress={connectedAddress}
+            lookupAddressOrName={addressOrName}
+            onProfileClick={onProfileClick}
+            hasModal={false}
+            showEmpty={false}
+          />
+        )}
       </div>
     </div>
   )

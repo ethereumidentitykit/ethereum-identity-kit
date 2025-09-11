@@ -58,6 +58,7 @@ const ListTemplate: StoryFn<TemplateProps> = (args) => (
   >
     <FollowersAndFollowing
       user={args.addressOrName}
+      connectedAddress={args.connectedAddress}
       defaultTab={'following'}
       showHeaderImage={true}
       showProfileTooltip={true}
@@ -70,6 +71,10 @@ AddressDefaultPosition.args = {
   addressOrName: '0x983110309620d911731ac0932219af06091b6744',
   connectedAddress: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   showFollowerState: true,
+  showSocials: true,
+  showBio: true,
+  showStatus: true,
+  showCommonFollowers: true,
   darkMode: false,
   verticalOffset: 8,
   horizontalOffset: 0,
@@ -109,4 +114,5 @@ LeftTopAlignedWithArrow.args = {
 export const ProfileList = ListTemplate.bind({})
 ProfileList.args = {
   addressOrName: 'brantly.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
 }

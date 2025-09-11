@@ -58,6 +58,9 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
     return (
       <ProfileTooltip
         addressOrName={profile.address}
+        showBio={true}
+        showSocials={true}
+        showStatus={true}
         showDelay={1000}
         connectedAddress={connectedAddress}
         selectedList={selectedList}
@@ -65,7 +68,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         showFollowButton={false}
         horizontalOffset={16}
         verticalPlacement="auto"
-        boundary="scrollParent"
+        boundary="viewport"
       >
         <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
           {showHeaderImage && headerImage && (

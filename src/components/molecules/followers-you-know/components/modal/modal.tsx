@@ -46,6 +46,7 @@ const FollowersYouKnowModal: React.FC<FollowersYouKnowModalProps> = ({
             showHeaderImage={true}
             listHeight="calc(100vh - 128px)"
             loadMoreElement={isEndOfFollowing ? null : <div id="load-more-container" ref={loadMoreRef} />}
+            showProfileTooltip={true}
           />
         </div>
       </div>

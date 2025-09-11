@@ -76,7 +76,7 @@
   }
 
   .tab-indicator.tab-indicator-wide {
-    width: 164px;
+    width: 180px;
   }
 }
 
@@ -94,7 +94,7 @@
   }
 
   .tab-indicator.followers.tab-indicator-wide {
-    left: 164px;
+    left: 180px;
   }
 }
 
@@ -121,7 +121,7 @@
   }
 
   .tab-button.tab-button-wide {
-    width: 164px;
+    width: 180px;
   }
 }
 
