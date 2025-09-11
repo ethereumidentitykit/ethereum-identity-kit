@@ -10,8 +10,8 @@ import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import FollowerTag from '../follower-tag/FollowerTag'
 import FollowButton from '../../organisms/follow-button/FollowButton'
 import { ProfileListRowProps } from './ProfileListRow.types'
-import './ProfileListRow.css'
 import ProfileTooltip from '../../organisms/profile-tooltip/ProfileTooltip'
+import './ProfileListRow.css'
 
 /**
  * ProfileListRow component - displays a row of a profile in a list
@@ -64,6 +64,8 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         showFollowerState={showFollowsYouBadges}
         showFollowButton={false}
         horizontalOffset={16}
+        verticalPlacement="auto"
+        boundary="scrollParent"
       >
         <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
           {showHeaderImage && headerImage && (

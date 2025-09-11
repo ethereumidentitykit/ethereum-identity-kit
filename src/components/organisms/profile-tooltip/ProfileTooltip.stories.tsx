@@ -76,6 +76,7 @@ AddressDefaultPosition.args = {
   onProfileClick,
   showFollowButton: false,
   keepTooltipOnHover: false,
+  boundary: 'scrollParent',
 }
 
 export const ENSTopPosition = Template.bind({})

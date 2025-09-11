@@ -6,6 +6,7 @@
   padding: 0px 20px;
   justify-content: space-between;
   transition: all 0.2s;
+  box-sizing: border-box;
 }
 
 .profile-list-row:hover {
@@ -62,7 +63,6 @@
   margin: 0;
   font-size: 18px;
   font-weight: 700;
-  max-width: 216px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

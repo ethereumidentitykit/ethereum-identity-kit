@@ -22,6 +22,8 @@ import './FollowersAndFollowing.css'
  *
  * @param includeBlocked - whether to display blocked and muted users in the results
  *
+ * @param showOnlyBlocked - whether to display only blocked and muted users in the results
+ *
  * @param showRecommendations - whether to show recommendations on the following tab of a connected user with no lists
  *
  * @param isConnectedUserProfile - whether the user is the connected user
