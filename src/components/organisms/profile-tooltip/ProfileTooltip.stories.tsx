@@ -74,7 +74,6 @@ AddressDefaultPosition.args = {
   showSocials: true,
   showBio: true,
   showStatus: true,
-  showCommonFollowers: true,
   darkMode: false,
   verticalOffset: 8,
   horizontalOffset: 0,

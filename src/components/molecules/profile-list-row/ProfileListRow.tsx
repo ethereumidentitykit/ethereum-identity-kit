@@ -61,7 +61,6 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         showBio={true}
         showSocials={true}
         showStatus={true}
-        showCommonFollowers={true}
         showDelay={1000}
         connectedAddress={connectedAddress}
         selectedList={selectedList}

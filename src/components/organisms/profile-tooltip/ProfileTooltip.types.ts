@@ -16,12 +16,10 @@ export type ProfileCardProps = {
   showEmptySocials?: boolean
   showBio?: boolean
   showStatus?: boolean
-  showCommonFollowers?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   extraOptions?: ProfileTooltipExtraOptions
   selectedList?: ProfileListType
-  hasCommonFollowersModal?: boolean
 } & HTMLAttributes<HTMLDivElement>
 
 export type ProfileTooltipProps = ProfileCardProps

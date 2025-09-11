@@ -13,7 +13,6 @@ import { ProfileTooltipProps } from './ProfileTooltip.types'
 import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import FollowButton from '../follow-button/FollowButton'
 import ProfileSocials from '../../molecules/profile-socials/ProfileSocials'
-import FollowersYouKnow from '../../molecules/followers-you-know/FollowersYouKnow'
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -52,7 +51,6 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
   showEmptySocials,
   showBio = true,
   showStatus,
-  showCommonFollowers,
   onProfileClick = (addressOrname) => {
     window.open(`https://efp.app/${addressOrname}`, '_blank', 'noopener,noreferrer')
   },
@@ -114,11 +112,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-              (address && (
-                <div className="tooltip-follow-button">
-                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
-                </div>
-              ))
+            (address && (
+              <div className="tooltip-follow-button">
+                <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+              </div>
+            ))
             : null}
         </div>
         {isDetailsLoading ? (
@@ -172,15 +170,6 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
             userAddress={address}
             isLoading={isDetailsLoading}
             showEmptySocials={showEmptySocials}
-          />
-        )}
-        {showCommonFollowers && connectedAddress && (
-          <FollowersYouKnow
-            connectedAddress={connectedAddress}
-            lookupAddressOrName={addressOrName}
-            onProfileClick={onProfileClick}
-            hasModal={false}
-            showEmpty={false}
           />
         )}
       </div>
