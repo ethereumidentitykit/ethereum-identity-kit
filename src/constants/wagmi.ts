@@ -1,15 +1,15 @@
 import { createConfig, http } from 'wagmi'
-import { mainnet, optimism, base } from 'wagmi/chains'
+import { baseSepolia, optimismSepolia, sepolia } from 'wagmi/chains'
 import { metaMask, coinbaseWallet, walletConnect, injected } from 'wagmi/connectors'
 
 export const transports = {
-  [mainnet.id]: http('https://eth.llamarpc.com'),
-  [base.id]: http('https://mainnet.base.org'),
-  [optimism.id]: http('https://mainnet.optimism.io'),
+  [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
+  [baseSepolia.id]: http('https://base-sepolia-public.nodies.app'),
+  [optimismSepolia.id]: http('https://optimism-sepolia-public.nodies.app'),
 }
 
 export const wagmiConfig = createConfig({
-  chains: [mainnet, base, optimism],
+  chains: [sepolia, baseSepolia, optimismSepolia],
   connectors: [
     injected(),
     metaMask(),

@@ -1,8 +1,8 @@
 import { http } from 'wagmi'
-import { base, mainnet, optimism } from 'wagmi/chains'
+import { baseSepolia, sepolia, optimismSepolia } from 'wagmi/chains'
 
 export const transports = {
-  [mainnet.id]: http('https://eth.llamarpc.com'),
-  [base.id]: http('https://mainnet.base.org'),
-  [optimism.id]: http('https://mainnet.optimism.io'),
+  [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
+  [baseSepolia.id]: http('https://base-sepolia-public.nodies.app'),
+  [optimismSepolia.id]: http('https://optimism-sepolia-public.nodies.app'),
 }

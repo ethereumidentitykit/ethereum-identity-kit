@@ -3,7 +3,7 @@ import { createPublicClient } from 'viem'
 import { publicActionsL2 } from 'viem/op-stack'
 import { useCapabilities } from 'wagmi/experimental'
 import { useEffect, useMemo, useState } from 'react'
-import { base, mainnet, optimism } from 'viem/chains'
+import { baseSepolia, optimismSepolia, sepolia } from 'viem/chains'
 import { useBalance, useGasPrice, useWalletClient } from 'wagmi'
 import { useTransactions } from '../../../../../context'
 import { useTranslation } from '../../../../../context/TranslationContext'
@@ -33,7 +33,7 @@ export default function Summary() {
   } = useTransactions()
 
   const { data: gasPrice } = useGasPrice({
-    chainId: mainnet.id,
+    chainId: sepolia.id,
   })
   const { data: walletClient } = useWalletClient()
   const { data: availableCapabilities } = useCapabilities({
@@ -41,21 +41,21 @@ export default function Summary() {
   })
   const { data: balanceMainnet } = useBalance({
     address: walletClient?.account.address,
-    chainId: mainnet.id,
+    chainId: sepolia.id,
   })
   const { data: balanceBase } = useBalance({
     address: walletClient?.account.address,
-    chainId: base.id,
+    chainId: baseSepolia.id,
   })
   const { data: balanceOptimism } = useBalance({
     address: walletClient?.account.address,
-    chainId: optimism.id,
+    chainId: optimismSepolia.id,
   })
   const [gasIsLoading, setGasIsLoading] = useState(false)
   const [insufficientGas, setInsufficientGas] = useState<Record<string, boolean>>({
-    [mainnet.name]: false,
-    [base.name]: false,
-    [optimism.name]: false,
+    [sepolia.name]: false,
+    [baseSepolia.name]: false,
+    [optimismSepolia.name]: false,
   })
 
   const estimateGas = async () => {
@@ -65,15 +65,15 @@ export default function Summary() {
     }
 
     const gasErrors: Record<string, boolean> = {
-      [mainnet.id]: false,
-      [base.id]: false,
-      [optimism.id]: false,
+      [sepolia.id]: false,
+      [baseSepolia.id]: false,
+      [optimismSepolia.id]: false,
     }
 
     const totalGas: Record<number, number> = {
-      [mainnet.id]: 0,
-      [base.id]: 0,
-      [optimism.id]: 0,
+      [sepolia.id]: 0,
+      [baseSepolia.id]: 0,
+      [optimismSepolia.id]: 0,
     }
 
     await Promise.all(
@@ -88,9 +88,9 @@ export default function Summary() {
         }
 
         try {
-          if (tx.chainId === mainnet.id) {
+          if (tx.chainId === sepolia.id) {
             const publicClient = createPublicClient({
-              chain: mainnet,
+              chain: sepolia,
               transport: http(),
             })
 
@@ -135,17 +135,17 @@ export default function Summary() {
     // console.log(gasErrors, totalGas, Number(formatEther(balanceBase.value)), Number(formatEther(balanceMainnet.value)), Number(formatEther(balanceOptimism.value)))
 
     setInsufficientGas({
-      [mainnet.name]:
-        gasErrors[mainnet.id] ||
-        (totalGas[mainnet.id] > Number(formatEther(balanceMainnet.value)) &&
-          pendingTxs.some((tx) => tx.chainId === mainnet.id)),
-      [base.name]:
-        gasErrors[base.id] ||
-        (totalGas[base.id] > Number(formatEther(balanceBase.value)) && pendingTxs.some((tx) => tx.chainId === base.id)),
-      [optimism.name]:
-        gasErrors[optimism.id] ||
-        (totalGas[optimism.id] > Number(formatEther(balanceOptimism.value)) &&
-          pendingTxs.some((tx) => tx.chainId === optimism.id)),
+      [sepolia.name]:
+        gasErrors[sepolia.id] ||
+        (totalGas[sepolia.id] > Number(formatEther(balanceMainnet.value)) &&
+          pendingTxs.some((tx) => tx.chainId === sepolia.id)),
+      [baseSepolia.name]:
+        gasErrors[baseSepolia.id] ||
+        (totalGas[baseSepolia.id] > Number(formatEther(balanceBase.value)) && pendingTxs.some((tx) => tx.chainId === baseSepolia.id)),
+      [optimismSepolia.name]:
+        gasErrors[optimismSepolia.id] ||
+        (totalGas[optimismSepolia.id] > Number(formatEther(balanceOptimism.value)) &&
+          pendingTxs.some((tx) => tx.chainId === optimismSepolia.id)),
     })
 
     setGasIsLoading(false)

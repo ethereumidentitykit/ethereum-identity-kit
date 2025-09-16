@@ -1,6 +1,6 @@
 import { createConfig } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
-import { mainnet, base, optimism } from 'wagmi/chains'
+import { mainnet, base, optimism, sepolia, optimismSepolia, baseSepolia } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
@@ -11,7 +11,7 @@ import { transports } from '../../../constants/transports'
 import { FollowButtonProps } from './FollowButton.types'
 
 const config = createConfig({
-  chains: [mainnet, base, optimism],
+  chains: [sepolia, baseSepolia, optimismSepolia],
   connectors: [
     injected(),
     metaMask(),
@@ -146,7 +146,7 @@ export default {
   argTypes: {
     defaultChainId: {
       control: 'select',
-      options: [mainnet.id, base.id, optimism.id],
+      options: [sepolia.id, baseSepolia.id, optimismSepolia.id],
     },
     paymasterService: {
       control: 'text',

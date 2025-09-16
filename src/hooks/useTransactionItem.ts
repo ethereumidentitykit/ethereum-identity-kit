@@ -1,4 +1,4 @@
-import { mainnet } from 'viem/chains'
+import { sepolia } from 'viem/chains'
 import { publicActionsL2 } from 'viem/op-stack'
 import { useEffect, useMemo, useState } from 'react'
 import { createPublicClient, formatEther, http } from 'viem'
@@ -86,9 +86,9 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
 
     try {
       // Estimate the Ethereum Mainnet gas
-      if (transaction.chainId === mainnet.id) {
+      if (transaction.chainId === sepolia.id) {
         const publicClient = createPublicClient({
-          chain: mainnet,
+          chain: sepolia,
           transport: http(),
         })
 

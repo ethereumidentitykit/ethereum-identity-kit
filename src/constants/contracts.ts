@@ -1,4 +1,4 @@
-import { base, mainnet, optimism } from 'viem/chains'
+import { baseSepolia, optimismSepolia, sepolia } from 'viem/chains'
 import type { Address } from 'viem'
 
 export const coreEfpContracts: {
@@ -7,14 +7,14 @@ export const coreEfpContracts: {
   EFPListRecords: Address
   EFPListMinter: Address
 } = {
-  EFPAccountMetadata: '0x5289fE5daBC021D02FDDf23d4a4DF96F4E0F17EF' as Address,
-  EFPListRegistry: '0x0E688f5DCa4a0a4729946ACbC44C792341714e08' as Address,
-  EFPListRecords: '0x41Aa48Ef3c0446b46a5b1cc6337FF3d3716E2A33' as Address,
+  EFPAccountMetadata: '0xDAf8088C4DCC8113F49192336cd594300464af8D' as Address,
+  EFPListRegistry: '0xDdD39d838909bdFF7b067a5A42DC92Ad4823a26d' as Address,
+  EFPListRecords: '0x933a1bB6697Ae3c30Dd63A863d22763B4E40199A' as Address,
   EFPListMinter: '0xDb17Bfc64aBf7B7F080a49f0Bbbf799dDbb48Ce5' as Address,
 } as const
 
 export const ListRecordContracts: Record<number, Address> = {
-  [base.id]: '0x41Aa48Ef3c0446b46a5b1cc6337FF3d3716E2A33' as Address,
-  [optimism.id]: '0x4Ca00413d850DcFa3516E14d21DAE2772F2aCb85' as Address,
-  [mainnet.id]: '0x5289fE5daBC021D02FDDf23d4a4DF96F4E0F17EF' as Address,
+  [baseSepolia.id]: '0x933a1bB6697Ae3c30Dd63A863d22763B4E40199A' as Address,
+  [optimismSepolia.id]: '0x1c4530B026CCBC8082D20ab2e39C692c83Aa2341' as Address,
+  [sepolia.id]: '0x47e0c55BB810E79DB7051F1F379eEE303DBb19b9' as Address,
 } as const
