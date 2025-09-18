@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { LegacyRef } from 'react'
+import React, { LegacyRef, useState } from 'react'
 import { useOutsideClick, useNotifications } from '../../../hooks'
 import { useTranslation } from '../../../context/TranslationContext'
 import Bell from '../../icons/ui/Bell'
@@ -8,6 +8,7 @@ import NotificationItem, { NotificationItemAction } from './components/notificat
 import { NotificationItemType } from '../../../types'
 import type { NotificationsProps } from './Notifications.types'
 import { NOTIFICATION_CENTER_VERTICAL } from '../../../constants'
+import { ShortArrow } from '../../icons'
 import './Notifications.css'
 
 /**
@@ -31,14 +32,22 @@ const Notifications: React.FC<NotificationsProps> = ({
   darkMode = false,
   onProfileClick,
 }) => {
+  const [page, setPage] = useState(1)
   const { t } = useTranslation()
   const { notifications, isLoading, isOpen, setIsOpen, newNotifications } = useNotifications(addressOrName)
   const clickAwayRef = useOutsideClick(() => {
     setIsOpen(false)
   })
 
-  const alignTooltip = position === 'right' || position === 'left' ? '' : align
+  const allPages = Math.ceil(
+    (notifications?.flatMap((item) => Object.values(item.notifications).filter((value) => !!value && value.length > 0))
+      .length || 0) / 6
+  )
+  const displayedNotifications = notifications
+    ?.flatMap((item) => Object.entries(item.notifications).filter(([, value]) => !!value && value.length > 0))
+    .slice((page - 1) * 6, page * 6)
 
+  const alignTooltip = position === 'right' || position === 'left' ? '' : align
   const isDropdownPositionHorizontal = position === 'right' || position === 'left'
   const alignDropdown =
     isDropdownPositionHorizontal && NOTIFICATION_CENTER_VERTICAL.includes(align)
@@ -69,53 +78,66 @@ const Notifications: React.FC<NotificationsProps> = ({
         data-align={alignDropdown}
       >
         <div className="notifications-dropdown-content">
-          {notifications?.map((item, index) =>
-            Object.entries(item.notifications).map(([key, value]) => {
-              if (!value) return null
+          {displayedNotifications?.map(([key, value], index) => {
+            if (!value) return null
 
-              if (key === 'tag' || key === 'untag') {
-                const notificationsToDisplay = Object.values(
-                  value.reduce(
-                    (acc, notification) => {
-                      acc[notification.tag] = [...(acc[notification.tag] || []), notification]
-                      return acc
-                    },
-                    {} as Record<string, NotificationItemType[]>
-                  )
+            if (key === 'tag' || key === 'untag') {
+              const notificationsToDisplay = Object.values(
+                value.reduce(
+                  (acc, notification) => {
+                    acc[notification.tag] = [...(acc[notification.tag] || []), notification]
+                    return acc
+                  },
+                  {} as Record<string, NotificationItemType[]>
                 )
+              )
 
-                return notificationsToDisplay.map((notification, i) => (
-                  <NotificationItem
-                    key={`${index}-${i}-${key}`}
-                    isNew={item.isNew}
-                    notifications={notification}
-                    action={key as NotificationItemAction}
-                    onProfileClick={onProfileClick}
-                    onClose={() => {
-                      setIsOpen(false)
-                    }}
-                  />
-                ))
-              }
-
-              return (
+              return notificationsToDisplay.map((notification, i) => (
                 <NotificationItem
-                  key={`${index}-${key}`}
-                  isNew={item.isNew}
-                  notifications={value}
+                  key={`${index}-${i}-${key}`}
+                  isNew={false}
+                  notifications={notification}
                   action={key as NotificationItemAction}
                   onProfileClick={onProfileClick}
                   onClose={() => {
                     setIsOpen(false)
                   }}
                 />
-              )
-            })
-          )}
-          {isLoading && new Array(5).fill(null).map((_, index) => <NotificationItemLoading key={index} />)}
-          {!isLoading && notifications?.flatMap((item) => Object.values(item.notifications).flat()).length === 0 && (
+              ))
+            }
+
+            return (
+              <NotificationItem
+                key={`${index}-${key}`}
+                isNew={false}
+                notifications={value}
+                action={key as NotificationItemAction}
+                onProfileClick={onProfileClick}
+                onClose={() => {
+                  setIsOpen(false)
+                }}
+              />
+            )
+          })}
+          {isLoading && !allPages && new Array(5).fill(null).map((_, index) => <NotificationItemLoading key={index} />)}
+          {!isLoading && allPages === 0 && (
             <div className="notifications-empty">
               <p className="notifications-empty-text">{t('notifications.empty')}</p>
+            </div>
+          )}
+          {allPages > 1 && (
+            <div className="notifications-page-selector">
+              <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+                <ShortArrow style={{ transform: 'rotate(-90deg)', height: 16, width: 16 }} />
+                <p>Previous</p>
+              </button>
+              <p>
+                {page} / {allPages}
+              </p>
+              <button onClick={() => setPage(page + 1)} disabled={page === allPages}>
+                <p>Next</p>
+                <ShortArrow style={{ transform: 'rotate(90deg)', height: 16, width: 16 }} />
+              </button>
             </div>
           )}
         </div>

@@ -143,7 +143,6 @@
   z-index: 100;
   width: 500px;
   max-height: 80vh;
-  overflow-y: auto;
   animation: ethereum-identity-kit-fade-in 0.2s ease-in-out;
   box-shadow: var(--ethereum-identity-kit-shadow-medium);
 }
@@ -208,7 +207,6 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  overflow-y: scroll;
   border-radius: 4px;
   padding: 6px;
 }
@@ -236,6 +234,50 @@
 
 .dark .notifications-empty-text {
   color: var(--ethereum-identity-kit-text-neutral-dark);
+}
+
+.notifications-page-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.notifications-page-selector button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 2px;
+  font-size: 16px;
+}
+
+.notifications-page-selector button:nth-child(1) {
+  justify-content: flex-start;
+}
+
+.notifications-page-selector button:nth-child(3) {
+  justify-content: flex-end;
+  margin-left: 24px;
+}
+
+.notifications-page-selector button p {
+  padding: 0;
+  margin: 0;
+}
+
+.notifications-page-selector button:hover {
+  opacity: 0.6;
+}
+
+.notifications-page-selector p {
+  padding: 0;
+  margin: 0;
+}
+
+.dark .notifications-page-selector p {
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 @media (max-width: 640px) {
