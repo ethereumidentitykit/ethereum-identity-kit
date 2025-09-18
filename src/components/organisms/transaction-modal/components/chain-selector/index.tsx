@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { base } from 'viem/chains'
+import { baseSepolia } from 'viem/chains'
 import { encodePacked } from 'viem'
 import { useState, useEffect, useCallback } from 'react'
 import { useTransactions, useTranslation } from '../../../../../context'
@@ -11,7 +11,7 @@ import './ChainSelector.css'
 
 const ChainSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [currSelectedChain, setCurrSelectedChain] = useState<Chain | undefined>(base)
+  const [currSelectedChain, setCurrSelectedChain] = useState<Chain | undefined>(baseSepolia)
 
   const {
     setSelectedChainId,

@@ -1,6 +1,6 @@
 import { createConfig } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
-import { mainnet, base, optimism } from 'wagmi/chains'
+import { optimismSepolia, baseSepolia, sepolia } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
@@ -20,7 +20,7 @@ function generateClientSideNonce(length = 16) {
 }
 
 const config = createConfig({
-  chains: [mainnet, base, optimism],
+  chains: [baseSepolia, optimismSepolia, sepolia],
   connectors: [
     injected(),
     metaMask(),

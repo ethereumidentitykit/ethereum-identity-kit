@@ -1,6 +1,6 @@
 import { createConfig } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
-import { mainnet, base, optimism, sepolia, optimismSepolia, baseSepolia } from 'wagmi/chains'
+import { sepolia, optimismSepolia, baseSepolia } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'

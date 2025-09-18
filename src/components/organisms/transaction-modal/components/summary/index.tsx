@@ -141,7 +141,8 @@ export default function Summary() {
           pendingTxs.some((tx) => tx.chainId === sepolia.id)),
       [baseSepolia.name]:
         gasErrors[baseSepolia.id] ||
-        (totalGas[baseSepolia.id] > Number(formatEther(balanceBase.value)) && pendingTxs.some((tx) => tx.chainId === baseSepolia.id)),
+        (totalGas[baseSepolia.id] > Number(formatEther(balanceBase.value)) &&
+          pendingTxs.some((tx) => tx.chainId === baseSepolia.id)),
       [optimismSepolia.name]:
         gasErrors[optimismSepolia.id] ||
         (totalGas[optimismSepolia.id] > Number(formatEther(balanceOptimism.value)) &&
