@@ -42,5 +42,6 @@ export type GetListOpsTransactionProps = {
   chainId?: number
   listOps: ListOpType[]
   connectedAddress: Address
+  listRecordsContractAddress?: Address
   isMintingNewList?: boolean
 }

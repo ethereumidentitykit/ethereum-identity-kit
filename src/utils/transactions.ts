@@ -9,6 +9,7 @@ export const formatListOpsTransaction = ({
   nonce,
   chainId,
   listOps,
+  listRecordsContractAddress,
   connectedAddress,
   isMintingNewList,
 }: GetListOpsTransactionProps) => {
@@ -19,7 +20,7 @@ export const formatListOpsTransaction = ({
   return {
     id: EFPActionIds.UpdateEFPList,
     title: 'EFP Update',
-    address: chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords,
+    address: listRecordsContractAddress || (chainId ? ListRecordContracts[chainId] : coreEfpContracts.EFPListRecords),
     abi: abi.efpListRecordsAbi,
     chainId,
     // If the new list is being minted, different functions have to be used to set the "user" role before applying the list ops

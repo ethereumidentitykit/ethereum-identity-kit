@@ -8,7 +8,7 @@ import {
   type ReactNode,
   SetStateAction,
 } from 'react'
-import { Hex } from 'viem'
+import { Address, Hex } from 'viem'
 import { useAccount } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -110,6 +110,7 @@ export const TransactionProvider = ({
   const [nonce, setNonce] = useState<bigint | undefined>(undefined)
   // Chain ID to be used for EFP List Update transactions (List Ops)
   const [selectedChainId, setSelectedChainId] = useState<number | undefined>(undefined)
+  const [listRecordsContractAddress, setListRecordsContractAddress] = useState<Address | undefined>(undefined)
 
   const { address: connectedAddress } = useAccount()
   const {
@@ -142,9 +143,10 @@ export const TransactionProvider = ({
       setNonce(undefined)
     } else {
       // Otherwise, get the list details from the list storage location onchain
-      const { chainId, slot } = await getListStorageLocation(selectedList ?? lists?.primary_list ?? '')
+      const { chainId, slot, contractAddress } = await getListStorageLocation(selectedList ?? lists?.primary_list ?? '')
       setSelectedChainId(chainId)
       setNonce(slot)
+      setListRecordsContractAddress(contractAddress)
     }
 
     setListDetailsLoading(false)
@@ -224,6 +226,7 @@ export const TransactionProvider = ({
       listOps,
       connectedAddress,
       nonce,
+      listRecordsContractAddress,
       chainId: selectedChainId,
       isMintingNewList: !userHasList,
     })
