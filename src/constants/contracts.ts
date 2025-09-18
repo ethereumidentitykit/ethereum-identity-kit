@@ -10,7 +10,7 @@ export const coreEfpContracts: {
   EFPAccountMetadata: '0xDAf8088C4DCC8113F49192336cd594300464af8D' as Address,
   EFPListRegistry: '0xDdD39d838909bdFF7b067a5A42DC92Ad4823a26d' as Address,
   EFPListRecords: '0x933a1bB6697Ae3c30Dd63A863d22763B4E40199A' as Address,
-  EFPListMinter: '0xDb17Bfc64aBf7B7F080a49f0Bbbf799dDbb48Ce5' as Address,
+  EFPListMinter: '0xA9386Bf5D29033D33F2F3B354a943555f39425c1' as Address,
 } as const
 
 export const ListRecordContracts: Record<number, Address> = {

@@ -1,10 +1,7 @@
-import { sepolia } from 'viem/chains'
-import { publicActionsL2 } from 'viem/op-stack'
 import { useEffect, useMemo, useState } from 'react'
-import { createPublicClient, formatEther, http } from 'viem'
 import { useMutation } from '@tanstack/react-query'
 import { useWriteContracts, useCapabilities } from 'wagmi/experimental'
-import { useWalletClient, useWaitForTransactionReceipt, useGasPrice, useAccount } from 'wagmi'
+import { useWalletClient, useWaitForTransactionReceipt, useAccount } from 'wagmi'
 import { useChain } from './useChain'
 import { useTransactions } from '../context'
 import { EFP_API_URL } from '../constants'
@@ -75,68 +72,65 @@ export const useTransactionItem = (id: number, transaction: TransactionType) => 
     return typeof currentTxIndex === 'number' && currentTxIndex === id
   }, [currentTxIndex, id])
 
-  const { data: gasPrice } = useGasPrice({
-    chainId: transaction.chainId,
-  })
-  const [estimatedGas, setEstimatedGas] = useState<string | null>(null)
+  const estimatedGas = '0.00'
 
-  const estimateGas = async () => {
-    if (!transaction.chainId || !walletClient) return
-    if (usesPaymaster) return
+  // const estimateGas = async () => {
+  //   if (!transaction.chainId || !walletClient) return
+  //   if (usesPaymaster) return
 
-    try {
-      // Estimate the Ethereum Mainnet gas
-      if (transaction.chainId === sepolia.id) {
-        const publicClient = createPublicClient({
-          chain: sepolia,
-          transport: http(),
-        })
+  //   try {
+  //     // Estimate the Ethereum Mainnet gas
+  //     if (transaction.chainId === sepolia.id) {
+  //       const publicClient = createPublicClient({
+  //         chain: sepolia,
+  //         transport: http(),
+  //       })
 
-        const gas = await publicClient.estimateContractGas({
-          account: walletClient.account,
-          address: transaction.address,
-          abi: transaction.abi,
-          functionName: transaction.functionName,
-          args: transaction.args,
-        })
+  //       const gas = await publicClient.estimateContractGas({
+  //         account: walletClient.account,
+  //         address: transaction.address,
+  //         abi: transaction.abi,
+  //         functionName: transaction.functionName,
+  //         args: transaction.args,
+  //       })
 
-        const formattedGas = Number(formatEther(gas * BigInt(gasPrice || 0))).toLocaleString(undefined, {
-          maximumFractionDigits: 8,
-          minimumFractionDigits: 2,
-        })
+  //       const formattedGas = Number(formatEther(gas * BigInt(gasPrice || 0))).toLocaleString(undefined, {
+  //         maximumFractionDigits: 8,
+  //         minimumFractionDigits: 2,
+  //       })
 
-        setEstimatedGas(formattedGas)
-        return
-      }
+  //       setEstimatedGas(formattedGas)
+  //       return
+  //     }
 
-      // Estimate the gas for the transaction on any L2 chain
-      const publicClient = createPublicClient({
-        chain: chains.find((chain) => chain.id === transaction.chainId),
-        transport: http(),
-      }).extend(publicActionsL2())
+  //     // Estimate the gas for the transaction on any L2 chain
+  //     const publicClient = createPublicClient({
+  //       chain: chains.find((chain) => chain.id === transaction.chainId),
+  //       transport: http(),
+  //     }).extend(publicActionsL2())
 
-      const gas = await publicClient.estimateContractTotalFee({
-        account: walletClient.account,
-        address: transaction.address,
-        abi: transaction.abi,
-        functionName: transaction.functionName,
-        args: transaction.args,
-      })
+  //     const gas = await publicClient.estimateContractTotalFee({
+  //       account: walletClient.account,
+  //       address: transaction.address,
+  //       abi: transaction.abi,
+  //       functionName: transaction.functionName,
+  //       args: transaction.args,
+  //     })
 
-      const formattedGas = Number(formatEther(gas)).toLocaleString(undefined, {
-        maximumFractionDigits: 8,
-        minimumFractionDigits: 2,
-      })
+  //     const formattedGas = Number(formatEther(gas)).toLocaleString(undefined, {
+  //       maximumFractionDigits: 8,
+  //       minimumFractionDigits: 2,
+  //     })
 
-      setEstimatedGas(formattedGas)
-    } catch (err) {
-      console.error("Couldn't estimate gas for transaction", transaction.id, (err as Error).message.slice(0, 172))
-    }
-  }
+  //     setEstimatedGas(formattedGas)
+  //   } catch (err) {
+  //     console.error("Couldn't estimate gas for transaction", transaction.id, (err as Error).message.slice(0, 172))
+  //   }
+  // }
 
-  useEffect(() => {
-    estimateGas()
-  }, [transaction.chainId, walletClient, gasPrice])
+  // useEffect(() => {
+  //   estimateGas()
+  // }, [transaction.chainId, walletClient, gasPrice])
 
   const { price: ethPrice } = useETHPrice()
 

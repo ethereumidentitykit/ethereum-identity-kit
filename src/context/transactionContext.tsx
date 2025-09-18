@@ -239,7 +239,7 @@ export const TransactionProvider = ({
         newPendingTxs.push(tx)
 
         if (selectedList === 'new list' || (!selectedList && !lists?.primary_list)) {
-          const mintNonce = nonce || generateSlot()
+          const mintNonce = nonce || generateSlot(connectedAddress)
 
           if (mintNonce !== nonce) {
             setNonce(mintNonce)
