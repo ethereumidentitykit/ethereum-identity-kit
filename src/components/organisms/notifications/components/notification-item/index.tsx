@@ -136,15 +136,17 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
           >
             {displayedNames?.map((profile, index) => (
               <span key={`name-${profile.address}-${index}`}>
-                <span
-                  onClick={() => {
-                    onProfileClick?.(profile.address)
-                    onClose()
-                  }}
-                  className="cursor-pointer transition-all hover:underline hover:opacity-80"
-                >
-                  {profile.name ? ens_beautify(profile.name) : truncateAddress(profile.address)}
-                </span>
+                <ProfileTooltip addressOrName={profile.address} inline={true}>
+                  <span
+                    onClick={() => {
+                      onProfileClick?.(profile.address)
+                      onClose()
+                    }}
+                    className="notification-item-description-name"
+                  >
+                    {profile.name ? ens_beautify(profile.name) : truncateAddress(profile.address)}
+                  </span>
+                </ProfileTooltip>
                 {`${groupedNotifications.length === 2 ? (index === 0 ? ' and ' : ' ') : groupedNotifications.length === 1 ? ' ' : ', '}`}
               </span>
             ))}

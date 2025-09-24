@@ -120,6 +120,11 @@
   background-color: var(--ethereum-identity-kit-background-dark);
 }
 
+.dark .tooltip-card {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  background-color: var(--ethereum-identity-kit-background-dark);
+}
+
 .tooltip-avatar-container {
   display: flex;
   flex-direction: row;

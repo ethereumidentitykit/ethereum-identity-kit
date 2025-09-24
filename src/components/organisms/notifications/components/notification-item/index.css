@@ -90,7 +90,6 @@
   color: var(--ethereum-identity-kit-text-neutral);
   max-width: calc(100% - 100px);
   line-clamp: 2;
-  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -99,6 +98,10 @@
 
 .dark .notification-item-description {
   color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.notification-item-description-name {
+  cursor: pointer;
 }
 
 .notification-item-time {

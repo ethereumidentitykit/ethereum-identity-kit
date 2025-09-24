@@ -118,7 +118,7 @@ NotificationsByAddress.args = {
   addressOrName: '0xc983ebc9db969782d994627bdffec0ae6efee1b3',
   position: 'right',
   align: 'bottom',
-  darkMode: false,
+  darkMode: true,
 }
 
 export const NotificationsByENSName = Template.bind({})

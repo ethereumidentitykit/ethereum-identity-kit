@@ -259,10 +259,19 @@
   transition: opacity 0.2s;
 }
 
+.dark .notifications-page-selector button {
+  border-color: var(--ethereum-identity-kit-text-primary-dark);
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
 .notifications-page-selector button:disabled {
   opacity: 0.3;
   color: var(--ethereum-identity-kit-text-primary);
   cursor: not-allowed;
+}
+
+.dark .notifications-page-selector button:disabled {
+  color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
 .notifications-page-selector button:disabled:hover {
