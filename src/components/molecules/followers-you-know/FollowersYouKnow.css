@@ -50,6 +50,10 @@
   color: var(--ethereum-identity-kit-text-neutral-dark);
 }
 
+.dark .common-followers-ending-text {
+  color: var(--ethereum-identity-kit-text-neutral-dark);
+}
+
 .common-followers-name {
   cursor: pointer;
 }
