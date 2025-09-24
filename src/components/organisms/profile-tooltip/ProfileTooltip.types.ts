@@ -26,6 +26,7 @@ export type ProfileTooltipProps = ProfileCardProps
 
 export interface ProfileTooltipWrapperProps extends ProfileTooltipProps {
   children: ReactElement
+  inline?: boolean
   verticalPlacement?: TooltipPlacement
   horizontalPlacement?: 'left' | 'right'
   verticalOffset?: number

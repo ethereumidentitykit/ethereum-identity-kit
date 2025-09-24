@@ -129,13 +129,11 @@ const Notifications: React.FC<NotificationsProps> = ({
             <div className="notifications-page-selector">
               <button onClick={() => setPage(page - 1)} disabled={page === 1}>
                 <ShortArrow style={{ transform: 'rotate(-90deg)', height: 16, width: 16 }} />
-                <p>Previous</p>
               </button>
               <p>
                 {page} / {allPages}
               </p>
               <button onClick={() => setPage(page + 1)} disabled={page === allPages}>
-                <p>Next</p>
                 <ShortArrow style={{ transform: 'rotate(90deg)', height: 16, width: 16 }} />
               </button>
             </div>

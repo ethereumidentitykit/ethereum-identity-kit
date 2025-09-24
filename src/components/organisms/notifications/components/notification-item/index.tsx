@@ -7,6 +7,7 @@ import { useTranslation } from '../../../../../context/TranslationContext'
 import Avatar from '../../../../molecules/avatar/Avatar'
 import './index.css'
 import ProfileTooltip from '../../../profile-tooltip/ProfileTooltip'
+import { ens_beautify } from '@adraffy/ens-normalize'
 
 export type NotificationItemAction = 'follow' | 'unfollow' | 'tag' | 'untag' | 'block' | 'unblock' | 'mute' | 'unmute'
 
@@ -142,7 +143,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
                   }}
                   className="cursor-pointer transition-all hover:underline hover:opacity-80"
                 >
-                  {`${profile.name || truncateAddress(profile.address)}`}
+                  {profile.name ? ens_beautify(profile.name) : truncateAddress(profile.address)}
                 </span>
                 {`${groupedNotifications.length === 2 ? (index === 0 ? ' and ' : ' ') : groupedNotifications.length === 1 ? ' ' : ', '}`}
               </span>

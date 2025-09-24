@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
+import { ens_beautify } from '@adraffy/ens-normalize'
 import { useFollowersYouKnow } from '../../../hooks/followers-you-know/useFollowersYouKnow'
 import { formatFollowersYouKnowText } from '../../../utils/formatters'
 import { useTranslation } from '../../../context/TranslationContext'
@@ -126,7 +127,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
         </div>
 
         {/* Text container */}
-        <p
+        <span
           className="common-followers-text-container"
           enable-hover={hasModal ? 'true' : 'false'}
           style={{ transform: `translateX(-${(displayedAvatars?.length - 1) * 16}px)` }}
@@ -136,18 +137,19 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
 
           {/* Name of first common follower */}
           {displayedNames?.[0] && displayedAddresses?.[0] && (
-            <span
-              className="common-followers-name"
-              style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
-              onClick={(e) => {
-                if (onProfileClick) {
-                  e.stopPropagation()
-                  onProfileClick(displayedAddresses[0])
-                }
-              }}
-            >
-              {displayedNames[0]}
-            </span>
+            <ProfileTooltip addressOrName={displayedAddresses[0]} inline={true}>
+              <span
+                className="common-followers-name"
+                onClick={(e) => {
+                  if (onProfileClick) {
+                    e.stopPropagation()
+                    onProfileClick(displayedAddresses[0])
+                  }
+                }}
+              >
+                {ens_beautify(displayedNames[0])}
+              </span>
+            </ProfileTooltip>
           )}
 
           {/* Separator between first and second common follower */}
@@ -155,26 +157,27 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
 
           {/* Name of second common follower */}
           {displayedNames?.[1] && displayedAddresses?.[1] && (
-            <span
-              className="common-followers-name"
-              style={{ pointerEvents: onProfileClick ? 'auto' : 'none' }}
-              onClick={(e) => {
-                if (onProfileClick) {
-                  e.stopPropagation()
-                  onProfileClick(displayedAddresses[1])
-                }
-              }}
-            >
-              {displayedNames[1]}
-            </span>
+            <ProfileTooltip addressOrName={displayedAddresses[1]} inline={true}>
+              <span
+                className="common-followers-name"
+                onClick={(e) => {
+                  if (onProfileClick) {
+                    e.stopPropagation()
+                    onProfileClick(displayedAddresses[1])
+                  }
+                }}
+              >
+                {ens_beautify(displayedNames[1])}
+              </span>
+            </ProfileTooltip>
           )}
 
           {/* Separator between second common followers and number of more common followers */}
           {resultLength >= 3 && t('followersYouKnow.and')}
 
           {/* Number of more common followers */}
-          {formatFollowersYouKnowText(resultLength, t)}
-        </p>
+          <span className="common-followers-ending-text">{formatFollowersYouKnowText(resultLength, t)}</span>
+        </span>
       </div>
     </>
   )

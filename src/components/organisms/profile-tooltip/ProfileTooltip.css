@@ -5,9 +5,19 @@
   height: fit-content;
 }
 
+.tooltip-wrapper--inline {
+  width: auto;
+  height: auto;
+}
+
 .tooltip-child {
   width: 100%;
   height: fit-content;
+}
+
+.tooltip-wrapper--inline .tooltip-child {
+  width: auto;
+  display: inline;
 }
 
 /* Main tooltip content */

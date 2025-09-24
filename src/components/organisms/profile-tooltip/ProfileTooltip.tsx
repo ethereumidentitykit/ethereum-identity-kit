@@ -9,6 +9,7 @@ import './ProfileTooltip.css'
  * ProfileTooltip component
  *
  * @param children - elements that tooltip is wrapping (React.ReactElement)
+ * @param inline - whether to display as inline (for text spans) or inline-block (boolean, default: false)
  * @param verticalPlacement - where to position the tooltip by default (TooltipPlacement)
  * @param horizontalPlacement - where to align the tooltip (left | right)
  * @param offset - number
@@ -24,6 +25,7 @@ import './ProfileTooltip.css'
  */
 const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
   children,
+  inline = false,
   verticalPlacement = 'auto',
   horizontalPlacement = 'left',
   verticalOffset = 8,
@@ -135,8 +137,8 @@ const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
 
   return (
     <div
-      className="tooltip-wrapper"
-      style={{ position: 'relative', display: 'inline-block' }}
+      className={clsx('tooltip-wrapper', inline && 'tooltip-wrapper--inline')}
+      style={{ position: 'relative', display: inline ? 'inline' : 'inline-block' }}
       onMouseEnter={keepTooltipOnHover ? handleMouseEnter : undefined}
       onMouseLeave={keepTooltipOnHover ? handleMouseLeave : undefined}
     >

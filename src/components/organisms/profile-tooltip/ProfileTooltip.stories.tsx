@@ -115,3 +115,12 @@ ProfileList.args = {
   addressOrName: 'brantly.eth',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
 }
+
+export const InlineText = Template.bind({})
+InlineText.args = {
+  ...AddressDefaultPosition.args,
+  inline: true,
+  children: (
+    <span style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Hover this inline text</span>
+  ),
+}
