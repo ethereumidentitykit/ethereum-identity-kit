@@ -69,7 +69,7 @@ import { ProfileCard } from 'ethereum-identity-kit'
 
 export default function Home() {
   return <ProfileCard addressOrName="vitalik.eth" />
-  // or 0x983110309620d911731ac0932219af06091b6744
+  // or 0xd8da6bf26964af9d7eed9e03e53415d37aa96045
 }
 ```
 
