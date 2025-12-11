@@ -43,6 +43,7 @@ import Telegram from './socials/Telegram'
 import Etherscan from './socials/Etherscan'
 import GithubDark from './socials/GithubDark'
 import EtherscanDark from './socials/EtherscanDark'
+import Grails from './socials/Grails'
 
 export {
   Check,
@@ -85,4 +86,5 @@ export {
   Bell,
   MagnifyingGlass,
   EthereumIcon,
+  Grails,
 }

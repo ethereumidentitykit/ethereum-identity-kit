@@ -178,6 +178,7 @@ export {
   Bell,
   MagnifyingGlass,
   EthereumIcon,
+  Grails,
 } from './components'
 
 // Component Types

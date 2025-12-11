@@ -216,7 +216,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           selectedList={selectedList}
         />
       )}
-      {showPoaps && <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} />}
+      {showPoaps && (
+        <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} customPoaps={extraOptions?.customPoaps} />
+      )}
     </div>
   )
 }

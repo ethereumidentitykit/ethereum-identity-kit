@@ -89,10 +89,14 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
               records?.[social.name] || social.name === 'etherscan' || showEmptySocials ? (
                 <a
                   key={social.name}
-                  href={social.url(social.name === 'etherscan' ? userAddress || '' : records?.[social.name] || '')}
+                  href={social.url(
+                    social.name === 'etherscan' || social.name === 'grails'
+                      ? userAddress || ''
+                      : records?.[social.name] || ''
+                  )}
                   target={social.name === 'email' ? '_self' : '_blank'}
                   rel="noreferrer"
-                  aria-disabled={!records?.[social.name] && social.name !== 'etherscan'}
+                  aria-disabled={!records?.[social.name] && social.name !== 'etherscan' && social.name !== 'grails'}
                   className="social-link"
                   onClick={() => {
                     if (social.name === 'email') {

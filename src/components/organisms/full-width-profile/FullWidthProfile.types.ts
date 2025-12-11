@@ -1,4 +1,4 @@
-import { ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../../types/profile'
+import { ProfileEFPPoapResponse, ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../../types/profile'
 import { Address, ProfileDetailsResponse } from '../../../types'
 
 export type ProfileExtraOptions = {
@@ -18,6 +18,7 @@ export type ProfileExtraOptions = {
       refetch: () => void
     }
   }
+  customPoaps?: ProfileEFPPoapResponse[]
 }
 
 export interface FullWidthProfileProps {

@@ -4,13 +4,15 @@ import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import { useEFPPoaps } from '../../../hooks'
 import './EFPPoaps.css'
 
-const EFPPoaps: React.FC<EFPPoapsProps> = ({ list, addressOrName, isLoading, style }) => {
+const EFPPoaps: React.FC<EFPPoapsProps> = ({ list, addressOrName, isLoading, style, customPoaps = [] }) => {
   const { ownedBadges, isLoading: isBadgesLoading } = useEFPPoaps({
     addressOrName: addressOrName || undefined,
     list: list || undefined,
   })
 
-  if (!isBadgesLoading && ownedBadges.length === 0) return null
+  if (!isBadgesLoading && ownedBadges.length === 0 && !customPoaps?.length) return null
+
+  const displayedPoaps = [...ownedBadges, ...customPoaps]
 
   return (
     <div className="efp-poaps-container" style={style}>
@@ -20,7 +22,7 @@ const EFPPoaps: React.FC<EFPPoapsProps> = ({ list, addressOrName, isLoading, sty
           <LoadingCell className="h-[72px] w-[72px] rounded-full" />
         </>
       ) : (
-        ownedBadges.map((badge) => (
+        displayedPoaps.map((badge) => (
           <a
             href={`https://collectors.poap.xyz/token/${badge.collection?.tokenId || ''}`}
             key={badge.collection?.tokenId}

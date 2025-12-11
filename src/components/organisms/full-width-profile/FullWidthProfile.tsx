@@ -161,7 +161,13 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                 {ens?.records?.status && (
                   <p className="user-profile-status-desktop">&quot;{ens.records.status}&quot;</p>
                 )}
-                {showPoaps && <EFPPoaps addressOrName={address} isLoading={detailsLoading} />}
+                {showPoaps && (
+                  <EFPPoaps
+                    addressOrName={address}
+                    isLoading={detailsLoading}
+                    customPoaps={extraOptions?.customPoaps}
+                  />
+                )}
               </div>
               <div className="user-profile-content">
                 <div onClick={() => onProfileClick?.(address)} className="user-profile-avatar-container">

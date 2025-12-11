@@ -1,4 +1,4 @@
-import { Etherscan, Github, Telegram, X, Discord, GithubDark, EtherscanDark, Email } from '../components/icons'
+import { Etherscan, Github, Telegram, X, Discord, GithubDark, EtherscanDark, Email, Grails } from '../components/icons'
 
 export const PROFILE_CARD_SOCIALS = [
   {
@@ -7,6 +7,14 @@ export const PROFILE_CARD_SOCIALS = [
     icon: {
       light: Etherscan,
       dark: EtherscanDark,
+    },
+  },
+  {
+    name: 'grails',
+    url: (address: string) => `https://grails.app/profile/${address}`,
+    icon: {
+      light: Grails,
+      dark: Grails,
     },
   },
   {
