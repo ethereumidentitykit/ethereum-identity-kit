@@ -259,4 +259,5 @@ export type {
   TranslationsMap,
   TranslationObject,
   LanguageCode,
+  ProfileEFPSocialType,
 } from './types'

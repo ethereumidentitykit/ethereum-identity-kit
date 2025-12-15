@@ -203,6 +203,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             includeUrls={true}
             darkMode={darkMode}
             showEmptySocials={showEmptySocials}
+            hideSocials={extraOptions?.hideSocials}
           />
         </div>
       </div>
@@ -217,7 +218,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         />
       )}
       {showPoaps && (
-        <EFPPoaps addressOrName={address} isLoading={isDetailsLoading} customPoaps={extraOptions?.customPoaps} />
+        <EFPPoaps
+          addressOrName={address}
+          isLoading={isDetailsLoading}
+          hideEFPPoaps={extraOptions?.hideEFPPoaps}
+          customPoaps={extraOptions?.customPoaps}
+        />
       )}
     </div>
   )

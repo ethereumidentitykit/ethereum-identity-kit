@@ -278,3 +278,14 @@ export interface FollowingTagsResponse {
     tag: string
   }[]
 }
+
+export type ProfileEFPSocialType =
+  | 'etherscan'
+  | 'com.twitter'
+  | 'com.github'
+  | 'org.telegram'
+  | 'com.discord'
+  | 'etherscan'
+  | 'grails'
+  | 'website'
+  | 'email'

@@ -35,7 +35,10 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
   isLoading = false,
   style,
   showEmptySocials = false,
+  hideSocials = [],
 }) => {
+  const displaySocials = PROFILE_CARD_SOCIALS.filter((social) => !hideSocials.includes(social.name))
+
   return (
     <div className={clsx('profile-socials', darkMode && 'dark')} style={style}>
       {includeUrls &&
@@ -85,8 +88,8 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
           ? Array.from({ length: 5 }).map((_, index) => (
               <LoadingCell key={index} height={iconSize} width={iconSize} radius="18px" />
             ))
-          : PROFILE_CARD_SOCIALS.map((social) =>
-              records?.[social.name] || social.name === 'etherscan' || showEmptySocials ? (
+          : displaySocials.map((social) =>
+              records?.[social.name] || social.name === 'etherscan' || social.name === 'grails' || showEmptySocials ? (
                 <a
                   key={social.name}
                   href={social.url(

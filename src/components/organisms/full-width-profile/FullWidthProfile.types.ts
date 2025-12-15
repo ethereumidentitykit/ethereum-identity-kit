@@ -1,5 +1,11 @@
-import { ProfileEFPPoapResponse, ProfileListType, ProfileStatsClickProps, StatsResponse } from '../../../types/profile'
 import { Address, ProfileDetailsResponse } from '../../../types'
+import {
+  ProfileEFPPoapResponse,
+  ProfileEFPSocialType,
+  ProfileListType,
+  ProfileStatsClickProps,
+  StatsResponse,
+} from '../../../types/profile'
 
 export type ProfileExtraOptions = {
   role?: string
@@ -19,6 +25,8 @@ export type ProfileExtraOptions = {
     }
   }
   customPoaps?: ProfileEFPPoapResponse[]
+  hideEFPPoaps?: boolean
+  hideSocials?: ProfileEFPSocialType[]
 }
 
 export interface FullWidthProfileProps {

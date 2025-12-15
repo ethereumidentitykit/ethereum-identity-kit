@@ -5,5 +5,6 @@ export type EFPPoapsProps = {
   isLoading: boolean
   list?: number | null
   style?: React.CSSProperties
+  hideEFPPoaps?: boolean
   customPoaps?: ProfileEFPPoapResponse[]
 }

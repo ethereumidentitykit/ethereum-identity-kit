@@ -165,6 +165,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                   <EFPPoaps
                     addressOrName={address}
                     isLoading={detailsLoading}
+                    hideEFPPoaps={extraOptions?.hideEFPPoaps}
                     customPoaps={extraOptions?.customPoaps}
                   />
                 )}
@@ -243,6 +244,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     includeUrls={true}
                     style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: '16px' }}
                     showEmptySocials={showEmptySocials}
+                    hideSocials={extraOptions?.hideSocials}
                   />
                   <div className="user-profile-mobile-common-followers-container">
                     {connectedAddress && !isConnectedUserCard && (

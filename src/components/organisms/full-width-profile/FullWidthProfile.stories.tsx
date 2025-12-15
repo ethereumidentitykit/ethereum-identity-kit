@@ -92,6 +92,7 @@ ByENSName.args = {
   },
   extraOptions: {
     role: 'Frontend developer',
+    hideSocials: ['com.github'],
   },
   showPoaps: true,
   showEmptySocials: true,
