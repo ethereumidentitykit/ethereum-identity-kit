@@ -9,3 +9,10 @@ export interface SignInWithEthereumProps {
   expirationTime?: number
   autoSignInAfterConnection?: boolean
 }
+
+export interface SignInButtonProps extends SignInWithEthereumProps {
+  onSignedInClick?: () => void
+  isSignedIn?: boolean
+  isDropdown?: boolean
+  isDropdownOpen?: boolean
+}

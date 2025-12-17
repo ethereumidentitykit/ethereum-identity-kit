@@ -145,6 +145,7 @@ export type AccountResponseType = {
   ens: {
     name: string | null
     avatar: string | null
+    records: Record<string, string>
   }
   primary_list: string | null
 }

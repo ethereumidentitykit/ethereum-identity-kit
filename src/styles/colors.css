@@ -56,4 +56,10 @@
   --ethereum-identity-kit-social-github-dark: #666666;
   --ethereum-identity-kit-social-discord: rgb(37, 99, 235);
   --ethereum-identity-kit-social-discord-dark: rgb(147, 197, 253);
+
+  /* Custom colors */
+  --ethereum-identity-kit-sign-in-button: #ffe066;
+  --ethereum-identity-kit-sign-in-button-dark: #ffe066;
+  --ethereum-identity-kit-sign-in-button-hover: #fde583;
+  --ethereum-identity-kit-sign-in-button-hover-dark: #fde583;
 }

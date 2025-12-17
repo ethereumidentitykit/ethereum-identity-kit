@@ -1,6 +1,8 @@
 {
   "signInWithEthereum": "Sign in with Ethereum",
   "signingMessage": "Signing Message...",
+  "singingIn": "Signing in...",
+  "signIn": "Sign in",
   "follow": "Follow",
   "unfollow": "Unfollow",
   "following": "Following",

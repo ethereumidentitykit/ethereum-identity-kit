@@ -1,6 +1,8 @@
 {
   "signInWithEthereum": "Iniciar sesión con Ethereum",
   "signingMessage": "Firmando mensaje...",
+  "singingIn": "Iniciando sesión...",
+  "signIn": "Iniciar sesión",
   "follow": "Seguir",
   "unfollow": "Dejar de seguir",
   "following": "Siguiendo",

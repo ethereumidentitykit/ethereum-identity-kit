@@ -1,0 +1,97 @@
+.sign-in-button {
+  background-color: var(--ethereum-identity-kit-sign-in-button);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  height: 44px;
+  gap: 6px;
+  max-width: 250px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  border: none;
+  position: relative;
+  margin-right: 0 !important;
+  overflow: hidden;
+  color: inherit;
+}
+
+.sign-in-button-signed-in {
+  border: 1px solid #ccc;
+}
+
+.dark .sign-in-button-signed-in,
+.sign-in-button-signed-in.dark {
+  border: 1px solid #444;
+}
+
+.sign-in-button:hover {
+  background-color: var(--ethereum-identity-kit-sign-in-button-hover);
+}
+
+.dark .sign-in-button,
+.sign-in-button.dark {
+  background-color: var(--ethereum-identity-kit-sign-in-button-dark);
+}
+
+.dark .sign-in-button:hover,
+.sign-in-button.dark:hover {
+  background-color: var(--ethereum-identity-kit-sign-in-button-hover-dark);
+}
+
+.sign-in-button:disabled {
+  opacity: 0.6;
+}
+
+.sign-in-button-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  position: relative;
+  padding: 0 20px;
+}
+
+.sign-in-button-text {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+}
+
+.signed-in-user-profile {
+  background-color: var(--ethereum-identity-kit-background);
+  border-radius: 5px;
+  padding: 4px;
+  color: black;
+}
+
+.dark .signed-in-user-profile {
+  background-color: var(--ethereum-identity-kit-background-dark);
+  color: white;
+}
+
+.signed-in-user-profile-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.signed-in-user-profile-content:hover {
+  opacity: 0.8;
+}
+
+.signed-in-user-profile-name {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

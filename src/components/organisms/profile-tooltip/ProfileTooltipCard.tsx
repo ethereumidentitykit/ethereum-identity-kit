@@ -170,6 +170,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
             userAddress={address}
             isLoading={isDetailsLoading}
             showEmptySocials={showEmptySocials}
+            hideSocials={extraOptions?.hideSocials}
           />
         )}
       </div>

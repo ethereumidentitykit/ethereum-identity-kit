@@ -1,6 +1,8 @@
 {
   "signInWithEthereum": "Se connecter avec Ethereum",
   "signingMessage": "Signature du message...",
+  "singingIn": "Connexion en cours...",
+  "signIn": "Se connecter",
   "follow": "Suivre",
   "unfollow": "Ne plus suivre",
   "following": "Suivi",

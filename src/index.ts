@@ -135,6 +135,7 @@ export {
   FollowersAndFollowing,
   EFPPoaps,
   ProfileTooltip,
+  SignInButton,
   // Icons
   Check,
   Cross,
@@ -201,6 +202,7 @@ export type {
   FollowersAndFollowingProps,
   SignInWithEthereumProps,
   ProfileTooltipProps,
+  SignInButtonProps,
 } from './components'
 
 // Types

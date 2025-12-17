@@ -11,6 +11,7 @@ import ProfileListRow from './molecules/profile-list-row/ProfileListRow'
 import TransactionModal from './organisms/transaction-modal/TransactionModal'
 import FollowersYouKnow from './molecules/followers-you-know/FollowersYouKnow'
 import SignInWithEthereum from './molecules/sign-in-with-ethereum/SignInWithEthereum'
+import SignInButton from './molecules/sign-in-with-ethereum/SignInButton'
 import Bio from './organisms/profile-card/components/bio'
 import ProfileCard from './organisms/profile-card/ProfileCard'
 import FollowButton from './organisms/follow-button/FollowButton'
@@ -42,6 +43,7 @@ export {
   FollowersAndFollowing,
   SignInWithEthereum,
   ProfileTooltip,
+  SignInButton,
 }
 
 import { LoadingCellProps } from './atoms/loading-cell/LoadingCell.types'
@@ -54,6 +56,7 @@ import { ProfileSocialsProps } from './molecules/profile-socials/ProfileSocials.
 import { ProfileListRowProps } from './molecules/profile-list-row/ProfileListRow.types'
 import { FollowersYouKnowProps } from './molecules/followers-you-know/FollowersYouKnow.types'
 import { SignInWithEthereumProps } from './molecules/sign-in-with-ethereum/SignInWithEthereum.types'
+import { SignInButtonProps } from './molecules/sign-in-with-ethereum/SignInWithEthereum.types'
 import { EFPPoapsProps } from './molecules/efp-poaps/EFPPoaps.types'
 import { ProfileCardProps } from './organisms/profile-card/ProfileCard.types'
 import { FollowButtonProps } from './organisms/follow-button/FollowButton.types'
@@ -82,6 +85,7 @@ export type {
   FollowersAndFollowingProps,
   SignInWithEthereumProps,
   ProfileTooltipProps,
+  SignInButtonProps,
 }
 
 export * from './icons'

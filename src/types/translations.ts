@@ -41,6 +41,8 @@ export type TranslationKey =
   // Sign in with Ethereum
   | 'signInWithEthereum'
   | 'signingMessage'
+  | 'signIn'
+  | 'singingIn'
   // Notifications
   | 'notifications.empty'
   | 'notifications.error'

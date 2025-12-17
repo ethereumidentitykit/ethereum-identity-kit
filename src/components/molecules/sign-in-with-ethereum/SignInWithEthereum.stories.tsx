@@ -8,6 +8,8 @@ import SignInWithEthereum from './SignInWithEthereum'
 import { MINUTE } from '../../../constants'
 import { transports } from '../../../constants/transports'
 import { SignInWithEthereumProps } from './SignInWithEthereum.types'
+import SignInButton from './SignInButton'
+import { useState } from 'react'
 
 function generateClientSideNonce(length = 16) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -34,6 +36,7 @@ const queryClient = new QueryClient()
 
 const SignInWithEthereumWrapper = (
   args: SignInWithEthereumProps & {
+    isSignedIn?: boolean
     darkMode?: boolean
     batchTransactions?: boolean
     showRecommendations?: boolean
@@ -41,6 +44,7 @@ const SignInWithEthereumWrapper = (
     defaultChainId?: number
   }
 ) => {
+  const [isSignedIn, setIsSignedIn] = useState(args.isSignedIn)
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
@@ -52,11 +56,11 @@ const SignInWithEthereumWrapper = (
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: '20px',
+        gap: '40px',
         alignItems: 'center',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {connectedAddress ? (
           <div>
             <p>Connected to {connectedAddress}</p>
@@ -121,6 +125,28 @@ const SignInWithEthereumWrapper = (
         expirationTime={args.expirationTime}
         onDisconnectedClick={args.onDisconnectedClick}
       />
+      <SignInButton
+        isSignedIn={isSignedIn}
+        verifySignature={args.verifySignature}
+        getNonce={args.getNonce}
+        onSignInSuccess={() => {
+          setIsSignedIn(true)
+        }}
+        onSignedInClick={() => {
+          setIsSignedIn(false)
+          disconnect()
+        }}
+        isDropdown={false}
+        onSignInError={args.onSignInError}
+        message={args.message}
+        darkMode={args.darkMode}
+        autoSignInAfterConnection={true}
+        expirationTime={args.expirationTime}
+        onDisconnectedClick={() => {
+          connect({ connector: connectors[0] })
+          setIsSignedIn(false)
+        }}
+      />
     </div>
   )
 }
@@ -140,8 +166,8 @@ export default {
 
 const Template: StoryFn<typeof SignInWithEthereumWrapper> = (args) => <SignInWithEthereumWrapper {...args} />
 
-export const Button = Template.bind({})
-Button.args = {
+export const Buttons = Template.bind({})
+Buttons.args = {
   verifySignature: async () => {},
   getNonce: async () => generateClientSideNonce(),
   onSignInSuccess: () => {},
