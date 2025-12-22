@@ -64,6 +64,8 @@ export {
   getListOpsFromTransaction,
   createSiweMessageString,
   loadTranslationsFromJSON,
+  normalizeEnsName,
+  beautifyEnsName,
 } from './utils'
 
 // Context

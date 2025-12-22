@@ -62,7 +62,7 @@
 
 .signed-in-user-profile {
   background-color: var(--ethereum-identity-kit-background);
-  border-radius: 5px;
+  border-radius: 4px;
   padding: 4px;
   color: black;
 }

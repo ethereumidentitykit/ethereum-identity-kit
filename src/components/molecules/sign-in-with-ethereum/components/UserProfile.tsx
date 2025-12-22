@@ -5,6 +5,8 @@ import Avatar from '../../avatar/Avatar'
 import HeaderImage from '../../../organisms/profile-card/components/HeaderImage'
 import { useQuery } from '@tanstack/react-query'
 import { Address } from '../../../../types'
+import { beautifyEnsName } from '../../../../utils/ens'
+import { truncateAddress } from '../../../../utils'
 
 export const UserProfile = ({
   address,
@@ -39,7 +41,9 @@ export const UserProfile = ({
         {isLoading ? (
           <LoadingCell height={20} width={100} radius="4px" />
         ) : (
-          <p className="signed-in-user-profile-name">{profile?.ens?.name}</p>
+          <p className="signed-in-user-profile-name">
+            {profile?.ens?.name ? beautifyEnsName(profile?.ens?.name) : truncateAddress(address)}
+          </p>
         )}
         {isDropdown && (
           <ShortArrow
