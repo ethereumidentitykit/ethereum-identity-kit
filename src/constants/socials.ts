@@ -1,4 +1,16 @@
-import { Etherscan, Github, Telegram, X, Discord, GithubDark, EtherscanDark, Email, Grails } from '../components/icons'
+import {
+  Etherscan,
+  Github,
+  Telegram,
+  X,
+  Discord,
+  GithubDark,
+  EtherscanDark,
+  Email,
+  Grails,
+  Opensea,
+  Vision,
+} from '../components/icons'
 
 export const PROFILE_CARD_SOCIALS = [
   {
@@ -15,6 +27,22 @@ export const PROFILE_CARD_SOCIALS = [
     icon: {
       light: Grails,
       dark: Grails,
+    },
+  },
+  {
+    name: 'opensea',
+    url: (address: string) => `https://opensea.io/${address}`,
+    icon: {
+      light: Opensea,
+      dark: Opensea,
+    },
+  },
+  {
+    name: 'vision',
+    url: (address: string) => `https://ensvision.com/profile/${address}`,
+    icon: {
+      light: Vision,
+      dark: Vision,
     },
   },
   {

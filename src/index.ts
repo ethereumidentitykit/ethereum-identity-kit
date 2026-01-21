@@ -182,6 +182,8 @@ export {
   MagnifyingGlass,
   EthereumIcon,
   Grails,
+  Vision,
+  Opensea
 } from './components'
 
 // Component Types

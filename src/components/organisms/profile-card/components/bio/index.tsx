@@ -34,7 +34,11 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, c
         {description
           ? description.split(' ').map((word) =>
               word.includes('@') && word.includes('.') ? (
-                <a key={word} href={`https://efp.app/${word.replace('@', '')}`} className="profile-bio-link">
+                <a
+                  key={word}
+                  href={`https://efp.app/${word[word.length - 1] === ',' ? word.slice(0, -1).replace('@', '') : word.replace('@', '')}`}
+                  className="profile-bio-link"
+                >
                   {word}{' '}
                 </a>
               ) : (

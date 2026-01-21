@@ -288,5 +288,7 @@ export type ProfileEFPSocialType =
   | 'com.discord'
   | 'etherscan'
   | 'grails'
+  | 'opensea'
+  | 'vision'
   | 'website'
   | 'email'

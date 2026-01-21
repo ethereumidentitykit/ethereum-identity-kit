@@ -44,6 +44,8 @@ import Etherscan from './socials/Etherscan'
 import GithubDark from './socials/GithubDark'
 import EtherscanDark from './socials/EtherscanDark'
 import Grails from './socials/Grails'
+import Opensea from './socials/Opensea'
+import Vision from './socials/Vision'
 
 export {
   Check,
@@ -87,4 +89,6 @@ export {
   MagnifyingGlass,
   EthereumIcon,
   Grails,
+  Opensea,
+  Vision,
 }
