@@ -32,12 +32,12 @@ const ActionAccount: React.FC<ActionAccountProps> = ({ address, showName, height
         <>
           <Avatar
             address={address}
-            src={account?.ens.avatar}
-            name={account?.ens.name}
+            src={account?.ens?.avatar}
+            name={account?.ens?.name}
             fallback={DEFAULT_FALLBACK_AVATAR}
             style={{ height, width }}
           />
-          {showName && <p>{account?.ens.name ? ens_beautify(account.ens.name) : truncateAddress(address)}</p>}
+          {showName && <p>{account?.ens?.name ? ens_beautify(account.ens.name) : truncateAddress(address)}</p>}
         </>
       )}
     </div>

@@ -142,12 +142,12 @@ export type ProfileRoles = {
 
 export type AccountResponseType = {
   address: Address
-  ens: {
+  ens?: {
     name: string | null
     avatar: string | null
     records: Record<string, string>
   }
-  primary_list: string | null
+  primary_list?: string | null
 }
 
 export type ProfileStatType = 'followers' | 'following'

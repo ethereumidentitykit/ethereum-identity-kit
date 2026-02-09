@@ -183,7 +183,7 @@ export {
   EthereumIcon,
   Grails,
   Vision,
-  Opensea
+  Opensea,
 } from './components'
 
 // Component Types
