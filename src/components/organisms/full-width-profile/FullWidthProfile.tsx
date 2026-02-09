@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import { ens_beautify } from '@adraffy/ens-normalize'
 import { useTranslation } from '../../../context'
-import { useIsClient } from '../../../hooks/common/useIsClient'
 import { useProfileDetails } from '../../../hooks/profile/useProfileDetails'
 import { truncateAddress, isLinkValid } from '../../../utils'
 import { ENS } from '../../icons'
@@ -78,7 +77,6 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   const { profile, stats } = prefetched || {}
 
   const { t } = useTranslation()
-  const isClient = useIsClient()
 
   const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
@@ -265,7 +263,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
             </div>
             <div
               className="user-profile-header-container-ultra-wide"
-              style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
+              // style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
             >
               <ImageWithFallback
                 src={isLinkValid(ens?.records?.header) ? ens?.records?.header : DEFAULT_FALLBACK_HEADER}
