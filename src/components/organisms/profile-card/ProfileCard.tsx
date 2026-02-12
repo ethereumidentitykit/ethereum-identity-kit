@@ -70,7 +70,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const { prefetched, customFollowButton, nameMenu, openListSettings } = extraOptions || {}
+  const { prefetched, customFollowButton, nameMenu, openListSettings, onEditProfileClick } = extraOptions || {}
 
   const { profile, stats } = prefetched || {}
 
@@ -142,6 +142,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               target="_blank"
               rel="noreferrer"
               className="user-profile-edit-profile-button-container"
+              onClick={(e) => {
+                if (onEditProfileClick) {
+                  e.preventDefault()
+                  onEditProfileClick()
+                }
+              }}
             >
               <button className="user-profile-edit-profile-button">
                 <ENS height={20} width={20} />

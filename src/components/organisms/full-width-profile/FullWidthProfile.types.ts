@@ -12,6 +12,7 @@ export type ProfileExtraOptions = {
   customFollowButton?: React.ReactNode
   nameMenu?: React.ReactNode
   openListSettings?: () => void
+  onEditProfileClick?: () => void
   prefetched?: {
     profile: {
       data: ProfileDetailsResponse | undefined

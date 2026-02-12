@@ -72,7 +72,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   style,
   alignProfileContent = 'center',
 }) => {
-  const { role, nameMenu, prefetched, openListSettings, customFollowButton } = extraOptions || {}
+  const { role, nameMenu, prefetched, openListSettings, customFollowButton, onEditProfileClick } = extraOptions || {}
 
   const { profile, stats } = prefetched || {}
 
@@ -184,7 +184,17 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
                     </p>
                     {isConnectedUserCard ? (
-                      <a href={`https://app.ens.domains/${ens?.name}`} target="_blank" rel="noreferrer">
+                      <a
+                        href={`https://app.ens.domains/${ens?.name}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => {
+                          if (onEditProfileClick) {
+                            e.preventDefault()
+                            onEditProfileClick()
+                          }
+                        }}
+                      >
                         <button className="user-profile-edit-profile-button">
                           <ENS height={20} width={20} />
                           <p>{t('profile.editProfile')}</p>
