@@ -94,6 +94,7 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
               social.name === 'grails' ||
               social.name === 'vision' ||
               social.name === 'opensea' ||
+              social.name === 'ens' ||
               showEmptySocials ? (
                 <a
                   key={social.name}
@@ -101,7 +102,8 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                     social.name === 'etherscan' ||
                       social.name === 'grails' ||
                       social.name === 'vision' ||
-                      social.name === 'opensea'
+                      social.name === 'opensea' ||
+                      social.name === 'ens'
                       ? userAddress || ''
                       : records?.[social.name] || ''
                   )}
@@ -112,7 +114,8 @@ const ProfileSocials: React.FC<ProfileSocialsProps> = ({
                     social.name !== 'etherscan' &&
                     social.name !== 'grails' &&
                     social.name !== 'vision' &&
-                    social.name !== 'opensea'
+                    social.name !== 'opensea' &&
+                    social.name !== 'ens'
                   }
                   className="social-link"
                   onClick={() => {

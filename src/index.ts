@@ -157,6 +157,7 @@ export {
   Github,
   GithubDark,
   ENS,
+  ENSCircle,
   Dweb,
   Etherscan,
   EtherscanDark,

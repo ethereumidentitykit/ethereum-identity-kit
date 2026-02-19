@@ -35,6 +35,7 @@ import Optimism from './chains/optimism'
 // Social Icons
 import X from './socials/x'
 import ENS from './socials/Ens'
+import ENSCircle from './socials/Ens-circle'
 import Dweb from './socials/Dweb'
 import Email from './socials/Email'
 import Github from './socials/Github'
@@ -66,6 +67,7 @@ export {
   Github,
   GithubDark,
   ENS,
+  ENSCircle,
   Dweb,
   Etherscan,
   EtherscanDark,

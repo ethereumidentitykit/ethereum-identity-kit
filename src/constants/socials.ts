@@ -10,6 +10,7 @@ import {
   Grails,
   Opensea,
   Vision,
+  ENSCircle,
 } from '../components/icons'
 
 export const PROFILE_CARD_SOCIALS = [
@@ -19,6 +20,14 @@ export const PROFILE_CARD_SOCIALS = [
     icon: {
       light: Etherscan,
       dark: EtherscanDark,
+    },
+  },
+  {
+    name: 'ens',
+    url: (address: string) => `https://app.ens.domains/${address}`,
+    icon: {
+      light: ENSCircle,
+      dark: ENSCircle,
     },
   },
   {

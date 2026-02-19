@@ -2,6 +2,7 @@ import React from 'react'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
 import { DEFAULT_FALLBACK_HEADER } from '../../../../constants'
 import ImageWithFallback from '../../../atoms/image-with-fallback/ImageWithFallback'
+import { isLinkValid } from '../../../../utils'
 
 interface HeaderImageProps {
   src?: string
@@ -17,6 +18,8 @@ interface HeaderImageProps {
  * @returns HeaderImage component
  */
 const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style }) => {
+  const imageSrc = src && isLinkValid(src) ? src : `https://metadata.ens.domains/mainnet/header/${name}`
+
   return (
     <div
       style={{
@@ -40,7 +43,7 @@ const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style }) => {
         />
       ) : (
         <ImageWithFallback
-          src={src}
+          src={imageSrc}
           fallback={DEFAULT_FALLBACK_HEADER}
           alt="header"
           style={{

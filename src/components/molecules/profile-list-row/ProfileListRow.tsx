@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ens_beautify } from '@adraffy/ens-normalize'
-import { truncateAddress } from '../../../utils'
+import { isLinkValid, truncateAddress } from '../../../utils'
 import { fetchProfileAccount } from '../../../utils/api/fetch-profile-account'
 import Tags from './components/tags'
 import Avatar from '../avatar/Avatar'
@@ -53,6 +53,10 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   })
 
   const headerImage = account?.ens?.header || account?.ens?.records?.header
+  const headerImageSrc =
+    headerImage && isLinkValid(headerImage)
+      ? headerImage
+      : `https://metadata.ens.domains/mainnet/header/${account?.ens?.name}`
 
   if (showProfileTooltip) {
     return (
@@ -71,8 +75,8 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
         boundary="viewport"
       >
         <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
-          {showHeaderImage && headerImage && (
-            <img src={headerImage} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
+          {showHeaderImage && headerImageSrc && (
+            <img src={headerImageSrc} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
           )}
           <div className="profile-list-row-details">
             {isAccountLoading ? (

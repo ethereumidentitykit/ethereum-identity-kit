@@ -292,3 +292,4 @@ export type ProfileEFPSocialType =
   | 'vision'
   | 'website'
   | 'email'
+  | 'ens'
