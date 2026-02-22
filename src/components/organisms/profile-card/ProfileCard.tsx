@@ -107,6 +107,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     >
       <HeaderImage
         src={ens?.records?.header}
+        name={ens?.name}
         isLoading={isDetailsLoading}
         style={{ borderTopLeftRadius: style?.borderRadius, borderTopRightRadius: style?.borderRadius }}
       />

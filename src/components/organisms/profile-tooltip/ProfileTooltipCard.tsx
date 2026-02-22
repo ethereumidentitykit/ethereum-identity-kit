@@ -93,6 +93,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
     >
       <HeaderImage
         src={ens?.records?.header}
+        name={ens?.name}
         isLoading={isDetailsLoading}
         style={{ borderTopLeftRadius: style?.borderRadius, borderTopRightRadius: style?.borderRadius, height: '80px' }}
       />
@@ -112,11 +113,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-              (address && (
-                <div className="tooltip-follow-button">
-                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
-                </div>
-              ))
+            (address && (
+              <div className="tooltip-follow-button">
+                <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+              </div>
+            ))
             : null}
         </div>
         {isDetailsLoading ? (

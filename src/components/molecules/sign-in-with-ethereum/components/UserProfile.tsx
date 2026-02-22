@@ -29,6 +29,7 @@ export const UserProfile = ({
     <div key={profile?.ens?.name || address} className="signed-in-user-profile">
       <HeaderImage
         src={profile?.ens?.records?.header || ''}
+        name={profile?.ens?.name}
         isLoading={isLoading}
         style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.2 }}
       />

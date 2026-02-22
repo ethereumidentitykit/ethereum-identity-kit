@@ -7,6 +7,7 @@ import { isLinkValid } from '../../../../utils'
 interface HeaderImageProps {
   src?: string
   isLoading: boolean
+  name?: string | null
   style?: React.CSSProperties
 }
 
@@ -15,9 +16,10 @@ interface HeaderImageProps {
  * @param src - the source of the header image
  * @param isLoading - whether the header image is loading
  * @param style - the style of the header image
+ * @param name - the name of the profile
  * @returns HeaderImage component
  */
-const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style }) => {
+const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style, name }) => {
   const imageSrc = src && isLinkValid(src) ? src : `https://metadata.ens.domains/mainnet/header/${name}`
 
   return (
