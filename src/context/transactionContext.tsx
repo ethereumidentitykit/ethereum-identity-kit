@@ -62,24 +62,29 @@ type TransactionContextType = {
 
 const TransactionContext = createContext<TransactionContextType | undefined>(undefined)
 
+interface TransactionProviderProps {
+  batchTransactions?: boolean
+  paymasterService?: string
+  defaultChainId?: number
+  disableAutoListSelection?: boolean
+  children: ReactNode
+}
+
 /**
  * TransactionProvider component - provides the transaction context to the app
  *
  * @param batchTransactions - whether to batch transactions (cart)
  * @param paymasterService - the paymaster service to use
  * @param defaultChainId - the default chain id to use for users without a list (new list)
+ * @param disableAutoListSelection - whether to disable auto list selection
  * @param children - the children to render
  */
-export const TransactionProvider = ({
+export const TransactionProvider: React.FC<TransactionProviderProps> = ({
   batchTransactions = false,
   paymasterService,
   defaultChainId,
+  disableAutoListSelection = false,
   children,
-}: {
-  batchTransactions?: boolean
-  paymasterService?: string
-  defaultChainId?: number
-  children: ReactNode
 }) => {
   const [txModalOpen, setTxModalOpen] = useState(false)
   const [pendingTxs, setPendingTxs] = useState<TransactionType[]>([])
@@ -130,8 +135,13 @@ export const TransactionProvider = ({
   })
 
   useEffect(() => {
+    if (disableAutoListSelection) return
+
+    if (selectedList || !lists) return
+
     // if user has no primary list, and no specific list has been selected, set the first list (list with the lowest number) as the selected list
-    if (lists?.lists?.length && !lists.primary_list && !selectedList) setSelectedList(lists.lists[0])
+    if (lists.primary_list) setSelectedList(lists.primary_list)
+    else if (lists.lists?.length && !selectedList) setSelectedList(lists.lists[0])
     else setSelectedList(undefined)
   }, [lists])
 
