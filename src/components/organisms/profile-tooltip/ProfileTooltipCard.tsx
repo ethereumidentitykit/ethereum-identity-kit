@@ -60,7 +60,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
   style,
   ...props
 }) => {
-  const { prefetched, customFollowButton } = extraOptions || {}
+  const { prefetched, customFollowButton, onBioLinkClick } = extraOptions || {}
   const { profile, stats } = prefetched || {}
 
   const { ens, address, detailsLoading } = useProfileDetails({
@@ -161,7 +161,12 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
                 <LoadingCell height="18px" width="140px" />
               </div>
             ) : (
-              <Bio description={ens?.records?.description} maxLines={2} showMore={false} />
+              <Bio
+                description={ens?.records?.description}
+                maxLines={2}
+                showMore={false}
+                onBioLinkClick={onBioLinkClick}
+              />
             ))}
         </div>
         {showSocials && (

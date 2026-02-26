@@ -1,8 +1,7 @@
 import clsx from 'clsx'
-import { ens_beautify } from '@adraffy/ens-normalize'
 import { useTranslation } from '../../../context'
 import { useProfileDetails } from '../../../hooks/profile/useProfileDetails'
-import { truncateAddress, isLinkValid } from '../../../utils'
+import { beautifyEnsName, truncateAddress, validateEnsHeader } from '../../../utils'
 import { ENS } from '../../icons'
 import Avatar from '../../molecules/avatar/Avatar'
 import Loading from './components/loading'
@@ -72,7 +71,8 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   style,
   alignProfileContent = 'center',
 }) => {
-  const { role, nameMenu, prefetched, openListSettings, customFollowButton, onEditProfileClick } = extraOptions || {}
+  const { role, nameMenu, prefetched, openListSettings, customFollowButton, onEditProfileClick, onBioLinkClick } =
+    extraOptions || {}
 
   const { profile, stats } = prefetched || {}
 
@@ -128,7 +128,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
             >
               <div className="user-profile-header-container">
                 <ImageWithFallback
-                  src={isLinkValid(ens?.records?.header) ? ens?.records?.header : DEFAULT_FALLBACK_HEADER}
+                  src={validateEnsHeader(ens?.records?.header, ens?.name)}
                   fallback={DEFAULT_FALLBACK_HEADER}
                   alt="Profile Summary Card"
                   style={{
@@ -181,7 +181,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                       )}
                       onClick={() => onProfileClick?.(address)}
                     >
-                      {ens?.name ? ens_beautify(ens?.name) : truncateAddress(address)}
+                      {ens?.name ? beautifyEnsName(ens?.name) : truncateAddress(address)}
                     </p>
                     {isConnectedUserCard ? (
                       <a
@@ -243,7 +243,12 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     <p className="user-profile-status-mobile">&quot;{ens.records.status}&quot;</p>
                   )}
                   <div className="user-profile-bio-container">
-                    <Bio description={ens?.records?.description} fontSize={18} maxLines={5} />
+                    <Bio
+                      description={ens?.records?.description}
+                      fontSize={18}
+                      maxLines={5}
+                      onBioLinkClick={onBioLinkClick}
+                    />
                   </div>
                   <ProfileSocials
                     userAddress={address}
@@ -276,7 +281,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
               // style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
             >
               <ImageWithFallback
-                src={isLinkValid(ens?.records?.header) ? ens?.records?.header : DEFAULT_FALLBACK_HEADER}
+                src={validateEnsHeader(ens?.records?.header, ens?.name)}
                 fallback={DEFAULT_FALLBACK_HEADER}
                 alt="Profile Summary Card"
                 style={{

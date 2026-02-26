@@ -1,8 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { ens_beautify } from '@adraffy/ens-normalize'
-import { isLinkValid, truncateAddress } from '../../../utils'
+import { beautifyEnsName, truncateAddress, validateEnsHeader } from '../../../utils'
 import { fetchProfileAccount } from '../../../utils/api/fetch-profile-account'
 import Tags from './components/tags'
 import Avatar from '../avatar/Avatar'
@@ -53,10 +52,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   })
 
   const headerImage = account?.ens?.header || account?.ens?.records?.header
-  const headerImageSrc =
-    headerImage && isLinkValid(headerImage)
-      ? headerImage
-      : `https://metadata.ens.domains/mainnet/header/${account?.ens?.name}`
+  const headerImageSrc = validateEnsHeader(headerImage, account?.ens?.name)
 
   if (showProfileTooltip) {
     return (
@@ -97,7 +93,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
                   className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
                   onClick={() => onProfileClick?.(profile.address)}
                 >
-                  {account?.ens?.name ? ens_beautify(account?.ens?.name) : truncateAddress(profile.address)}
+                  {account?.ens?.name ? beautifyEnsName(account?.ens?.name) : truncateAddress(profile.address)}
                 </p>
                 {showTags ? (
                   <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
@@ -148,7 +144,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
               className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
               onClick={() => onProfileClick?.(profile.address)}
             >
-              {account?.ens?.name ? ens_beautify(account?.ens?.name) : truncateAddress(profile.address)}
+              {account?.ens?.name ? beautifyEnsName(account?.ens?.name) : truncateAddress(profile.address)}
             </p>
             {showTags ? (
               <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />

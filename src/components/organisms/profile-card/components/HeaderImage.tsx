@@ -2,7 +2,7 @@ import React from 'react'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
 import { DEFAULT_FALLBACK_HEADER } from '../../../../constants'
 import ImageWithFallback from '../../../atoms/image-with-fallback/ImageWithFallback'
-import { isLinkValid } from '../../../../utils'
+import { validateEnsHeader } from '../../../../utils'
 
 interface HeaderImageProps {
   src?: string
@@ -20,7 +20,7 @@ interface HeaderImageProps {
  * @returns HeaderImage component
  */
 const HeaderImage: React.FC<HeaderImageProps> = ({ src, isLoading, style, name }) => {
-  const imageSrc = src && isLinkValid(src) ? src : `https://metadata.ens.domains/mainnet/header/${name}`
+  const imageSrc = validateEnsHeader(src, name)
 
   return (
     <div

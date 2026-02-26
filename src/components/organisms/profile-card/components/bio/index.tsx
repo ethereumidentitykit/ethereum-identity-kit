@@ -10,9 +10,17 @@ interface BioProps {
   maxLines?: number
   className?: string
   showMore?: boolean
+  onBioLinkClick?: (link: string) => void
 }
 
-const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, className, fontSize = 14 }) => {
+const Bio: React.FC<BioProps> = ({
+  description,
+  maxLines = 7,
+  showMore = true,
+  className,
+  fontSize = 14,
+  onBioLinkClick,
+}) => {
   const [viewMore, setViewMore] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -38,6 +46,12 @@ const Bio: React.FC<BioProps> = ({ description, maxLines = 7, showMore = true, c
                   key={word}
                   href={`https://efp.app/${word[word.length - 1] === ',' ? word.slice(0, -1).replace('@', '') : word.replace('@', '')}`}
                   className="profile-bio-link"
+                  onClick={(e) => {
+                    if (onBioLinkClick) {
+                      e.preventDefault()
+                      onBioLinkClick(word)
+                    }
+                  }}
                 >
                   {word}{' '}
                 </a>

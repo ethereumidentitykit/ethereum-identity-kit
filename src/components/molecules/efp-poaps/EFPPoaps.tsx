@@ -17,7 +17,7 @@ const EFPPoaps: React.FC<EFPPoapsProps> = ({
     list: list || undefined,
   })
 
-  if (!isBadgesLoading && ownedBadges.length === 0 && !customPoaps?.length) return null
+  if (!isBadgesLoading && ownedBadges?.length === 0 && !customPoaps?.length) return null
 
   const displayedPoaps = hideEFPPoaps ? customPoaps : [...ownedBadges, ...customPoaps]
 

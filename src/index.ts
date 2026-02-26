@@ -66,6 +66,7 @@ export {
   loadTranslationsFromJSON,
   normalizeEnsName,
   beautifyEnsName,
+  validateEnsHeader,
 } from './utils'
 
 // Context

@@ -28,6 +28,7 @@ export type ProfileExtraOptions = {
   customPoaps?: ProfileEFPPoapResponse[]
   hideEFPPoaps?: boolean
   hideSocials?: ProfileEFPSocialType[]
+  onBioLinkClick?: (link: string) => void
 }
 
 export interface FullWidthProfileProps {

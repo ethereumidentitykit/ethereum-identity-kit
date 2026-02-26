@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { useState } from 'react'
-import { ens_beautify } from '@adraffy/ens-normalize'
 import { useFollowersYouKnow } from '../../../hooks/followers-you-know/useFollowersYouKnow'
 import { formatFollowersYouKnowText } from '../../../utils/formatters'
 import { useTranslation } from '../../../context/TranslationContext'
@@ -10,6 +9,7 @@ import { FollowersYouKnowProps } from './FollowersYouKnow.types'
 import FollowersYouKnowModal from './components/modal/modal'
 import ProfileTooltip from '../../organisms/profile-tooltip/ProfileTooltip'
 import './FollowersYouKnow.css'
+import { beautifyEnsName } from '../../../utils'
 
 /**
  * FollowersYouKnow component - displays the common followers between two addresses
@@ -147,7 +147,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                   }
                 }}
               >
-                {ens_beautify(displayedNames[0])}
+                {beautifyEnsName(displayedNames[0])}
               </span>
             </ProfileTooltip>
           )}
@@ -167,7 +167,7 @@ const FollowersYouKnow: React.FC<FollowersYouKnowProps> = ({
                   }
                 }}
               >
-                {ens_beautify(displayedNames[1])}
+                {beautifyEnsName(displayedNames[1])}
               </span>
             </ProfileTooltip>
           )}

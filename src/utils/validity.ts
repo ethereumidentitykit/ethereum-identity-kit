@@ -12,3 +12,7 @@ export const isValidEnsName = (name: string) => {
     return false
   }
 }
+
+export const validateEnsHeader = (headerUrl: string | undefined, name: string | null | undefined) => {
+  return isLinkValid(headerUrl) ? headerUrl : name ? `https://metadata.ens.domains/mainnet/header/${name}` : undefined
+}

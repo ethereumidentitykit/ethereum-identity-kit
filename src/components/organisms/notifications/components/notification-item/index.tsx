@@ -1,13 +1,13 @@
 import React from 'react'
 import clsx from 'clsx'
-import { formatTimeDiff, truncateAddress } from '../../../../../utils'
 import { Cross, FollowIcon, Mute, Tag } from '../../../../icons'
 import { Address, NotificationItemType } from '../../../../../types'
 import { useTranslation } from '../../../../../context/TranslationContext'
 import Avatar from '../../../../molecules/avatar/Avatar'
 import './index.css'
 import ProfileTooltip from '../../../profile-tooltip/ProfileTooltip'
-import { ens_beautify } from '@adraffy/ens-normalize'
+import { beautifyEnsName, truncateAddress } from '../../../../../utils'
+import { formatTimeDiff } from '../../../../../utils/formatters'
 
 export type NotificationItemAction = 'follow' | 'unfollow' | 'tag' | 'untag' | 'block' | 'unblock' | 'mute' | 'unmute'
 
@@ -144,7 +144,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
                     }}
                     className="notification-item-description-name"
                   >
-                    {profile.name ? ens_beautify(profile.name) : truncateAddress(profile.address)}
+                    {profile.name ? beautifyEnsName(profile.name) : truncateAddress(profile.address)}
                   </span>
                 </ProfileTooltip>
                 {`${groupedNotifications.length === 2 ? (index === 0 ? ' and ' : ' ') : groupedNotifications.length === 1 ? ' ' : ', '}`}

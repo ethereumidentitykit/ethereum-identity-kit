@@ -36,6 +36,9 @@ export const fetchAllFollowersYouKnow = async ({
     })
 
     const data = (await response.json()).results as FollowerYouKnow[]
+
+    if (!data) throw new Error('No data returned from API')
+
     return {
       followersYouKnow: data ?? [],
       nextPageParam: pageParam + 1,

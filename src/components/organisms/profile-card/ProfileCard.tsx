@@ -1,9 +1,8 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileDetails, useProfileStats } from '../../../hooks/'
 import { useTranslation } from '../../../context/TranslationContext'
-import { truncateAddress } from '../../../utils'
+import { beautifyEnsName, truncateAddress } from '../../../utils'
 import { defaultOnStatClick } from '../../../utils/profile'
 import { ENS } from '../../icons'
 import Bio from './components/bio'
@@ -70,7 +69,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const { prefetched, customFollowButton, nameMenu, openListSettings, onEditProfileClick } = extraOptions || {}
+  const { prefetched, customFollowButton, nameMenu, openListSettings, onEditProfileClick, onBioLinkClick } =
+    extraOptions || {}
 
   const { profile, stats } = prefetched || {}
 
@@ -169,7 +169,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               enable-hover={!!onProfileClick ? 'true' : 'false'}
               onClick={() => onProfileClick?.(addressOrName)}
             >
-              {ens?.name ? ens_beautify(ens.name) : address ? truncateAddress(address) : addressOrName}
+              {ens?.name ? beautifyEnsName(ens.name) : address ? truncateAddress(address) : addressOrName}
             </p>
             {showFollowerTag && (
               <FollowerTag lookupAddressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
@@ -200,7 +200,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
               <LoadingCell height="18px" width="140px" />
             </div>
           ) : (
-            <Bio description={ens?.records?.description} />
+            <Bio description={ens?.records?.description} onBioLinkClick={onBioLinkClick} />
           )}
           <ProfileSocials
             records={ens?.records}
