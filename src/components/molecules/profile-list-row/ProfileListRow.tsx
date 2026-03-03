@@ -54,120 +54,73 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   const headerImage = account?.ens?.header || account?.ens?.records?.header
   const headerImageSrc = validateEnsHeader(headerImage, account?.ens?.name)
 
-  if (showProfileTooltip) {
-    return (
-      <ProfileTooltip
-        addressOrName={profile.address}
-        showBio={true}
-        showSocials={true}
-        showStatus={true}
-        showDelay={1000}
-        connectedAddress={connectedAddress}
-        selectedList={selectedList}
-        showFollowerState={showFollowsYouBadges}
-        showFollowButton={false}
-        horizontalOffset={16}
-        verticalPlacement="auto"
-        boundary="viewport"
-      >
-        <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
-          {showHeaderImage && headerImageSrc && (
-            <img src={headerImageSrc} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
+  return (
+    <ProfileRowWrapper profile={profile} connectedAddress={connectedAddress} selectedList={selectedList} showFollowsYouBadges={showFollowsYouBadges} showTooltip={showProfileTooltip}>
+      <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
+        {showHeaderImage && headerImageSrc && (
+          <img src={headerImageSrc} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
+        )}
+        <div className="profile-list-row-details">
+          {isAccountLoading ? (
+            <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
+          ) : (
+            <Avatar
+              address={profile.address}
+              name={account?.ens?.name}
+              style={{ width: '45px', height: '45px', borderRadius: '50%', zIndex: 1 }}
+              onClick={onProfileClick ? () => onProfileClick(profile.address) : undefined}
+            />
           )}
-          <div className="profile-list-row-details">
-            {isAccountLoading ? (
-              <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
-            ) : (
-              <Avatar
-                address={profile.address}
-                name={account?.ens?.name}
-                style={{ width: '45px', height: '45px', borderRadius: '50%', zIndex: 1 }}
-                onClick={onProfileClick ? () => onProfileClick(profile.address) : undefined}
-              />
-            )}
-            {isAccountLoading ? (
-              <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
-            ) : (
-              <div className="profile-list-row-name-container">
-                <p
-                  className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
-                  onClick={() => onProfileClick?.(profile.address)}
-                >
-                  {account?.ens?.name ? beautifyEnsName(account?.ens?.name) : truncateAddress(profile.address)}
-                </p>
-                {showTags ? (
-                  <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
-                ) : showFollowsYouBadges && connectedAddress ? (
-                  <FollowerTag
-                    lookupAddressOrName={profile.address}
-                    connectedAddress={connectedAddress}
-                    list={selectedList}
-                  />
-                ) : null}
-              </div>
-            )}
-          </div>
-          <FollowButton
-            lookupAddress={profile.address}
-            connectedAddress={connectedAddress}
-            selectedList={selectedList}
-            initialState={initialFollowState}
-            showBlockBack={showBlockBack && tags?.includes('block')}
-            showMuteBack={showBlockBack && tags?.includes('mute')}
-          />
+          {isAccountLoading ? (
+            <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
+          ) : (
+            <div className="profile-list-row-name-container">
+              <p
+                className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
+                onClick={() => onProfileClick?.(profile.address)}
+              >
+                {account?.ens?.name ? beautifyEnsName(account?.ens?.name) : truncateAddress(profile.address)}
+              </p>
+              {showTags ? (
+                <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
+              ) : showFollowsYouBadges && connectedAddress ? (
+                <FollowerTag
+                  lookupAddressOrName={profile.address}
+                  connectedAddress={connectedAddress}
+                  list={selectedList}
+                />
+              ) : null}
+            </div>
+          )}
         </div>
+        <FollowButton
+          lookupAddress={profile.address}
+          connectedAddress={connectedAddress}
+          selectedList={selectedList}
+          initialState={initialFollowState}
+          showBlockBack={showBlockBack && tags?.includes('block')}
+          showMuteBack={showBlockBack && tags?.includes('mute')}
+          forceState={profile.followState}
+        />
+      </div>
+    </ProfileRowWrapper>
+  )
+}
+
+interface ProfileRowWrapperProps extends ProfileListRowProps {
+  showTooltip: boolean
+  children: React.ReactNode
+}
+
+const ProfileRowWrapper: React.FC<ProfileRowWrapperProps> = ({ profile, connectedAddress, selectedList, showFollowsYouBadges, showTooltip, children }) => {
+  if (showTooltip) {
+    return (
+      <ProfileTooltip addressOrName={profile.address} showBio={true} showSocials={true} showStatus={true} showDelay={1000} connectedAddress={connectedAddress} selectedList={selectedList} showFollowerState={showFollowsYouBadges} showFollowButton={false} horizontalOffset={16} verticalPlacement="auto" boundary="viewport">
+        {children as React.ReactElement}
       </ProfileTooltip>
     )
   }
-
-  return (
-    <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
-      {showHeaderImage && headerImage && (
-        <img src={headerImage} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
-      )}
-      <div className="profile-list-row-details">
-        {isAccountLoading ? (
-          <LoadingCell style={{ width: '45px', height: '45px', borderRadius: '50%' }} />
-        ) : (
-          <Avatar
-            address={profile.address}
-            name={account?.ens?.name}
-            style={{ width: '45px', height: '45px', borderRadius: '50%', zIndex: 1 }}
-            onClick={onProfileClick ? () => onProfileClick(profile.address) : undefined}
-          />
-        )}
-        {isAccountLoading ? (
-          <LoadingCell style={{ width: '128px', height: '32px', borderRadius: '8px' }} />
-        ) : (
-          <div className="profile-list-row-name-container">
-            <p
-              className={clsx('profile-list-row-name', onProfileClick && 'clickable')}
-              onClick={() => onProfileClick?.(profile.address)}
-            >
-              {account?.ens?.name ? beautifyEnsName(account?.ens?.name) : truncateAddress(profile.address)}
-            </p>
-            {showTags ? (
-              <Tags address={profile.address} canEditTags={canEditTags} existingTags={tags} />
-            ) : showFollowsYouBadges && connectedAddress ? (
-              <FollowerTag
-                lookupAddressOrName={profile.address}
-                connectedAddress={connectedAddress}
-                list={selectedList}
-              />
-            ) : null}
-          </div>
-        )}
-      </div>
-      <FollowButton
-        lookupAddress={profile.address}
-        connectedAddress={connectedAddress}
-        selectedList={selectedList}
-        initialState={initialFollowState}
-        showBlockBack={showBlockBack && tags?.includes('block')}
-        showMuteBack={showBlockBack && tags?.includes('mute')}
-      />
-    </div>
-  )
+  return <>{children}</>
 }
 
 export default ProfileListRow

@@ -4,7 +4,7 @@ import { useTransactions } from '../context'
 import { fetchFollowState } from '../utils/api/fetch-follow-state'
 import { Address } from '../types/address'
 import { ProfileListType } from '../types/profile'
-import { FollowState, InitialFollowingState } from '../types/followState'
+import { FollowState, ForceFollowingState, InitialFollowingState } from '../types/followState'
 import { UseFollowingStateReturn } from '../types/hooks'
 
 interface UseFollowingStateProps {
@@ -12,6 +12,7 @@ interface UseFollowingStateProps {
   connectedAddress?: Address
   list?: ProfileListType
   initialState?: InitialFollowingState
+  forceState?: ForceFollowingState
 }
 
 export const useFollowingState = ({
@@ -19,6 +20,7 @@ export const useFollowingState = ({
   connectedAddress,
   list,
   initialState,
+  forceState,
 }: UseFollowingStateProps): UseFollowingStateReturn => {
   const { followingAddressesToFetchFresh } = useTransactions()
   const [fetchFresh, setFetchFresh] = useState(followingAddressesToFetchFresh.includes(lookupAddressOrName))
@@ -28,8 +30,14 @@ export const useFollowingState = ({
   }, [followingAddressesToFetchFresh, lookupAddressOrName])
 
   const { data, isLoading, isRefetching } = useQuery({
-    queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState],
+    queryKey: ['followingState', lookupAddressOrName, connectedAddress, list, fetchFresh, initialState, forceState],
     queryFn: async () => {
+      if (forceState) {
+        return {
+          state: forceState.state,
+        }
+      }
+
       if (initialState && !fetchFresh)
         return {
           state:
@@ -54,7 +62,7 @@ export const useFollowingState = ({
     refetchOnWindowFocus: false,
   })
 
-  const isFollowingStateLoading = isLoading || isRefetching
+  const isFollowingStateLoading = forceState ? forceState.isLoading : isLoading || isRefetching
   const followingState = useMemo((): FollowState => {
     if (!data?.state) return 'none'
 

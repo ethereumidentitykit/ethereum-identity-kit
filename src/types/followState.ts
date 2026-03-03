@@ -19,14 +19,24 @@ export interface FollowStateProps {
   fresh?: boolean
 }
 
+export type FollowStateResponse = {
+  follow: boolean
+  block: boolean
+  mute: boolean
+}
+
 export interface FollowStatusResponse {
   token_id?: string
   address?: Address
-  state: {
-    follow: boolean
-    block: boolean
-    mute: boolean
-  }
+  state: FollowStateResponse
+}
+
+// EIK team uses this to bulk fetch follow states for a list of addresses
+// and reduce the number of API calls to the EFP API. You can also use
+// this to force a specific follow state for a given address.
+export type ForceFollowingState = {
+  state: FollowStateResponse
+  isLoading: boolean
 }
 
 /**

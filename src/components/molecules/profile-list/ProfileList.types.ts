@@ -1,4 +1,4 @@
-import { Address, ENSProfile, InitialFollowingState, ProfileListType } from '../../../types'
+import { Address, ENSProfile, ForceFollowingState, InitialFollowingState, ProfileListType } from '../../../types'
 
 export type ProfileListProps = {
   profiles: ProfileItemType[]
@@ -28,4 +28,5 @@ export type ProfileItemType = {
   address: Address
   tags: string[]
   ens?: ENSProfile
+  followState?: ForceFollowingState
 }

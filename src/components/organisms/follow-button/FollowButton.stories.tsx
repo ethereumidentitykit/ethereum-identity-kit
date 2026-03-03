@@ -208,6 +208,27 @@ InitialState.args = {
   },
 }
 
+export const ForceState = Template.bind({})
+ForceState.args = {
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  darkMode: false,
+  batchTransactions: false,
+  forceState: {
+    state: {
+      follow: true,
+      block: false,
+      mute: false,
+    },
+    isLoading: false,
+  },
+  showRecommendations: true,
+  defaultChainId: undefined,
+  paymasterService: undefined,
+  customOnClick: (state) => {
+    window.alert(state)
+  },
+}
+
 // export const FollowButtonCustomClassNames = Template.bind({})
 // FollowButtonCustomClassNames.args = {
 //   lookupAddress: '0x983110309620d911731ac0932219af06091b6744',

@@ -4,7 +4,7 @@ import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { getPendingTxListOps, extractAddressAndTag } from '../utils/transactions'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
-import { FollowingState, InitialFollowingState, ProfileListType, UseFollowButtonReturn } from '../types'
+import { FollowingState, ForceFollowingState, InitialFollowingState, ProfileListType, UseFollowButtonReturn } from '../types'
 
 // Action configuration for cleaner logic
 const ACTION_CONFIG = {
@@ -37,6 +37,7 @@ export interface UseFollowButtonParams {
   connectedAddress?: Address
   selectedList?: ProfileListType
   initialState?: InitialFollowingState
+  forceState?: ForceFollowingState
   showBlockBack?: boolean
   showMuteBack?: boolean
 }
@@ -46,6 +47,7 @@ export const useFollowButton = ({
   connectedAddress,
   selectedList,
   initialState,
+  forceState,
   showBlockBack,
   showMuteBack,
 }: UseFollowButtonParams): UseFollowButtonReturn => {
@@ -67,6 +69,7 @@ export const useFollowButton = ({
     connectedAddress,
     list: selectedList === 'new list' ? undefined : (selectedList ?? lists?.primary_list),
     initialState,
+    forceState,
   })
 
   const pendingListOps = useMemo(() => {

@@ -1,8 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
-import { ens_beautify } from '@adraffy/ens-normalize'
 import { useProfileDetails, useProfileStats } from '../../../hooks'
-import { truncateAddress } from '../../../utils'
+import { beautifyEnsName, truncateAddress } from '../../../utils'
 import Bio from '../profile-card/components/bio'
 import Avatar from '../../molecules/avatar/Avatar'
 import HeaderImage from '../profile-card/components/HeaderImage'
@@ -113,11 +112,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-              (address && (
-                <div className="tooltip-follow-button">
-                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
-                </div>
-              ))
+            (address && (
+              <div className="tooltip-follow-button">
+                <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+              </div>
+            ))
             : null}
         </div>
         {isDetailsLoading ? (
@@ -129,7 +128,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
               enable-hover={!!onProfileClick ? 'true' : 'false'}
               onClick={() => onProfileClick?.(addressOrName)}
             >
-              {ens?.name ? ens_beautify(ens.name) : address ? truncateAddress(address) : addressOrName}
+              {ens?.name ? beautifyEnsName(ens.name) : address ? truncateAddress(address) : addressOrName}
             </p>
             {showFollowerTag && (
               <FollowerTag lookupAddressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
@@ -161,12 +160,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
                 <LoadingCell height="18px" width="140px" />
               </div>
             ) : (
-              <Bio
-                description={ens?.records?.description}
-                maxLines={2}
-                showMore={false}
-                onBioLinkClick={onBioLinkClick}
-              />
+              <Bio description={ens?.records?.description} maxLines={2} showMore={false} onBioLinkClick={onBioLinkClick} />
             ))}
         </div>
         {showSocials && (

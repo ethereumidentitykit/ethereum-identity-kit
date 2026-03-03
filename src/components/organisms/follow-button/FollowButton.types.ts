@@ -1,4 +1,4 @@
-import { Address, InitialFollowingState, FollowingState, ProfileListType } from '../../../types'
+import { Address, InitialFollowingState, FollowingState, ProfileListType, ForceFollowingState } from '../../../types'
 
 export type FollowButtonProps = {
   lookupAddress: Address
@@ -11,6 +11,7 @@ export type FollowButtonProps = {
   customLoader?: React.ReactNode
   selectedList?: ProfileListType
   initialState?: InitialFollowingState
+    forceState?: ForceFollowingState
   showBlockBack?: boolean
   showMuteBack?: boolean
 } & React.HTMLAttributes<HTMLButtonElement>

@@ -29,6 +29,16 @@ import './FollowButton.css'
  *
  * @param customLoader (optional) - the custom loader to use instead of the default one
  *
+ * @param selectedList (optional) - the selected list to use for the follow state lookup
+ *
+ * @param initialState (optional) - the initial state to use for the follow state
+ *
+ * @param forceState (optional) - the force state to use instead of the initial state
+ *
+ * @param showBlockBack (optional) - whether to show the block back button
+ *
+ * @param showMuteBack (optional) - whether to show the mute back button
+ *
  * @param props - HTML button element props
  *
  * @returns FollowButton component
@@ -42,6 +52,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   onDisconnectedClick,
   sounds,
   initialState,
+  forceState,
   className,
   customClassNames,
   customLoader,
@@ -68,6 +79,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
     connectedAddress,
     selectedList,
     initialState,
+    forceState,
     showBlockBack,
     showMuteBack,
   })

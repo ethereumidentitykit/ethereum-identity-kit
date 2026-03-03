@@ -246,6 +246,8 @@ export type {
   FollowStatusResponse,
   FollowingState,
   InitialFollowingState,
+  FollowStateResponse,
+  ForceFollowingState,
   EFPActionType,
   SubmitButtonText,
   OpCodeType,
