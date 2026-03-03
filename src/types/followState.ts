@@ -19,6 +19,18 @@ export interface FollowStateProps {
   fresh?: boolean
 }
 
+export interface BatchFollowStateProps {
+  lookupAddressesOrNames: (Address | string)[]
+  list?: ProfileListType
+  fresh?: boolean
+}
+
+export type BatchFollowStateResponse = {
+  token_id?: string
+  address?: Address
+  state: FollowStateResponse
+}[]
+
 export type FollowStateResponse = {
   follow: boolean
   block: boolean

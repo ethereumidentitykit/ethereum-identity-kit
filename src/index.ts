@@ -67,6 +67,7 @@ export {
   normalizeEnsName,
   beautifyEnsName,
   validateEnsHeader,
+  fetchBatchFollowState,
 } from './utils'
 
 // Context
@@ -244,6 +245,8 @@ export type {
   FollowStatePropType,
   FollowStateProps,
   FollowStatusResponse,
+  BatchFollowStateProps,
+  BatchFollowStateResponse,
   FollowingState,
   InitialFollowingState,
   FollowStateResponse,

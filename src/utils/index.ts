@@ -13,11 +13,13 @@ import { fetchProfileFollowing } from './api/fetch-profile-following'
 import { fetchProfileFollowers } from './api/fetch-profile-followers'
 import { fetchFollowersYouKnow } from './api/fetch-followers-you-know'
 import { fetchAllFollowersYouKnow } from './api/fetch-all-followers-you-know'
+import { fetchBatchFollowState } from './api/fetch-batch-follow-state'
 
 export {
   isAddress,
   truncateAddress,
   fetchFollowState,
+  fetchBatchFollowState,
   fetchProfileStats,
   fetchProfileDetails,
   fetchAccount,

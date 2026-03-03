@@ -58,21 +58,6 @@ export default [
     output: [{ file: 'dist/types.d.ts', format: 'esm' }],
     plugins: [dts.default(), postcss({ extract: true, minimize: true })],
   },
-  // {
-  //   input: 'src/hooks/index.ts',
-  //   output: [{ file: 'dist/esm/hooks/index.js', format: 'esm' }],
-  //   plugins: [
-  //     resolve(),
-  //     peerDepsExternal(),
-  //     typescript({ tsconfig: './tsconfig.json' }),
-  //     terser(),
-  //     postcss({
-  //       extract: true,
-  //       minimize: true,
-  //     }),
-  //     image(),
-  //   ],
-  // },
   {
     input: 'src/utils/index.ts',
     output: [
@@ -91,11 +76,6 @@ export default [
       }),
       typescript({ tsconfig: './tsconfig.json' }),
       terser(),
-      postcss({
-        extract: true,
-        minimize: true,
-      }),
-      image(),
     ],
     external: [
       'react',
@@ -107,34 +87,4 @@ export default [
       'viem',
     ],
   },
-  // {
-  //   input: 'src/constants/index.ts',
-  //   output: [{ file: 'dist/esm/constants/index.js', format: 'esm' }],
-  //   plugins: [
-  //     resolve(),
-  //     peerDepsExternal(),
-  //     typescript({ tsconfig: './tsconfig.json' }),
-  //     terser(),
-  //     postcss({
-  //       extract: true,
-  //       minimize: true,
-  //     }),
-  //     image(),
-  //   ],
-  // },
-  // {
-  //   input: 'src/components/index.ts',
-  //   output: [{ file: 'dist/esm/components/index.js', format: 'esm' }],
-  //   plugins: [
-  //     resolve(),
-  //     peerDepsExternal(),
-  //     typescript({ tsconfig: './tsconfig.json' }),
-  //     terser(),
-  //     postcss({
-  //       extract: true,
-  //       minimize: true,
-  //     }),
-  //     image(),
-  //   ],
-  // },
 ]

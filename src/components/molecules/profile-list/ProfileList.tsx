@@ -1,10 +1,13 @@
 import clsx from 'clsx'
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 import ProfileListRow from '../../molecules/profile-list-row/ProfileListRow'
 import ProfileListLoadingRow from '../../molecules/profile-list-row/ProfileListLoadingRow'
 import { ProfileItemType, ProfileListProps } from './ProfileList.types'
 import VirtualList from '../../molecules/virtual-list/VirtualList'
 import './ProfileList.css'
+import { fetchBatchFollowState } from '../../../utils/api/fetch-batch-follow-state'
+import { useQuery } from '@tanstack/react-query'
+import { Address } from 'viem'
 
 /**
  * ProfileList component - displays a list of profiles
@@ -79,11 +82,48 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
         ? [...profiles, null]
         : [...profiles]
 
+    const { data: followStates, isLoading: isFollowStatesLoading } = useQuery({
+      queryKey: ['followStates', selectedList, profiles],
+      queryFn: async () => {
+        console.log('fetching follow states', items)
+        const addresses = items.map((profile) => profile?.address as Address)
+
+        if (!addresses) return null
+
+        const followStates = await fetchBatchFollowState({
+          lookupAddressesOrNames: addresses,
+          list: selectedList,
+          fresh: true,
+        })
+
+        console.log('follow states', followStates)
+
+        return followStates
+      },
+    })
+
+    const profilesWithFollowStates = useMemo(() => {
+      return items.map((profile, index) => {
+        if (!profile) return null
+
+        const followState = followStates && followStates[index] ? followStates[index] : undefined
+
+        return {
+          ...profile,
+          followState: {
+            state: followState?.state,
+            isLoading: isFollowStatesLoading,
+
+          },
+        }
+      }) as (ProfileItemType | null)[]
+    }, [items, followStates])
+
     return useVirtualList ? (
       <VirtualList<ProfileItemType | null>
         ref={ref}
         containerClassName={clsx('profile-list-container', showHeaderImage && 'has-header-image', darkMode && 'dark')}
-        items={items}
+        items={profilesWithFollowStates}
         visibleCount={visibleCount}
         rowHeight={rowHeight}
         overscanCount={overscanCount}
@@ -119,7 +159,7 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
         ref={ref}
         className={clsx('profile-list-container', showHeaderImage && 'has-header-image', darkMode && 'dark')}
       >
-        {items.map((profile, index) =>
+        {profilesWithFollowStates.map((profile, index) =>
           profile ? (
             <ProfileListRow
               key={profile.address}
