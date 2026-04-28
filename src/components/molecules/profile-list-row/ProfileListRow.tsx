@@ -58,7 +58,7 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
 
   React.useEffect(() => {
     setHeaderImageError(false)
-  }, [headerImage, account?.ens?.name])
+  }, [headerImage, account?.ens?.name, showHeaderImage])
 
   return (
     <ProfileRowWrapper profile={profile} connectedAddress={connectedAddress} selectedList={selectedList} showFollowsYouBadges={showFollowsYouBadges} showTooltip={showProfileTooltip}>
