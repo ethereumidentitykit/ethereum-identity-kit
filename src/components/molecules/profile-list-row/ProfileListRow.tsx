@@ -51,14 +51,26 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
     queryFn: async () => (profile.ens ? profile : await fetchProfileAccount(profile.address)),
   })
 
+  const [headerImageError, setHeaderImageError] = React.useState(false)
   const headerImage = account?.ens?.header || account?.ens?.records?.header
-  const headerImageSrc = validateEnsHeader(headerImage, account?.ens?.name)
+  const headerImageSrc = headerImageError ? undefined : validateEnsHeader(headerImage, account?.ens?.name)
+  const hasHeaderImage = showHeaderImage && !!headerImageSrc
+
+  React.useEffect(() => {
+    setHeaderImageError(false)
+  }, [headerImage, account?.ens?.name, showHeaderImage])
 
   return (
     <ProfileRowWrapper profile={profile} connectedAddress={connectedAddress} selectedList={selectedList} showFollowsYouBadges={showFollowsYouBadges} showTooltip={showProfileTooltip}>
-      <div className={clsx('profile-list-row', showHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
-        {showHeaderImage && headerImageSrc && (
-          <img src={headerImageSrc} alt="" className="profile-list-row-header-image" style={{ height: rowHeight }} />
+      <div className={clsx('profile-list-row', hasHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
+        {hasHeaderImage && (
+          <img
+            src={headerImageSrc}
+            alt=""
+            className="profile-list-row-header-image"
+            style={{ height: rowHeight }}
+            onError={() => setHeaderImageError(true)}
+          />
         )}
         <div className="profile-list-row-details">
           {isAccountLoading ? (
