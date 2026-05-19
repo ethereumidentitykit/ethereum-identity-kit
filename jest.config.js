@@ -1,6 +1,35 @@
 module.exports = {
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   moduleNameMapper: {
     '.(css|less|scss)$': 'identity-obj-proxy',
+    '\\.(png|jpg|jpeg|gif|svg)$': 'identity-obj-proxy',
+    '^viem/chains$': '<rootDir>/src/__tests__/mocks/chains.ts',
+    '^wagmi/chains$': '<rootDir>/src/__tests__/mocks/chains.ts',
+    '^wagmi$': '<rootDir>/src/__tests__/mocks/wagmi.ts',
+    '^wagmi/experimental$': '<rootDir>/src/__tests__/mocks/wagmi-experimental.ts',
   },
+  testMatch: ['<rootDir>/src/**/__tests__/**/*.(ts|tsx|js)', '<rootDir>/src/**/*.(test|spec).(ts|tsx|js)'],
+  testPathIgnorePatterns: [
+    '<rootDir>/src/__tests__/utils/',
+    '<rootDir>/src/__tests__/setup.ts',
+    '<rootDir>/src/__tests__/jest-setup.js',
+    '<rootDir>/src/__tests__/mocks/',
+  ],
+  collectCoverageFrom: [
+    'src/**/*.(ts|tsx)',
+    '!src/**/*.d.ts',
+    '!src/**/*.stories.tsx',
+    '!src/**/*.types.ts',
+    '!src/index.ts',
+    '!src/__tests__/**/*',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov', 'html'],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'babel-jest',
+  },
+  transformIgnorePatterns: ['node_modules/(?!(wagmi|viem|@tanstack|@adraffy|@noble)/)'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  setupFiles: ['<rootDir>/src/__tests__/jest-setup.js'],
 }
