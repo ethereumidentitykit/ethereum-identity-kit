@@ -14,6 +14,7 @@ import { useTransactionItem } from './useTransactionItem'
 import { useProfileStats } from './profile/useProfileStats'
 import { useOutsideClick } from './common/useOutsideClick'
 import { useProfileDetails } from './profile/useProfileDetails'
+import { useGrailsProfile } from './profile/useGrailsProfile'
 import { useFollowersAndFollowing } from './useFollowersAndFollowing'
 import { useFollowersYouKnowModal } from './followers-you-know/useModal'
 import { useFollowButton, UseFollowButtonParams } from './useFollowButton'
@@ -24,6 +25,7 @@ export {
   useUserInfo,
   useFollowingState,
   useProfileDetails,
+  useGrailsProfile,
   useProfileStats,
   useFollowerState,
   useFollowButton,
