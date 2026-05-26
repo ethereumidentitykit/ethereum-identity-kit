@@ -208,3 +208,50 @@
   gap: 4px;
   margin: 0;
 }
+
+.tooltip-grails-data {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding-top: 12px;
+  margin-top: 4px;
+  border-top: 1px solid var(--ethereum-identity-kit-neutral-light);
+  text-align: left;
+  font-size: 13px;
+}
+
+.dark .tooltip-grails-data {
+  border-top-color: var(--ethereum-identity-kit-neutral-light-dark);
+}
+
+.grails-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.grails-stat-label {
+  color: var(--ethereum-identity-kit-text-secondary);
+}
+
+.dark .grails-stat-label {
+  color: var(--ethereum-identity-kit-text-secondary-dark);
+}
+
+.grails-stat-value {
+  font-weight: 600;
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.dark .grails-stat-value {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.grails-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
