@@ -61,7 +61,13 @@ const ProfileListRow: React.FC<ProfileListRowProps> = ({
   }, [headerImage, account?.ens?.name, showHeaderImage])
 
   return (
-    <ProfileRowWrapper profile={profile} connectedAddress={connectedAddress} selectedList={selectedList} showFollowsYouBadges={showFollowsYouBadges} showTooltip={showProfileTooltip}>
+    <ProfileRowWrapper
+      profile={profile}
+      connectedAddress={connectedAddress}
+      selectedList={selectedList}
+      showFollowsYouBadges={showFollowsYouBadges}
+      showTooltip={showProfileTooltip}
+    >
       <div className={clsx('profile-list-row', hasHeaderImage && 'has-header-image')} style={{ height: rowHeight }}>
         {hasHeaderImage && (
           <img
@@ -124,10 +130,30 @@ interface ProfileRowWrapperProps extends ProfileListRowProps {
   children: React.ReactNode
 }
 
-const ProfileRowWrapper: React.FC<ProfileRowWrapperProps> = ({ profile, connectedAddress, selectedList, showFollowsYouBadges, showTooltip, children }) => {
+const ProfileRowWrapper: React.FC<ProfileRowWrapperProps> = ({
+  profile,
+  connectedAddress,
+  selectedList,
+  showFollowsYouBadges,
+  showTooltip,
+  children,
+}) => {
   if (showTooltip) {
     return (
-      <ProfileTooltip addressOrName={profile.address} showBio={true} showSocials={true} showStatus={true} showDelay={1000} connectedAddress={connectedAddress} selectedList={selectedList} showFollowerState={showFollowsYouBadges} showFollowButton={false} horizontalOffset={16} verticalPlacement="auto" boundary="viewport">
+      <ProfileTooltip
+        addressOrName={profile.address}
+        showBio={true}
+        showSocials={true}
+        showStatus={true}
+        showDelay={1000}
+        connectedAddress={connectedAddress}
+        selectedList={selectedList}
+        showFollowerState={showFollowsYouBadges}
+        showFollowButton={false}
+        horizontalOffset={16}
+        verticalPlacement="auto"
+        boundary="viewport"
+      >
         {children as React.ReactElement}
       </ProfileTooltip>
     )

@@ -11,7 +11,7 @@ export type FollowButtonProps = {
   customLoader?: React.ReactNode
   selectedList?: ProfileListType
   initialState?: InitialFollowingState
-    forceState?: ForceFollowingState
+  forceState?: ForceFollowingState
   showBlockBack?: boolean
   showMuteBack?: boolean
 } & React.HTMLAttributes<HTMLButtonElement>

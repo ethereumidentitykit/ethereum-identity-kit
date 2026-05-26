@@ -4,7 +4,13 @@ import { useFollowingState } from './useFollowingState'
 import { useTransactions } from '../context/transactionContext'
 import { getPendingTxListOps, extractAddressAndTag } from '../utils/transactions'
 import { listOpAddListRecord, listOpAddTag, listOpRemoveListRecord, listOpRemoveTag } from '../utils/list-ops'
-import { FollowingState, ForceFollowingState, InitialFollowingState, ProfileListType, UseFollowButtonReturn } from '../types'
+import {
+  FollowingState,
+  ForceFollowingState,
+  InitialFollowingState,
+  ProfileListType,
+  UseFollowButtonReturn,
+} from '../types'
 
 // Action configuration for cleaner logic
 const ACTION_CONFIG = {

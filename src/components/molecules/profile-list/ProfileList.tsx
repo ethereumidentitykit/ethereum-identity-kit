@@ -113,7 +113,6 @@ const ProfileList = forwardRef<HTMLDivElement, ProfileListProps>(
           followState: {
             state: followState?.state,
             isLoading: isFollowStatesLoading,
-
           },
         }
       }) as (ProfileItemType | null)[]

@@ -1,10 +1,7 @@
 import type { BatchFollowStateProps, BatchFollowStateResponse } from '../../types/followState'
 import { EFP_API_URL } from '../../constants'
 
-export const fetchBatchFollowState = async ({
-  lookupAddressesOrNames,
-  list,
-}: BatchFollowStateProps) => {
+export const fetchBatchFollowState = async ({ lookupAddressesOrNames, list }: BatchFollowStateProps) => {
   try {
     if (!list) return null
 

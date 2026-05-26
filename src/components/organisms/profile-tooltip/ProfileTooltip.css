@@ -255,3 +255,10 @@
   gap: 6px;
   width: 100%;
 }
+
+.grails-stat-label-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
