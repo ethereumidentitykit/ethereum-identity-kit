@@ -55,6 +55,7 @@ const GrailsProfileSection: React.FC<GrailsProfileSectionProps> = ({ addressOrNa
     addressOrName,
     enabled: true,
   })
+
   const grailsProfile = grailsData?.data
 
   if (!isGrailsLoading && !grailsProfile) return null

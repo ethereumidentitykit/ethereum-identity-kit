@@ -125,16 +125,9 @@ InlineText.args = {
   ),
 }
 
-export const GrailsEnabled = Template.bind({})
-GrailsEnabled.args = {
+export const IncludeGrailsData = Template.bind({})
+IncludeGrailsData.args = {
   ...AddressDefaultPosition.args,
   addressOrName: 'vitalik.eth',
   includeGrails: true,
-}
-
-export const GrailsDisabled = Template.bind({})
-GrailsDisabled.args = {
-  ...AddressDefaultPosition.args,
-  addressOrName: 'vitalik.eth',
-  includeGrails: false,
 }
