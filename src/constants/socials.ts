@@ -7,7 +7,7 @@ import {
   GithubDark,
   EtherscanDark,
   Email,
-  Grails,
+  GrailsCircle,
   Opensea,
   Vision,
   ENSCircle,
@@ -34,8 +34,8 @@ export const PROFILE_CARD_SOCIALS = [
     name: 'grails',
     url: (address: string) => `https://grails.app/profile/${address}`,
     icon: {
-      light: Grails,
-      dark: Grails,
+      light: GrailsCircle,
+      dark: GrailsCircle,
     },
   },
   {

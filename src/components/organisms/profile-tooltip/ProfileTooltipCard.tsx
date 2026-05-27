@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import { useProfileDetails, useProfileStats } from '../../../hooks'
+import { useProfileDetails, useProfileStats, useGrailsProfile } from '../../../hooks'
 import { beautifyEnsName, truncateAddress } from '../../../utils'
 import Bio from '../profile-card/components/bio'
 import Avatar from '../../molecules/avatar/Avatar'
@@ -12,6 +12,90 @@ import { ProfileTooltipProps } from './ProfileTooltip.types'
 import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import FollowButton from '../follow-button/FollowButton'
 import ProfileSocials from '../../molecules/profile-socials/ProfileSocials'
+import type { GrailsProfileResponse } from '../../../types'
+import { ENS as ENSIcon, Grails as GrailsIcon, Ethereum as EthereumIcon } from '../../icons'
+
+const formatTimeAgo = (dateString?: string | null) => {
+  if (!dateString) return 'N/A'
+  const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return 'N/A'
+
+  const diffSeconds = Math.floor((Date.now() - date.getTime()) / 1000)
+  if (diffSeconds < 60) return 'just now'
+
+  const diffMinutes = Math.floor(diffSeconds / 60)
+  if (diffMinutes < 60) return `${diffMinutes}min ago`
+
+  const diffHours = Math.floor(diffMinutes / 60)
+  if (diffHours < 24) return `${diffHours}h ago`
+
+  const diffDays = Math.floor(diffHours / 24)
+  if (diffDays < 7) return `${diffDays}d ago`
+
+  const diffWeeks = Math.floor(diffDays / 7)
+  if (diffDays < 30) return `${diffWeeks}w ago`
+
+  const diffMonths = Math.floor(diffDays / 30)
+  if (diffDays < 365) return `${diffMonths}mo ago`
+
+  const diffYears = Math.floor(diffDays / 365)
+  return `${diffYears}y ago`
+}
+
+const getGrailsNameCount = (grailsProfile?: GrailsProfileResponse['data']) => {
+  return grailsProfile?.stats?.totalNames ?? grailsProfile?.ownedNames?.length ?? 0
+}
+
+type GrailsProfileSectionProps = {
+  addressOrName: string
+}
+
+const GrailsProfileSection: React.FC<GrailsProfileSectionProps> = ({ addressOrName }) => {
+  const { data: grailsData, isLoading: isGrailsLoading } = useGrailsProfile({
+    addressOrName,
+    enabled: true,
+  })
+
+  const grailsProfile = grailsData?.data
+
+  if (!isGrailsLoading && !grailsProfile) return null
+
+  return (
+    <div className="tooltip-grails-data">
+      {isGrailsLoading ? (
+        <div className="grails-loading">
+          <LoadingCell height="14px" width="100%" />
+          <LoadingCell height="14px" width="100%" />
+          <LoadingCell height="14px" width="100%" />
+        </div>
+      ) : grailsProfile ? (
+        <>
+          <div className="grails-stat">
+            <div className="grails-stat-label-container">
+              <GrailsIcon width={14} height={14} />
+              <span className="grails-stat-label">Last seen on Grails:</span>
+            </div>
+            <span className="grails-stat-value">{formatTimeAgo(grailsProfile.lastSeenAt)}</span>
+          </div>
+          <div className="grails-stat">
+            <div className="grails-stat-label-container">
+              <EthereumIcon width={14} height={14} />
+              <span className="grails-stat-label">Last tx on Ethereum:</span>
+            </div>
+            <span className="grails-stat-value">{formatTimeAgo(grailsProfile.lastSeenOnchain)}</span>
+          </div>
+          <div className="grails-stat">
+            <div className="grails-stat-label-container">
+              <ENSIcon width={14} height={14} color="#0080BC" />
+              <span className="grails-stat-label">Number of names they own:</span>
+            </div>
+            <span className="grails-stat-value">{getGrailsNameCount(grailsProfile)}</span>
+          </div>
+        </>
+      ) : null}
+    </div>
+  )
+}
 
 /**
  * Profile Card for an Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
@@ -50,6 +134,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
   showEmptySocials,
   showBio = true,
   showStatus,
+  includeGrails = false,
   onProfileClick = (addressOrname) => {
     window.open(`https://efp.app/${addressOrname}`, '_blank', 'noopener,noreferrer')
   },
@@ -112,11 +197,11 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
           )}
           {showFollowButton && !isConnectedUserCard
             ? customFollowButton ||
-            (address && (
-              <div className="tooltip-follow-button">
-                <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
-              </div>
-            ))
+              (address && (
+                <div className="tooltip-follow-button">
+                  <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
+                </div>
+              ))
             : null}
         </div>
         {isDetailsLoading ? (
@@ -160,7 +245,12 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
                 <LoadingCell height="18px" width="140px" />
               </div>
             ) : (
-              <Bio description={ens?.records?.description} maxLines={2} showMore={false} onBioLinkClick={onBioLinkClick} />
+              <Bio
+                description={ens?.records?.description}
+                maxLines={2}
+                showMore={false}
+                onBioLinkClick={onBioLinkClick}
+              />
             ))}
         </div>
         {showSocials && (
@@ -173,6 +263,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
             hideSocials={extraOptions?.hideSocials}
           />
         )}
+        {includeGrails && <GrailsProfileSection addressOrName={addressOrName} />}
       </div>
     </div>
   )

@@ -16,6 +16,7 @@ export type ProfileCardProps = {
   showEmptySocials?: boolean
   showBio?: boolean
   showStatus?: boolean
+  includeGrails?: boolean
   onProfileClick?: (addressOrName: Address | string) => void
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   extraOptions?: ProfileTooltipExtraOptions

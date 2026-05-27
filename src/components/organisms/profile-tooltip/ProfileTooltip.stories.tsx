@@ -124,3 +124,10 @@ InlineText.args = {
     <span style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Hover this inline text</span>
   ),
 }
+
+export const IncludeGrailsData = Template.bind({})
+IncludeGrailsData.args = {
+  ...AddressDefaultPosition.args,
+  addressOrName: 'vitalik.eth',
+  includeGrails: true,
+}
