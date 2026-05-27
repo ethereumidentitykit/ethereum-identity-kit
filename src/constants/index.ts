@@ -1,6 +1,8 @@
 import { FollowersYouKnowResponse } from '../types'
 
 export const EFP_API_URL = 'https://data.ethfollow.xyz/api/v1'
+export const GRAILS_API_URL = 'https://api.grails.app/api/v1'
+export const ENS_METADATA_URL = 'https://metadata.ethid.org'
 export const DEFAULT_FALLBACK_AVATAR = 'https://efp.app/assets/art/default-avatar.svg'
 export const DEFAULT_FALLBACK_HEADER = 'https://efp.app/assets/art/default-header.svg'
 
@@ -33,6 +35,7 @@ export * from './abi'
 export * from './time'
 export * from './chains'
 export * from './socials'
+export * from './records'
 export * from './contracts'
 export * from './transports'
 export * from './transactions'

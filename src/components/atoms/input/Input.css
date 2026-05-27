@@ -1,0 +1,59 @@
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 6px;
+  color: var(--ethereum-identity-kit-text-primary);
+}
+
+.input-container.dark .input-label {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+}
+
+.input-field {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ethereum-identity-kit-text-primary);
+  background-color: transparent;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.input-field:hover:not(:disabled) {
+  border-color: #c0c0c0;
+}
+
+.input-field:focus {
+  border-color: #888;
+}
+
+.input-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input-container.dark .input-field {
+  color: var(--ethereum-identity-kit-text-primary-dark);
+  border-color: #333;
+}
+
+.input-container.dark .input-field:hover:not(:disabled) {
+  border-color: #555;
+}
+
+.input-container.dark .input-field:focus {
+  border-color: #777;
+}

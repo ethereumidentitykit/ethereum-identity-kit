@@ -1,0 +1,133 @@
+.follow-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-width: 110px;
+  padding: 0 8px;
+  height: 39px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ethereum-identity-kit-text-primary);
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  border: 3px solid transparent;
+  transition: all 200ms ease-in-out !important;
+}
+
+.follow-button.block-back {
+  min-width: 130px;
+}
+
+.follow-button.block-back p {
+  word-break: keep-all;
+  word-wrap: keep-all;
+  width: fit-content;
+}
+
+/* Add :not(.disable-hover) before :hover */
+.follow-button:not(.disable-hover):hover {
+  transform: scale(1.1);
+}
+
+.follow-button:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+.follow-button-follow {
+  background-color: var(--ethereum-identity-kit-primary);
+  text-align: center;
+  background-size: 300% auto;
+  transition: all 0.3s;
+  border-radius: 6px;
+}
+
+/* Add :not(.disable-hover) before :hover */
+.follow-button-follow:not(.disable-hover):hover {
+  background-color: var(--ethereum-identity-kit-primary-hover);
+  transition: all 0.3s;
+}
+
+.follow-button-pending,
+.follow-button-following {
+  background-color: var(--ethereum-identity-kit-background);
+  border-color: var(--ethereum-identity-kit-primary) !important;
+}
+
+/* Add :not(.disable-hover) before :hover */
+.follow-button-pending:not(.disable-hover):hover {
+  border-color: transparent !important;
+  background: var(--ethereum-identity-kit-neutral-hover);
+}
+
+.follow-button-following:not(.disable-hover):hover,
+.follow-button-block,
+.follow-button-unfollow,
+.follow-button-mute,
+.follow-button-unblock,
+.follow-button-unmute {
+  border-color: transparent !important;
+  background: var(--ethereum-identity-kit-deletion);
+}
+
+/* Add :not(.disable-hover) before :hover */
+.follow-button-unfollow:not(.disable-hover):hover,
+.follow-button-block:not(.disable-hover):hover,
+.follow-button-unblock:not(.disable-hover):hover,
+.follow-button-mute:not(.disable-hover):hover,
+.follow-button-unmute:not(.disable-hover):hover {
+  border-color: transparent;
+  background: var(--ethereum-identity-kit-deletion);
+}
+
+/* Add :not(.disable-hover) before :hover */
+.follow-button-muted:not(.disable-hover):hover,
+.follow-button-mute-pending:not(.disable-hover):hover,
+.follow-button-blocked:not(.disable-hover):hover,
+.follow-button-unblock-pending:not(.disable-hover):hover,
+.follow-button-unmute-pending:not(.disable-hover):hover {
+  border-color: transparent;
+  background: var(--ethereum-identity-kit-restriction-hover);
+}
+
+.follow-button-blocked,
+.follow-button-block-pending,
+.follow-button-muted,
+.follow-button-mute-pending {
+  background: var(--ethereum-identity-kit-background);
+  border-color: var(--ethereum-identity-kit-restriction) !important;
+  color: var(--ethereum-identity-kit-restriction);
+}
+
+.pending::after {
+  background: var(--ethereum-identity-kit-success);
+  height: 12px;
+  width: 12px;
+  border-radius: 100%;
+  position: absolute;
+  content: '';
+  display: block;
+  top: -6px;
+  right: -6px;
+}
+
+.follow-button.error {
+  border-color: var(--ethereum-identity-kit-deletion) !important;
+  animation: error-shake 0.5s ease-in-out;
+}
+
+@keyframes error-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}
