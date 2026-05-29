@@ -10,5 +10,5 @@ export const fetchNameRoles = async (name: string) => {
     return null
   }
 
-  return results.data.roles
+  return results.data
 }

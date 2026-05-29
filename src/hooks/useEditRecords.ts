@@ -26,15 +26,15 @@ export function useEditRecords(name: string | null, metadata: Record<string, str
     },
     enabled: !!name,
   })
-  const ownerAddress = roles?.owner
-  const managerAddress = roles?.manager
-  const resolverAddress = roles?.resolver
-  const ethAddress = roles?.ethAddress
+  const ownerAddress = useMemo(() => roles?.owner, [roles])
+  const managerAddress = useMemo(() => roles?.manager, [roles])
+  const resolverAddress = useMemo(() => roles?.resolver, [roles])
+  const ethAddress = useMemo(() => roles?.ethAddress, [roles])
 
   // Roles state
-  const [roleOwner, setRoleOwnerState] = useState('')
-  const [roleManager, setRoleManagerState] = useState('')
-  const [roleEthRecord, setRoleEthRecordState] = useState('')
+  const [roleOwner, setRoleOwnerState] = useState(ownerAddress || '')
+  const [roleManager, setRoleManagerState] = useState(managerAddress || '')
+  const [roleEthRecord, setRoleEthRecordState] = useState(ethAddress || '')
 
   useEffect(() => {
     if (!roles) return

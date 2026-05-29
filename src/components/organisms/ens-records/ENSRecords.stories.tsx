@@ -31,12 +31,12 @@ const ENSRecordsWrapper = (args: ENSRecordsProps) => {
   return (
     <div
       style={{
-        height: '50vh',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
         alignItems: 'center',
+        paddingBottom: '100px',
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
@@ -97,6 +97,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps) => {
         name={args.name}
         defaultTab={args.defaultTab}
         onClose={args.onClose}
+        darkMode={args.darkMode}
         onImageUpload={args.onImageUpload}
       />
     </div>
@@ -149,6 +150,6 @@ export const SingleTransaction = Template.bind({})
 SingleTransaction.args = {
   name: 'test.eth',
   defaultTab: 'records',
-  onClose: () => {},
-  onImageUpload: () => Promise.resolve(''),
+  onClose: () => { },
+  darkMode: false,
 }

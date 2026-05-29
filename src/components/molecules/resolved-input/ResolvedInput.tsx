@@ -6,6 +6,7 @@ import { fetchAccount } from '../../../utils'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import Avatar from '../avatar/Avatar'
 import './ResolvedInput.css'
+import Input from '../../atoms/input/Input'
 
 const ResolvedInput: React.FC<ResolvedInputProps> = ({
   value,
@@ -40,13 +41,9 @@ const ResolvedInput: React.FC<ResolvedInputProps> = ({
 
   return (
     <div className={`resolved-input-container ${darkMode ? 'dark' : 'light'} ${className}`}>
-      {label && (
-        <label htmlFor={inputId} className="resolved-input-label">
-          {label}
-        </label>
-      )}
-      <input
+      <Input
         id={inputId}
+        label={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}

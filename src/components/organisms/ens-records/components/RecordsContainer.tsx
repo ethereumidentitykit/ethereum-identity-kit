@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import clsx from 'clsx'
 import ImageUploadModal from './ImageUploadModal'
 import { ADDRESS_LABELS, DEFAULT_FALLBACK_AVATAR, DEFAULT_FALLBACK_HEADER, SOCIAL_RECORDS } from '../../../../constants'
 import { ENS_METADATA_URL } from '../../../../constants'
@@ -12,6 +13,7 @@ import { useOutsideClick } from '../../../../hooks'
 import Plus from '../../../icons/ui/Plus'
 import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import ResolvedInput from '../../../molecules/resolved-input/ResolvedInput'
+import '../ENSRecords.css'
 
 interface RecordsContainerProps {
   name: string
@@ -19,7 +21,7 @@ interface RecordsContainerProps {
   defaultTab: 'records' | 'roles'
   darkMode?: boolean
   onClose: () => void
-  onImageUpload: (dataURL: string, type: 'avatar' | 'header') => Promise<string> // returns URL of the uploaded image
+  onImageUpload?: (dataURL: string, type: 'avatar' | 'header') => Promise<string> // returns URL of the uploaded image
 }
 
 const RecordsContainer: React.FC<RecordsContainerProps> = ({
@@ -94,32 +96,36 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
     onClose()
   }
 
+  const iconSize = {
+    height: 16,
+    width: 16,
+  }
+
   return (
     <>
       <div
-        className="fixed top-0 right-0 bottom-0 left-0 z-[100] flex h-[100dvh] w-screen items-end justify-end bg-black/40 backdrop-blur-sm transition-all duration-250 md:items-center md:justify-center md:px-2 md:py-12"
+        className={clsx('ens-records-root', darkMode && 'dark')}
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
         }}
       >
-        <div
-          className="bg-background border-tertiary relative flex max-h-[calc(100dvh-56px)] w-full flex-col rounded-md border-t shadow-lg md:max-w-xl md:border-2"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="ens-records-modal" onClick={(e) => e.stopPropagation()}>
           {/* Confirming / Processing state */}
           {(step === 'confirming' || step === 'processing') && (
-            <div className="flex flex-col items-center gap-12 p-6">
-              <h2 className="text-2xl font-bold">Saving Changes</h2>
-              <div className="border-primary inline-block h-12 w-12 animate-spin rounded-full border-b-2"></div>
-              <div className="flex flex-col items-center gap-4">
-                <p className="text-xl">{step === 'confirming' ? 'Confirm in Wallet' : 'Processing Transaction'}</p>
+            <div className="ens-records-confirming">
+              <h2 className="ens-records-status-title">Saving Changes</h2>
+              <div className="ens-records-spinner"></div>
+              <div className="ens-records-status-detail">
+                <p className="ens-records-status-text">
+                  {step === 'confirming' ? 'Confirm in Wallet' : 'Processing Transaction'}
+                </p>
                 {txHash && (
                   <a
                     href={`https://etherscan.io/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 text-lg underline transition-colors"
+                    className="ens-records-link"
                   >
                     View on Etherscan
                   </a>
@@ -130,24 +136,24 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
           {/* Success state */}
           {step === 'success' && (
-            <div className="flex flex-col items-center gap-8 p-6">
-              <h2 className="text-2xl font-bold">Saving Changes</h2>
-              <div className="bg-primary mx-auto flex w-fit items-center justify-center rounded-full p-2">
-                <Check className="text-background h-6 w-6" />
+            <div className="ens-records-success">
+              <h2 className="ens-records-status-title">Saving Changes</h2>
+              <div className="ens-records-success-icon">
+                <Check className="ens-records-success-check" />
               </div>
-              <div className="flex w-full flex-col items-center gap-4">
-                <p className="text-xl font-bold">Changes Saved Successfully!</p>
+              <div className="ens-records-success-detail">
+                <p className="ens-records-success-text">Changes Saved Successfully!</p>
                 {txHash && (
                   <a
                     href={`https://etherscan.io/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 text-lg underline transition-colors"
+                    className="ens-records-link"
                   >
                     View on Etherscan
                   </a>
                 )}
-                <button className="w-full" onClick={handleClose}>
+                <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
                   Close
                 </button>
               </div>
@@ -156,16 +162,16 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
           {/* Error state */}
           {step === 'error' && (
-            <div className="flex flex-col gap-4 p-6">
-              <div className="rounded-lg border border-red-500/20 bg-red-900/20 p-4">
-                <h2 className="mb-4 text-2xl font-bold text-red-400">Transaction Failed</h2>
-                <p className="line-clamp-6 text-red-400">{errorMessage || 'An unknown error occurred'}</p>
+            <div className="ens-records-error">
+              <div className="ens-records-error-box">
+                <h2 className="ens-records-error-title">Transaction Failed</h2>
+                <p className="ens-records-error-message">{errorMessage || 'An unknown error occurred'}</p>
               </div>
-              <div className="flex w-full flex-col gap-2">
-                <b onClick={resetToEditing} className="w-full">
+              <div className="ens-records-error-actions">
+                <b onClick={resetToEditing} className="ens-modal-btn ens-modal-btn--primary">
                   Try Again
                 </b>
-                <button onClick={handleClose} className="w-full">
+                <button onClick={handleClose} className="ens-modal-btn ens-modal-btn--neutral">
                   Close
                 </button>
               </div>
@@ -175,60 +181,38 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
           {/* Editing state — form content */}
           {step === 'editing' && (
             <>
-              <div className="flex flex-col gap-3 overflow-y-auto pb-4">
+              <div className="ens-records-editing">
                 {/* Header Image + Avatar */}
-                <div className="relative">
+                <div className="ens-records-media">
                   {/* Header image */}
-                  <div className="relative h-32 w-full overflow-hidden rounded-t-md sm:h-36">
-                    <img src={headerUrl} alt="Header" className="" />
+                  <div className="ens-records-header">
+                    <img src={headerUrl} alt="Header" className="ens-records-header-img" />
                     <button
-                      className="bg-secondary/90 hover:bg-tertiary/90 absolute top-2 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+                      className="ens-records-header-edit"
                       onClick={() => setImageUploadTarget('header')}
-                      disabled={isManager}
+                      disabled={!isManager}
                     >
-                      {records.header ? <Pencil /> : <Plus />}
+                      {records.header ? <Pencil {...iconSize} /> : <Plus {...iconSize} />}
                     </button>
                   </div>
 
                   {/* Avatar overlapping header */}
-                  <div className="absolute -bottom-[35px] left-4">
-                    <div className="bg-background relative h-20 w-20 overflow-hidden rounded-full sm:h-26 sm:w-26">
-                      <img src={avatarUrl} alt="Avatar" width={80} height={80} className="h-full w-full object-cover" />
+                  <div className="ens-records-avatar-wrap">
+                    <div className="ens-records-avatar">
+                      <img src={avatarUrl} alt="Avatar" width={80} height={80} className="ens-records-avatar-img" />
                       <button
-                        className="absolute inset-0 top-2/3 flex cursor-pointer items-center justify-center bg-black/50 transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="ens-records-avatar-edit"
                         onClick={() => setImageUploadTarget('avatar')}
                         disabled={!isManager}
                       >
-                        {records.avatar ? <Pencil /> : <Plus />}
+                        {records.avatar ? <Pencil {...iconSize} color='white' /> : <Plus {...iconSize} />}
                       </button>
                     </div>
                   </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="mt-8 flex gap-2 px-4 sm:px-6">
-                  {/* <button
-                    className={cn(
-                      'flex-1 cursor-pointer rounded-md px-3 py-2 text-lg font-semibold transition-colors',
-                      activeTab === 'records'
-                        ? 'bg-primary text-background'
-                        : 'bg-tertiary text-foreground hover:bg-[#4B4B4B]'
-                    )}
-                    onClick={() => setActiveTab('records')}
-                  >
-                    Records
-                  </button>
-                  <button
-                    className={cn(
-                      'flex-1 cursor-pointer rounded-md px-3 py-2 text-lg font-semibold transition-colors',
-                      activeTab === 'roles'
-                        ? 'bg-primary text-background'
-                        : 'bg-tertiary text-foreground hover:bg-[#4B4B4B]'
-                    )}
-                    onClick={() => setActiveTab('roles')}
-                  >
-                    Roles
-                  </button> */}
+                <div className="ens-records-tabs">
                   <TabSelector
                     tabs={[
                       { label: 'Records', value: 'records' },
@@ -243,8 +227,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                 {activeTab === 'records' && (
                   <>
                     {/* Text records */}
-                    <div className="flex flex-col gap-3 px-4 sm:px-6">
-                      <div className="flex flex-col">
+                    <div className="ens-records-section">
+                      <div className="ens-records-field">
                         <ResolvedInput
                           label="Ethereum"
                           value={roleEthRecord}
@@ -294,21 +278,21 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                     </div>
 
                     {/* Social records - 2x2 grid */}
-                    <div className="grid grid-cols-2 gap-3 px-4 sm:px-6">
+                    <div className="ens-records-social-grid">
                       {SOCIAL_RECORDS.map((social) => {
                         const theme = darkMode ? 'dark' : 'light'
                         const Icon = social.icon[theme]
 
                         return (
-                          <div key={social.key} className="flex">
-                            <div className="bg-background border-tertiary flex h-12 min-w-[48px] items-center justify-center rounded-l-md border border-r-0">
-                              <Icon />
+                          <div key={social.key} className="ens-records-social-item">
+                            <div className="ens-records-social-icon">
+                              <Icon height={32} width={32} />
                             </div>
                             <input
                               type="text"
                               value={records[social.key] || ''}
                               onChange={(e) => setRecord(social.key, e.target.value)}
-                              className="bg-secondary border-tertiary hover:bg-tertiary focus:bg-tertiary flex h-12 w-full items-center rounded-r-md border px-3 py-2 text-left transition-colors hover:border-white/70 focus:border-white/70 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                              className="ens-records-social-input"
                               placeholder={social.placeholder}
                               disabled={!isManager}
                             />
@@ -319,8 +303,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
                     {/* Address records */}
                     {visibleAddressRecords.size > 0 && (
-                      <div className="flex flex-col gap-3 px-4 sm:px-6">
-                        <h3 className="text-neutral text-lg font-semibold">Address Records</h3>
+                      <div className="ens-records-section">
+                        <h3 className="ens-records-section-title">Address Records</h3>
                         {Array.from(visibleAddressRecords).map((key) => (
                           <Input
                             key={key}
@@ -336,23 +320,22 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
                     {/* Custom records */}
                     {visibleCustomRecordKeys.length > 0 && (
-                      <div className="flex flex-col gap-3 px-4 sm:px-6">
+                      <div className="ens-records-section">
                         {visibleCustomRecordKeys.map((key) => (
-                          <div key={key} className="flex items-center gap-1">
+                          <div key={key} className="ens-records-custom-row">
                             <Input
                               label={key}
                               value={customRecords[key] || ''}
                               onChange={(e) => setCustomRecord(key, e.target.value)}
                               placeholder={`Value for ${key}`}
-                              className="flex-1"
                               disabled={!isManager}
                             />
                             <button
-                              className="hover:bg-tertiary flex h-12 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded-md transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                              className="ens-records-remove-btn"
                               onClick={() => removeCustomRecord(key)}
                               disabled={!isManager}
                             >
-                              <Cross />
+                              <Cross {...iconSize} />
                             </button>
                           </div>
                         ))}
@@ -360,25 +343,22 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                     )}
 
                     {/* Add Record button */}
-                    <div
-                      className="relative max-w-full px-4 sm:px-6"
-                      ref={clickAwayRecordRef as React.RefObject<HTMLDivElement>}
-                    >
+                    <div className="ens-records-add-wrap" ref={clickAwayRecordRef as React.RefObject<HTMLDivElement>}>
                       <button
-                        className="border-tertiary hover:bg-tertiary focus:bg-tertiary flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-2 px-3 py-2 text-left transition-colors hover:border-white/70 focus:border-white/70 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                        className="ens-records-add-btn"
                         onClick={() => setAddRecordOpen(!addRecordOpen)}
                         disabled={!isManager}
                       >
-                        <Plus />
+                        <Plus {...iconSize} />
                         Add Record
                       </button>
 
                       {addRecordOpen && (
-                        <div className="bg-secondary border-tertiary absolute bottom-12 z-10 mb-1 flex w-[calc(100%-48px)] flex-col rounded-md border shadow-lg">
+                        <div className="ens-records-dropdown">
                           {hiddenAddressRecords.map((key) => (
                             <button
                               key={key}
-                              className="hover:bg-tertiary px-4 py-2 text-left text-lg font-medium transition-colors first:rounded-t-md last:rounded-b-md"
+                              className="ens-records-dropdown-item"
                               onClick={() => {
                                 addVisibleAddressRecord(key)
                                 setAddRecordOpen(false)
@@ -388,7 +368,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                             </button>
                           ))}
                           {isAddingCustomKey ? (
-                            <div className="flex items-center gap-1 px-3 py-2">
+                            <div className="ens-records-custom-key-row">
                               <input
                                 type="text"
                                 value={customKeyInput}
@@ -401,12 +381,12 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                                     setAddRecordOpen(false)
                                   }
                                 }}
-                                className="bg-tertiary flex-1 rounded-md px-3 py-1.5 text-lg font-semibold focus:outline-none"
+                                className="ens-records-custom-key-input"
                                 placeholder="Record key..."
                                 autoFocus
                               />
                               <button
-                                className="bg-primary text-background rounded-md px-3 py-1.5 text-lg font-semibold disabled:opacity-50"
+                                className="ens-records-custom-key-add"
                                 disabled={!customKeyInput.trim()}
                                 onClick={() => {
                                   if (customKeyInput.trim()) {
@@ -421,10 +401,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                               </button>
                             </div>
                           ) : (
-                            <button
-                              className="hover:bg-tertiary px-4 py-2 text-left text-lg font-medium transition-colors last:rounded-b-md"
-                              onClick={() => setIsAddingCustomKey(true)}
-                            >
+                            <button className="ens-records-dropdown-item" onClick={() => setIsAddingCustomKey(true)}>
                               Custom Record
                             </button>
                           )}
@@ -436,8 +413,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
                 {/* Roles tab */}
                 {activeTab === 'roles' && (
-                  <div className="flex flex-col gap-3 px-4 sm:px-6">
-                    <div className="flex flex-col">
+                  <div className="ens-records-section">
+                    <div className="ens-records-field">
                       <ResolvedInput
                         label="Owner"
                         value={roleOwner}
@@ -449,7 +426,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                         disabled={!isOwner}
                       />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="ens-records-field">
                       <ResolvedInput
                         label="Manager"
                         value={roleManager}
@@ -461,7 +438,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                         disabled={!isManager && !isOwner}
                       />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="ens-records-field">
                       <ResolvedInput
                         label="Ethereum"
                         value={roleEthRecord}
@@ -478,15 +455,15 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
               </div>
 
               {/* Footer */}
-              <div className="border-tertiary flex flex-col gap-2 border-t p-4 sm:px-6">
+              <div className="ens-records-footer">
                 {activeTab === 'records' && !isManager && (
-                  <div className="bg-grace/10 border-tertiary flex flex-row items-center justify-between gap-2 rounded-md border p-4">
-                    <p className="text-grace text-md">
+                  <div className="ens-records-warning">
+                    <p className="ens-records-warning-text">
                       You are not the <b>Manager</b> of this name. To edit records, set your current address as the{' '}
                       <b>Manager</b>.
                     </p>
                     <button
-                      className="bg-grace text-background hover:bg-grace/80 cursor-pointer rounded-md px-2.5 py-1.5 text-lg font-semibold text-nowrap disabled:opacity-50"
+                      className="ens-records-set-role-btn"
                       onClick={() => {
                         setActiveTab('roles')
                         // if (userAddress) setRoleManager(userAddress)
@@ -496,10 +473,14 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                     </button>
                   </div>
                 )}
-                <button className="w-full" onClick={saveRecords} disabled={!hasChanges || isRoleResolving}>
+                <button
+                  className="ens-modal-btn ens-modal-btn--primary"
+                  onClick={saveRecords}
+                  disabled={!hasChanges || isRoleResolving}
+                >
                   Save
                 </button>
-                <button className="w-full" onClick={handleClose}>
+                <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
                   Close
                 </button>
               </div>
@@ -517,6 +498,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
           onSave={handleImageSave}
           onClose={() => setImageUploadTarget(null)}
           onImageUpload={onImageUpload}
+          darkMode={darkMode}
         />
       )}
     </>

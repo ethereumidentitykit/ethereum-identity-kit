@@ -45,6 +45,4 @@ export type RolesType = {
   resolver: Address
 }
 
-export type GrailsRolesResponse = GrailsAPIResponse<{
-  roles: RolesType
-}>
+export type GrailsRolesResponse = GrailsAPIResponse<RolesType>

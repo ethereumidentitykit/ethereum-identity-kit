@@ -1,11 +1,13 @@
 'use client'
 
 import React, { useState, useCallback, useRef } from 'react'
+import clsx from 'clsx'
 import { useAccount, useSignTypedData } from 'wagmi'
 import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import { isLinkValid } from '../../../../utils'
 import { Trash } from '../../../icons'
 import Input from '../../../atoms/input/Input'
+import '../ENSRecords.css'
 
 interface ImageUploadModalProps {
   name: string
@@ -13,7 +15,8 @@ interface ImageUploadModalProps {
   currentValue?: string
   onSave: (url: string) => void
   onClose: () => void
-  onImageUpload: (dataURL: string, type: 'avatar' | 'header') => Promise<string> // returns URL of the uploaded image
+  onImageUpload?: (dataURL: string, type: 'avatar' | 'header') => Promise<string> // returns URL of the uploaded image
+  darkMode?: boolean
 }
 
 type UploadMode = 'file' | 'url'
@@ -26,12 +29,13 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   onSave,
   onClose,
   onImageUpload,
+  darkMode,
 }) => {
   const { address } = useAccount()
   const { signTypedDataAsync } = useSignTypedData()
 
   const hasExistingUrl = currentValue && currentValue.startsWith('http')
-  const [mode, setMode] = useState<UploadMode>(hasExistingUrl ? 'url' : 'file')
+  const [mode, setMode] = useState<UploadMode>(hasExistingUrl || !onImageUpload ? 'url' : 'file')
   const [dataURL, setDataURL] = useState<string | null>(null)
   const [manualUrl, setManualUrl] = useState(hasExistingUrl ? currentValue : '')
   const [previewUrl, setPreviewUrl] = useState<string | null>(hasExistingUrl ? currentValue : null)
@@ -105,7 +109,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       return
     }
 
-    if (!dataURL) return
+    if (!dataURL || !onImageUpload) return
 
     try {
       setUploadStatus('uploading')
@@ -177,51 +181,54 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
   return (
     <div
-      className="fixed top-0 right-0 bottom-0 left-0 z-[110] flex h-[100dvh] w-screen items-center justify-center bg-black/60 backdrop-blur-sm"
+      className={clsx('ens-records-root ens-img-overlay', darkMode && 'dark')}
       onClick={(e) => {
         e.stopPropagation()
         onClose()
       }}
     >
-      <div
-        className="bg-background border-tertiary p-lg relative flex max-h-[calc(100dvh-56px)] w-full max-w-md flex-col gap-4 rounded-md border-2 shadow-lg"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2 className="font-sedan-sc text-foreground text-2xl capitalize">{imageType} Image</h2>
+      <div className="ens-img-modal" onClick={(e) => e.stopPropagation()}>
+        <h2 className="ens-img-title">{imageType} Image</h2>
 
-        <TabSelector
+        {!!onImageUpload && <TabSelector
           tabs={[
             { label: 'Upload File', value: 'file' },
             { label: 'Enter URL', value: 'url' },
           ]}
           selectedTab={mode}
           setSelectedTab={(tab) => setMode(tab as 'file' | 'url')}
-        />
+        />}
 
         {mode === 'file' ? (
           <>
             {/* Drop zone */}
             <div
-              className={`border-tertiary flex min-h-[160px] cursor-pointer flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed transition-colors ${isDragging ? 'border-primary bg-primary/10' : 'hover:border-white/70'}`}
+              className={clsx('ens-img-dropzone', isDragging && 'dragging')}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onClick={() => fileInputRef.current?.click()}
             >
               {previewUrl ? (
-                <img src={previewUrl} alt="Preview" className="" />
+                <img src={previewUrl} alt="Preview" className="ens-img-preview" />
               ) : (
                 <>
-                  <p className="text-neutral text-lg">Drag & drop an image here</p>
-                  <p className="text-neutral text-md">or click to select a file</p>
+                  <p className="ens-img-dropzone-title">Drag & drop an image here</p>
+                  <p className="ens-img-dropzone-hint">or click to select a file</p>
                 </>
               )}
             </div>
-            <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="ens-img-file-input"
+              onChange={handleFileSelect}
+            />
           </>
         ) : (
           <>
-            <div className="flex flex-row gap-2">
+            <div className="ens-img-url-row">
               <Input
                 label="URL"
                 value={manualUrl}
@@ -230,36 +237,36 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               />
               {manualUrl && (
                 <button
-                  className="group flex h-[50px] w-[50px] flex-shrink-0 cursor-pointer items-center justify-center rounded-md border border-red-500 transition-colors hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="ens-img-delete-btn"
                   onClick={() => {
                     setManualUrl('')
                     setPreviewUrl(null)
                     onSave('')
                   }}
                 >
-                  <Trash />
+                  <Trash height={20} width={20} />
                 </button>
               )}
             </div>
             {previewUrl && isLinkValid(previewUrl) && URL.canParse(previewUrl) && (
-              <div className="flex justify-center">
-                <img src={previewUrl} alt="Preview" className="" />
+              <div className="ens-img-preview-wrap">
+                <img src={previewUrl} alt="Preview" className="ens-img-preview" />
               </div>
             )}
           </>
         )}
 
-        {errorMessage && <p className="text-md font-medium text-red-400">{errorMessage}</p>}
+        {errorMessage && <p className="ens-img-error">{errorMessage}</p>}
 
-        <div className="flex flex-col gap-2">
+        <div className="ens-img-actions">
           <button
-            className="w-full"
+            className="ens-modal-btn ens-modal-btn--primary"
             onClick={handleUploadAndSave}
             disabled={uploadStatus === 'uploading' || (mode === 'file' && !dataURL) || (mode === 'url' && !manualUrl)}
           >
             {uploadStatus === 'uploading' ? 'Uploading...' : 'Save'}
           </button>
-          <button className="w-full" onClick={onClose}>
+          <button className="ens-modal-btn ens-modal-btn--neutral" onClick={onClose}>
             Cancel
           </button>
         </div>

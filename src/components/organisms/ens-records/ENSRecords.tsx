@@ -1,7 +1,9 @@
+import clsx from 'clsx'
 import { useQuery } from '@tanstack/react-query'
 import { ENSRecordsProps } from './ENSRecords.types'
 import { fetchNameMetadata, formatNameMetadata } from '../../../utils'
 import RecordsContainer from './components/RecordsContainer'
+import './ENSRecords.css'
 
 const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onClose, onImageUpload }) => {
   const { data: metadata, isLoading: isMetadataLoading } = useQuery({
@@ -23,9 +25,9 @@ const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onC
   )
 
   return (
-    <div>
+    <div className={clsx('ens-records-root', darkMode && 'dark')}>
       {isMetadataLoading ? (
-        <div>Loading...</div>
+        <div className="ens-records-loading">Loading...</div>
       ) : metadataRecords ? (
         <RecordsContainer
           name={name}
@@ -36,7 +38,7 @@ const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onC
           onImageUpload={onImageUpload}
         />
       ) : (
-        <div>No metadata found</div>
+        <div className="ens-records-empty">No metadata found</div>
       )}
     </div>
   )

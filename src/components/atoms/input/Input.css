@@ -13,7 +13,7 @@
   color: var(--ethereum-identity-kit-text-primary);
 }
 
-.input-container.dark .input-label {
+.dark .input-container .input-label {
   color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
@@ -45,15 +45,15 @@
   cursor: not-allowed;
 }
 
-.input-container.dark .input-field {
+.dark .input-container .input-field {
   color: var(--ethereum-identity-kit-text-primary-dark);
-  border-color: #333;
+  border-color: #555555;
 }
 
-.input-container.dark .input-field:hover:not(:disabled) {
-  border-color: #555;
+.dark .input-container .input-field:hover:not(:disabled) {
+  border-color: #777;
 }
 
-.input-container.dark .input-field:focus {
+.dark .input-container .input-field:focus {
   border-color: #777;
 }

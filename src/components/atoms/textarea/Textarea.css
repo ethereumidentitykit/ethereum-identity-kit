@@ -13,7 +13,7 @@
   color: var(--ethereum-identity-kit-text-primary);
 }
 
-.textarea-container.dark .textarea-label {
+.dark .textarea-container .textarea-label {
   color: var(--ethereum-identity-kit-text-primary-dark);
 }
 
@@ -46,15 +46,15 @@
   cursor: not-allowed;
 }
 
-.textarea-container.dark .textarea-field {
+.dark .textarea-container .textarea-field {
   color: var(--ethereum-identity-kit-text-primary-dark);
-  border-color: #333;
+  border-color: #888;
 }
 
-.textarea-container.dark .textarea-field:hover:not(:disabled) {
-  border-color: #555;
+.dark .textarea-container .textarea-field:hover:not(:disabled) {
+  border-color: #888;
 }
 
-.textarea-container.dark .textarea-field:focus {
-  border-color: #777;
+.dark .textarea-container .textarea-field:focus {
+  border-color: #888;
 }

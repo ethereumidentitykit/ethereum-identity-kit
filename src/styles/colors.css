@@ -40,6 +40,8 @@
   --ethereum-identity-kit-restriction-hover: #ef444433;
   --ethereum-identity-kit-success: #49de80;
   --ethereum-identity-kit-indexing-bar: #24ad57;
+  --ethereum-identity-kit-warning: #d97706;
+  --ethereum-identity-kit-warning-hover: #d9770633;
 
   /* Shadow Colors */
   --ethereum-identity-kit-shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);

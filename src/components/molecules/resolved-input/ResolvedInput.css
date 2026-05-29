@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 
+.dark .resolved-input-container,
 .resolved-input-container.dark {
   color: var(--ethereum-identity-kit-text-primary-dark);
 }
