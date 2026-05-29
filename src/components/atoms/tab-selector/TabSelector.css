@@ -6,6 +6,7 @@
   background-color: var(--ethereum-identity-kit-neutral-light);
   border-radius: 8px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .dark .tab-selector,

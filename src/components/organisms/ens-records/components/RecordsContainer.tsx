@@ -456,7 +456,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
 
               {/* Footer */}
               <div className="ens-records-footer">
-                {activeTab === 'records' && !isManager && (
+                {activeTab === 'records' && !isManager && isOwner && (
                   <div className="ens-records-warning">
                     <p className="ens-records-warning-text">
                       You are not the <b>Manager</b> of this name. To edit records, set your current address as the{' '}

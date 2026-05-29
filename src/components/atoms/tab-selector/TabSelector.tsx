@@ -40,6 +40,7 @@ const TabSelector: React.FC<TabSelectorProps> = ({
             aria-selected={isSelected}
             className={clsx('tab-selector-tab', isSelected && 'selected')}
             onClick={() => setSelectedTab(tab.value)}
+            style={{ width: `${100 / tabs.length}%` }}
           >
             {tab.label}
           </button>
