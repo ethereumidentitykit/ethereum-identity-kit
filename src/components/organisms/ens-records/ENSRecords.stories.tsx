@@ -9,6 +9,8 @@ import TransactionModal from '../transaction-modal/TransactionModal'
 import { transports } from '../../../constants/transports'
 import { ENSRecordsProps } from './ENSRecords.types'
 import ENSRecords from './ENSRecords'
+import { CSSProperties, useState } from 'react'
+import Input from '../../atoms/input/Input'
 
 const config = createConfig({
   chains: [mainnet, base, optimism],
@@ -23,10 +25,35 @@ const config = createConfig({
 
 const queryClient = new QueryClient()
 
-const ENSRecordsWrapper = (args: ENSRecordsProps) => {
+const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState(args.name)
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+
+  const containerStyle = args.isModal
+    ? ({
+        width: '100%',
+        height: '100dvh',
+        padding: '20px',
+        paddingBottom: '0px',
+        display: open ? 'flex' : 'none',
+        justifyContent: 'center',
+        position: 'fixed',
+        overflow: 'scroll',
+        top: 0,
+        left: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 1000,
+      } as CSSProperties)
+    : undefined
+
+  const handleClose = args.isModal
+    ? () => {
+        setOpen(false)
+      }
+    : undefined
 
   return (
     <div
@@ -39,7 +66,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps) => {
         paddingBottom: '100px',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingBottom: '20px' }}>
         {connectedAddress ? (
           <div>
             <p>Connected to {connectedAddress}</p>
@@ -93,13 +120,22 @@ const ENSRecordsWrapper = (args: ENSRecordsProps) => {
           </div>
         )}
       </div>
-      <ENSRecords
-        name={args.name}
-        defaultTab={args.defaultTab}
-        onClose={args.onClose}
-        darkMode={args.darkMode}
-        onImageUpload={args.onImageUpload}
-      />
+      {args.isModal && (
+        <>
+          <Input value={name} onChange={(e) => setName(e.target.value)} style={{ width: '250px', margin: '0 auto' }} />
+          <button onClick={() => setOpen(true)}>{open ? 'Close' : 'Open'}</button>
+        </>
+      )}
+      <div style={containerStyle} onClick={handleClose}>
+        <ENSRecords
+          name={name}
+          defaultTab={args.defaultTab}
+          onClose={handleClose}
+          darkMode={args.darkMode}
+          onImageUpload={args.onImageUpload}
+          style={args.style}
+        />
+      </div>
     </div>
   )
 }
@@ -146,10 +182,18 @@ export default {
 
 const Template: StoryFn<typeof ENSRecordsWrapper> = (args) => <ENSRecordsWrapper {...args} />
 
-export const SingleTransaction = Template.bind({})
-SingleTransaction.args = {
+export const classic = Template.bind({})
+classic.args = {
   name: 'test.eth',
   defaultTab: 'records',
-  onClose: () => { },
   darkMode: false,
+  isModal: false,
+}
+
+export const modal = Template.bind({})
+modal.args = {
+  name: 'test.eth',
+  defaultTab: 'records',
+  darkMode: false,
+  isModal: true,
 }

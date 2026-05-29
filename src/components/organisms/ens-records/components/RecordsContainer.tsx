@@ -14,14 +14,10 @@ import Plus from '../../../icons/ui/Plus'
 import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import ResolvedInput from '../../../molecules/resolved-input/ResolvedInput'
 import '../ENSRecords.css'
+import { ENSRecordsProps } from '../ENSRecords.types'
 
-interface RecordsContainerProps {
-  name: string
+interface RecordsContainerProps extends ENSRecordsProps {
   metadata: Record<string, string> | null
-  defaultTab: 'records' | 'roles'
-  darkMode?: boolean
-  onClose: () => void
-  onImageUpload?: (dataURL: string, type: 'avatar' | 'header') => Promise<string> // returns URL of the uploaded image
 }
 
 const RecordsContainer: React.FC<RecordsContainerProps> = ({
@@ -31,6 +27,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
   darkMode,
   onClose,
   onImageUpload,
+  onSuccess,
+  onError,
 }) => {
   const {
     records,
@@ -58,11 +56,12 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
     hasChanges,
     saveRecords,
     resetToEditing,
+    refetchAndEdit,
     errorMessage,
     txHash,
     isManager,
     isOwner,
-  } = useEditRecords(name, metadata)
+  } = useEditRecords(name, metadata, onSuccess, onError)
 
   const [activeTab, setActiveTab] = useState<'records' | 'roles'>(defaultTab || 'records')
   const [addRecordOpen, setAddRecordOpen] = useState(false)
@@ -93,7 +92,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
   }
 
   const handleClose = () => {
-    onClose()
+    onClose?.()
   }
 
   const iconSize = {
@@ -153,8 +152,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                     View on Etherscan
                   </a>
                 )}
-                <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
-                  Close
+                <button className="ens-modal-btn ens-modal-btn--primary" onClick={refetchAndEdit}>
+                  Done
                 </button>
               </div>
             </div>
@@ -171,9 +170,11 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                 <b onClick={resetToEditing} className="ens-modal-btn ens-modal-btn--primary">
                   Try Again
                 </b>
-                <button onClick={handleClose} className="ens-modal-btn ens-modal-btn--neutral">
-                  Close
-                </button>
+                {onClose && (
+                  <button onClick={handleClose} className="ens-modal-btn ens-modal-btn--neutral">
+                    Close
+                  </button>
+                )}
               </div>
             </div>
           )}
@@ -205,7 +206,7 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                         onClick={() => setImageUploadTarget('avatar')}
                         disabled={!isManager}
                       >
-                        {records.avatar ? <Pencil {...iconSize} color='white' /> : <Plus {...iconSize} />}
+                        {records.avatar ? <Pencil {...iconSize} color="white" /> : <Plus {...iconSize} />}
                       </button>
                     </div>
                   </div>
@@ -480,9 +481,11 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
                 >
                   Save
                 </button>
-                <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
-                  Close
-                </button>
+                {onClose && (
+                  <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
+                    Close
+                  </button>
+                )}
               </div>
             </>
           )}

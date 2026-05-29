@@ -190,14 +190,16 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       <div className="ens-img-modal" onClick={(e) => e.stopPropagation()}>
         <h2 className="ens-img-title">{imageType} Image</h2>
 
-        {!!onImageUpload && <TabSelector
-          tabs={[
-            { label: 'Upload File', value: 'file' },
-            { label: 'Enter URL', value: 'url' },
-          ]}
-          selectedTab={mode}
-          setSelectedTab={(tab) => setMode(tab as 'file' | 'url')}
-        />}
+        {!!onImageUpload && (
+          <TabSelector
+            tabs={[
+              { label: 'Upload File', value: 'file' },
+              { label: 'Enter URL', value: 'url' },
+            ]}
+            selectedTab={mode}
+            setSelectedTab={(tab) => setMode(tab as 'file' | 'url')}
+          />
+        )}
 
         {mode === 'file' ? (
           <>

@@ -5,7 +5,7 @@ import { fetchNameMetadata, formatNameMetadata } from '../../../utils'
 import RecordsContainer from './components/RecordsContainer'
 import './ENSRecords.css'
 
-const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onClose, onImageUpload }) => {
+const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onClose, onImageUpload, style }) => {
   const { data: metadata, isLoading: isMetadataLoading } = useQuery({
     queryKey: ['metadata', name],
     queryFn: async () => {
@@ -25,7 +25,7 @@ const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onC
   )
 
   return (
-    <div className={clsx('ens-records-root', darkMode && 'dark')}>
+    <div className={clsx('ens-records-root', darkMode && 'dark')} style={style}>
       {isMetadataLoading ? (
         <div className="ens-records-loading">Loading...</div>
       ) : metadataRecords ? (

@@ -1,4 +1,4 @@
-import { Discord, Github, Telegram, X } from '../components'
+import { Discord, Github, Telegram, X } from '../components/icons'
 
 export const TEXT_RECORD_KEYS = [
   'description',

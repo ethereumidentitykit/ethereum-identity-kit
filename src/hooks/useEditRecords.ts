@@ -11,7 +11,12 @@ import { TEXT_RECORD_KEYS, ADDRESS_RECORD_KEYS, COIN_TYPES } from '../constants'
 
 export type EditStep = 'editing' | 'confirming' | 'processing' | 'success' | 'error'
 
-export function useEditRecords(name: string | null, metadata: Record<string, string> | null) {
+export function useEditRecords(
+  name: string | null,
+  metadata: Record<string, string> | null,
+  onSuccess?: () => void,
+  onError?: (error: Error) => void
+) {
   const { address } = useAccount()
   const publicClient = usePublicClient()
   const walletClient = useWalletClient()
@@ -377,7 +382,7 @@ export function useEditRecords(name: string | null, metadata: Record<string, str
       // Submit multicall if there are resolver changes
       if (calls.length > 0) {
         const hash = await walletClient.data?.writeContract?.({
-          address: ENSContracts.PublicResolver,
+          address: resolverAddress,
           abi: abi.PublicResolverAbi,
           functionName: 'multicall',
           args: [calls],
@@ -472,8 +477,10 @@ export function useEditRecords(name: string | null, metadata: Record<string, str
       queryClient.invalidateQueries({ queryKey: ['profileMetadata', name] })
 
       setStep('success')
+      onSuccess?.()
     } catch (err: unknown) {
       setStep('error')
+      onError?.(err instanceof Error ? err : new Error('Transaction failed'))
       setErrorMessage(err instanceof Error ? err.message : 'Transaction failed')
     }
   }, [
@@ -506,6 +513,15 @@ export function useEditRecords(name: string | null, metadata: Record<string, str
     setErrorMessage(null)
     setTxHash(null)
   }, [])
+
+  // Refetch on-chain metadata and roles, then return to the editing view (for "Done" after a successful save)
+  const refetchAndEdit = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['metadata', name] })
+    queryClient.invalidateQueries({ queryKey: ['name', 'roles', name] })
+    setStep('editing')
+    setErrorMessage(null)
+    setTxHash(null)
+  }, [queryClient, name])
 
   return {
     records,
@@ -540,6 +556,7 @@ export function useEditRecords(name: string | null, metadata: Record<string, str
     hasChanges,
     saveRecords,
     resetToEditing,
+    refetchAndEdit,
     errorMessage,
     txHash,
     resolverAddress,
