@@ -102,9 +102,9 @@ export const ThorinTag: React.FC<FollowerTagProps> = ({
 }
 
 export const ThorinCard: React.FC<EIKCardProps> = ({ children, className, ...props }) => (
-  <Card className={className} {...props}>
+  <div className={className} {...props}>
     {children}
-  </Card>
+  </div>
 )
 
 export const ThorinTypography: React.FC<EIKTypographyProps> = ({ as: asProp = 'p', children, className, ...props }) => (
