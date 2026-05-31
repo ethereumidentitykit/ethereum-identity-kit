@@ -1,4 +1,5 @@
 import React from 'react'
+import { clsx } from 'clsx'
 import { isLinkValid } from '../../../utils'
 import ImageWithFallback from '../../atoms/image-with-fallback/ImageWithFallback'
 import { DEFAULT_FALLBACK_AVATAR } from '../../../constants'
@@ -13,13 +14,14 @@ export const AvatarBase: React.FC<AvatarProps> = ({
   fallback = DEFAULT_FALLBACK_AVATAR,
   style,
   onClick,
+  className,
   ...props
 }) => {
   const imageSrc = src && isLinkValid(src) ? src : `https://metadata.ens.domains/mainnet/avatar/${name}`
 
   return (
     <div
-      className="avatar-container"
+      className={clsx('avatar-container', className)}
       style={style}
       onClick={onClick}
       enable-hover={onClick ? 'true' : 'false'}
