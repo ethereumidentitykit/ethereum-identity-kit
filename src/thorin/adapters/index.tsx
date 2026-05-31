@@ -1,6 +1,8 @@
 import React from 'react'
+import { clsx } from 'clsx'
 import { Avatar, Button, Card, Modal, Skeleton, Tag, Typography } from '@ensdomains/thorin'
 import { useFollowerState } from '../../hooks'
+import { isLinkValid } from '../../utils'
 import type { AvatarProps } from '../../components/molecules/avatar/Avatar.types'
 import type { LoadingCellProps } from '../../components/atoms/loading-cell/LoadingCell.types'
 import type { FollowerTagProps } from '../../components/molecules/follower-tag/FollowerTag.types'
@@ -11,25 +13,48 @@ import type {
   EIKTypographyProps,
 } from '../../context/componentRegistry.types'
 
-export const ThorinAvatar: React.FC<AvatarProps> = ({ src, name, address, onClick, style, className, ...props }) => (
-  <Avatar
-    label={name || address || 'Profile avatar'}
-    src={src || undefined}
-    onClick={onClick}
-    style={style}
-    className={className}
-    shape="circle"
-    {...props}
-  />
-)
+export const ThorinAvatar: React.FC<AvatarProps> = ({
+  address,
+  src,
+  name,
+  fallback,
+  onClick,
+  style,
+  className,
+  ...props
+}) => {
+  const imageSrc =
+    src && isLinkValid(src) ? src : name ? `https://metadata.ens.domains/mainnet/avatar/${name}` : undefined
+
+  const { width = '100px', height = width, ...restStyle } = style || {}
+
+  return (
+    <div
+      className={clsx('avatar-container', className)}
+      style={{ width, height, flexShrink: 0, ...restStyle }}
+      onClick={onClick}
+      enable-hover={onClick ? 'true' : 'false'}
+      {...props}
+    >
+      <Avatar
+        label={name || address || 'Profile avatar'}
+        src={imageSrc}
+        shape="circle"
+        placeholder={fallback ? `url("${fallback}")` : undefined}
+      />
+    </div>
+  )
+}
 
 export const ThorinButton = React.forwardRef<HTMLButtonElement, EIKButtonProps>(
-  ({ children, className, ...props }, ref) => (
+  ({ children, className, style, ...props }, ref) => (
     <Button
       ref={ref}
       className={className}
       colorStyle="accentPrimary"
       shape="rounded"
+      size="small"
+      style={{ width: 'auto', maxWidth: '100%', ...style }}
       {...(props as React.ComponentProps<typeof Button>)}
     >
       {children}
