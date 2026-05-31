@@ -1,6 +1,6 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import { Slottable, isSlotRenderFn } from '../../../primitives'
+import { Slottable, isSlottableElement, isSlotRenderFn } from '../../../primitives'
 import { ProfileCardSlotProps } from './slot.types'
 
 export type ProfileCardBodySlotData = {
@@ -20,7 +20,7 @@ export const ProfileCardBody: React.FC<ProfileCardSlotProps<ProfileCardBodySlotD
     return <>{children(slotData)}</>
   }
 
-  if (asChild) {
+  if (asChild && isSlottableElement(children)) {
     return (
       <Slottable asChild slotProps={{ className: mergedClassName, style }}>
         {children}

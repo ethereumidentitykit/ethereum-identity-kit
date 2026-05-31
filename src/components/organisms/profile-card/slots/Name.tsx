@@ -65,10 +65,25 @@ export const ProfileCardName: React.FC<ProfileCardSlotProps<ProfileCardNameSlotD
   const content = resolveSlotChildren(children, slotData, defaultNode)
 
   if (asChild && !isDetailsLoading) {
-    const childElement = React.isValidElement(children) ? (
-      React.cloneElement(children as React.ReactElement, {}, displayName)
-    ) : (
-      <p>{displayName}</p>
+    if (React.isValidElement(children)) {
+      return (
+        <Slottable
+          asChild
+          slotProps={{
+            className: clsx('profile-name', className),
+            style,
+            onClick: slotData.onProfileClick,
+          }}
+        >
+          {content}
+        </Slottable>
+      )
+    }
+
+    const childElement = (
+      <p style={style}>
+        {displayName}
+      </p>
     )
 
     return (

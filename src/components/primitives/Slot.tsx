@@ -60,12 +60,16 @@ export function mergeProps(slotProps: AnyProps, childProps: AnyProps): AnyProps 
   return merged
 }
 
+export function isSlottableElement(child: React.ReactNode): child is React.ReactElement {
+  return React.isValidElement(child) && child.type !== React.Fragment
+}
+
 export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode
 }
 
 export const Slot = React.forwardRef<HTMLElement, SlotProps>(({ children, ...props }, forwardedRef) => {
-  if (!React.isValidElement(children)) {
+  if (!isSlottableElement(children)) {
     return null
   }
 

@@ -38,7 +38,7 @@ export const ProfileCardHeader: React.FC<ProfileCardSlotProps<ProfileCardHeaderS
 
   if (asChild) {
     return (
-      <Slottable asChild slotProps={{ className, style }}>
+      <Slottable asChild slotProps={{ className, style: slotData.style }}>
         {content}
       </Slottable>
     )
