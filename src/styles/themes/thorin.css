@@ -1,14 +1,14 @@
-/* Thorin-inspired token preset for Ethereum Identity Kit (opt-in, zero @ensdomains/thorin dependency) */
+/* Auto-generated from @ensdomains/thorin — run npm run generate-thorin-tokens */
 
 .eik-appearance-thorin {
-  --ethereum-identity-kit-text-primary: #041133;
-  --ethereum-identity-kit-text-neutral: #667085;
+  --ethereum-identity-kit-text-primary: hsl(0 0% 15%);
+  --ethereum-identity-kit-text-neutral: hsl(0 0% 35%);
   --ethereum-identity-kit-text-light: #ffffff;
 
-  --ethereum-identity-kit-primary: #5298ff;
+  --ethereum-identity-kit-primary: hsl(216 100% 61%);
   --ethereum-identity-kit-primary-hover: #3d84eb;
 
-  --ethereum-identity-kit-link: #5298ff;
+  --ethereum-identity-kit-link: hsl(216 100% 61%);
   --ethereum-identity-kit-link-selected: #3d84eb;
   --ethereum-identity-kit-link-hover: #2563c7;
 
@@ -17,7 +17,7 @@
   --ethereum-identity-kit-neutral-light: #f9fafb;
   --ethereum-identity-kit-neutral-light-hover: #f2f4f7;
 
-  --ethereum-identity-kit-background: #ffffff;
+  --ethereum-identity-kit-background: hsl(0 0% 100%);
   --ethereum-identity-kit-background-overlay: rgba(4, 17, 51, 0.45);
 
   --ethereum-identity-kit-deletion: #f97066;
@@ -42,16 +42,16 @@
 
 .eik-appearance-thorin.dark,
 .eik-appearance-thorin .dark {
-  --ethereum-identity-kit-text-primary: #f9fafb;
-  --ethereum-identity-kit-text-primary-dark: #f9fafb;
-  --ethereum-identity-kit-text-neutral: #98a2b3;
-  --ethereum-identity-kit-text-neutral-dark: #98a2b3;
+  --ethereum-identity-kit-text-primary: hsl(0 0% 96%);
+  --ethereum-identity-kit-text-primary-dark: hsl(0 0% 96%);
+  --ethereum-identity-kit-text-neutral: hsl(0 0% 91%);
+  --ethereum-identity-kit-text-neutral-dark: hsl(0 0% 91%);
 
-  --ethereum-identity-kit-primary: #5298ff;
+  --ethereum-identity-kit-primary: hsl(216 100% 71%);
   --ethereum-identity-kit-primary-hover: #7ab2ff;
 
-  --ethereum-identity-kit-link: #7ab2ff;
-  --ethereum-identity-kit-link-dark: #7ab2ff;
+  --ethereum-identity-kit-link: hsl(216 100% 71%);
+  --ethereum-identity-kit-link-dark: hsl(216 100% 71%);
   --ethereum-identity-kit-link-selected: #5298ff;
   --ethereum-identity-kit-link-selected-dark: #5298ff;
   --ethereum-identity-kit-link-hover: #9cc5ff;
@@ -64,8 +64,8 @@
   --ethereum-identity-kit-neutral-light: #101828;
   --ethereum-identity-kit-neutral-light-dark: #344054;
 
-  --ethereum-identity-kit-background: #101828;
-  --ethereum-identity-kit-background-dark: #101828;
+  --ethereum-identity-kit-background: hsl(0 0% 8%);
+  --ethereum-identity-kit-background-dark: hsl(0 0% 8%);
   --ethereum-identity-kit-background-overlay: rgba(0, 0, 0, 0.65);
   --ethereum-identity-kit-background-overlay-dark: rgba(0, 0, 0, 0.65);
 
