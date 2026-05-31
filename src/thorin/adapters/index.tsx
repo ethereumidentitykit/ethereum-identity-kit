@@ -1,6 +1,8 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import { Avatar, Button, Card, Modal, Skeleton, Tag, Typography } from '@ensdomains/thorin'
+import { Avatar, Button, Card, Components, Modal, Skeleton, Tag, Typography } from '@ensdomains/thorin'
+
+const ThorinBackdropSurface = Components.BackdropSurface
 import { useFollowerState } from '../../hooks'
 import { isLinkValid } from '../../utils'
 import type { AvatarProps } from '../../components/molecules/avatar/Avatar.types'
@@ -122,13 +124,32 @@ export const ThorinModal: React.FC<EIKModalProps> = ({
   overlayChildren,
   children,
   ...props
-}) => (
-  <>
-    {overlayChildren}
-    <Modal open onDismiss={onOverlayClick} className={overlayClassName} style={overlayStyle}>
+}) => {
+  const backdropSurface = React.useMemo(() => {
+    const Surface = React.forwardRef<
+      HTMLDivElement,
+      React.ComponentProps<typeof ThorinBackdropSurface>
+    >(({ $state, $empty, className, style, ...surfaceProps }, ref) => (
+      <ThorinBackdropSurface
+        ref={ref}
+        $state={$state}
+        $empty={$empty}
+        className={clsx(overlayClassName, className)}
+        style={{ ...overlayStyle, ...style }}
+        {...surfaceProps}
+      >
+        {overlayChildren}
+      </ThorinBackdropSurface>
+    ))
+    Surface.displayName = 'ThorinModalBackdrop'
+    return Surface
+  }, [overlayClassName, overlayStyle, overlayChildren])
+
+  return (
+    <Modal open backdropSurface={backdropSurface} onDismiss={onOverlayClick}>
       <Card className={containerClassName} style={containerStyle} {...props}>
         {children}
       </Card>
     </Modal>
-  </>
-)
+  )
+}
