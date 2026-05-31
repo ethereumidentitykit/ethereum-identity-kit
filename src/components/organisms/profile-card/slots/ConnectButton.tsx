@@ -49,9 +49,11 @@ export const ProfileCardConnectButton: React.FC<ProfileCardSlotProps<ProfileCard
   let defaultNode: React.ReactNode = null
 
   if (isConnectedUserCard) {
+    const ensHref = ens?.name ? `https://app.ens.domains/${ens.name}` : 'https://app.ens.domains'
+
     defaultNode = (
       <a
-        href={`https://app.ens.domains/${ens?.name}`}
+        href={ensHref}
         target="_blank"
         rel="noreferrer"
         className="user-profile-edit-profile-button-container"
