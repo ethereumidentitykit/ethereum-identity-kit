@@ -6,6 +6,7 @@ import TransactionModal from '../transaction-modal/TransactionModal'
 import { wagmiConfig } from '../../../constants/wagmi'
 import { Address } from '../../../types/address'
 import FullWidthProfile from './FullWidthProfile'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -161,3 +162,13 @@ PrefetchedData.args = {
   showEmptySocials: true,
   showFollowButton: false,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  onProfileClick,
+}
+ThorinAppearance.decorators = [withThorinAppearance]

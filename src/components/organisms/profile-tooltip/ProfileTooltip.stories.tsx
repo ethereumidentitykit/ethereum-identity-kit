@@ -8,6 +8,7 @@ import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { ProfileTooltipWrapperProps } from './ProfileTooltip.types'
 import FollowersAndFollowing from '../followers-and-following/FollowersAndFollowing'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -131,3 +132,13 @@ IncludeGrailsData.args = {
   addressOrName: 'vitalik.eth',
   includeGrails: true,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  onProfileClick,
+}
+ThorinAppearance.decorators = [withThorinAppearance]

@@ -59,6 +59,11 @@ export default [
     plugins: [dts.default(), postcss({ extract: true, minimize: true })],
   },
   {
+    input: 'src/elements/index.ts',
+    output: [{ file: 'dist/elements/index.d.ts', format: 'esm' }],
+    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+  },
+  {
     input: 'src/utils/index.ts',
     output: [
       { file: 'dist/esm/utils/index.js', format: 'esm' },
@@ -120,6 +125,54 @@ export default [
       '@tanstack/react-query',
       'wagmi',
       'viem',
+    ],
+  },
+  {
+    input: 'src/thorin/index.ts',
+    output: [
+      { file: 'dist/esm/thorin/index.js', format: 'esm', sourcemap: true },
+      { file: 'dist/cjs/thorin/index.js', format: 'cjs', interop: 'auto', sourcemap: true },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
+      typescript({ tsconfig: './tsconfig.json' }),
+      terser(),
+      postcss({
+        inject: false,
+        extract: false,
+        minimize: true,
+      }),
+      image(),
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime',
+      '@tanstack/react-query',
+      'wagmi',
+      'viem',
+      '@ensdomains/thorin',
+      'styled-components',
+      'react-transition-state',
+    ],
+  },
+  {
+    input: 'src/styles/themes/thorin.css',
+    output: [{ file: 'dist/esm/themes/thorin.css', format: 'es' }],
+    plugins: [
+      postcss({
+        extract: true,
+        minimize: true,
+      }),
     ],
   },
 ]

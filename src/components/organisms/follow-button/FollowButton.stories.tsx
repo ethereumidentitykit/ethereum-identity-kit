@@ -9,6 +9,7 @@ import FollowButton from './FollowButton'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { transports } from '../../../constants/transports'
 import { FollowButtonProps } from './FollowButton.types'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const config = createConfig({
   chains: [mainnet, base, optimism],
@@ -228,6 +229,16 @@ ForceState.args = {
     window.alert(state)
   },
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.args = {
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  darkMode: false,
+  batchTransactions: false,
+  initialState: 'Follow',
+  showRecommendations: true,
+}
+ThorinAppearance.decorators = [withThorinAppearance]
 
 // export const FollowButtonCustomClassNames = Template.bind({})
 // FollowButtonCustomClassNames.args = {

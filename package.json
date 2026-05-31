@@ -28,6 +28,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --project tsconfig.json --noEmit",
+    "generate-thorin-tokens": "ts-node scripts/generate-thorin-tokens.ts",
     "checks": "npm run format && npm run typecheck && npm run lint && npm run rollup"
   },
   "files": [
@@ -46,9 +47,15 @@
       "require": "./dist/cjs/utils/index.js"
     },
     "./elements": {
-      "types": "./dist/types.d.ts",
+      "types": "./dist/elements/index.d.ts",
       "import": "./dist/esm/elements/index.js",
       "require": "./dist/cjs/elements/index.js"
+    },
+    "./css/thorin": "./dist/esm/themes/thorin.css",
+    "./thorin": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/esm/thorin/index.js",
+      "require": "./dist/cjs/thorin/index.js"
     }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",
@@ -67,6 +74,7 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
+    "@ensdomains/thorin": "^0.6.50",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-node-resolve": "^15.3.0",
@@ -81,6 +89,7 @@
     "@storybook/react-vite": "^8.4.6",
     "@storybook/test": "^8.4.6",
     "@storybook/theming": "^8.4.7",
+    "@tanstack/react-query": "^5.100.14",
     "@testing-library/react": "^16.1.0",
     "@types/jest": "^29.0.0",
     "@types/react": "^18.0.0",
@@ -93,20 +102,28 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^29.0.0",
+    "postcss": "^8.5.15",
     "prettier": "^3.4.2",
+    "react-transition-state": "^1.1.5",
     "rollup": "^4.28.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.4.6",
+    "styled-components": "^6.4.2",
     "tslib": "^2.8.0",
     "typescript": "^5.0.0",
-    "typescript-eslint": "^8.18.0"
+    "typescript-eslint": "^8.18.0",
+    "viem": "^2.51.3",
+    "wagmi": "^2.19.5"
   },
   "peerDependencies": {
+    "@ensdomains/thorin": "^0.6.0",
     "@tanstack/react-query": "^5.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
+    "react-transition-state": "^1.1.4",
+    "styled-components": "^5.3.3",
     "viem": "^2.0.0",
     "wagmi": "^2.0.0"
   },
@@ -116,6 +133,15 @@
     },
     "react-dom": {
       "optional": false
+    },
+    "@ensdomains/thorin": {
+      "optional": true
+    },
+    "styled-components": {
+      "optional": true
+    },
+    "react-transition-state": {
+      "optional": true
     }
   }
 }

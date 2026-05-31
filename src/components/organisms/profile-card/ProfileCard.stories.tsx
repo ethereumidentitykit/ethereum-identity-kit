@@ -6,6 +6,7 @@ import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from '../../../constants/wagmi'
 import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -156,3 +157,14 @@ CustomSlottedLayout.render = (args) => (
     </ProfileCard.Body>
   </ProfileCard.Root>
 )
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  style: { width: '420px' },
+  onProfileClick,
+}
+ThorinAppearance.decorators = [withThorinAppearance]
