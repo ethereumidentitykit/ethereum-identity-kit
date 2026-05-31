@@ -27,6 +27,9 @@ const layoutOverrides = `
 try {
   const { lightTheme, darkTheme } = require('@ensdomains/thorin')
 
+  const formatFontName = (name: string) => (/^[A-Za-z0-9-]+$/.test(name) ? name : `'${name}'`)
+  const fontFamily = ['Satoshi', 'Inter', 'sans-serif'].map(formatFontName).join(', ')
+
   const pick = (theme: { colors?: Record<string, unknown> }, key: string, fallback: string) => {
     const value = theme.colors?.[key]
     return typeof value === 'string' ? value : fallback
@@ -71,7 +74,7 @@ try {
   --ethereum-identity-kit-sign-in-button: #5298ff;
   --ethereum-identity-kit-sign-in-button-hover: #3d84eb;
 
-  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-family: ${fontFamily};
 }
 
 .eik-appearance-thorin.dark,
