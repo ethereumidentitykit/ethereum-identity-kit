@@ -9,6 +9,36 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 
 const packageJson = require('./package.json')
 
+const appearanceContextExternal = () => ({
+  name: 'externalize-appearance-context',
+  resolveId(source) {
+    if (/AppearanceContext(\.tsx|\.ts)?$/.test(source)) {
+      return { id: 'ethereum-identity-kit', external: true }
+    }
+    return null
+  },
+})
+
+const appearanceContextAlias = {
+  entries: [
+    {
+      find: /context\/AppearanceContext(\.tsx)?$/,
+      replacement: 'ethereum-identity-kit',
+    },
+  ],
+}
+
+const sharedSubpathExternals = [
+  'react',
+  'react-dom',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
+  '@tanstack/react-query',
+  'wagmi',
+  'viem',
+  'ethereum-identity-kit',
+]
+
 export default [
   {
     input: 'src/index.ts',
@@ -105,9 +135,11 @@ export default [
     ],
     plugins: [
       peerDepsExternal(),
+      appearanceContextExternal(),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         preferBuiltins: false,
+        alias: appearanceContextAlias,
       }),
       commonjs({
         include: /node_modules/,
@@ -122,15 +154,7 @@ export default [
       }),
       image(),
     ],
-    external: [
-      'react',
-      'react-dom',
-      'react/jsx-runtime',
-      'react/jsx-dev-runtime',
-      '@tanstack/react-query',
-      'wagmi',
-      'viem',
-    ],
+    external: sharedSubpathExternals,
   },
   {
     input: 'src/thorin/index.ts',
@@ -140,9 +164,11 @@ export default [
     ],
     plugins: [
       peerDepsExternal(),
+      appearanceContextExternal(),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         preferBuiltins: false,
+        alias: appearanceContextAlias,
       }),
       commonjs({
         include: /node_modules/,
@@ -158,13 +184,7 @@ export default [
       image(),
     ],
     external: [
-      'react',
-      'react-dom',
-      'react/jsx-runtime',
-      'react/jsx-dev-runtime',
-      '@tanstack/react-query',
-      'wagmi',
-      'viem',
+      ...sharedSubpathExternals,
       '@ensdomains/thorin',
       'styled-components',
       'react-transition-state',
