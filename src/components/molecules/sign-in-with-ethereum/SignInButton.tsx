@@ -99,7 +99,7 @@ const SignInWithEthereum = ({
       ) : (
         <div className="sign-in-button-content">
           <EthereumIcon className="sign-in-ethereum-icon" height={20} width={20} />
-          <p className="sign-in-button-text">{isSigningMessage ? t('singingIn') : t('signIn')}</p>
+          <p className="sign-in-button-text">{isSigningMessage ? t('signingIn') : t('signIn')}</p>
         </div>
       )}
     </Button>

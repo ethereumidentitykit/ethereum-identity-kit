@@ -42,7 +42,7 @@ export type TranslationKey =
   | 'signInWithEthereum'
   | 'signingMessage'
   | 'signIn'
-  | 'singingIn'
+  | 'signingIn'
   // Notifications
   | 'notifications.empty'
   | 'notifications.error'
