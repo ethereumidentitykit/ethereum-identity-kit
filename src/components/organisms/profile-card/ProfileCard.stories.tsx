@@ -126,3 +126,33 @@ PrefetchedData.args = {
   showFollowButton: false,
   hasCommonFollowersModal: true,
 }
+
+export const CustomSlottedLayout = Template.bind({})
+CustomSlottedLayout.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  style: { width: '420px' },
+}
+CustomSlottedLayout.render = (args) => (
+  <ProfileCard.Root {...args}>
+    <ProfileCard.Header />
+    <ProfileCard.Body>
+      <ProfileCard.AvatarRow />
+      <ProfileCard.Name asChild>
+        <h2 style={{ margin: '8px 0', fontSize: '24px', fontWeight: 700 }} />
+      </ProfileCard.Name>
+      <ProfileCard.Stats>
+        {({ followers, following }) => (
+          <div style={{ display: 'flex', gap: '16px', fontSize: '14px' }}>
+            <span>{followers} followers</span>
+            <span>{following} following</span>
+          </div>
+        )}
+      </ProfileCard.Stats>
+      <ProfileCard.BioContainer>
+        <ProfileCard.Bio />
+        <ProfileCard.Socials />
+      </ProfileCard.BioContainer>
+    </ProfileCard.Body>
+  </ProfileCard.Root>
+)
