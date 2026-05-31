@@ -169,6 +169,7 @@ CustomSlottedLayout.render = (args) => (
 )
 
 export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
 ThorinAppearance.args = {
   addressOrName: 'encrypteddegen.eth',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',

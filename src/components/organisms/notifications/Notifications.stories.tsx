@@ -131,6 +131,7 @@ NotificationsByENSName.args = {
 }
 
 export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
 ThorinAppearance.args = {
   addressOrName: 'brantly.eth',
   position: 'right',

@@ -97,6 +97,7 @@ ProfileTooltip.args = {
 }
 
 export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
 ThorinAppearance.args = {
   user: 'brantly.eth',
   defaultTab: 'following',
