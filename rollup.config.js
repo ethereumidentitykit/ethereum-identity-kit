@@ -64,6 +64,11 @@ export default [
     plugins: [dts.default(), postcss({ extract: true, minimize: true })],
   },
   {
+    input: 'src/thorin/index.ts',
+    output: [{ file: 'dist/thorin/index.d.ts', format: 'esm' }],
+    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+  },
+  {
     input: 'src/utils/index.ts',
     output: [
       { file: 'dist/esm/utils/index.js', format: 'esm' },
