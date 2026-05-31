@@ -21,6 +21,28 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    docs: {
+      toc: true,
+    },
+    github: {
+      repository: 'ethereumidentitykit/ethereum-identity-kit',
+      branch: 'main',
+    },
+    options: {
+      storySort: {
+        order: [
+          'Welcome',
+          ['Introduction'],
+          'Getting Started',
+          ['Installation'],
+          'Guides',
+          ['Thorin Appearance'],
+          'Organisms',
+          'Molecules',
+          'Atoms',
+        ],
+      },
+    },
   },
   globalTypes: {
     language: {

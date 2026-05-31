@@ -17,6 +17,15 @@ const onProfileClick = (addressOrName: Address | string) => {
 export default {
   title: 'Organisms/Profile Card',
   component: ProfileCard,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Compact identity card for an address, ENS name, or EFP list. Supports the composable `ProfileCard.*` slot API and optional Thorin appearance.',
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
@@ -129,6 +138,7 @@ PrefetchedData.args = {
 }
 
 export const CustomSlottedLayout = Template.bind({})
+CustomSlottedLayout.tags = ['slots', 'new']
 CustomSlottedLayout.args = {
   addressOrName: 'encrypteddegen.eth',
   connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
