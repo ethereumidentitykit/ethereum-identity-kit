@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import LinkTo from '@storybook/addon-links/react'
+
+<Meta title="Guides/Thorin Appearance" tags={['!autodocs']} />
+
+# Thorin appearance (opt-in)
+
+EIK defaults to its own styling. To adopt an ENS-like look with [Thorin](https://thorin.ens.domains/), opt in explicitly.
+
+Try it in Storybook: <LinkTo kind="Organisms/Profile Card" story="ThorinAppearance">Profile Card — Thorin</LinkTo>
+
+## CSS-only preset
+
+No Thorin npm install required — token overrides only:
+
+```tsx
+import 'ethereum-identity-kit/css'
+import 'ethereum-identity-kit/css/thorin'
+
+<div className="eik-appearance-thorin">
+  <ProfileCard addressOrName="vitalik.eth" />
+</div>
+```
+
+Add `dark` on the wrapper for dark mode tokens.
+
+## Full Thorin integration
+
+```bash
+npm install @ensdomains/thorin styled-components react-transition-state
+```
+
+```tsx
+import { ProfileCard } from 'ethereum-identity-kit'
+import { EthereumIdentityKitThorinProvider } from 'ethereum-identity-kit/thorin'
+import 'ethereum-identity-kit/css'
+import 'ethereum-identity-kit/css/thorin'
+
+<EthereumIdentityKitThorinProvider theme="light">
+  <ProfileCard addressOrName="vitalik.eth" showFollowButton />
+</EthereumIdentityKitThorinProvider>
+```
+
+Thorin recommends **Satoshi** in your font stack for the closest match to ENS apps.
+
+## Notes
+
+- Default `<ProfileCard />` is unchanged when no Thorin provider/CSS is used
+- If your app already mounts `ThemeProvider` + `ThorinGlobalStyles`, pass `skipGlobalStyles` to `EthereumIdentityKitThorinProvider`
+- Regenerate CSS tokens after Thorin upgrades: `npm run generate-thorin-tokens`
