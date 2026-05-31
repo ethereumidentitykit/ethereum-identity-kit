@@ -44,6 +44,11 @@
       "types": "./dist/types.d.ts",
       "import": "./dist/esm/utils/index.js",
       "require": "./dist/cjs/utils/index.js"
+    },
+    "./elements": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/esm/elements/index.js",
+      "require": "./dist/cjs/elements/index.js"
     }
   },
   "repository": "https://github.com/ethereumidentitykit/ethereum-identity-kit",

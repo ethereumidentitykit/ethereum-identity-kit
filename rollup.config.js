@@ -87,4 +87,39 @@ export default [
       'viem',
     ],
   },
+  {
+    input: 'src/elements/index.ts',
+    output: [
+      { file: 'dist/esm/elements/index.js', format: 'esm', sourcemap: true },
+      { file: 'dist/cjs/elements/index.js', format: 'cjs', interop: 'auto', sourcemap: true },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
+      typescript({ tsconfig: './tsconfig.json' }),
+      terser(),
+      postcss({
+        inject: false,
+        extract: false,
+        minimize: true,
+      }),
+      image(),
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime',
+      '@tanstack/react-query',
+      'wagmi',
+      'viem',
+    ],
+  },
 ]
