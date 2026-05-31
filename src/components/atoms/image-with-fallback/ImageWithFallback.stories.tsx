@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import ImageWithFallback from './ImageWithFallback'
 import { DEFAULT_FALLBACK_AVATAR } from '../../../constants'
 

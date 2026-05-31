@@ -1,5 +1,5 @@
 import { WagmiProvider } from 'wagmi'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProfileCard from './ProfileCard'
 import { Address } from '../../../types'

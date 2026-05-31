@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 import { TranslationProvider } from '../src/context/TranslationContext'
 import '../src/styles/colors.css'
 

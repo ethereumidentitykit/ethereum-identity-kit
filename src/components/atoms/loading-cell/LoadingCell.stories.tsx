@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import LoadingCell from './LoadingCell'
 import { DEFAULT_LOADING_GRADIENT } from '../../../constants'
 

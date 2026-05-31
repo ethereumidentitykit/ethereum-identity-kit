@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Decorator } from '@storybook/react'
+import type { Decorator } from '@storybook/react-vite'
 import { EthereumIdentityKitThorinProvider } from '../../src/thorin'
 import '../../src/styles/themes/thorin.css'
 
