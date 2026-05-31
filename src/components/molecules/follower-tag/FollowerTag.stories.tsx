@@ -7,7 +7,7 @@ const queryClient = new QueryClient()
 export default {
   title: 'Molecules/Follower Tag',
   component: FollowerTag,
-  decorators: [(Story) => <QueryClientProvider client={queryClient}>{Story()}</QueryClientProvider>],
+  decorators: [(Story) => <QueryClientProvider client={queryClient}><Story /></QueryClientProvider>],
 } as Meta<typeof FollowerTag>
 
 const Template: StoryFn<typeof FollowerTag> = (args) => <FollowerTag {...args} showLoading={true} />

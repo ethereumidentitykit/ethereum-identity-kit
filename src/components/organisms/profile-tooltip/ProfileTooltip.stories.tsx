@@ -30,7 +30,7 @@ export default {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <TransactionProvider>
-            {Story()}
+            <Story />
             <TransactionModal />
           </TransactionProvider>
         </WagmiProvider>
