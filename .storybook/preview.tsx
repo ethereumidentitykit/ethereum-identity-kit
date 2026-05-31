@@ -45,6 +45,18 @@ const preview: Preview = {
     },
   },
   globalTypes: {
+    theme: {
+      description: 'Thorin appearance theme',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+        ],
+      },
+    },
     language: {
       description: 'Language for component translations',
       defaultValue: 'en',

@@ -37,7 +37,7 @@
   --ethereum-identity-kit-sign-in-button: #5298ff;
   --ethereum-identity-kit-sign-in-button-hover: #3d84eb;
 
-  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-family: Satoshi, Inter, sans-serif;
 }
 
 .eik-appearance-thorin.dark,

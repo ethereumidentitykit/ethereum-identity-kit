@@ -1,3 +1,5 @@
+> Keep in sync with `src/docs/ThorinAppearance.mdx`.
+
 # Thorin appearance (opt-in)
 
 Ethereum Identity Kit defaults to its own styling. To adopt an ENS-like look with [Thorin](https://thorin.ens.domains/), opt in explicitly.

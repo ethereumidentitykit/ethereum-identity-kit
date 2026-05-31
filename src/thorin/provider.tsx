@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { clsx } from 'clsx'
 import { ThemeProvider } from 'styled-components'
 import { ThorinGlobalStyles, lightTheme, darkTheme } from '@ensdomains/thorin'
 import { AppearanceProvider } from '../context/AppearanceContext'
@@ -43,7 +44,11 @@ export const EthereumIdentityKitThorinProvider: React.FC<EthereumIdentityKitThor
   return (
     <ThemeProvider theme={thorinTheme}>
       {!skipGlobalStyles && <ThorinGlobalStyles />}
-      <AppearanceProvider preset="thorin" registry={registry} className={className}>
+      <AppearanceProvider
+        preset="thorin"
+        registry={registry}
+        className={clsx(className, theme === 'dark' && 'dark')}
+      >
         {children}
       </AppearanceProvider>
     </ThemeProvider>
