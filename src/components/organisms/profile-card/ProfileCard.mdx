@@ -1,0 +1,14 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import { default as meta, ByENS } from './ProfileCard.stories'
+
+<Meta of={meta} />
+
+# Profile Card
+
+Compact identity card for an Ethereum address, ENS name, or EFP list. Supports follower state, socials, stats, POAPs, and an optional follow button.
+
+Also available as a **composable slot API** (`ProfileCard.Root`, `ProfileCard.Avatar`, …) — see the **CustomSlottedLayout** story.
+
+[Full docs →](https://ethidentitykit.com/docs/profile-card)
+
+<Canvas of={ByENS} />
