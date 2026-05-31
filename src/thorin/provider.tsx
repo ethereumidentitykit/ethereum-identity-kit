@@ -12,6 +12,7 @@ import {
   ThorinTag,
   ThorinTypography,
 } from './adapters'
+import './adapters/overrides.css'
 
 export const createThorinRegistry = (): ComponentRegistryOverrides => ({
   Avatar: ThorinAvatar,
