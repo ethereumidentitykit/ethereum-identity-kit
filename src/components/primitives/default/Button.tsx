@@ -2,7 +2,7 @@ import React from 'react'
 import type { EIKButtonProps } from '../../../context/componentRegistry.types'
 
 export const DefaultButton = React.forwardRef<HTMLButtonElement, EIKButtonProps>(({ children, ...props }, ref) => (
-  <button ref={ref} type="button" {...props}>
+  <button ref={ref} {...props} type="button">
     {children}
   </button>
 ))
