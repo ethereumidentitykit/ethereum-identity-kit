@@ -1,5 +1,8 @@
 import clsx from 'clsx'
 import { useTranslation } from '../../../context'
+import { useAppearanceOptional } from '../../../context/AppearanceContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultButton } from '../../primitives/default'
 import { useProfileDetails } from '../../../hooks/profile/useProfileDetails'
 import { beautifyEnsName, truncateAddress, validateEnsHeader } from '../../../utils'
 import { ENS } from '../../icons'
@@ -88,6 +91,8 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
 
   const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
+  const { appearanceClassName } = useAppearanceOptional()
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
 
   return (
     <>
@@ -111,7 +116,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
           }}
         />
       </div>
-      <div className="full-width-profile-container">
+      <div className={clsx('full-width-profile-container', appearanceClassName)}>
         {isDetailsLoading ? (
           <Loading darkMode={darkMode} style={style} />
         ) : address ? (
@@ -195,10 +200,10 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                           }
                         }}
                       >
-                        <button className="user-profile-edit-profile-button">
+                        <Button className="user-profile-edit-profile-button">
                           <ENS height={20} width={20} />
                           <p>{t('profile.editProfile')}</p>
-                        </button>
+                        </Button>
                       </a>
                     ) : showFollowButton ? (
                       customFollowButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />

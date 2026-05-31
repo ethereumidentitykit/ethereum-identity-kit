@@ -1,5 +1,7 @@
 import React from 'react'
 import { Slottable, resolveSlotChildren } from '../../../primitives'
+import { useResolvedComponent } from '../../../primitives/resolveComponent'
+import { DefaultButton } from '../../../primitives/default'
 import { useProfileCardContext } from '../ProfileCardContext'
 import { useTranslation } from '../../../../context/TranslationContext'
 import { ENS } from '../../../icons'
@@ -32,6 +34,7 @@ export const ProfileCardConnectButton: React.FC<ProfileCardSlotProps<ProfileCard
     onEditProfileClick,
   } = useProfileCardContext()
   const { t } = useTranslation()
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
 
   const slotData: ProfileCardConnectButtonSlotData = {
     isConnectedUserCard,
@@ -59,10 +62,10 @@ export const ProfileCardConnectButton: React.FC<ProfileCardSlotProps<ProfileCard
           }
         }}
       >
-        <button className="user-profile-edit-profile-button">
+        <Button className="user-profile-edit-profile-button">
           <ENS height={20} width={20} />
           <p>{t('profile.editProfile')}</p>
-        </button>
+        </Button>
       </a>
     )
   } else if (showFollowButton) {

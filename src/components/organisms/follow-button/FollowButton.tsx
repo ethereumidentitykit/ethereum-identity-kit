@@ -4,6 +4,8 @@ import { useTranslation } from '../../../context'
 import { useCoolMode, useFollowButton } from '../../../hooks'
 import { FollowIcon } from '../../icons'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultButton } from '../../primitives/default'
 import { FOLLOW_BUTTON_COOL_EMOJI, FOLLOW_BUTTON_STYLES } from '../../../constants/follow-button'
 import type { FollowButtonProps } from './FollowButton.types'
 import { TranslationKey } from '../../../types'
@@ -85,6 +87,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   })
 
   const buttonRef = useCoolMode(FOLLOW_BUTTON_COOL_EMOJI[buttonState], isLoading, disabled)
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
 
   const soundRef = useRef<HTMLAudioElement>(null)
   const playSound = sounds ? sounds[buttonState] : undefined
@@ -117,7 +120,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   return isLoading ? (
     customLoader || <LoadingCell height="39px" width="110px" radius="4px" />
   ) : (
-    <button
+    <Button
       ref={buttonRef}
       className={clsx(
         'follow-button',
@@ -139,7 +142,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({
       <audio src={playSound} ref={soundRef} />
       <FollowIcon height={20} width={14} color={'currentColor'} />
       <p>{t(buttonText.toLowerCase() as TranslationKey)}</p>
-    </button>
+    </Button>
   )
 }
 

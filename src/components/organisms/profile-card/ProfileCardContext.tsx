@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useMemo } from 'react'
 import { clsx } from 'clsx'
 import { useProfileDetails, useProfileStats } from '../../../hooks'
+import { useAppearanceOptional } from '../../../context/AppearanceContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultCard } from '../../primitives/default'
 import { defaultOnStatClick } from '../../../utils/profile'
 import { ProfileCardProps } from './ProfileCard.types'
 import { ProfileExtraOptions } from '../full-width-profile/FullWidthProfile.types'
@@ -103,6 +106,8 @@ export const ProfileCardRoot: React.FC<ProfileCardRootProps> = ({
     connectedAddress && address && address.toLowerCase() === connectedAddress.toLowerCase()
   )
   const showFollowerTag = Boolean(showFollowerState && connectedAddress && address && !isConnectedUserCard)
+  const { appearanceClassName } = useAppearanceOptional()
+  const Card = useResolvedComponent('Card', DefaultCard)
 
   const contextValue = useMemo<ProfileCardContextValue>(
     () => ({
@@ -177,14 +182,14 @@ export const ProfileCardRoot: React.FC<ProfileCardRootProps> = ({
 
   return (
     <ProfileCardContext.Provider value={contextValue}>
-      <div
-        className={clsx('profile-card', darkMode && 'dark dark-profile-card', className)}
+      <Card
+        className={clsx('profile-card', appearanceClassName, darkMode && 'dark dark-profile-card', className)}
         data-testid="profile-card"
         style={{ fontFamily: 'Inter, sans-serif', ...style }}
         {...props}
       >
         {children}
-      </div>
+      </Card>
     </ProfileCardContext.Provider>
   )
 }

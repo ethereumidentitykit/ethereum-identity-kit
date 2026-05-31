@@ -47,9 +47,27 @@ export const ProfileCardAvatar: React.FC<ProfileCardSlotProps<ProfileCardAvatarS
   const content = resolveSlotChildren(children, slotData, defaultNode)
 
   if (asChild && !slotData.isLoading) {
+    const childElement = React.isValidElement(children) ? (
+      children
+    ) : (
+      <Avatar
+        address={addressOrName}
+        src={slotData.src}
+        name={slotData.name}
+        fallback={DEFAULT_FALLBACK_AVATAR}
+      />
+    )
+
     return (
-      <Slottable asChild slotProps={{ className, style, onClick: slotData.onClick }}>
-        {content}
+      <Slottable
+        asChild
+        slotProps={{
+          className,
+          style: { width: '100px', height: '100px', ...style },
+          onClick: slotData.onClick,
+        }}
+      >
+        {childElement}
       </Slottable>
     )
   }

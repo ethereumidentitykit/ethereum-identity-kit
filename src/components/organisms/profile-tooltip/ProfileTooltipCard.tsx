@@ -1,5 +1,8 @@
 import React from 'react'
 import clsx from 'clsx'
+import { useAppearanceOptional } from '../../../context/AppearanceContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultCard } from '../../primitives/default'
 import { useProfileDetails, useProfileStats, useGrailsProfile } from '../../../hooks'
 import { beautifyEnsName, truncateAddress } from '../../../utils'
 import Bio from '../profile-card/components/bio'
@@ -167,10 +170,12 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
 
   const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
   const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
+  const { appearanceClassName } = useAppearanceOptional()
+  const Card = useResolvedComponent('Card', DefaultCard)
 
   return (
-    <div
-      className={clsx('tooltip-card', darkMode && 'dark dark-tooltip-card', className)}
+    <Card
+      className={clsx('tooltip-card', appearanceClassName, darkMode && 'dark dark-tooltip-card', className)}
       data-testid="tooltip-card"
       style={{ fontFamily: 'Inter, sans-serif', ...style }}
       {...props}
@@ -265,7 +270,7 @@ const ProfileTooltipCard: React.FC<ProfileTooltipProps> = ({
         )}
         {includeGrails && <GrailsProfileSection addressOrName={addressOrName} />}
       </div>
-    </div>
+    </Card>
   )
 }
 

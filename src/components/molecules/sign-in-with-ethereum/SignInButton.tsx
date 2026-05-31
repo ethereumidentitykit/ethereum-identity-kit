@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { useSiwe } from '../../../hooks'
 import { useTranslation } from '../../../context/TranslationContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultButton } from '../../primitives/default'
 import { EthereumIcon } from '../../icons'
 import { SignInButtonProps } from './SignInWithEthereum.types'
 import UserProfile from './components/UserProfile'
@@ -65,8 +67,10 @@ const SignInWithEthereum = ({
     }
   }, [connectedAddress, handleSignIn])
 
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
+
   return (
-    <button
+    <Button
       className={clsx(
         'sign-in-button',
         darkMode && 'dark',
@@ -98,7 +102,7 @@ const SignInWithEthereum = ({
           <p className="sign-in-button-text">{isSigningMessage ? t('singingIn') : t('signIn')}</p>
         </div>
       )}
-    </button>
+    </Button>
   )
 }
 

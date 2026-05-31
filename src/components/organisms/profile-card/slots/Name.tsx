@@ -1,6 +1,8 @@
 import React from 'react'
 import { clsx } from 'clsx'
 import { Slottable, resolveSlotChildren } from '../../../primitives'
+import { useResolvedComponent } from '../../../primitives/resolveComponent'
+import { DefaultTypography } from '../../../primitives/default'
 import { useProfileCardContext } from '../ProfileCardContext'
 import { beautifyEnsName, truncateAddress } from '../../../../utils'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
@@ -26,6 +28,7 @@ export const ProfileCardName: React.FC<ProfileCardSlotProps<ProfileCardNameSlotD
 }) => {
   const { ens, address, addressOrName, isDetailsLoading, showFollowerTag, connectedAddress, list, onProfileClick } =
     useProfileCardContext()
+  const Typography = useResolvedComponent('Typography', DefaultTypography)
 
   const displayName = ens?.name ? beautifyEnsName(ens.name) : address ? truncateAddress(address) : String(addressOrName)
 
@@ -44,14 +47,15 @@ export const ProfileCardName: React.FC<ProfileCardSlotProps<ProfileCardNameSlotD
     <LoadingCell height="26px" width="160px" />
   ) : (
     <div className="profile-name-container">
-      <p
+      <Typography
+        as="p"
         className={clsx('profile-name', className)}
         style={style}
         enable-hover={onProfileClick ? 'true' : 'false'}
         onClick={slotData.onProfileClick}
       >
         {displayName}
-      </p>
+      </Typography>
       {showFollowerTag && connectedAddress && (
         <FollowerTag lookupAddressOrName={addressOrName} connectedAddress={connectedAddress} list={list} />
       )}
@@ -64,9 +68,7 @@ export const ProfileCardName: React.FC<ProfileCardSlotProps<ProfileCardNameSlotD
     const childElement = React.isValidElement(children) ? (
       React.cloneElement(children as React.ReactElement, {}, displayName)
     ) : (
-      <p className={clsx('profile-name', className)} style={style} onClick={slotData.onProfileClick}>
-        {displayName}
-      </p>
+      <p>{displayName}</p>
     )
 
     return (
