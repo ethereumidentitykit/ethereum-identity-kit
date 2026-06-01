@@ -179,3 +179,7 @@ ThorinAppearance.args = {
   onProfileClick,
 }
 ThorinAppearance.decorators = [withThorinAppearance]
+
+export const ThorinSlotted = CustomSlottedLayout.bind({})
+ThorinSlotted.tags = ['thorin', 'slots']
+ThorinSlotted.decorators = [withThorinAppearance]
