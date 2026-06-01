@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import Textarea from './Textarea'
 import { TextareaProps } from './Textarea.types'
 
