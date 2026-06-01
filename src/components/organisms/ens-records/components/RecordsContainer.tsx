@@ -13,23 +13,26 @@ import { useOutsideClick } from '../../../../hooks'
 import Plus from '../../../icons/ui/Plus'
 import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import ResolvedInput from '../../../molecules/resolved-input/ResolvedInput'
+import { useENSRecordsContext } from '../ENSRecordsContext'
+import { ENSRecordsButton } from './ENSRecordsButton'
 import '../ENSRecords.css'
-import { ENSRecordsProps } from '../ENSRecords.types'
 
-interface RecordsContainerProps extends ENSRecordsProps {
-  metadata: Record<string, string> | null
+interface RecordsContainerProps {
+  metadata: Record<string, string>
 }
 
-const RecordsContainer: React.FC<RecordsContainerProps> = ({
-  name,
-  metadata,
-  defaultTab,
-  darkMode,
-  onClose,
-  onImageUpload,
-  onSuccess,
-  onError,
-}) => {
+const RecordsContainer: React.FC<RecordsContainerProps> = ({ metadata }) => {
+  const {
+    name,
+    defaultTab,
+    darkMode,
+    onClose,
+    onImageUpload,
+    onSuccess,
+    onError,
+    appearanceClassName,
+    style,
+  } = useENSRecordsContext()
   const {
     records,
     setRecord,
@@ -106,7 +109,8 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
   return (
     <>
       <div
-        className={clsx('ens-records-root', darkMode && 'dark')}
+        className={clsx('ens-records-root', appearanceClassName, darkMode && 'dark')}
+        style={style}
         onClick={(e) => {
           e.stopPropagation()
           handleClose()
