@@ -278,7 +278,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
             </div>
             <div
               className="user-profile-header-container-ultra-wide"
-            // style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
+              // style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
             >
               <ImageWithFallback
                 src={validateEnsHeader(ens?.records?.header, ens?.name)}

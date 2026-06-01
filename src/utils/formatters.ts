@@ -1,3 +1,4 @@
+import { GrailsNameMetadataResponse } from '../types'
 import { TranslationFunction } from '../types/translations'
 
 /**
@@ -69,4 +70,40 @@ export const formatTimeDiff = (timeDiff: number): string => {
   } else {
     return `${Math.floor(timeDiff / 31536000)}y`
   }
+}
+
+export const formatNameMetadata = (metadata: GrailsNameMetadataResponse): { label: string; value: string }[] => {
+  return Object.entries(metadata)
+    .flatMap(([key, value]) => {
+      if (key === 'chains' && Array.isArray(value)) {
+        return value.map(({ chainName, address }) => ({
+          label: chainName,
+          value: address,
+        }))
+      }
+
+      if (key === 'contenthash' && value && typeof value === 'object' && !Array.isArray(value)) {
+        const contenthash = `${value.protocol}://${value.value}`
+        return {
+          label: key,
+          value: contenthash,
+        }
+      }
+
+      return {
+        label: key,
+        value,
+      }
+    })
+    .filter((row) => typeof row.value === 'string' && row.value.length > 0 && row.label !== 'resolverAddress')
+}
+
+export const formatNameMetadataRecord = (metadata: GrailsNameMetadataResponse): Record<string, string> => {
+  return formatNameMetadata(metadata).reduce(
+    (acc, row) => {
+      acc[row.label] = row.value
+      return acc
+    },
+    {} as Record<string, string>
+  )
 }
