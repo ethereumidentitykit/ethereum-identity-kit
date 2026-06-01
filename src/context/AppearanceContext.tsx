@@ -16,6 +16,20 @@ const defaultAppearanceValue: AppearanceContextValue = {
 
 const AppearanceContext = createContext<AppearanceContextValue | undefined>(undefined)
 
+function getChildTypeLabel(type: React.ReactElement['type']): string {
+  if (type === React.Fragment) {
+    return 'React.Fragment'
+  }
+  if (typeof type === 'string') {
+    return type
+  }
+  if (typeof type === 'function') {
+    const componentType = type as { displayName?: string; name?: string }
+    return componentType.displayName || componentType.name || 'Component'
+  }
+  return String(type)
+}
+
 export type AppearanceProviderProps = {
   preset?: AppearancePreset
   registry?: ComponentRegistryOverrides
@@ -55,14 +69,8 @@ export const AppearanceProvider: React.FC<AppearanceProviderProps> = ({
         className: clsx(mergedClassName, child.props.className),
       })
     } else if (process.env.NODE_ENV !== 'production') {
-      const childType = isFragment
-        ? 'React.Fragment'
-        : typeof child.type === 'function'
-          ? child.type.displayName || child.type.name || 'Component'
-          : String(child.type)
-
       console.warn(
-        `[AppearanceProvider] asChild was set but cannot merge className onto "${childType}". ` +
+        `[AppearanceProvider] asChild was set but cannot merge className onto "${getChildTypeLabel(child.type)}". ` +
           `Appearance classes (${mergedClassName}) will be applied via a wrapper <div> instead.`
       )
     }

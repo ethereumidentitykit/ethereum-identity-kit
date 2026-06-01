@@ -56,7 +56,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
       postcss({
         extract: true,
@@ -77,17 +77,17 @@ export default [
   {
     input: 'src/index.ts',
     output: [{ file: 'dist/types.d.ts', format: 'esm' }],
-    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
   },
   {
     input: 'src/elements/index.ts',
     output: [{ file: 'dist/elements/index.d.ts', format: 'esm' }],
-    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
   },
   {
     input: 'src/thorin/index.ts',
     output: [{ file: 'dist/thorin/index.d.ts', format: 'esm' }],
-    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
   },
   {
     input: 'src/utils/index.ts',
@@ -105,7 +105,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
     ],
     external: [
@@ -135,7 +135,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
       postcss({
         inject: false,
@@ -163,7 +163,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
       postcss({
         inject: false,
