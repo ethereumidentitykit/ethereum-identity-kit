@@ -7,7 +7,6 @@ import {
   ProfileIdentityProvider,
   useProfileIdentityContext,
   type ProfileIdentityContextValue,
-  type ProfileIdentityProviderProps,
 } from '../../profile-identity/ProfileIdentityContext'
 import { ProfileCardProps } from './ProfileCard.types'
 

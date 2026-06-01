@@ -9,8 +9,8 @@ export const FullWidthProfileStatusSection: React.FC = () => {
 
   const paddingBottom =
     typeof style?.paddingBottom === 'string'
-      ? Number(style.paddingBottom.slice(0, -2))
-      : Number(style?.paddingBottom || 0)
+      ? parseFloat(style.paddingBottom) || 0
+      : Number(style?.paddingBottom) || 0
 
   return (
     <div

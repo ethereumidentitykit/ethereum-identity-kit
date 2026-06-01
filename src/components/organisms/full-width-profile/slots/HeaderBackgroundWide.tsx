@@ -12,7 +12,7 @@ export const FullWidthProfileHeaderBackgroundWide: React.FC = () => {
       <ImageWithFallback
         src={validateEnsHeader(ens?.records?.header, ens?.name)}
         fallback={DEFAULT_FALLBACK_HEADER}
-        alt="Profile Summary Card"
+        alt=""
         style={{
           width: '100%',
           height: '100%',

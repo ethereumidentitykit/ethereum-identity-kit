@@ -10,9 +10,14 @@ export const FullWidthProfileAvatar: React.FC = () => {
   }
 
   return (
-    <div onClick={() => onProfileClick?.(address)} className="user-profile-avatar-container">
-      <Avatar src={ens?.avatar} name={ens?.name || address} className="user-profile-avatar-container" />
-    </div>
+    <button
+      type="button"
+      className="user-profile-avatar-container"
+      style={{ border: 'none', padding: 0, background: 'transparent' }}
+      onClick={() => onProfileClick?.(address)}
+    >
+      <Avatar src={ens?.avatar} name={ens?.name || address} />
+    </button>
   )
 }
 

@@ -34,7 +34,7 @@ export const FullWidthProfileName: React.FC = () => {
       <p
         className={clsx(
           'user-profile-name',
-          isConnectedUserCard || (!!customFollowButton && 'user-profile-name-connected')
+          (isConnectedUserCard || customFollowButton) && 'user-profile-name-connected'
         )}
         onClick={() => onProfileClick?.(address)}
       >

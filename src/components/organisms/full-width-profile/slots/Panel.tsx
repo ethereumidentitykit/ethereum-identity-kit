@@ -8,12 +8,16 @@ import { FullWidthProfileStatusSection } from './StatusSection'
 import { FullWidthProfileContent } from './Content'
 import { FullWidthProfileHeaderBackgroundWide } from './HeaderBackgroundWide'
 
-export const FullWidthProfilePanel: React.FC = () => {
+export type FullWidthProfilePanelProps = {
+  id?: string
+}
+
+export const FullWidthProfilePanel: React.FC<FullWidthProfilePanelProps> = ({ id }) => {
   const { className, style } = useProfileIdentityContext()
 
   return (
     <>
-      <div id="user-profile" className={clsx('user-profile', className)} style={style}>
+      <div id={id} className={clsx('user-profile', className)} style={style}>
         <FullWidthProfileHeaderBackground />
         <FullWidthProfileRole />
         <FullWidthProfileMoreOptions />
