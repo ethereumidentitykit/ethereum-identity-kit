@@ -44,3 +44,70 @@ export type {
 
 export { default as ProfileCard } from '../components/organisms/profile-card/ProfileCard'
 export type { ProfileCardProps } from '../components/organisms/profile-card/ProfileCard.types'
+
+export {
+  ProfileTooltipCardRoot,
+  useProfileTooltipCardContext,
+} from '../components/organisms/profile-tooltip/ProfileTooltipCardContext'
+export type {
+  ProfileTooltipCardContextValue,
+  ProfileTooltipCardRootProps,
+} from '../components/organisms/profile-tooltip/ProfileTooltipCardContext'
+
+export {
+  ProfileTooltipHeader,
+  ProfileTooltipBody,
+  ProfileTooltipAvatarRow,
+  ProfileTooltipAvatar,
+  ProfileTooltipFollowButton,
+  ProfileTooltipName,
+  ProfileTooltipStats,
+  ProfileTooltipStatus,
+  ProfileTooltipBio,
+  ProfileTooltipSocials,
+  ProfileTooltipGrails,
+} from '../components/organisms/profile-tooltip/slots'
+
+export { default as ProfileTooltipCard } from '../components/organisms/profile-tooltip/ProfileTooltipCard'
+export type { ProfileTooltipProps } from '../components/organisms/profile-tooltip/ProfileTooltip.types'
+
+export {
+  FullWidthProfileRoot,
+  useFullWidthProfileContext,
+  FullWidthProfileLoading,
+  FullWidthProfileError,
+} from '../components/organisms/full-width-profile/FullWidthProfileContext'
+
+export {
+  FullWidthProfileTopCard,
+  FullWidthProfileMain,
+  FullWidthProfilePanel,
+  FullWidthProfileHeaderBackground,
+  FullWidthProfileHeaderBackgroundWide,
+  FullWidthProfileRole,
+  FullWidthProfileMoreOptions,
+  FullWidthProfileStatusSection,
+  FullWidthProfileContent,
+  FullWidthProfileAvatar,
+  FullWidthProfileName,
+  FullWidthProfileStats,
+  FullWidthProfileStatusMobile,
+  FullWidthProfileBio,
+  FullWidthProfileSocials,
+  FullWidthProfileCommonFollowers,
+} from '../components/organisms/full-width-profile/slots'
+
+export { default as FullWidthProfile } from '../components/organisms/full-width-profile/FullWidthProfile'
+
+export {
+  ProfileIdentityProvider,
+  useProfileIdentityContext,
+  PROFILE_IDENTITY_SLOT_IDS,
+  PROFILE_SLOT_LAYOUT_PRESETS,
+} from '../components/profile-identity'
+export type {
+  ProfileIdentityContextValue,
+  ProfileIdentityProviderProps,
+  ProfileIdentitySlotProps,
+  ProfileSurface,
+} from '../components/profile-identity'
