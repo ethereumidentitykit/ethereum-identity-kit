@@ -99,7 +99,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
         },
       })
 
-      const response = await fetch(`https://eidk.me/${name}${type === 'header' ? '/h' : ''}`, {
+      const response = await fetch(`https://eidk.me/${encodeURIComponent(name)}${type === 'header' ? '/h' : ''}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
       }
 
       const result = await response.json()
-      const url = result.url || `https://euc.li/${name}${type === 'header' ? '/h' : ''}`
+      const url = result.url || `https://euc.li/${encodeURIComponent(name)}${type === 'header' ? '/h' : ''}`
 
       return url
     } catch (err: unknown) {

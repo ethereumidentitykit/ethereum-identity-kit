@@ -105,7 +105,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       setUploadStatus('error')
       setErrorMessage(err instanceof Error ? err.message : 'Upload failed')
     }
-  }, [address, mode, manualUrl, dataURL, onImageUpload, onSave])
+  }, [address, mode, manualUrl, dataURL, imageType, onImageUpload, onSave])
 
   return (
     <div
