@@ -258,16 +258,16 @@ export default {
 
 const Template: StoryFn<typeof ENSRecordsWrapper> = (args) => <ENSRecordsWrapper {...args} />
 
-export const classic = Template.bind({})
-classic.args = {
+export const Classic = Template.bind({})
+Classic.args = {
   name: 'test.eth',
   defaultTab: 'records',
   darkMode: false,
   isModal: false,
 }
 
-export const modal = Template.bind({})
-modal.args = {
+export const Modal = Template.bind({})
+Modal.args = {
   name: 'test.eth',
   defaultTab: 'records',
   darkMode: false,
