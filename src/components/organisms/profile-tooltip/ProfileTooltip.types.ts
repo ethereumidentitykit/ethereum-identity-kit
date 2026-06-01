@@ -5,7 +5,7 @@ import { Boundary, FlipBehavior, TooltipPlacement } from '../../../hooks/useTool
 
 export type ProfileTooltipExtraOptions = ProfileExtraOptions
 
-export type ProfileCardProps = {
+export type ProfileTooltipProps = {
   addressOrName: Address | string
   list?: ProfileListType
   connectedAddress?: Address
@@ -21,9 +21,7 @@ export type ProfileCardProps = {
   onStatClick?: ({ addressOrName, stat }: ProfileStatsClickProps) => void
   extraOptions?: ProfileTooltipExtraOptions
   selectedList?: ProfileListType
-} & HTMLAttributes<HTMLDivElement>
-
-export type ProfileTooltipProps = ProfileCardProps
+} & Omit<HTMLAttributes<HTMLDivElement>, 'content'>
 
 export interface ProfileTooltipWrapperProps extends ProfileTooltipProps {
   children: ReactElement
