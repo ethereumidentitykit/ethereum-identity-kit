@@ -10,21 +10,26 @@ import { FullWidthProfileHeaderBackgroundWide } from './HeaderBackgroundWide'
 
 export type FullWidthProfilePanelProps = {
   id?: string
+  children?: React.ReactNode
 }
 
-export const FullWidthProfilePanel: React.FC<FullWidthProfilePanelProps> = ({ id }) => {
+export const FullWidthProfilePanel: React.FC<FullWidthProfilePanelProps> = ({ id, children }) => {
   const { className, style } = useProfileIdentityContext()
 
   return (
     <>
       <div id={id} className={clsx('user-profile', className)} style={style}>
-        <FullWidthProfileHeaderBackground />
-        <FullWidthProfileRole />
-        <FullWidthProfileMoreOptions />
-        <FullWidthProfileStatusSection />
-        <FullWidthProfileContent />
+        {children ?? (
+          <>
+            <FullWidthProfileHeaderBackground />
+            <FullWidthProfileRole />
+            <FullWidthProfileMoreOptions />
+            <FullWidthProfileStatusSection />
+            <FullWidthProfileContent />
+          </>
+        )}
       </div>
-      <FullWidthProfileHeaderBackgroundWide />
+      {!children && <FullWidthProfileHeaderBackgroundWide />}
     </>
   )
 }

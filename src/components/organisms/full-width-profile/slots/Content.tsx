@@ -2,10 +2,14 @@ import React from 'react'
 import { FullWidthProfileAvatar } from './Avatar'
 import { FullWidthProfileDetails } from './Details'
 
-export const FullWidthProfileContent: React.FC = () => (
+export const FullWidthProfileContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
   <div className="user-profile-content">
-    <FullWidthProfileAvatar />
-    <FullWidthProfileDetails />
+    {children ?? (
+      <>
+        <FullWidthProfileAvatar />
+        <FullWidthProfileDetails />
+      </>
+    )}
   </div>
 )
 
