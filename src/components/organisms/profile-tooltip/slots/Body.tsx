@@ -1,20 +1,38 @@
 import React from 'react'
 import { clsx } from 'clsx'
-import { Slottable, resolveSlotChildren } from '../../../primitives'
+import { Slottable, isSlottableElement, isSlotRenderFn } from '../../../primitives'
 import type { ProfileTooltipSlotProps } from './slot.types'
 
-export const ProfileTooltipBody: React.FC<ProfileTooltipSlotProps> = ({ asChild, className, style, children }) => {
-  const defaultNode = <div className={clsx('tooltip-details', className)} style={style} />
+export type ProfileTooltipBodySlotData = {
+  className?: string
+}
 
-  if (asChild) {
+export const ProfileTooltipBody: React.FC<ProfileTooltipSlotProps<ProfileTooltipBodySlotData>> = ({
+  asChild,
+  className,
+  style,
+  children,
+}) => {
+  const mergedClassName = clsx('tooltip-details', className)
+  const slotData: ProfileTooltipBodySlotData = { className: mergedClassName }
+
+  if (isSlotRenderFn(children)) {
+    return <>{children(slotData)}</>
+  }
+
+  if (asChild && isSlottableElement(children)) {
     return (
-      <Slottable asChild slotProps={{ className: clsx('tooltip-details', className), style }}>
-        {resolveSlotChildren(children, undefined, defaultNode)}
+      <Slottable asChild slotProps={{ className: mergedClassName, style }}>
+        {children}
       </Slottable>
     )
   }
 
-  return <div className={clsx('tooltip-details', className)} style={style}>{children}</div>
+  return (
+    <div className={mergedClassName} style={style}>
+      {children}
+    </div>
+  )
 }
 
 ProfileTooltipBody.displayName = 'ProfileTooltipCard.Body'

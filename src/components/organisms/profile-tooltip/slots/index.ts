@@ -2,6 +2,7 @@ export { ProfileTooltipHeader } from './Header'
 export type { ProfileTooltipHeaderSlotData } from './Header'
 
 export { ProfileTooltipBody } from './Body'
+export type { ProfileTooltipBodySlotData } from './Body'
 
 export { ProfileTooltipAvatarRow } from './AvatarRow'
 
