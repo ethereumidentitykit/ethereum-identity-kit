@@ -89,6 +89,7 @@ export {
   FullWidthProfileStatusSection,
   FullWidthProfileContent,
   FullWidthProfileAvatar,
+  FullWidthProfileDetails,
   FullWidthProfileName,
   FullWidthProfileStats,
   FullWidthProfileStatusMobile,
@@ -98,6 +99,7 @@ export {
 } from '../components/organisms/full-width-profile/slots'
 
 export { default as FullWidthProfile } from '../components/organisms/full-width-profile/FullWidthProfile'
+export type { FullWidthProfileProps } from '../components/organisms/full-width-profile/FullWidthProfile.types'
 
 export {
   ProfileIdentityProvider,
