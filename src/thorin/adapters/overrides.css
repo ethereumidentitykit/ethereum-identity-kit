@@ -51,3 +51,22 @@
 .eik-appearance-thorin .user-profile-edit-profile-button p {
   margin: 0;
 }
+
+.eik-appearance-thorin .ens-records-modal {
+  border-radius: 16px;
+  border: 1px solid var(--ethereum-identity-kit-neutral-light-hover);
+}
+
+.eik-appearance-thorin .ens-modal-btn {
+  width: auto !important;
+}
+
+.eik-appearance-thorin .ens-modal-btn > div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.eik-appearance-thorin .tab-selector {
+  border-radius: 12px;
+}
