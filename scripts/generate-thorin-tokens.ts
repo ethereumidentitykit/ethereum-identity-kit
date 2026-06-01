@@ -4,7 +4,6 @@
  * Requires @ensdomains/thorin as a devDependency.
  */
 
-/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs')
 const path = require('path')
 
