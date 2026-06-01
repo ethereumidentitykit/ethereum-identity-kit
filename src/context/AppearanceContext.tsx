@@ -54,6 +54,17 @@ export const AppearanceProvider: React.FC<AppearanceProviderProps> = ({
       content = React.cloneElement(child, {
         className: clsx(mergedClassName, child.props.className),
       })
+    } else if (process.env.NODE_ENV !== 'production') {
+      const childType = isFragment
+        ? 'React.Fragment'
+        : typeof child.type === 'function'
+          ? child.type.displayName || child.type.name || 'Component'
+          : String(child.type)
+
+      console.warn(
+        `[AppearanceProvider] asChild was set but cannot merge className onto "${childType}". ` +
+          `Appearance classes (${mergedClassName}) will be applied via a wrapper <div> instead.`
+      )
     }
   }
 
