@@ -5,6 +5,7 @@ import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from '../../src/constants/wagmi'
 import { TransactionProvider } from '../../src/context'
 import TransactionModal from '../../src/components/organisms/transaction-modal/TransactionModal'
+import { withThorinAppearance } from './thorin'
 
 const queryClient = new QueryClient()
 
@@ -36,3 +37,22 @@ export const withFullWidthCanvas: Decorator = (Story) => (
     <Story />
   </div>
 )
+
+/** Full decorator stack for Thorin + slotted profile stories (story-level decorators replace meta in SB9). */
+export const profileCardThorinDecorators: Decorator[] = [
+  withProfileProviders,
+  withProfileCardCanvas,
+  withThorinAppearance,
+]
+
+export const profileTooltipThorinDecorators: Decorator[] = [
+  withProfileProviders,
+  withTooltipCanvas,
+  withThorinAppearance,
+]
+
+export const fullWidthProfileThorinDecorators: Decorator[] = [
+  withProfileProviders,
+  withFullWidthCanvas,
+  withThorinAppearance,
+]
