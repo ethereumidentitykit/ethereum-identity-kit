@@ -14,11 +14,15 @@ type ComposerArgs = ProfileTooltipWrapperProps & {
   showAvatarRow: boolean
   showName: boolean
   showStats: boolean
-  showStatus: boolean
-  showBio: boolean
-  showSocials: boolean
+  slotShowStatus: boolean
+  slotShowBio: boolean
+  slotShowSocials: boolean
   showGrails: boolean
   useCustomNameSlot: boolean
+}
+
+const onProfileClick = (addressOrName: Address | string) => {
+  alert(addressOrName)
 }
 
 const meta: Meta<ComposerArgs> = {
@@ -35,9 +39,9 @@ const meta: Meta<ComposerArgs> = {
     showAvatarRow: { control: 'boolean', table: { category: 'Slots' } },
     showName: { control: 'boolean', table: { category: 'Slots' } },
     showStats: { control: 'boolean', table: { category: 'Slots' } },
-    showStatus: { control: 'boolean', table: { category: 'Slots' } },
-    showBio: { control: 'boolean', table: { category: 'Slots' } },
-    showSocials: { control: 'boolean', table: { category: 'Slots' } },
+    slotShowStatus: { control: 'boolean', table: { category: 'Slots' } },
+    slotShowBio: { control: 'boolean', table: { category: 'Slots' } },
+    slotShowSocials: { control: 'boolean', table: { category: 'Slots' } },
     showGrails: { control: 'boolean', table: { category: 'Slots' } },
   },
 }
@@ -52,9 +56,9 @@ const SlotComposerStory: StoryFn<ComposerArgs> = (args) => {
     showAvatarRow,
     showName,
     showStats,
-    showStatus,
-    showBio,
-    showSocials,
+    slotShowStatus,
+    slotShowBio,
+    slotShowSocials,
     showGrails,
     ...wrapperProps
   } = args
@@ -74,9 +78,9 @@ const SlotComposerStory: StoryFn<ComposerArgs> = (args) => {
               <ProfileTooltipCard.Name />
             ))}
           {showStats && <ProfileTooltipCard.Stats />}
-          {showStatus && <ProfileTooltipCard.Status />}
-          {showBio && <ProfileTooltipCard.Bio />}
-          {showSocials && <ProfileTooltipCard.Socials />}
+          {slotShowStatus && <ProfileTooltipCard.Status />}
+          {slotShowBio && <ProfileTooltipCard.Bio />}
+          {slotShowSocials && <ProfileTooltipCard.Socials />}
           {showGrails && <ProfileTooltipCard.Grails />}
         </ProfileTooltipCard.Body>
       )}
@@ -109,9 +113,9 @@ SlotComposer.args = {
   showAvatarRow: true,
   showName: true,
   showStats: true,
-  showStatus: true,
-  showBio: true,
-  showSocials: true,
+  slotShowStatus: true,
+  slotShowBio: true,
+  slotShowSocials: true,
   showGrails: false,
 }
 
@@ -120,7 +124,7 @@ CustomSlottedLayout.tags = ['slots']
 CustomSlottedLayout.args = {
   ...SlotComposer.args,
   showGrails: false,
-  showStatus: false,
+  slotShowStatus: false,
 }
 
 export const ThorinSlotted = SlotComposerStory.bind({})
