@@ -27,7 +27,12 @@ function mergeEventHandlers(
   }
 }
 
-export function mergeProps(slotProps: AnyProps, childProps: AnyProps): AnyProps {
+export function mergeProps(
+  slotProps: AnyProps,
+  childProps: AnyProps,
+  /** React 18: ref on the element; React 19 may also pass ref via props. */
+  childRef?: React.Ref<unknown>
+): AnyProps {
   const merged: AnyProps = { ...childProps, ...slotProps }
 
   if (slotProps.className || childProps.className) {
@@ -50,14 +55,23 @@ export function mergeProps(slotProps: AnyProps, childProps: AnyProps): AnyProps 
     )
   })
 
-  if (slotProps.ref || childProps.ref) {
+  const resolvedChildRef =
+    childRef ?? (childProps.ref as React.Ref<unknown> | undefined)
+
+  if (resolvedChildRef || slotProps.ref) {
     merged.ref = composeRefs(
-      childProps.ref as React.Ref<unknown> | undefined,
+      resolvedChildRef,
       slotProps.ref as React.Ref<unknown> | undefined
     )
   }
 
   return merged
+}
+
+/** React 18 stores ref on the element; types omit it — React 19 may use props.ref. */
+function getChildRef(element: React.ReactElement<AnyProps>): React.Ref<unknown> | undefined {
+  const elementRef = (element as React.ReactElement<AnyProps> & { ref?: React.Ref<unknown> }).ref
+  return elementRef ?? (element.props.ref as React.Ref<unknown> | undefined)
 }
 
 export function isSlottableElement(child: React.ReactNode): child is React.ReactElement {
@@ -77,7 +91,7 @@ export const Slot = React.forwardRef<HTMLElement, SlotProps>(({ children, ...pro
   const childProps = child.props as AnyProps
 
   return React.cloneElement(child, {
-    ...mergeProps({ ...props, ref: forwardedRef }, childProps),
+    ...mergeProps({ ...props, ref: forwardedRef }, childProps, getChildRef(child)),
   })
 })
 
