@@ -1,7 +1,9 @@
 import { fetchAccount } from './api/fetch-account'
 import { isAddress, truncateAddress } from './address'
+import { fetchNameRoles } from './api/fetch-ens-roles'
 import { fetchRecommended } from './api/fetch-recommended'
 import { fetchFollowState } from './api/fetch-follow-state'
+import { fetchNameMetadata } from './api/fetch-ens-metadata'
 import { fetchProfileLists } from './api/fetch-profile-lists'
 import { fetchProfileStats } from './api/fetch-profile-stats'
 import { fetchFollowerTags } from './api/fetch-follower-tags'
@@ -33,6 +35,8 @@ export {
   fetchFollowingTags,
   fetchProfileFollowing,
   fetchProfileFollowers,
+  fetchNameMetadata,
+  fetchNameRoles,
 }
 
 export * from './siwe'

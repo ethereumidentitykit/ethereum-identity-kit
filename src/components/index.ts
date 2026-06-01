@@ -1,5 +1,8 @@
 import LoadingCell from './atoms/loading-cell/LoadingCell'
 import ImageWithFallback from './atoms/image-with-fallback/ImageWithFallback'
+import Input from './atoms/input/Input'
+import Textarea from './atoms/textarea/Textarea'
+import TabSelector from './atoms/tab-selector/TabSelector'
 import Avatar from './molecules/avatar/Avatar'
 import EFPPoaps from './molecules/efp-poaps/EFPPoaps'
 import Tags from './molecules/profile-list-row/components/tags'
@@ -44,10 +47,16 @@ export {
   SignInWithEthereum,
   ProfileTooltip,
   SignInButton,
+  Input,
+  Textarea,
+  TabSelector,
 }
 
 import { LoadingCellProps } from './atoms/loading-cell/LoadingCell.types'
 import { ImageWithFallbackProps } from './atoms/image-with-fallback/ImageWithFallback.types'
+import { InputProps } from './atoms/input/Input.types'
+import { TextareaProps } from './atoms/textarea/Textarea.types'
+import { TabSelectorProps, Tab } from './atoms/tab-selector/TabSelector.types'
 import { AvatarProps } from './molecules/avatar/Avatar.types'
 import { ProfileListProps } from './molecules/profile-list/ProfileList.types'
 import { FollowerTagProps } from './molecules/follower-tag/FollowerTag.types'
@@ -86,6 +95,10 @@ export type {
   SignInWithEthereumProps,
   ProfileTooltipProps,
   SignInButtonProps,
+  InputProps,
+  TextareaProps,
+  TabSelectorProps,
+  Tab,
 }
 
 export * from './icons'

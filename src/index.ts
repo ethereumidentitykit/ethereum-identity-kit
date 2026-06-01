@@ -68,6 +68,10 @@ export {
   beautifyEnsName,
   validateEnsHeader,
   fetchBatchFollowState,
+  fetchNameMetadata,
+  fetchNameRoles,
+  formatNameMetadata,
+  formatNameMetadataRecord,
 } from './utils'
 
 // Context
@@ -96,6 +100,8 @@ export type {
 // Constants
 export {
   EFP_API_URL,
+  GRAILS_API_URL,
+  ENS_METADATA_URL,
   DEFAULT_FALLBACK_AVATAR,
   DEFAULT_FALLBACK_HEADER,
   DEFAULT_RECENT_TAGS,
@@ -120,9 +126,13 @@ export {
   efpListMinterAbi,
   efpListRecordsAbi,
   efpListRegistryAbi,
-  iefpListRegistryErc721Abi,
+  efpListRegistryErc721Abi,
   listMetadataAbi,
   listRecordsAbi,
+  PublicResolverAbi,
+  BaseRegistrarAbi,
+  RegistrarControllerAbi,
+  RegistryAbi,
   FOLLOW_BUTTON_STYLES,
   FOLLOW_BUTTON_COOL_EMOJI,
   transports,
@@ -133,6 +143,11 @@ export {
   WEEK,
   MONTH,
   defaultTranslations,
+  TEXT_RECORD_KEYS,
+  ADDRESS_RECORD_KEYS,
+  COIN_TYPES,
+  SOCIAL_RECORDS,
+  ADDRESS_LABELS,
 } from './constants'
 
 // Constant Types
@@ -160,6 +175,9 @@ export {
   EFPPoaps,
   ProfileTooltip,
   SignInButton,
+  Input,
+  Textarea,
+  TabSelector,
   // Icons
   Check,
   Cross,
@@ -230,6 +248,10 @@ export type {
   SignInWithEthereumProps,
   ProfileTooltipProps,
   SignInButtonProps,
+  InputProps,
+  TextareaProps,
+  TabSelectorProps,
+  Tab,
 } from './components'
 
 // Types
@@ -293,4 +315,11 @@ export type {
   TranslationObject,
   LanguageCode,
   ProfileEFPSocialType,
+  GrailsAPIResponse,
+  GrailsProfileResponse,
+  ENSNameMetadataValue,
+  ENSNameMetadataResponse,
+  GrailsNameMetadataResponse,
+  RolesType,
+  GrailsRolesResponse,
 } from './types'
