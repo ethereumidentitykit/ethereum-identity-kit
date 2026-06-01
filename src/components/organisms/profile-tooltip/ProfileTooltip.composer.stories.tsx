@@ -101,6 +101,7 @@ SlotComposer.args = {
   showSocials: true,
   showBio: true,
   showStatus: true,
+  onProfileClick,
   includeGrails: false,
   useCustomNameSlot: false,
   showHeader: true,

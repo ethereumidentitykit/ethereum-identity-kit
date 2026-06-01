@@ -16,6 +16,10 @@ type ComposerArgs = FullWidthProfileProps & {
   showCommonFollowers: boolean
 }
 
+const onProfileClick = (addressOrName: Address | string) => {
+  alert(addressOrName)
+}
+
 const meta: Meta<ComposerArgs> = {
   title: 'Organisms/Full Width Profile',
   component: FullWidthProfile,
@@ -83,6 +87,7 @@ SlotComposer.args = {
   showFollowerState: true,
   showFollowButton: true,
   showEmptySocials: true,
+  onProfileClick,
   showTopCard: true,
   showRole: true,
   showStatusSection: true,

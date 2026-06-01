@@ -12,8 +12,13 @@ import {
   type ProfileIdentitySlotId,
   type ProfileSlotLayoutPreset,
 } from '../../profile-identity'
+import { Address } from '../../../types'
 
 const queryClient = new QueryClient()
+
+const onProfileClick = (addressOrName: Address | string) => {
+  alert(addressOrName)
+}
 
 type SlotToggleArgs = {
   [K in ProfileIdentitySlotId as `show${Capitalize<K>}`]: boolean
@@ -151,6 +156,7 @@ SlotComposer.args = {
   showFollowerState: true,
   showFollowButton: true,
   showEmptySocials: true,
+  onProfileClick,
   style: { width: 420 },
   layoutPreset: 'default',
   useCustomNameSlot: false,
