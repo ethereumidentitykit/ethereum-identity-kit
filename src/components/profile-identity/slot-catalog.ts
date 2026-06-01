@@ -79,6 +79,6 @@ export const PROFILE_SLOT_LAYOUT_PRESETS: Record<Exclude<ProfileSlotLayoutPreset
     socials: true,
     followersYouKnow: true,
     poaps: true,
-    grails: false,
+    grails: true,
   },
 }
