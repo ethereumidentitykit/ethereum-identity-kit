@@ -2,11 +2,12 @@ import type { Meta, StoryFn } from '@storybook/react-vite'
 import ProfileTooltip from './ProfileTooltip'
 import ProfileTooltipCard from './ProfileTooltipCard'
 import type { ProfileTooltipWrapperProps } from './ProfileTooltip.types'
-import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 import {
+  profileTooltipThorinDecorators,
   withProfileProviders,
   withTooltipCanvas,
 } from '../../../../.storybook/decorators/profileProviders'
+import { Address } from '../../../types'
 
 type ComposerArgs = ProfileTooltipWrapperProps & {
   showHeader: boolean
@@ -133,4 +134,4 @@ ThorinSlotted.args = {
   ...SlotComposer.args,
   showFollowButton: true,
 }
-ThorinSlotted.decorators = [withThorinAppearance]
+ThorinSlotted.decorators = profileTooltipThorinDecorators

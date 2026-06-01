@@ -1,11 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react-vite'
 import FullWidthProfile from './FullWidthProfile'
 import type { FullWidthProfileProps } from './FullWidthProfile.types'
-import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 import {
+  fullWidthProfileThorinDecorators,
   withFullWidthCanvas,
   withProfileProviders,
 } from '../../../../.storybook/decorators/profileProviders'
+import { Address } from '../../../types'
 
 type ComposerArgs = FullWidthProfileProps & {
   showTopCard: boolean
@@ -108,4 +109,4 @@ CustomSlottedLayout.args = {
 export const ThorinSlotted = SlotComposerStory.bind({})
 ThorinSlotted.tags = ['thorin', 'slots']
 ThorinSlotted.args = { ...SlotComposer.args }
-ThorinSlotted.decorators = [withThorinAppearance]
+ThorinSlotted.decorators = fullWidthProfileThorinDecorators

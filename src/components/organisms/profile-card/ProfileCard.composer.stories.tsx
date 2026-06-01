@@ -86,26 +86,19 @@ const meta: Meta<ComposerArgs> = {
 
 export default meta
 
+const toRootProps = (args: ComposerArgs): ProfileCardProps => {
+  const root = { ...args } as Record<string, unknown>
+  delete root.layoutPreset
+  delete root.useCustomNameSlot
+  for (const id of PROFILE_IDENTITY_SLOT_IDS) {
+    delete root[slotArgKey(id)]
+  }
+  return root as ProfileCardProps
+}
+
 const SlotComposerStory: StoryFn<ComposerArgs> = (args) => {
-  const {
-    layoutPreset,
-    useCustomNameSlot,
-    showHeader,
-    showCardHeader,
-    showBody,
-    showAvatarRow,
-    showAvatar,
-    showConnectButton,
-    showName,
-    showStats,
-    showStatus,
-    showBioContainer,
-    showBio,
-    showSocials,
-    showFollowersYouKnow,
-    showPoaps,
-    ...rootProps
-  } = args
+  const { layoutPreset, useCustomNameSlot } = args
+  const rootProps = toRootProps(args)
 
   const preset = layoutPreset !== 'custom' ? PROFILE_SLOT_LAYOUT_PRESETS[layoutPreset] : null
   const isOn = (id: ProfileIdentitySlotId) => (preset ? preset[id] : args[slotArgKey(id)])

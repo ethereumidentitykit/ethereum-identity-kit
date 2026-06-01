@@ -1,14 +1,11 @@
 import { StoryFn, Meta } from '@storybook/react-vite'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProfileCard from './ProfileCard'
 import { Address } from '../../../types'
-import { WagmiProvider } from 'wagmi'
-import { wagmiConfig } from '../../../constants/wagmi'
-import { TransactionProvider } from '../../../context'
-import TransactionModal from '../transaction-modal/TransactionModal'
-import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
-
-const queryClient = new QueryClient()
+import {
+  profileCardThorinDecorators,
+  withProfileCardCanvas,
+  withProfileProviders,
+} from '../../../../.storybook/decorators/profileProviders'
 
 const onProfileClick = (addressOrName: Address | string) => {
   alert(addressOrName)
@@ -26,18 +23,7 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <WagmiProvider config={wagmiConfig}>
-          <TransactionProvider>
-            <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
-            <TransactionModal />
-          </TransactionProvider>
-        </WagmiProvider>
-      </QueryClientProvider>
-    ),
-  ],
+  decorators: [withProfileProviders, withProfileCardCanvas],
 } as Meta<typeof ProfileCard>
 
 const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />
@@ -178,8 +164,17 @@ ThorinAppearance.args = {
   style: { width: '420px' },
   onProfileClick,
 }
-ThorinAppearance.decorators = [withThorinAppearance]
+ThorinAppearance.decorators = profileCardThorinDecorators
 
 export const ThorinSlotted = CustomSlottedLayout.bind({})
 ThorinSlotted.tags = ['thorin', 'slots']
-ThorinSlotted.decorators = [withThorinAppearance]
+ThorinSlotted.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  showEmptySocials: true,
+  onProfileClick,
+  style: { width: '420px' },
+}
+ThorinSlotted.decorators = profileCardThorinDecorators

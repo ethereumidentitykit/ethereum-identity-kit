@@ -1,14 +1,11 @@
-import { WagmiProvider } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react-vite'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { TransactionProvider } from '../../../context'
-import TransactionModal from '../transaction-modal/TransactionModal'
-import { wagmiConfig } from '../../../constants/wagmi'
 import { Address } from '../../../types/address'
 import FullWidthProfile from './FullWidthProfile'
-import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
-
-const queryClient = new QueryClient()
+import {
+  fullWidthProfileThorinDecorators,
+  withFullWidthCanvas,
+  withProfileProviders,
+} from '../../../../.storybook/decorators/profileProviders'
 
 const onProfileClick = (addressOrName: Address | string) => {
   alert(addressOrName)
@@ -27,18 +24,7 @@ export default {
       options: ['center', 'start', 'end'],
     },
   },
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <WagmiProvider config={wagmiConfig}>
-          <TransactionProvider>
-            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
-            <TransactionModal />
-          </TransactionProvider>
-        </WagmiProvider>
-      </QueryClientProvider>
-    ),
-  ],
+  decorators: [withProfileProviders, withFullWidthCanvas],
 } as Meta<typeof FullWidthProfile>
 
 const Template: StoryFn<typeof FullWidthProfile> = (args) => <FullWidthProfile {...args} />
@@ -172,4 +158,4 @@ ThorinAppearance.args = {
   showFollowButton: true,
   onProfileClick,
 }
-ThorinAppearance.decorators = [withThorinAppearance]
+ThorinAppearance.decorators = fullWidthProfileThorinDecorators
