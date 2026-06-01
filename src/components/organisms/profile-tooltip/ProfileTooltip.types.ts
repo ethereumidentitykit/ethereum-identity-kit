@@ -27,6 +27,8 @@ export type ProfileTooltipProps = ProfileCardProps
 
 export interface ProfileTooltipWrapperProps extends ProfileTooltipProps {
   children: ReactElement
+  /** Custom tooltip panel content; defaults to ProfileTooltipCard. */
+  content?: React.ReactNode
   inline?: boolean
   verticalPlacement?: TooltipPlacement
   horizontalPlacement?: 'left' | 'right'
