@@ -159,9 +159,9 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({ metadata }) => {
                     View on Etherscan
                   </a>
                 )}
-                <button className="ens-modal-btn ens-modal-btn--primary" onClick={refetchAndEdit}>
+                <ENSRecordsButton variant="primary" onClick={refetchAndEdit}>
                   Done
-                </button>
+                </ENSRecordsButton>
               </div>
             </div>
           )}
@@ -174,13 +174,13 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({ metadata }) => {
                 <p className="ens-records-error-message">{errorMessage || 'An unknown error occurred'}</p>
               </div>
               <div className="ens-records-error-actions">
-                <b onClick={resetToEditing} className="ens-modal-btn ens-modal-btn--primary">
+                <ENSRecordsButton variant="primary" onClick={resetToEditing}>
                   Try Again
-                </b>
+                </ENSRecordsButton>
                 {onClose && (
-                  <button onClick={handleClose} className="ens-modal-btn ens-modal-btn--neutral">
+                  <ENSRecordsButton variant="neutral" onClick={handleClose}>
                     Close
-                  </button>
+                  </ENSRecordsButton>
                 )}
               </div>
             </div>
@@ -481,17 +481,17 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({ metadata }) => {
                     </button>
                   </div>
                 )}
-                <button
-                  className="ens-modal-btn ens-modal-btn--primary"
+                <ENSRecordsButton
+                  variant="primary"
                   onClick={saveRecords}
                   disabled={!hasChanges || isRoleResolving}
                 >
                   Save
-                </button>
+                </ENSRecordsButton>
                 {onClose && (
-                  <button className="ens-modal-btn ens-modal-btn--neutral" onClick={handleClose}>
+                  <ENSRecordsButton variant="neutral" onClick={handleClose}>
                     Close
-                  </button>
+                  </ENSRecordsButton>
                 )}
               </div>
             </>

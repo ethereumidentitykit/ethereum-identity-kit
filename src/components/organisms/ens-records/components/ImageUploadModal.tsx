@@ -7,6 +7,8 @@ import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import { isLinkValid } from '../../../../utils'
 import { Trash } from '../../../icons'
 import Input from '../../../atoms/input/Input'
+import { useAppearanceOptional } from '../../../../context/AppearanceContext'
+import { ENSRecordsButton } from './ENSRecordsButton'
 import '../ENSRecords.css'
 
 interface ImageUploadModalProps {
@@ -30,6 +32,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   onImageUpload,
   darkMode,
 }) => {
+  const { appearanceClassName } = useAppearanceOptional()
   const { address } = useAccount()
   const hasExistingUrl = currentValue && currentValue.startsWith('http')
   const [mode, setMode] = useState<UploadMode>(hasExistingUrl || !onImageUpload ? 'url' : 'file')
@@ -109,7 +112,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
   return (
     <div
-      className={clsx('ens-records-root ens-img-overlay', darkMode && 'dark')}
+      className={clsx('ens-records-root ens-img-overlay', appearanceClassName, darkMode && 'dark')}
       onClick={(e) => {
         e.stopPropagation()
         onClose()
@@ -189,16 +192,16 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         {errorMessage && <p className="ens-img-error">{errorMessage}</p>}
 
         <div className="ens-img-actions">
-          <button
-            className="ens-modal-btn ens-modal-btn--primary"
+          <ENSRecordsButton
+            variant="primary"
             onClick={handleUploadAndSave}
             disabled={uploadStatus === 'uploading' || (mode === 'file' && !dataURL) || (mode === 'url' && !manualUrl)}
           >
             {uploadStatus === 'uploading' ? 'Uploading...' : 'Save'}
-          </button>
-          <button className="ens-modal-btn ens-modal-btn--neutral" onClick={onClose}>
+          </ENSRecordsButton>
+          <ENSRecordsButton variant="neutral" onClick={onClose}>
             Cancel
-          </button>
+          </ENSRecordsButton>
         </div>
       </div>
     </div>
