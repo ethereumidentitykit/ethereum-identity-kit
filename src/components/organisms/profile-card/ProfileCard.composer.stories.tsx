@@ -40,7 +40,6 @@ const defaultToggleArgs = Object.fromEntries(
 
 const meta: Meta<ComposerArgs> = {
   title: 'Organisms/Profile Card',
-  component: ProfileCard,
   tags: ['slots'],
   parameters: {
     docs: {
@@ -93,7 +92,7 @@ const toRootProps = (args: ComposerArgs): ProfileCardProps => {
   for (const id of PROFILE_IDENTITY_SLOT_IDS) {
     delete root[slotArgKey(id)]
   }
-  return root as ProfileCardProps
+  return root as unknown as ProfileCardProps
 }
 
 const SlotComposerStory: StoryFn<ComposerArgs> = (args) => {
