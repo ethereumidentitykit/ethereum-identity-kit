@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import clsx from 'clsx'
 import ImageUploadModal from './ImageUploadModal'
 import { ADDRESS_LABELS, DEFAULT_FALLBACK_AVATAR, DEFAULT_FALLBACK_HEADER, SOCIAL_RECORDS } from '../../../../constants'
@@ -84,12 +84,15 @@ const RecordsContainer: React.FC<RecordsContainerProps> = ({
       : `${ENS_METADATA_URL}/mainnet/header/${name}`
     : DEFAULT_FALLBACK_HEADER
 
-  const handleImageSave = (url: string) => {
-    if (imageUploadTarget) {
-      setRecord(imageUploadTarget, url)
-      setImageUploadTarget(null)
-    }
-  }
+  const handleImageSave = useCallback(
+    (url: string) => {
+      if (imageUploadTarget) {
+        setRecord(imageUploadTarget, url)
+        setImageUploadTarget(null)
+      }
+    },
+    [imageUploadTarget, setRecord, setImageUploadTarget]
+  )
 
   const handleClose = () => {
     onClose?.()

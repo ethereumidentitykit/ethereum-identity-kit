@@ -1,4 +1,4 @@
-import { createConfig } from 'wagmi'
+import { createConfig, useSignTypedData } from 'wagmi'
 import { StoryFn, Meta } from '@storybook/react'
 import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ import { ENSRecordsProps } from './ENSRecords.types'
 import ENSRecords from './ENSRecords'
 import { CSSProperties, useState } from 'react'
 import Input from '../../atoms/input/Input'
+import { sha256 } from 'viem'
 
 const config = createConfig({
   chains: [mainnet, base, optimism],
@@ -31,29 +32,104 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
   const { address: connectedAddress } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+  const { signTypedDataAsync } = useSignTypedData()
 
   const containerStyle = args.isModal
     ? ({
-        width: '100%',
-        height: '100dvh',
-        padding: '20px',
-        paddingBottom: '0px',
-        display: open ? 'flex' : 'none',
-        justifyContent: 'center',
-        position: 'fixed',
-        overflow: 'scroll',
-        top: 0,
-        left: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1000,
-      } as CSSProperties)
+      width: '100%',
+      height: '100dvh',
+      padding: '20px',
+      paddingBottom: '0px',
+      display: open ? 'flex' : 'none',
+      justifyContent: 'center',
+      position: 'fixed',
+      overflow: 'scroll',
+      top: 0,
+      left: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      zIndex: 1000,
+    } as CSSProperties)
     : undefined
 
   const handleClose = args.isModal
     ? () => {
-        setOpen(false)
-      }
+      setOpen(false)
+    }
     : undefined
+
+
+  //////////////////////////////////////////////////////////////
+  // EthID function for uploading images
+  // 
+  // use if you don't 
+
+  // turn image data URL to bytes
+  const dataURLToBytes = (dataUrl: string): Uint8Array => {
+    const base64 = dataUrl.split(',')[1]
+    const binary = atob(base64)
+    const bytes = new Uint8Array(binary.length)
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i)
+    }
+    return bytes
+  }
+
+  // Upload to EtthID Image Service
+  const handleImageUpload = async (dataURL: string, type: 'avatar' | 'header') => {
+    try {
+      const urlHash = sha256(dataURLToBytes(dataURL))
+      const expiry = `${Date.now() + 1000 * 60 * 60 * 24 * 7}` // 7 days
+
+      const sig = await signTypedDataAsync({
+        primaryType: 'Upload',
+        domain: { name: 'Ethereum Name Service', version: '1' },
+        types: {
+          Upload: [
+            { name: 'upload', type: 'string' },
+            { name: 'expiry', type: 'string' },
+            { name: 'name', type: 'string' },
+            { name: 'hash', type: 'string' },
+          ],
+        },
+        message: {
+          upload: type,
+          expiry,
+          name,
+          hash: urlHash,
+        },
+      })
+
+      const response = await fetch(`https://eidk.me/${name}${type === 'header' ? '/h' : ''}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          expiry,
+          dataURL,
+          sig,
+          unverifiedAddress: connectedAddress,
+        }),
+      })
+
+      if (!response.ok) {
+        if (response.status === 413) {
+          throw new Error('File size is too large (max 500KB)')
+        }
+        if (response.status === 415) {
+          throw new Error('Unsupported file type. Use JPG/JPEG.')
+        }
+        throw new Error(`Upload failed: ${response.statusText}`)
+      }
+
+      const result = await response.json()
+      const url = result.url || `https://euc.li/${name}${type === 'header' ? '/h' : ''}`
+
+      return url
+    } catch (err: unknown) {
+      throw new Error(err instanceof Error ? err.message : 'Upload failed')
+    }
+  }
 
   return (
     <div
@@ -132,7 +208,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
           defaultTab={args.defaultTab}
           onClose={handleClose}
           darkMode={args.darkMode}
-          onImageUpload={args.onImageUpload}
+          onImageUpload={handleImageUpload}
           style={args.style}
         />
       </div>

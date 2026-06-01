@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useRef } from 'react'
 import clsx from 'clsx'
-import { useAccount, useSignTypedData } from 'wagmi'
+import { useAccount } from 'wagmi'
 import TabSelector from '../../../atoms/tab-selector/TabSelector'
 import { isLinkValid } from '../../../../utils'
 import { Trash } from '../../../icons'
@@ -23,7 +23,6 @@ type UploadMode = 'file' | 'url'
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error'
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
-  name,
   imageType,
   currentValue,
   onSave,
@@ -32,8 +31,6 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   darkMode,
 }) => {
   const { address } = useAccount()
-  const { signTypedDataAsync } = useSignTypedData()
-
   const hasExistingUrl = currentValue && currentValue.startsWith('http')
   const [mode, setMode] = useState<UploadMode>(hasExistingUrl || !onImageUpload ? 'url' : 'file')
   const [dataURL, setDataURL] = useState<string | null>(null)
@@ -89,23 +86,11 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
     else setPreviewUrl(null)
   }, [])
 
-  const dataURLToBytes = useCallback((dataUrl: string): Uint8Array => {
-    const base64 = dataUrl.split(',')[1]
-    const binary = atob(base64)
-    const bytes = new Uint8Array(binary.length)
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i)
-    }
-    return bytes
-  }, [])
-
   const handleUploadAndSave = useCallback(async () => {
     if (!address) return
 
     if (mode === 'url') {
-      if (manualUrl) {
-        onSave(manualUrl)
-      }
+      if (manualUrl) onSave(manualUrl)
       return
     }
 
@@ -120,64 +105,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       setUploadStatus('error')
       setErrorMessage(err instanceof Error ? err.message : 'Upload failed')
     }
-
-    // setUploadStatus('uploading')
-    // setErrorMessage(null)
-
-    // try {
-    //   const urlHash = bytesToHex(sha256(dataURLToBytes(dataURL)))
-    //   const expiry = `${Date.now() + 1000 * 60 * 60 * 24 * 7}` // 7 days
-
-    //   const sig = await signTypedDataAsync({
-    //     primaryType: 'Upload',
-    //     domain: { name: 'Ethereum Name Service', version: '1' },
-    //     types: {
-    //       Upload: [
-    //         { name: 'upload', type: 'string' },
-    //         { name: 'expiry', type: 'string' },
-    //         { name: 'name', type: 'string' },
-    //         { name: 'hash', type: 'string' },
-    //       ],
-    //     },
-    //     message: {
-    //       upload: imageType,
-    //       expiry,
-    //       name,
-    //       hash: urlHash,
-    //     },
-    //   })
-
-    //   const response = await fetch(`https://euc.li/${name}${imageType === 'header' ? '/h' : ''}`, {
-    //     method: 'PUT',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       expiry,
-    //       dataURL,
-    //       sig,
-    //       unverifiedAddress: address,
-    //     }),
-    //   })
-
-    //   if (!response.ok) {
-    //     if (response.status === 413) {
-    //       setErrorMessage('File size is too large (max 500KB)')
-    //     }
-    //     if (response.status === 415) {
-    //       setErrorMessage('Unsupported file type. Use JPG/JPEG.')
-    //     }
-    //     throw new Error(`Upload failed: ${response.statusText}`)
-    //   }
-
-    //   const result = await response.json()
-    //   const url = result.url || `https://euc.li/${name}${imageType === 'header' ? '/h' : ''}`
-
-    //   setUploadStatus('success')
-    //   onSave(url)
-    // } catch (err: unknown) {
-    //   setUploadStatus('error')
-    //   setErrorMessage(err instanceof Error ? err.message : 'Upload failed')
-    // }
-  }, [address, mode, manualUrl, dataURL, signTypedDataAsync, imageType, name, onSave, dataURLToBytes])
+  }, [address, mode, manualUrl, dataURL, onImageUpload, onSave])
 
   return (
     <div

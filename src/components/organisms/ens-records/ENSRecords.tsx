@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ENSRecordsProps } from './ENSRecords.types'
 import { fetchNameMetadata, formatNameMetadata } from '../../../utils'
@@ -16,12 +17,17 @@ const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onC
     enabled: !!name,
   })
 
-  const metadataRecords = metadata?.reduce(
-    (acc, row) => {
-      acc[row.label] = row.value
-      return acc
-    },
-    {} as Record<string, string>
+  // Memoize records so when uploading images it does not re-render the component (especially )
+  const metadataRecords = useMemo(
+    () =>
+      metadata?.reduce(
+        (acc, row) => {
+          acc[row.label] = row.value
+          return acc
+        },
+        {} as Record<string, string>
+      ),
+    [metadata]
   )
 
   return (
