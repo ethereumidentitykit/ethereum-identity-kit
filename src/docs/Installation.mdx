@@ -1,0 +1,65 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Getting Started/Installation" tags={['!autodocs']} />
+
+# Installation
+
+Ethereum Identity Kit is a React component library for the Ethereum identity stack (ENS, EFP, SIWE). See the [full installation docs](https://ethidentitykit.com/docs) for framework-specific notes.
+
+## Install
+
+```bash
+npm install ethereum-identity-kit wagmi viem@2.x @tanstack/react-query
+```
+
+## Setup providers
+
+Library uses [TanStack Query](https://tanstack.com/query) for data fetching, [Wagmi](https://wagmi.sh/) for wallet connection and onchain transactions, and a [Transaction provider](https://ethidentitykit.com/docs/transaction-provider) for follow flows.
+
+```tsx
+import { WagmiProvider } from 'wagmi'
+import { wagmiConfig } from '#/lib/wagmi'
+import { TransactionProvider } from 'ethereum-identity-kit'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+export default function App({ Component, pageProps }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={wagmiConfig}>
+        <TransactionProvider>
+          <Component {...pageProps} />
+        </TransactionProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
+  )
+}
+```
+
+## Apply styles
+
+```tsx
+import 'ethereum-identity-kit/css'
+```
+
+Components adapt to a `dark` className on a parent element for dark mode.
+
+## First component
+
+```tsx
+import { ProfileCard } from 'ethereum-identity-kit'
+
+export default function Home() {
+  return <ProfileCard addressOrName="vitalik.eth" />
+}
+```
+
+## Troubleshooting
+
+**`cannot use import statement outside a module`**
+
+- **Next.js:** add `transpilePackages: ['ethereum-identity-kit']` to `next.config.mjs`
+- **Vite:** add `ssr: { noExternal: ['ethereum-identity-kit'] }` to `vite.config.ts`
+
+[Report an issue](https://github.com/ethereumidentitykit/ethereum-identity-kit/issues) · [View live playground](https://playground.ethidentitykit.com)

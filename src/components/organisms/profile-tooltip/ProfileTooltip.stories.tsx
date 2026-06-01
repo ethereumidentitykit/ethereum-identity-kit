@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ProfileTooltip from './ProfileTooltip'
 import { Address } from '../../../types'
@@ -8,6 +8,7 @@ import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { ProfileTooltipWrapperProps } from './ProfileTooltip.types'
 import FollowersAndFollowing from '../followers-and-following/FollowersAndFollowing'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -29,7 +30,7 @@ export default {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <TransactionProvider>
-            {Story()}
+            <Story />
             <TransactionModal />
           </TransactionProvider>
         </WagmiProvider>
@@ -131,3 +132,14 @@ IncludeGrailsData.args = {
   addressOrName: 'vitalik.eth',
   includeGrails: true,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  onProfileClick,
+}
+ThorinAppearance.decorators = [withThorinAppearance]

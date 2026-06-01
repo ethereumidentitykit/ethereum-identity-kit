@@ -1,0 +1,57 @@
+{
+  "strictness": 2,
+  "commentTypes": ["logic", "syntax", "info"],
+  "triggerOnUpdates": true,
+  "ignorePatterns": "dist/**\nstorybook-static/**\nnode_modules/**\n**/*.generated.*\npackage-lock.json",
+  "instructions": "ethereum-identity-kit is a published React component library (ENS/EFP identity UI). Consumers import `ethereum-identity-kit`, `ethereum-identity-kit/elements`, `ethereum-identity-kit/thorin`, `ethereum-identity-kit/css`, and `ethereum-identity-kit/utils`. Default styling uses CSS variables in src/styles/colors.css; Thorin is opt-in via ethereum-identity-kit/thorin and ethereum-identity-kit/css/thorin. ProfileCard supports a composable slot API under ethereum-identity-kit/elements. Peer deps: react, react-dom, @tanstack/react-query, wagmi, viem; optional @ensdomains/thorin + styled-components for Thorin. Treat any change to public exports, prop types, translation keys, CSS custom property names, or package.json exports as a potential semver-breaking change unless clearly internal.",
+  "rules": [
+    {
+      "id": "breaking-api-export",
+      "rule": "Flag as a HIGH-PRIORITY breaking change if this PR removes, renames, or narrows any symbol exported from src/index.ts, src/elements/index.ts, src/thorin/index.ts, or listed in package.json \"exports\". Call out the exact export path (e.g. ethereum-identity-kit/elements) and suggest a major version bump or migration note.",
+      "scope": ["src/index.ts", "src/elements/index.ts", "src/thorin/index.ts", "package.json"],
+      "severity": "high"
+    },
+    {
+      "id": "breaking-component-props",
+      "rule": "Flag as breaking if a public component's props type removes a prop, renames a prop, makes a previously optional prop required, or changes a prop's type in a way that breaks existing callers. Affected areas: src/components/**/*.types.ts and exported component prop types re-exported from src/index.ts.",
+      "scope": ["src/components/**/*.types.ts", "src/index.ts"],
+      "severity": "high"
+    },
+    {
+      "id": "breaking-translation-keys",
+      "rule": "Flag as breaking if translation keys in src/types/translations.ts or locale JSON under src/translations/ are renamed or removed. Consumers may pass custom translation maps keyed by TranslationKey.",
+      "scope": ["src/types/translations.ts", "src/translations/**"],
+      "severity": "high"
+    },
+    {
+      "id": "breaking-css-tokens",
+      "rule": "Flag as breaking if CSS custom properties prefixed with --ethereum-identity-kit- are renamed or removed in src/styles/colors.css or src/styles/themes/thorin.css (including regenerated thorin.css). Mention that consumers may depend on these tokens.",
+      "scope": ["src/styles/**"],
+      "severity": "high"
+    },
+    {
+      "id": "breaking-peer-deps",
+      "rule": "Flag as breaking if package.json peerDependencies or peerDependenciesMeta change required peers, tighten version ranges incompatibly, or move an optional peer to required without documenting migration.",
+      "scope": ["package.json"],
+      "severity": "high"
+    },
+    {
+      "id": "rollup-subpath-bundle",
+      "rule": "If rollup.config.js changes how subpath bundles (elements, thorin) externalize or duplicate shared modules (e.g. AppearanceContext), verify consumers loading multiple entry points still share one React context instance. Flag if the change could cause duplicate context or broken Thorin appearance.",
+      "scope": ["rollup.config.js"],
+      "severity": "medium"
+    },
+    {
+      "id": "profile-card-slots",
+      "rule": "ProfileCard slot components under src/components/organisms/profile-card/slots/ use Slottable/asChild patterns. asChild must only merge onto host DOM elements; fragments and custom components should fall back to a wrapper. Do not reintroduce unconditional React.cloneElement on arbitrary children in AppearanceProvider.",
+      "scope": ["src/components/organisms/profile-card/**", "src/context/AppearanceContext.tsx", "src/components/primitives/**"],
+      "severity": "medium"
+    },
+    {
+      "id": "storybook-only",
+      "rule": "Changes under .storybook/ or *.stories.tsx / *.mdx are Storybook-only unless they alter published exports. Do not flag as breaking API unless they change src/ public surface.",
+      "scope": [".storybook/**", "**/*.stories.tsx", "**/*.mdx"],
+      "severity": "low"
+    }
+  ]
+}

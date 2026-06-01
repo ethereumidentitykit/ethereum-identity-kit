@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 import { TranslationProvider } from '../src/context/TranslationContext'
 import '../src/styles/colors.css'
 
@@ -21,8 +21,42 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    docs: {
+      toc: true,
+    },
+    github: {
+      repository: 'ethereumidentitykit/ethereum-identity-kit',
+      branch: 'main',
+    },
+    options: {
+      storySort: {
+        order: [
+          'Welcome',
+          ['Introduction'],
+          'Getting Started',
+          ['Installation'],
+          'Guides',
+          ['Thorin Appearance'],
+          'Organisms',
+          'Molecules',
+          'Atoms',
+        ],
+      },
+    },
   },
   globalTypes: {
+    theme: {
+      description: 'Thorin appearance theme',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+        ],
+      },
+    },
     language: {
       description: 'Language for component translations',
       defaultValue: 'en',

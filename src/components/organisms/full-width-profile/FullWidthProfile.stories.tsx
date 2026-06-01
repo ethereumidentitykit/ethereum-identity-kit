@@ -1,13 +1,11 @@
-import { WagmiProvider } from 'wagmi'
-import { StoryFn, Meta } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { TransactionProvider } from '../../../context'
-import TransactionModal from '../transaction-modal/TransactionModal'
-import { wagmiConfig } from '../../../constants/wagmi'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import { Address } from '../../../types/address'
 import FullWidthProfile from './FullWidthProfile'
-
-const queryClient = new QueryClient()
+import {
+  fullWidthProfileThorinDecorators,
+  withFullWidthCanvas,
+  withProfileProviders,
+} from '../../../../.storybook/decorators/profileProviders'
 
 const onProfileClick = (addressOrName: Address | string) => {
   alert(addressOrName)
@@ -26,18 +24,7 @@ export default {
       options: ['center', 'start', 'end'],
     },
   },
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <WagmiProvider config={wagmiConfig}>
-          <TransactionProvider>
-            <div style={{ padding: '0px', fontFamily: 'Inter, sans-serif' }}>{Story()}</div>
-            <TransactionModal />
-          </TransactionProvider>
-        </WagmiProvider>
-      </QueryClientProvider>
-    ),
-  ],
+  decorators: [withProfileProviders, withFullWidthCanvas],
 } as Meta<typeof FullWidthProfile>
 
 const Template: StoryFn<typeof FullWidthProfile> = (args) => <FullWidthProfile {...args} />
@@ -161,3 +148,14 @@ PrefetchedData.args = {
   showEmptySocials: true,
   showFollowButton: false,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  onProfileClick,
+}
+ThorinAppearance.decorators = fullWidthProfileThorinDecorators

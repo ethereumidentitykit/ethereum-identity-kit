@@ -1,5 +1,5 @@
 import { createConfig } from 'wagmi'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
@@ -9,6 +9,7 @@ import FollowButton from './FollowButton'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { transports } from '../../../constants/transports'
 import { FollowButtonProps } from './FollowButton.types'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const config = createConfig({
   chains: [mainnet, base, optimism],
@@ -228,6 +229,17 @@ ForceState.args = {
     window.alert(state)
   },
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  lookupAddress: '0x983110309620d911731ac0932219af06091b6744',
+  darkMode: false,
+  batchTransactions: false,
+  initialState: 'Follow',
+  showRecommendations: true,
+}
+ThorinAppearance.decorators = [withThorinAppearance]
 
 // export const FollowButtonCustomClassNames = Template.bind({})
 // FollowButtonCustomClassNames.args = {

@@ -2,11 +2,13 @@ name: Publish to NPM
 
 on:
   push:
-    branches: main
+    branches: [main]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_LEGACY_PEER_DEPS: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3

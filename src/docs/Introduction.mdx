@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import LinkTo from '@storybook/addon-links/react'
+
+<Meta title="Welcome/Introduction" tags={['!autodocs']} />
+
+# Ethereum Identity Kit
+
+Live component demos for the [Ethereum Identity Kit](https://ethidentitykit.com) — ENS profiles, EFP follow state, social graphs, and wallet-aware UI.
+
+**Live playground:** [playground.ethidentitykit.com](https://playground.ethidentitykit.com)  
+**Full docs:** [ethidentitykit.com/docs](https://ethidentitykit.com/docs)
+
+## Quick links
+
+- [Installation guide](?path=/docs/getting-started-installation--docs)
+- [Thorin appearance](?path=/docs/guides-thorin-appearance--docs)
+
+## Highlights
+
+### Profile Card
+
+- <LinkTo kind="Organisms/Profile Card" story="ByENS">Default — ENS name</LinkTo>
+- <LinkTo kind="Organisms/Profile Card" story="CustomSlottedLayout">Composable slots API</LinkTo>
+- <LinkTo kind="Organisms/Profile Card" story="ThorinAppearance">Thorin appearance</LinkTo>
+
+### Full-width profile
+
+- <LinkTo kind="Organisms/Full Width Profile" story="ByENSName">Default profile</LinkTo>
+- <LinkTo kind="Organisms/Full Width Profile" story="ThorinAppearance">Thorin appearance</LinkTo>
+
+### Follow & social
+
+- <LinkTo kind="Organisms/Follow Button & Transaction Modal" story="InitialState">Follow button</LinkTo>
+- <LinkTo kind="Organisms/Followers And Following Table" story="ByAddress">Followers & following</LinkTo>
+- <LinkTo kind="Organisms/Notifications" story="NotificationsByAddress">Notifications</LinkTo>
+
+## Appearances
+
+<table>
+  <thead>
+    <tr>
+      <th>Appearance</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Default</strong></td>
+      <td>EIK styling out of the box — no extra providers</td>
+    </tr>
+    <tr>
+      <td><strong>Thorin</strong></td>
+      <td>
+        Opt-in <a href="https://thorin.ens.domains/">ENS Thorin</a> via{' '}
+        <code>EthereumIdentityKitThorinProvider</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Stories tagged **Thorin** in the sidebar use the Thorin provider decorator.
+
+## Running locally
+
+```bash
+npm run install:deps
+npm run storybook
+```
+
+Stories that touch on-chain data wrap components with **Wagmi**, **TanStack Query**, and the **Transaction provider** — same as a real app integration.

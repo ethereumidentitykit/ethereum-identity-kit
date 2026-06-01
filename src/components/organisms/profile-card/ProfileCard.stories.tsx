@@ -1,13 +1,11 @@
-import { StoryFn, Meta } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { StoryFn, Meta } from '@storybook/react-vite'
 import ProfileCard from './ProfileCard'
 import { Address } from '../../../types'
-import { WagmiProvider } from 'wagmi'
-import { wagmiConfig } from '../../../constants/wagmi'
-import { TransactionProvider } from '../../../context'
-import TransactionModal from '../transaction-modal/TransactionModal'
-
-const queryClient = new QueryClient()
+import {
+  profileCardThorinDecorators,
+  withProfileCardCanvas,
+  withProfileProviders,
+} from '../../../../.storybook/decorators/profileProviders'
 
 const onProfileClick = (addressOrName: Address | string) => {
   alert(addressOrName)
@@ -16,18 +14,16 @@ const onProfileClick = (addressOrName: Address | string) => {
 export default {
   title: 'Organisms/Profile Card',
   component: ProfileCard,
-  decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <WagmiProvider config={wagmiConfig}>
-          <TransactionProvider>
-            <div style={{ padding: '20px', backgroundColor: '#AAAAAA' }}>{Story()}</div>
-            <TransactionModal />
-          </TransactionProvider>
-        </WagmiProvider>
-      </QueryClientProvider>
-    ),
-  ],
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Compact identity card for an address, ENS name, or EFP list. Supports the composable `ProfileCard.*` slot API and optional Thorin appearance.',
+      },
+    },
+  },
+  decorators: [withProfileProviders, withProfileCardCanvas],
 } as Meta<typeof ProfileCard>
 
 const Template: StoryFn<typeof ProfileCard> = (args) => <ProfileCard {...args} />
@@ -126,3 +122,59 @@ PrefetchedData.args = {
   showFollowButton: false,
   hasCommonFollowersModal: true,
 }
+
+export const CustomSlottedLayout = Template.bind({})
+CustomSlottedLayout.tags = ['slots', 'new']
+CustomSlottedLayout.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  style: { width: '420px' },
+}
+CustomSlottedLayout.render = (args) => (
+  <ProfileCard.Root {...args}>
+    <ProfileCard.Header />
+    <ProfileCard.Body>
+      <ProfileCard.AvatarRow />
+      <ProfileCard.Name asChild>
+        <h2 style={{ margin: '8px 0', fontSize: '24px', fontWeight: 700 }} />
+      </ProfileCard.Name>
+      <ProfileCard.Stats>
+        {({ followers, following }) => (
+          <div style={{ display: 'flex', gap: '16px', fontSize: '14px' }}>
+            <span>{followers} followers</span>
+            <span>{following} following</span>
+          </div>
+        )}
+      </ProfileCard.Stats>
+      <ProfileCard.BioContainer>
+        <ProfileCard.Bio />
+        <ProfileCard.Socials />
+      </ProfileCard.BioContainer>
+    </ProfileCard.Body>
+  </ProfileCard.Root>
+)
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  style: { width: '420px' },
+  onProfileClick,
+}
+ThorinAppearance.decorators = profileCardThorinDecorators
+
+export const ThorinSlotted = CustomSlottedLayout.bind({})
+ThorinSlotted.tags = ['thorin', 'slots']
+ThorinSlotted.args = {
+  addressOrName: 'encrypteddegen.eth',
+  connectedAddress: '0x983110309620d911731ac0932219af06091b6744',
+  showFollowerState: true,
+  showFollowButton: true,
+  showEmptySocials: true,
+  onProfileClick,
+  style: { width: '420px' },
+}
+ThorinSlotted.decorators = profileCardThorinDecorators

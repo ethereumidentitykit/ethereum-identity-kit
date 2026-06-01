@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { useTransactions } from '../../../context'
 import { useTranslation } from '../../../context/TranslationContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultModal } from '../../primitives/default'
 import { Cross } from '../../icons'
 import Cart from './components/cart'
 import Steps from './components/steps'
@@ -47,6 +49,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
     batchTransactions,
     resetTransactions,
   } = useTransactions()
+  const Modal = useResolvedComponent('Modal', DefaultModal)
 
   if (!txModalOpen) return null
 
@@ -67,46 +70,47 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   }
 
   return (
-    <div
-      className={clsx('transaction-modal-backdrop', darkMode && 'dark')}
-      style={{ display: txModalOpen ? 'flex' : 'none' }}
-      onClick={onClose}
+    <Modal
+      overlayClassName={clsx('transaction-modal-backdrop', darkMode && 'dark')}
+      overlayStyle={{ display: txModalOpen ? 'flex' : 'none' }}
+      onOverlayClick={onClose}
+      containerClassName={clsx(
+        'transaction-modal-container',
+        changesOpen && 'changes-open',
+        showRecommendations && 'show-recommendations',
+        className
+      )}
+      {...props}
+      overlayChildren={
+        <>
+          {cancelModalOpen && (
+            <CancelModal
+              title={t('modal.cancelTransactions.title')}
+              description={t('modal.cancelTransactions.description')}
+              confirmButtonText={t('modal.cancelTransactions.confirm')}
+              onCancel={() => setCancelModalOpen(false)}
+              onConfirm={() => {
+                resetTransactions()
+                setCancelModalOpen(false)
+              }}
+            />
+          )}
+          {clearCartModalOpen && (
+            <CancelModal
+              title={t('cart.clearCart')}
+              description={t('cart.clearCart.description')}
+              confirmButtonText={t('cart.clearCart')}
+              onCancel={() => setClearCartModalOpen(false)}
+              onConfirm={() => {
+                resetTransactions(true)
+                setClearCartModalOpen(false)
+              }}
+            />
+          )}
+        </>
+      }
     >
-      {cancelModalOpen && (
-        <CancelModal
-          title={t('modal.cancelTransactions.title')}
-          description={t('modal.cancelTransactions.description')}
-          confirmButtonText={t('modal.cancelTransactions.confirm')}
-          onCancel={() => setCancelModalOpen(false)}
-          onConfirm={() => {
-            resetTransactions()
-            setCancelModalOpen(false)
-          }}
-        />
-      )}
-      {clearCartModalOpen && (
-        <CancelModal
-          title={t('cart.clearCart')}
-          description={t('cart.clearCart.description')}
-          confirmButtonText={t('cart.clearCart')}
-          onCancel={() => setClearCartModalOpen(false)}
-          onConfirm={() => {
-            resetTransactions(true)
-            setClearCartModalOpen(false)
-          }}
-        />
-      )}
-      <div
-        className={clsx(
-          'transaction-modal-container',
-          changesOpen && 'changes-open',
-          showRecommendations && 'show-recommendations',
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-        {...props}
-      >
-        {listsLoading ? (
+      {listsLoading ? (
           <div className="transaction-modal-loading-spinner" />
         ) : (
           <>
@@ -136,8 +140,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             </div>
           </>
         )}
-      </div>
-    </div>
+    </Modal>
   )
 }
 

@@ -9,6 +9,27 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 
 const packageJson = require('./package.json')
 
+const appearanceContextExternal = () => ({
+  name: 'externalize-appearance-context',
+  resolveId(source) {
+    if (/AppearanceContext(\.tsx|\.ts)?$/.test(source)) {
+      return { id: 'ethereum-identity-kit', external: true }
+    }
+    return null
+  },
+})
+
+const sharedSubpathExternals = [
+  'react',
+  'react-dom',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
+  '@tanstack/react-query',
+  'wagmi',
+  'viem',
+  'ethereum-identity-kit',
+]
+
 export default [
   {
     input: 'src/index.ts',
@@ -35,7 +56,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
       postcss({
         extract: true,
@@ -56,7 +77,17 @@ export default [
   {
     input: 'src/index.ts',
     output: [{ file: 'dist/types.d.ts', format: 'esm' }],
-    plugins: [dts.default(), postcss({ extract: true, minimize: true })],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
+  },
+  {
+    input: 'src/elements/index.ts',
+    output: [{ file: 'dist/elements/index.d.ts', format: 'esm' }],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
+  },
+  {
+    input: 'src/thorin/index.ts',
+    output: [{ file: 'dist/thorin/index.d.ts', format: 'esm' }],
+    plugins: [dts.default({ tsconfig: './tsconfig.build.json' }), postcss({ extract: true, minimize: true })],
   },
   {
     input: 'src/utils/index.ts',
@@ -74,7 +105,7 @@ export default [
         include: /node_modules/,
         requireReturnsDefault: 'auto',
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
       terser(),
     ],
     external: [
@@ -85,6 +116,77 @@ export default [
       '@tanstack/react-query',
       'wagmi',
       'viem',
+    ],
+  },
+  {
+    input: 'src/elements/index.ts',
+    output: [
+      { file: 'dist/esm/elements/index.js', format: 'esm', sourcemap: true },
+      { file: 'dist/cjs/elements/index.js', format: 'cjs', interop: 'auto', sourcemap: true },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      appearanceContextExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
+      terser(),
+      postcss({
+        inject: false,
+        extract: false,
+        minimize: true,
+      }),
+      image(),
+    ],
+    external: sharedSubpathExternals,
+  },
+  {
+    input: 'src/thorin/index.ts',
+    output: [
+      { file: 'dist/esm/thorin/index.js', format: 'esm', sourcemap: true },
+      { file: 'dist/cjs/thorin/index.js', format: 'cjs', interop: 'auto', sourcemap: true },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      appearanceContextExternal(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: false,
+      }),
+      commonjs({
+        include: /node_modules/,
+        requireReturnsDefault: 'auto',
+      }),
+      typescript({ tsconfig: './tsconfig.build.json' }),
+      terser(),
+      postcss({
+        inject: false,
+        extract: false,
+        minimize: true,
+      }),
+      image(),
+    ],
+    external: [
+      ...sharedSubpathExternals,
+      '@ensdomains/thorin',
+      'styled-components',
+      'react-transition-state',
+    ],
+  },
+  {
+    input: 'src/styles/themes/thorin.css',
+    output: [{ file: 'dist/esm/themes/thorin.css', format: 'es' }],
+    plugins: [
+      postcss({
+        extract: true,
+        minimize: true,
+      }),
     ],
   },
 ]

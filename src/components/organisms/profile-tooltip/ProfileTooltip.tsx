@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { clsx } from 'clsx'
-import ProfileCard from './ProfileTooltipCard'
+import ProfileTooltipCard from './ProfileTooltipCard'
 import { useTooltipPosition } from '../../../hooks'
 import { ProfileTooltipWrapperProps } from './ProfileTooltip.types'
 import './ProfileTooltip.css'
@@ -36,6 +36,7 @@ const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
   flipBehavior = 'flip',
   boundary = 'viewport',
   keepTooltipOnHover = true,
+  content,
   ...profileCardProps
 }) => {
   const triggerRef = useRef<HTMLDivElement>(null)
@@ -166,7 +167,7 @@ const ProfileTooltip: React.FC<ProfileTooltipWrapperProps> = ({
             transform: isVisible ? 'scale(1)' : 'scale(0.95)',
           }}
         >
-          <ProfileCard {...profileCardProps} />
+          {content ?? <ProfileTooltipCard {...profileCardProps} />}
           {showArrow && (
             <div
               className={clsx('profile-tooltip-arrow', `profile-tooltip-arrow--${actualPlacement}`)}

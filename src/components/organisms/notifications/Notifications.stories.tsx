@@ -7,6 +7,7 @@ import { wagmiConfig } from '../../../constants/wagmi'
 import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import { CSSProperties } from 'react'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -128,3 +129,13 @@ NotificationsByENSName.args = {
   align: 'bottom',
   darkMode: false,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  addressOrName: 'brantly.eth',
+  position: 'right',
+  align: 'bottom',
+  darkMode: false,
+}
+ThorinAppearance.decorators = [withThorinAppearance]

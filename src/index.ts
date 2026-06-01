@@ -75,7 +75,27 @@ export {
 } from './utils'
 
 // Context
-export { TransactionProvider, useTransactions, TranslationProvider, useTranslation } from './context'
+export {
+  TransactionProvider,
+  useTransactions,
+  TranslationProvider,
+  useTranslation,
+  AppearanceProvider,
+  useAppearance,
+  useAppearanceOptional,
+} from './context'
+export type {
+  AppearanceProviderProps,
+  AppearanceContextValue,
+  AppearancePreset,
+  ComponentRegistryKey,
+  ComponentRegistryMap,
+  ComponentRegistryOverrides,
+  EIKButtonProps,
+  EIKCardProps,
+  EIKModalProps,
+  EIKTypographyProps,
+} from './context'
 
 // Constants
 export {
@@ -155,6 +175,7 @@ export {
   EFPPoaps,
   ProfileTooltip,
   SignInButton,
+  ENSRecords,
   Input,
   Textarea,
   TabSelector,
@@ -228,6 +249,7 @@ export type {
   SignInWithEthereumProps,
   ProfileTooltipProps,
   SignInButtonProps,
+  ENSRecordsProps,
   InputProps,
   TextareaProps,
   TabSelectorProps,

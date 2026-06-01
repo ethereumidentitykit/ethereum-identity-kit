@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import React, { LegacyRef, useState } from 'react'
 import { useOutsideClick, useNotifications } from '../../../hooks'
 import { useTranslation } from '../../../context/TranslationContext'
+import { useResolvedComponent } from '../../primitives/resolveComponent'
+import { DefaultButton } from '../../primitives/default'
 import Bell from '../../icons/ui/Bell'
 import NotificationItemLoading from './components/loading-item'
 import NotificationItem, { NotificationItemAction } from './components/notification-item'
@@ -38,6 +40,7 @@ const Notifications: React.FC<NotificationsProps> = ({
   const clickAwayRef = useOutsideClick(() => {
     setIsOpen(false)
   })
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
 
   const allPages = Math.ceil(
     (notifications?.flatMap((item) => Object.values(item.notifications).filter((value) => !!value && value.length > 0))
@@ -127,15 +130,15 @@ const Notifications: React.FC<NotificationsProps> = ({
           )}
           {allPages > 1 && (
             <div className="notifications-page-selector">
-              <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+              <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
                 <ShortArrow style={{ transform: 'rotate(-90deg)', height: 16, width: 16 }} />
-              </button>
+              </Button>
               <p>
                 {page} / {allPages}
               </p>
-              <button onClick={() => setPage(page + 1)} disabled={page === allPages}>
+              <Button onClick={() => setPage(page + 1)} disabled={page === allPages}>
                 <ShortArrow style={{ transform: 'rotate(90deg)', height: 16, width: 16 }} />
-              </button>
+              </Button>
             </div>
           )}
         </div>

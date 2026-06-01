@@ -3,7 +3,7 @@ import { TranslationKey } from '../types'
 export const defaultTranslations: Record<TranslationKey, string> = {
   signInWithEthereum: 'Sign in with Ethereum',
   signingMessage: 'Signing Message...',
-  singingIn: 'Signing in...',
+  signingIn: 'Signing in...',
   signIn: 'Sign in',
   connect: 'Connect',
   disconnect: 'Disconnect',

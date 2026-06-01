@@ -4,6 +4,8 @@ import { useOutsideClick } from '../../../../hooks'
 import { useTranslation } from '../../../../context'
 import { formatNumber } from '../../../../utils'
 import LoadingCell from '../../../atoms/loading-cell/LoadingCell'
+import { useResolvedComponent } from '../../../primitives/resolveComponent'
+import { DefaultButton } from '../../../primitives/default'
 import { Check, Cross, MagnifyingGlass, ShortArrow, Tag } from '../../../icons'
 import { QUERY_BLOCK_TAGS, SORT_OPTIONS } from '../../../../constants'
 import { FollowSortType, ProfileTabType, TagCountType } from '../../../../types'
@@ -52,6 +54,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
   const clickAwaySearchRef = useOutsideClick(() => {
     setShowSearch(false)
   })
+  const Button = useResolvedComponent('Button', DefaultButton) as typeof DefaultButton
 
   const displayedTags = showOnlyBlocked
     ? QUERY_BLOCK_TAGS.map((tag) => ({ tag, count: allTags?.find((t) => t.tag === tag)?.count || 0 }))
@@ -166,7 +169,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             {tagsLoading
               ? new Array(4).fill(1).map((_, i) => <LoadingCell key={i} className="h-7 w-20 rounded-sm md:h-9" />)
               : displayedTags?.map((tag, i) => (
-                  <button
+                  <Button
                     key={tag.tag + i}
                     className={clsx('tag-button', selectedTags?.includes(tag.tag) ? 'selected' : '')}
                     name={tag.tag.toLowerCase()}
@@ -174,7 +177,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                   >
                     <p className="tag-name">{tag.tag}</p>
                     <p className="tag-count">{formatNumber(tag.count)}</p>
-                  </button>
+                  </Button>
                 ))}
           </div>
         </>

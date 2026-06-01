@@ -6,6 +6,7 @@ import { wagmiConfig } from '../../../constants/wagmi'
 import { TransactionProvider } from '../../../context'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import FollowersAndFollowing from './FollowersAndFollowing'
+import { withThorinAppearance } from '../../../../.storybook/decorators/thorin'
 
 const queryClient = new QueryClient()
 
@@ -94,3 +95,15 @@ ProfileTooltip.args = {
   showHeaderImage: true,
   showProfileTooltip: true,
 }
+
+export const ThorinAppearance = Template.bind({})
+ThorinAppearance.tags = ['thorin']
+ThorinAppearance.args = {
+  user: 'brantly.eth',
+  defaultTab: 'following',
+  showHeaderImage: true,
+  onProfileClick: (address) => {
+    window.alert(address)
+  },
+}
+ThorinAppearance.decorators = [withThorinAppearance]
