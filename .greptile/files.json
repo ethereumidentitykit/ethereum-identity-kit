@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "path": "package.json",
+      "description": "Package name, version, exports map, peerDependencies — the published API contract"
+    },
+    {
+      "path": "src/index.ts",
+      "description": "Main public export surface (components, hooks, utils, context, types)"
+    },
+    {
+      "path": "src/elements/index.ts",
+      "description": "ethereum-identity-kit/elements subpath — ProfileCard slots and primitives"
+    },
+    {
+      "path": "src/thorin/index.ts",
+      "description": "ethereum-identity-kit/thorin subpath — Thorin provider and exports"
+    },
+    {
+      "path": "rollup.config.js",
+      "description": "Build outputs and subpath bundling (AppearanceContext deduplication)"
+    },
+    {
+      "path": "src/types/translations.ts",
+      "description": "TranslationKey union — renaming keys is a breaking change for consumers"
+    },
+    {
+      "path": "src/styles/colors.css",
+      "description": "Default EIK CSS custom properties consumed by components"
+    },
+    {
+      "path": "src/context/AppearanceContext.tsx",
+      "description": "AppearanceProvider behavior (wrapper vs asChild) shared across bundles"
+    },
+    {
+      "path": "src/components/organisms/profile-card/ProfileCard.tsx",
+      "description": "Primary consumer-facing ProfileCard default API"
+    },
+    {
+      "path": "src/components/organisms/profile-card/ProfileCard.types.ts",
+      "description": "ProfileCardProps — public prop contract",
+      "scope": ["src/components/organisms/profile-card/**"]
+    },
+    {
+      "path": "docs/thorin-appearance.md",
+      "description": "Thorin opt-in docs (keep in sync with src/docs/ThorinAppearance.mdx)",
+      "scope": ["src/thorin/**", "src/styles/themes/**"]
+    }
+  ]
+}
