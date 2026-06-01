@@ -20,6 +20,8 @@ export type AppearanceProviderProps = {
   preset?: AppearancePreset
   registry?: ComponentRegistryOverrides
   className?: string
+  /** Merge appearance classes onto a single host DOM child instead of wrapping in a div. */
+  asChild?: boolean
   children: React.ReactNode
 }
 
@@ -27,6 +29,7 @@ export const AppearanceProvider: React.FC<AppearanceProviderProps> = ({
   preset = 'default',
   registry = {},
   className,
+  asChild = false,
   children,
 }) => {
   const value = useMemo<AppearanceContextValue>(
@@ -40,23 +43,21 @@ export const AppearanceProvider: React.FC<AppearanceProviderProps> = ({
 
   const mergedClassName = clsx(value.appearanceClassName, className)
 
-  if (React.isValidElement(children) && React.Children.count(children) === 1) {
-    const child = children as React.ReactElement<{ className?: string }>
+  let content: React.ReactNode = <div className={mergedClassName}>{children}</div>
 
-    return (
-      <AppearanceContext.Provider value={value}>
-        {React.cloneElement(child, {
-          className: clsx(mergedClassName, child.props.className),
-        })}
-      </AppearanceContext.Provider>
-    )
+  if (asChild && React.isValidElement(children) && React.Children.count(children) === 1) {
+    const child = children as React.ReactElement<{ className?: string }>
+    const isFragment = child.type === React.Fragment
+    const isHostElement = typeof child.type === 'string'
+
+    if (!isFragment && isHostElement) {
+      content = React.cloneElement(child, {
+        className: clsx(mergedClassName, child.props.className),
+      })
+    }
   }
 
-  return (
-    <AppearanceContext.Provider value={value}>
-      <div className={mergedClassName}>{children}</div>
-    </AppearanceContext.Provider>
-  )
+  return <AppearanceContext.Provider value={value}>{content}</AppearanceContext.Provider>
 }
 
 /** Requires an {@link AppearanceProvider} ancestor; throws if used outside one. */

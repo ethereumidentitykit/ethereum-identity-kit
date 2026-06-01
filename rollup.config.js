@@ -19,15 +19,6 @@ const appearanceContextExternal = () => ({
   },
 })
 
-const appearanceContextAlias = {
-  entries: [
-    {
-      find: /context\/AppearanceContext(\.tsx)?$/,
-      replacement: 'ethereum-identity-kit',
-    },
-  ],
-}
-
 const sharedSubpathExternals = [
   'react',
   'react-dom',
@@ -139,7 +130,6 @@ export default [
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         preferBuiltins: false,
-        alias: appearanceContextAlias,
       }),
       commonjs({
         include: /node_modules/,
@@ -168,7 +158,6 @@ export default [
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         preferBuiltins: false,
-        alias: appearanceContextAlias,
       }),
       commonjs({
         include: /node_modules/,
