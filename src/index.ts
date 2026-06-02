@@ -158,6 +158,8 @@ export {
   Input,
   Textarea,
   TabSelector,
+  ENSRecords,
+  ResolvedInput,
   // Icons
   Check,
   Cross,
@@ -232,6 +234,7 @@ export type {
   TextareaProps,
   TabSelectorProps,
   Tab,
+  ENSRecordsProps,
 } from './components'
 
 // Types

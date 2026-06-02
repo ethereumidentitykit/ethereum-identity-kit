@@ -1,13 +1,12 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
-import { namehash, labelhash, hexToBigInt, encodeFunctionData, toHex, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
-import { useAccount, usePublicClient, useWalletClient } from 'wagmi'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import * as abi from '../constants/abi'
-import { ENSContracts } from '../constants/contracts'
-import { resolveEnsAddress } from '../utils/ens'
+import { useAccount, usePublicClient, useWalletClient } from 'wagmi'
+import { namehash, labelhash, hexToBigInt, encodeFunctionData, toHex, isAddress } from 'viem'
+import { resolveEnsAddress } from '../components/organisms/ens-records/utils/ens'
 import { fetchNameRoles } from '../utils'
-import { TEXT_RECORD_KEYS, ADDRESS_RECORD_KEYS, COIN_TYPES } from '../constants'
+import * as abi from '../constants/abi'
+import { TEXT_RECORD_KEYS, ADDRESS_RECORD_KEYS, COIN_TYPES, ENSContracts } from '../constants'
 
 export type EditStep = 'editing' | 'confirming' | 'processing' | 'success' | 'error'
 

@@ -23,8 +23,11 @@ import HeaderImage from './organisms/profile-card/components/HeaderImage'
 import FullWidthProfile from './organisms/full-width-profile/FullWidthProfile'
 import FollowersAndFollowing from './organisms/followers-and-following/FollowersAndFollowing'
 import ProfileTooltip from './organisms/profile-tooltip/ProfileTooltip'
+import ENSRecords from './organisms/ens-records/ENSRecords'
+import ResolvedInput from './molecules/resolved-input/ResolvedInput'
 
 export {
+  ENSRecords,
   ProfileCard,
   ProfileSocials,
   ProfileStats,
@@ -50,6 +53,7 @@ export {
   Input,
   Textarea,
   TabSelector,
+  ResolvedInput,
 }
 
 import { LoadingCellProps } from './atoms/loading-cell/LoadingCell.types'
@@ -74,8 +78,11 @@ import { TransactionModalProps } from './organisms/transaction-modal/Transaction
 import { FullWidthProfileProps } from './organisms/full-width-profile/FullWidthProfile.types'
 import { FollowersAndFollowingProps } from './organisms/followers-and-following/FollowersAndFollowing.types'
 import { ProfileTooltipProps } from './organisms/profile-tooltip/ProfileTooltip.types'
+import { ENSRecordsProps } from './organisms/ens-records/ENSRecords.types'
+import { ResolvedInputProps } from './molecules/resolved-input/ResolvedInput.types'
 
 export type {
+  ENSRecordsProps,
   ProfileCardProps,
   ProfileSocialsProps,
   ProfileStatsProps,
@@ -99,6 +106,7 @@ export type {
   TextareaProps,
   TabSelectorProps,
   Tab,
+  ResolvedInputProps,
 }
 
 export * from './icons'

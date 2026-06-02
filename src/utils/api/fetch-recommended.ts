@@ -1,5 +1,4 @@
-import type { Address } from 'viem'
-import { DiscoverResponseType } from '../../types'
+import { Address, DiscoverResponseType } from '../../types'
 import { EFP_API_URL } from '../../constants'
 
 export const fetchRecommended = async (

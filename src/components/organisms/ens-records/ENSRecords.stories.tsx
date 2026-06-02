@@ -123,7 +123,11 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
       }
 
       const result = await response.json()
+
+      await new Promise(resolve => setTimeout(resolve, 1000)) // wait for image to be uploaded to euc.li
+
       const url = result.url || `https://euc.li/${encodeURIComponent(name)}${type === 'header' ? '/h' : ''}`
+
 
       return url
     } catch (err: unknown) {
@@ -227,12 +231,9 @@ export default {
   //   }, {}),
   // },
   argTypes: {
-    defaultChainId: {
+    defaultTab: {
       control: 'select',
-      options: [mainnet.id, base.id, optimism.id],
-    },
-    paymasterService: {
-      control: 'text',
+      options: ['records', 'roles'],
     },
   },
   decorators: [

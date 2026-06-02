@@ -18,7 +18,7 @@ const ResolvedInput: React.FC<ResolvedInputProps> = ({
   darkMode,
 }) => {
   const inputId = useId()
-  const accountLookupTarget = isAddress(value) ? value : value.endsWith('.eth') && value.length > 7 ? value : null
+  const accountLookupTarget = isAddress(value) ? value : value?.endsWith('.eth') && value?.length > 7 ? value : null
 
   const {
     data: resolvedAccount,
