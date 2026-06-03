@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState, useCallback, useRef } from 'react'
 import clsx from 'clsx'
 import { useAccount } from 'wagmi'

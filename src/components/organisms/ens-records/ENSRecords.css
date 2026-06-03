@@ -124,6 +124,15 @@
   color: var(--ens-text-muted);
 }
 
+/* spinner stacked above the loading text */
+.ens-records-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: min(32rem, 100%);
+}
+
 /* ==========================================================================
    RecordsContainer.tsx
    ========================================================================== */
@@ -163,7 +172,7 @@
   width: 100%;
   background-color: var(--ens-surface);
   border-radius: 8px;
-  min-width: 32rem;
+  min-width: min(36rem, 100%);
   box-sizing: border-box;
 }
 
@@ -820,13 +829,20 @@
   width: 100%;
   max-width: 28rem;
   max-height: calc(100dvh - 56px);
-  padding: 24px;
+  padding: 16px;
+  margin: 0 12px;
   background-color: var(--ens-surface);
   border: 2px solid var(--ens-border);
   border-radius: 6px;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .ens-img-modal {
+    padding: 24px;
+  }
 }
 
 /* font-sedan-sc text-foreground text-2xl capitalize */

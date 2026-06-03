@@ -224,10 +224,12 @@ export function useEditRecords(
     for (const key of Array.from(allCustomKeys)) {
       if ((customRecords[key] ?? '') !== (initialCustomRecords[key] ?? '')) return true
     }
-    // Check role changes
-    if (roleEthRecord !== ethAddress) return true
-    if (roleManager.toLowerCase() !== managerAddress?.toLowerCase()) return true
-    if (roleOwner.toLowerCase() !== ownerAddress?.toLowerCase()) return true
+    // Check role changes (case-insensitive; treat empty/undefined as unchanged so a
+    // pristine form — e.g. checksummed metadata vs lowercase on-chain value — isn't dirty)
+    const sameAddr = (a?: string | null, b?: string | null) => (a || '').toLowerCase() === (b || '').toLowerCase()
+    if (!sameAddr(roleEthRecord, ethAddress)) return true
+    if (!sameAddr(roleManager, managerAddress)) return true
+    if (!sameAddr(roleOwner, ownerAddress)) return true
     return false
   }, [
     records,

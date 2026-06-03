@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useCallback, useState } from 'react'
 import clsx from 'clsx'
 import ImageUploadModal from './ImageUploadModal'

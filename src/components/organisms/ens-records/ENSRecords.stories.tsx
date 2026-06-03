@@ -36,32 +36,31 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
 
   const containerStyle = args.isModal
     ? ({
-      width: '100%',
-      height: '100dvh',
-      padding: '20px',
-      paddingBottom: '0px',
-      display: open ? 'flex' : 'none',
-      justifyContent: 'center',
-      position: 'fixed',
-      overflow: 'scroll',
-      top: 0,
-      left: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      zIndex: 1000,
-    } as CSSProperties)
+        width: '100%',
+        height: '100dvh',
+        padding: '20px',
+        paddingBottom: '0px',
+        display: open ? 'flex' : 'none',
+        justifyContent: 'center',
+        position: 'fixed',
+        overflow: 'scroll',
+        top: 0,
+        left: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 1000,
+      } as CSSProperties)
     : undefined
 
   const handleClose = args.isModal
     ? () => {
-      setOpen(false)
-    }
+        setOpen(false)
+      }
     : undefined
-
 
   //////////////////////////////////////////////////////////////
   // EthID function for uploading images
-  // 
-  // use if you don't 
+  //
+  // use if you don't
 
   // turn image data URL to bytes
   const dataURLToBytes = (dataUrl: string): Uint8Array => {
@@ -124,10 +123,9 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
 
       const result = await response.json()
 
-      await new Promise(resolve => setTimeout(resolve, 1000)) // wait for image to be uploaded to euc.li
+      await new Promise((resolve) => setTimeout(resolve, 1000)) // wait for image to be uploaded to euc.li
 
       const url = result.url || `https://euc.li/${encodeURIComponent(name)}${type === 'header' ? '/h' : ''}`
-
 
       return url
     } catch (err: unknown) {

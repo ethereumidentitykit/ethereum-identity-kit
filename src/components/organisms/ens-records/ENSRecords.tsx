@@ -33,7 +33,10 @@ const ENSRecords: React.FC<ENSRecordsProps> = ({ name, defaultTab, darkMode, onC
   return (
     <div className={clsx('ens-records-root', darkMode && 'dark')} style={style}>
       {isMetadataLoading ? (
-        <div className="ens-records-loading">Loading...</div>
+        <div className="ens-records-loading">
+          <div className="ens-records-spinner"></div>
+          Loading Metadata...
+        </div>
       ) : metadataRecords ? (
         <RecordsContainer
           name={name}
