@@ -471,11 +471,13 @@ export function useEditRecords(
       }
 
       // Invalidate caches
-      queryClient.invalidateQueries({ queryKey: ['name', 'metadata', name] })
-      queryClient.invalidateQueries({ queryKey: ['name', 'details', name] })
-      queryClient.invalidateQueries({ queryKey: ['name', 'roles', name] })
-      queryClient.invalidateQueries({ queryKey: ['profile'] })
-      queryClient.invalidateQueries({ queryKey: ['profileMetadata', name] })
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['name', 'metadata', name] })
+        queryClient.invalidateQueries({ queryKey: ['name', 'details', name] })
+        queryClient.invalidateQueries({ queryKey: ['name', 'roles', name] })
+        queryClient.invalidateQueries({ queryKey: ['profile'] })
+        queryClient.invalidateQueries({ queryKey: ['profileMetadata', name] })
+      }, 1400)
 
       setStep('success')
       onSuccess?.()
