@@ -15,4 +15,7 @@ export interface SignInButtonProps extends SignInWithEthereumProps {
   isSignedIn?: boolean
   isDropdown?: boolean
   isDropdownOpen?: boolean
+  hideName?: boolean
+  hideAvatar?: boolean
+  hideHeader?: boolean
 }

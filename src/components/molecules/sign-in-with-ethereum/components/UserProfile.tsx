@@ -12,10 +12,16 @@ export const UserProfile = ({
   address,
   isDropdown,
   isDropdownOpen,
+  hideName,
+  hideAvatar,
+  hideHeader,
 }: {
   address: Address
   isDropdown?: boolean
   isDropdownOpen?: boolean
+  hideName?: boolean
+  hideAvatar?: boolean
+  hideHeader?: boolean
 }) => {
   const { data: profile, isLoading } = useQuery({
     queryKey: ['profile', address],
@@ -31,21 +37,29 @@ export const UserProfile = ({
         src={profile?.ens?.records?.header}
         name={profile?.ens?.name}
         isLoading={isLoading}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.2 }}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 0.2,
+          display: hideHeader ? 'none' : 'block',
+        }}
       />
       <div className="signed-in-user-profile-content">
-        {isLoading ? (
-          <LoadingCell height={36} width={36} radius="4px" />
-        ) : (
-          <Avatar src={profile?.ens?.avatar} style={{ width: 36, height: 36, borderRadius: '4px' }} />
-        )}
-        {isLoading ? (
-          <LoadingCell height={20} width={100} radius="4px" />
-        ) : (
-          <p className="signed-in-user-profile-name">
-            {profile?.ens?.name ? beautifyEnsName(profile?.ens?.name) : truncateAddress(address)}
-          </p>
-        )}
+        {!hideAvatar &&
+          (isLoading ? (
+            <LoadingCell height={36} width={36} radius="4px" />
+          ) : (
+            <Avatar src={profile?.ens?.avatar} style={{ width: 36, height: 36, borderRadius: '4px' }} />
+          ))}
+        {!hideName &&
+          (isLoading ? (
+            <LoadingCell height={20} width={100} radius="4px" />
+          ) : (
+            <p className="signed-in-user-profile-name">
+              {profile?.ens?.name ? beautifyEnsName(profile?.ens?.name) : truncateAddress(address)}
+            </p>
+          ))}
         {isDropdown && (
           <ShortArrow
             height={20}

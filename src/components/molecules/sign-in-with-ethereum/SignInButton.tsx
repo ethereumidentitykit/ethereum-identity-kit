@@ -28,6 +28,20 @@ import './SignInButton.css'
  *
  * @param autoSignInAfterConnection - Whether to automatically sign in after wallet connection (optional) default is false
  *
+ * @param onSignedInClick - The function to call when the user is signed in (optional)
+ *
+ * @param isSignedIn - Whether the user is signed in (optional)
+ *
+ * @param isDropdown - Whether the profile is in a dropdown (optional)
+ *
+ * @param isDropdownOpen - Whether the dropdown is open (optional)
+ *
+ * @param hideName - Whether to hide the name (optional)
+ *
+ * @param hideAvatar - Whether to hide the avatar (optional)
+ *
+ * @param hideHeader - Whether to hide the header (optional)
+ *
  * @returns SignInWithEthereum Button component
  */
 const SignInWithEthereum = ({
@@ -44,6 +58,9 @@ const SignInWithEthereum = ({
   isSignedIn,
   isDropdown,
   isDropdownOpen,
+  hideName,
+  hideAvatar,
+  hideHeader,
 }: SignInButtonProps) => {
   const [signInAfterConnection, setSignInAfterConnection] = useState(false)
   const [hasClicked, setHasClicked] = useState(false)
@@ -91,7 +108,14 @@ const SignInWithEthereum = ({
       style={{ marginRight: '10px' }}
     >
       {isSignedIn && connectedAddress ? (
-        <UserProfile address={connectedAddress} isDropdown={isDropdown} isDropdownOpen={isDropdownOpen} />
+        <UserProfile
+          address={connectedAddress}
+          isDropdown={isDropdown}
+          isDropdownOpen={isDropdownOpen}
+          hideName={hideName}
+          hideAvatar={hideAvatar}
+          hideHeader={hideHeader}
+        />
       ) : (
         <div className="sign-in-button-content">
           <EthereumIcon className="sign-in-ethereum-icon" height={20} width={20} />

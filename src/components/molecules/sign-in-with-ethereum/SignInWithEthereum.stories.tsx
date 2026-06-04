@@ -42,6 +42,10 @@ const SignInWithEthereumWrapper = (
     showRecommendations?: boolean
     paymasterService?: string
     defaultChainId?: number
+    hideName?: boolean
+    hideAvatar?: boolean
+    hideHeader?: boolean
+    isDropdown?: boolean
   }
 ) => {
   const [isSignedIn, setIsSignedIn] = useState(args.isSignedIn)
@@ -136,7 +140,6 @@ const SignInWithEthereumWrapper = (
           setIsSignedIn(false)
           disconnect()
         }}
-        isDropdown={false}
         onSignInError={args.onSignInError}
         message={args.message}
         darkMode={args.darkMode}
@@ -146,6 +149,10 @@ const SignInWithEthereumWrapper = (
           connect({ connector: connectors[0] })
           setIsSignedIn(false)
         }}
+        isDropdown={args.isDropdown}
+        hideName={args.hideName}
+        hideAvatar={args.hideAvatar}
+        hideHeader={args.hideHeader}
       />
     </div>
   )
@@ -177,4 +184,8 @@ Buttons.args = {
   onDisconnectedClick: () => window.alert('Connect your wallet to sign in'),
   expirationTime: 3 * MINUTE,
   autoSignInAfterConnection: true,
+  hideName: false,
+  hideAvatar: false,
+  hideHeader: false,
+  isDropdown: false,
 }
