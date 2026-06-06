@@ -1,76 +1,136 @@
+# Movement Digital Identity Hub
+
 <p align="center">
-  <a href="https://ethidentitykit.com" target="_blank" rel="noopener noreferrer">
-    <img width="275" src="https://ethidentitykit.com/logo.png" alt="EFP logo" />
-  </a>
+  <img width="120" src="https://pbs.twimg.com/profile_images/2061504708926152704/ZJD708yg_400x400.jpg" />
 </p>
 
 <p align="center">
-  <a href="https://pr.new/ethereumfollowprotocol/app"><img src="https://developer.stackblitz.com/img/start_pr_dark_small.svg" alt="Start new PR in StackBlitz Codeflow" /></a>
-  <a href="https://discord.com/invite/ZUyG3mSXFD"><img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat" /></a>
-  <a href="https://x.com/ethidkit"><img src="https://img.shields.io/twitter/follow/ethidkit?label=%40ethidkit&style=social&link=https%3A%2F%2Fx.com%2Fethidkit" alt="x account" /></a>
-  <a href="https://github.com/ethereumidentitykit/identity-kit"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier" /></a>
-  <a href="https://docs.ethidentitykit.com"><img src="https://img.shields.io/badge/docs-ethidentitykit.com-blue?style=flat-square" alt="docs" /></a>
+  <strong>Stablecoin Settlement and Yield for Emerging Markets</strong>
 </p>
 
-<h1 align="center" style="font-size: 2.75rem; font-weight: 900;">Ethereum Identity Kit</h1>
-<p align="center" style="font-size: 1.25rem; font-weight: 500;">Complete your dapp with the Ethereum identity stack.</p>
+---
 
-Ethereum Ideintity Kit allows you to easily implement Ethereum identity stack into your application.
+## 🌐 Overview
 
-<p align="center" style="font-size: 1.25rem; font-weight: 600;">How to get started with Ethereum Identity Kit:</p>
+This repository represents a **Digital Identity + Ecosystem Aggregation Layer** built around:
 
-### Install
+- On-chain identity (ENS / BNS)
+- Project aggregation systems
+- Social + developer graph
+- Financial + liquidity visibility layers
 
-Install the library using your package manager.
+The goal is to unify fragmented Web3 identity and infrastructure into a **single coordination layer**.
 
-```sh npm2yarn
-npm install ethereum-identity-kit @tanstack/react-query
-```
+---
 
-### Setup
+## 🧩 Digital Identity Stack
 
-Library uses [Tanstack Query](https://tanstack.com/query) for data fetching, [Wagmi](https://wagmi.sh/) for wallet connection and handling onchain transactions, and a [Transaction provider](https://ethidentitykit.com/docs/transaction-provider) so you need to setup a query client and provider, [Wagmi provider](https://wagmi.sh/react/api/WagmiProvider) with your [Wagmi config](https://wagmi.sh/react/api/createConfig), and add Transaction Provider to your app.
+A modular breakdown of ecosystem aggregation:
 
-```tsx copy
-import { WagmiProvider } from 'wagmi'
-import { wagmiConfig } from '#/lib/wagmi'
-import { TransactionProvider } from 'ethereum-identity-kit'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+- **Projects → Talent**
+  - talent.app
 
-const queryClient = new QueryClient()
+- **Blogs → Publishing Layer**
+  - paragraph.com
+  - mirror.xyz
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={wagmiConfig}>
-        <TransactionProvider>
-          <Component {...pageProps} />
-        </TransactionProvider>
-      </WagmiProvider>
-    </QueryClientProvider>
-  )
-}
-```
+- **Social Graph**
+  - x.com
+  - farcaster
+  - linktree-style aggregation
 
-### Apply Styles
+- **Code & Developer Layer**
+  - github.com
+  - developer portals
+  - hackathons & repos
 
-Add the following to your `layout.tsx` or `_app.tsx` file:
+- **Follow Graph**
+  - Ethereum Follow Protocol (EFP)
 
-```tsx copy
-import 'ethereum-identity-kit/css'
-```
+- **Protocols & Apps**
+  - Base ecosystem apps
+  - DeFi protocols
 
-### You're all set!
+- **Governance**
+  - snapshot.org DAO voting systems
 
-Library is typed with TypeScript, which allows for autocompletion and type safety.
+- **NFT & Identity Assets**
+  - OpenSea collections
+  - POAP events
 
-```tsx copy
-import { ProfileCard } from 'ethereum-identity-kit'
+- **Data Aggregation**
+  - RootData (projects & funding graphs)
+  - DefiLlama (liquidity tracking)
+  - Crunchbase (company intelligence)
 
-export default function Home() {
-  return <ProfileCard addressOrName="vitalik.eth" />
-  // or 0xd8da6bf26964af9d7eed9e03e53415d37aa96045
-}
-```
+---
 
-Documentation is available at [ethidentitykit.com](https://ethidentitykit.com).
+## 🔗 Core Identity Links
+
+### 🧠 On-chain Identity
+- movementnetwork.base.eth
+- ENS / BNS resolution layer
+
+### 🧾 Profile & Aggregation
+- https://web3.bio/movementnetwork.base.eth  
+- https://paragraph.com/movementnetwork.base.eth  
+- https://mirror.xyz/movementnetwork.base.eth  
+- https://efp.app/movementnetwork.base.eth  
+- https://base.app/profile/movementnetwork.base.eth  
+
+---
+
+## 🏗️ Governance & DAO Layer
+
+- https://snapshot.org/#/s:movementnetwork.base.eth  
+- Safe Wallet:  
+  https://app.safe.global/home?safe=base:0xE25dF57F6cAd807E5208BC5B53eD8048937ACa56  
+
+---
+
+## 🧑‍💻 Developer Ecosystem
+
+- https://github.com/cshein45  
+- https://github.com/cshein45/movement-core  
+- https://developer.movementnetwork.xyz  
+- Hackathons:  
+  https://encodeclub.com/programmes/movement-m1-hackathon  
+
+---
+
+## 📊 Data & Analytics Layer
+
+- https://defillama.com/chain/movement  
+- https://www.rootdata.com/projects/detail/Movement?k=OTMxMg%3D%3D  
+- https://www.rootdata.com/projects/detail/MoveIndustries?k=MTc0NzY%3D  
+
+---
+
+## 💰 Liquidity & Market Infrastructure
+
+- Stablecoin settlement systems  
+- Cross-chain liquidity routing  
+- Yield infrastructure (DeFi vaults, money markets)
+
+Key integrations:
+- Canopy (vault infrastructure)
+- MovePosition (money market layer)
+- Yuzu Finance (DEX layer)
+
+---
+
+## 🎨 NFTs & Proof Systems
+
+- OpenSea Identity Assets  
+  https://opensea.io/kokyatmove  
+
+- POAP Credentials  
+  https://poap.gallery  
+  https://collectors.poap.xyz  
+
+---
+
+## 🔐 Verification
+
+```html
+<meta name="talentapp:project_verification" content="862a83af38d3d343752e9433d6ac2398305aeb329a4da0382dd0644ae451c5b689ca1f0f1cbf75c34c5da900521568945c8be930adde3d8850b52e2750971909">
